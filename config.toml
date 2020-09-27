@@ -11,11 +11,9 @@ pygmentsstyle = "bw"
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 
-disqusShortname = "yourdiscussshortname"
-
 [params]
     author = "Che Jinying"
-    info = "Gopher Vimer"
+    info = "Gopher and Vimer"
     description = "Che Jinying's personal website"
     keywords = "blog,developer,personal"
     avatarurl = "images/me.jpg"
