@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on I&#39;m Che Jinying</title>
+    <link>https://jinying-che.github.io/posts/</link>
+    <description>Recent content in Posts on I&#39;m Che Jinying</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 30 Nov 2020 08:35:51 +0800</lastBuildDate>
+    
+	<atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>How to profile Golang Program</title>
+      <link>https://jinying-che.github.io/posts/go/diagnostics/</link>
+      <pubDate>Mon, 30 Nov 2020 08:35:51 +0800</pubDate>
+      
+      <guid>https://jinying-che.github.io/posts/go/diagnostics/</guid>
+      <description>First of all, this document is in progress and will keep updated.
+Diagnostic by the http call is usually a convinient way in pratice. What we need to do is only two steps before starting the program:
+  import _ &amp;quot;net/http/pprof&amp;quot; http.ListenAndServe(&amp;quot;the address that defined in advance&amp;quot;, better use privaty ServerMux instead of the default one)   Profile The port 6060 is an example that defined for the http listening.</description>
+    </item>
+    
+    <item>
+      <title>How does golang implement the Rate Limiter</title>
+      <link>https://jinying-che.github.io/posts/go/ratelimiter/</link>
+      <pubDate>Fri, 20 Nov 2020 12:04:09 +0800</pubDate>
+      
+      <guid>https://jinying-che.github.io/posts/go/ratelimiter/</guid>
+      <description>Core concept  burst: the size of the bucket which is possible more than the limit token: refer to https://en.wikipedia.org/wiki/Token_bucket limit: the number of tokens that is obtained per second  Core function 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53  // reserveN is a helper method for AllowN, ReserveN, and WaitN.</description>
+    </item>
+    
+  </channel>
+</rss>
