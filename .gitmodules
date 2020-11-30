@@ -10,3 +10,6 @@
 [submodule "public"]
 	path = public
 	url = https://github.com/jinying-che/jinying.github.io.git
+[submodule "themes/anatole"]
+	path = themes/anatole
+	url = https://github.com/lxndrblz/anatole.git
