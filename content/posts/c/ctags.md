@@ -1,9 +1,12 @@
 ---
 title: "Setup Universal Ctags for Mac"
 description: "A brief tutorial for setting up ctags in mac"
+draft: false
 date: 2021-01-23T15:16:29+08:00
 ---
 At the Beginning of this year, I'm going to start reading *Computer System A Programmer\'s Perspective*, this whole book introduces the different aspects of computer system basing on C language, and there's also plenty of C demos provided in the [web](http://csapp.cs.cmu.edu/3e/code.html), to navigate the code, I try to use **ctags**.
+
+<!--more-->
 
 ### What is Universal Ctags?
 
