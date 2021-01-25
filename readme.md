@@ -7,6 +7,7 @@ Here is my [blog](https://jinying-che.github.io/)
 ## First Of All
 If it's your first time to check out the repo:
 - Run `git submodule update --init --recursive` to initial all the sub-module
+
 For update:
 - `git submodule update --recursive --remote` 
 
