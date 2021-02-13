@@ -23,6 +23,7 @@ Enjoy the Algorithm, let's leetcode!
 #### Tree 
 - [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 - [104. maximum-depth-of-binary-tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+- [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
 
 
 ### Algorithm
