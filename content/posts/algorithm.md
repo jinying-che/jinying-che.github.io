@@ -23,7 +23,13 @@ Enjoy the Algorithm, let's leetcode!
 #### Tree 
 - [226. Invert Binary Tree](https://leetcode.com/problems/invert-binary-tree/)
 - [104. maximum-depth-of-binary-tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)
+
+> The solutions for following three problems are similiar, which all base on the inorder traversal with stack
+>
+> [Discussion - Learn one iterative inorder traversal, apply it to multiple tree questions (Java Solution)](https://leetcode.com/problems/validate-binary-search-tree/discuss/32112/Learn-one-iterative-inorder-traversal-apply-it-to-multiple-tree-questions-(Java-Solution))
 - [94. Binary Tree Inorder Traversal](https://leetcode.com/problems/binary-tree-inorder-traversal/)
+- [98. Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+- [230. Kth Smallest Element in a BST](https://leetcode.com/problems/kth-smallest-element-in-a-bst/)
 
 
 ### Algorithm
