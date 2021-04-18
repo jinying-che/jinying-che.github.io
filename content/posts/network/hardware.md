@@ -2,7 +2,6 @@
 title: "Brief Introduction of Network Hardware"
 date: 2021-04-05T23:11:29+08:00
 tag: ["network"]
-draft: true
 ---
 
 The hardware inlucded in this post are Hub, Switch, Router, Modem, AP
