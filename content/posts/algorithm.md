@@ -37,6 +37,7 @@ Enjoy the Algorithm, let's leetcode!
 
 #### Heap
 - [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) -- [[disscussion: Implement the Min Heap on my own](https://leetcode.com/problems/top-k-frequent-elements/discuss/1108972/Golang347-Implement-the-Min-Heap-on-my-own)]
+- [1353. Maximum Number of Events That Can Be Attended](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/) -- [heap, breedy, sort]
 
 ### Algorithm
 #### Recursion
@@ -53,6 +54,9 @@ Enjoy the Algorithm, let's leetcode!
 #### Quick Sort
 - [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) -- [[discussion: two partition schema]](https://leetcode.com/problems/kth-largest-element-in-an-array/discuss/1108891/Golang215two-partition-schema-of-quick-select)
 - [347. Top K Frequent Elements](https://leetcode.com/submissions/detail/465797355/)
+
+#### Greedy
+- [763. Partition Labels](https://leetcode.com/problems/partition-labels/)
 
 ### Design
 - [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
