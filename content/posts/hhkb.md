@@ -9,3 +9,4 @@ date: 2021-06-24T21:20:23+08:00
   - Win mode: `Fn+Control+w`
   - Mac mode: `Fn+Control+m`
 
+![KKHB CheatSheet](/images/hhkb.png)
