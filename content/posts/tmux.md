@@ -21,6 +21,20 @@ The basic usage of [Tmux](https://github.com/tmux/tmux/wiki), personally, I thin
 > **ctrl+b** then **%**
 - split pane vertically
 > **ctrl+b** then **"**
+- cloes current pane
+> **ctrl+b** then **x**
+
+
+### Window
+- Close current window
+> **ctrl+b** then **&**
+- Rename current window
+> **ctrl+b** then **,**
+
 
 ### View in tmux
 > **ctrl+b** then **[**
+
+---
+Reference
+- https://tmuxcheatsheet.com/
