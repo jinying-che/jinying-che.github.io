@@ -10,6 +10,7 @@ hugo -t anatole # if using a theme, replace with `hugo -t <YOURTHEME>`
 
 # Go To Public folder
 cd public
+git pull --all
 
 # Add changes to git.
 git add .

@@ -12,4 +12,4 @@
 	url = https://github.com/lxndrblz/anatole.git
 [submodule "public"]
 	path = public
-	url = https://github.com/jinying-che/jinying-che.github.io.git
+	url = git@github.com:jinying-che/jinying-che.github.io.git
