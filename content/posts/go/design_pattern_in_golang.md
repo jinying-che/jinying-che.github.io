@@ -1,8 +1,12 @@
----
-title: "Design Pattern In Golang"
-date: 2021-05-24T08:37:07+08:00
-draft: true
----
++++
+title = "Design Pattern In Golang"
+date = 2021-05-24T08:37:07+08:00
+draft = true
+tags = [
+	"golang",
+]
++++
+
 Design Pattern is my favorite part among all technologys, which makes code reuseable, maintainable and readable. The most important, coding is becoming a art creation with Design Pattern, the elegant thing.
 <!--more-->
 

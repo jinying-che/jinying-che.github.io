@@ -10,6 +10,7 @@ defaultcontentlanguage = "en"
     info = "Gopher and Vimer"
     description = "Call me nobody"
 	profilePicture = "images/me.jpg"
+	contentratio = 0.8
 
 # Social links
 [[params.socialIcons]]

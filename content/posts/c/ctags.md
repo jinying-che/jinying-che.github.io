@@ -10,15 +10,15 @@ At the Beginning of this year, I'm going to start reading *Computer System A Pro
 
 ### What is Universal Ctags?
 
-> [Universal Ctags](https://ctags.io/) (abbreviated as u-ctags) is a maintained implementation of ctags. ctags generates an index (or tag) file of language objects found in source files for programming languages. This index makes it easy for text editors and other tools to locate the indexed items.
+[Universal Ctags](https://ctags.io/) (abbreviated as u-ctags) is a maintained implementation of ctags. ctags generates an index (or tag) file of language objects found in source files for programming languages. This index makes it easy for text editors and other tools to locate the indexed items.
 
 ### Install in Mac
+**brew tap**: A [tap](https://docs.brew.sh/Taps) is Homebrew-speak for a Git repository containing extra formulae.
+
 ```shell
 brew tap universal-ctags/universal-ctags
 brew install --HEAD universal-ctags
 ```
-> brew tap
-> A [tap](https://docs.brew.sh/Taps) is Homebrew-speak for a Git repository containing extra formulae.
 
 ### Configure .vimrc
 ```shell
