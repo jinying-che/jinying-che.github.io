@@ -4,7 +4,7 @@ This project is used to generate the static Web code which is powered by [Hugo](
 
 Here is my [blog](https://jinying-che.github.io/)
 
-## First Of All
+## Tips
 If it's your first time to check out the repo:
 - Run `git submodule update --init --recursive` to initial all the sub-module
 
