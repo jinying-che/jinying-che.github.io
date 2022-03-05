@@ -1,14 +1,8 @@
----
-title: "Setup Shadowsocks Server And Client"
-date: 2021-04-23T09:22:08+08:00
----
+# Setup Shadowsocks Server And Client
 
 In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.
 
-<!--more-->
-
 ## Shadowsocks Server
----
 Install the latest `Ubuntu` in vps, my vps provier is https://bandwagonhost.com/index.php, the route is: *My Service > KiwiVM Control Panel > Install new OS*
 
 ### 1. Installing Shadowsocks-libev
@@ -99,7 +93,6 @@ $ less syslog  # can check any related log, TBD
 - Fix: `loginctl enable-linger`
 
 ## Shadowsocks Client
----
 ### Chrome
 Enable the socks5 proxy for Chrome in macOS
 1. `brew install shadowsocks-libev`
