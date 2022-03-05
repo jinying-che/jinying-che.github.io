@@ -15,3 +15,6 @@ To understand `tcp state machine` is the first and significant step to master TC
 ![tcp state Machine](/images/tcpfsm.png)
 ![tcp open and close](/images/tcp_open_close.jpg)
 
+### Reference
+- http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm
+- http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm
