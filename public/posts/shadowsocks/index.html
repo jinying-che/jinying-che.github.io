@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Setup Shadowsocks Server And Client :: Terminal</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.
+" />
+<meta name="keywords" content="" />
+<meta name="robots" content="noodp" />
+<link rel="canonical" href="/posts/shadowsocks/" />
+
+
+
+
+<link rel="stylesheet" href="/assets/style.css">
+
+  <link rel="stylesheet" href="/assets/green.css">
+
+
+
+
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="/img/favicon/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Setup Shadowsocks Server And Client :: Terminal">
+<meta property="og:description" content="In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.
+" />
+<meta property="og:url" content="/posts/shadowsocks/" />
+<meta property="og:site_name" content="Setup Shadowsocks Server And Client" />
+
+  
+    <meta property="og:image" content="/img/favicon/green.png">
+  
+
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+
+  <meta property="article:published_time" content="2021-04-23 09:22:08 &#43;0800 &#43;08" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    jinying-che
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/posts">Home</a></li>
+        
+      
+      
+    
+
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/posts">Home</a></li>
+      
+    
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<div class="post">
+  <h1 class="post-title">
+    <a href="/posts/shadowsocks/">Setup Shadowsocks Server And Client</a></h1>
+  <div class="post-meta">
+    
+      <span class="post-date">
+        2021-04-23 
+      </span>
+    
+    
+  </div>
+
+  
+
+  
+
+  
+
+  <div class="post-content"><div>
+        <p>In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.</p>
+<h2 id="shadowsocks-server">Shadowsocks Server<a href="#shadowsocks-server" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<hr>
+<p>Install the latest <code>Ubuntu</code> in vps, my vps provier is <a href="https://bandwagonhost.com/index.php">https://bandwagonhost.com/index.php</a>, the route is: <em>My Service &gt; KiwiVM Control Panel &gt; Install new OS</em></p>
+<h3 id="1-installing-shadowsocks-libev">1. Installing Shadowsocks-libev<a href="#1-installing-shadowsocks-libev" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="install-snaphttpssnapcraftioabout">Install <a href="https://snapcraft.io/about">Snap</a><a href="#install-snaphttpssnapcraftioabout" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<pre tabindex="0"><code>$ sudo apt update
+$ sudo apt install snapd
+$ sudo reboot
+</code></pre><h4 id="install-shadowsocks-libevhttpsgithubcomshadowsocksshadowsocks-libev">Install <a href="https://github.com/shadowsocks/shadowsocks-libev">Shadowsocks-libev</a><a href="#install-shadowsocks-libevhttpsgithubcomshadowsocksshadowsocks-libev" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<pre tabindex="0"><code>$ sudo snap install shadowsocks-libev
+</code></pre><h3 id="2-configuring-proxy-server">2. Configuring proxy server<a href="#2-configuring-proxy-server" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># first time to use snap, this path should be the config convention of Snap apps </span>
+</span></span><span style="display:flex;"><span>sudo mkdir -p /var/snap/shadowsocks-libev/common/etc/shadowsocks-libev
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>sudo vim /var/snap/shadowsocks-libev/common/etc/shadowsocks-libev/config.json
+</span></span></code></pre></div><h4 id="configjson">config.json<a href="#configjson" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;server&#34;</span>:[<span style="color:#e6db74">&#34;::0&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;server_port&#34;</span>:<span style="color:#ae81ff">4443</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;password&#34;</span>:<span style="color:#e6db74">&#34;your password&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;timeout&#34;</span>:<span style="color:#ae81ff">300</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;method&#34;</span>:<span style="color:#e6db74">&#34;aes-256-gcm&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;nameserver&#34;</span>:<span style="color:#e6db74">&#34;1.1.1.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;mode&#34;</span>:<span style="color:#e6db74">&#34;tcp_and_udp&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><strong>Note</strong>: &ldquo;server&rdquo;:[&quot;::0&quot;, &ldquo;0.0.0.0&rdquo;] &ndash;&gt; support IPv4 and IPv6</p>
+<h3 id="3-creating-systemd-service-unit-config">3. Creating systemd service unit config<a href="#3-creating-systemd-service-unit-config" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="shadowsocks-libev-serverservice">shadowsocks-libev-server@.service<a href="#shadowsocks-libev-serverservice" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo vim /etc/systemd/system/shadowsocks-libev-server@.service
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Unit<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Description<span style="color:#f92672">=</span>Shadowsocks-Libev Custom Server Service <span style="color:#66d9ef">for</span> %I
+</span></span><span style="display:flex;"><span>Documentation<span style="color:#f92672">=</span>man:ss-server<span style="color:#f92672">(</span>1<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>After<span style="color:#f92672">=</span>network-online.target
+</span></span><span style="display:flex;"><span>StartLimitIntervalSec<span style="color:#f92672">=</span><span style="color:#ae81ff">500</span>
+</span></span><span style="display:flex;"><span>StartLimitBurst<span style="color:#f92672">=</span><span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Service<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>Type<span style="color:#f92672">=</span>simple
+</span></span><span style="display:flex;"><span>Restart<span style="color:#f92672">=</span>always
+</span></span><span style="display:flex;"><span>RestartSec<span style="color:#f92672">=</span>5s
+</span></span><span style="display:flex;"><span>ExecStart<span style="color:#f92672">=</span>/usr/bin/snap run shadowsocks-libev.ss-server -c /var/snap/shadowsocks-libev/common/etc/shadowsocks-libev/%i.json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">[</span>Install<span style="color:#f92672">]</span>
+</span></span><span style="display:flex;"><span>WantedBy<span style="color:#f92672">=</span>multi-user.target
+</span></span></code></pre></div><p>Two things to take note:</p>
+<ul>
+<li><code>shadowsocks-libev-server@.service</code> is a filename (<em>systemd style</em>)</li>
+<li><code>man systemd.service</code> to understand the details, btw it&rsquo;s better to set <code>Restart=always</code> if you prefer the log-term running</li>
+</ul>
+<p>Start the service and make it managed by systemd</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span><span style="color:#75715e"># Note that the @config is used to select the configuration file</span>
+</span></span><span style="display:flex;"><span>$ sudo systemctl enable --now shadowsocks-libev-server@config
+</span></span></code></pre></div><h3 id="4-troubleshooting">4. Troubleshooting<a href="#4-troubleshooting" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h4 id="command">Command<a href="#command" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#75715e"># Status</span>
+</span></span><span style="display:flex;"><span>$ sudo systemctl status shadowsocks-libev-server@config
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Log</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check the certain process that managed by systemd</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># journalctl is a command for viewing logs collected by systemd</span>
+</span></span><span style="display:flex;"><span>$ journalctl -u shadowsocks-libev-server@config
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check all the processes log</span>
+</span></span><span style="display:flex;"><span>$ cd /var/log/
+</span></span><span style="display:flex;"><span>$ less syslog  <span style="color:#75715e"># can check any related log, TBD</span>
+</span></span></code></pre></div><h4 id="cases">Cases<a href="#cases" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h4>
+<h5 id="process-stopped-unexpectedly">Process stopped unexpectedly<a href="#process-stopped-unexpectedly" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h5>
+<ul>
+<li>Root Cause: process that managed by systemd will stop when user exit the session</li>
+</ul>
+<blockquote>
+<p><a href="https://github.com/systemd/systemd/issues/8486">https://github.com/systemd/systemd/issues/8486</a></p>
+</blockquote>
+<ul>
+<li>Fix: <code>loginctl enable-linger</code></li>
+</ul>
+<h2 id="shadowsocks-client">Shadowsocks Client<a href="#shadowsocks-client" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<hr>
+<h3 id="chrome">Chrome<a href="#chrome" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Enable the socks5 proxy for Chrome in macOS</p>
+<ol>
+<li><code>brew install shadowsocks-libev</code></li>
+<li>run <code>ss-local -h</code> to understand how to setup shadowsocks client locally, for example:
+<ul>
+<li><code>ss-local -s server_ip -p port -k password -m aes-256-cfb -l 1081 -v</code></li>
+</ul>
+</li>
+<li>install and setup SwitchyOmeg for Chrome:</li>
+<li>import <a href="https://shadowsockshelp.github.io/Shadowsocks/Chrome.html">GFW List</a> and enable the auto-switch</li>
+</ol>
+<h3 id="global-terminal">Global (Terminal)<a href="#global-terminal" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Some request from termial or other Apps are supposed to go through the socks5 tunnel as well, the following steps will forward the traffic to the local port that listened by the shadowsocks client:</p>
+<ol>
+<li>setup helper function in bash or zsh profile, so that it&rsquo;s able to control the proxy manually in the current terminal session via <code>proxy-on</code> or <code>proxy-off</code>:
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span><span style="color:#66d9ef">function</span> proxy-off<span style="color:#f92672">(){</span>
+</span></span><span style="display:flex;"><span>    unset http_proxy
+</span></span><span style="display:flex;"><span>    unset https_proxy
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;proxy off&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span> proxy-on<span style="color:#f92672">()</span> <span style="color:#f92672">{</span>
+</span></span><span style="display:flex;"><span>    export no_proxy<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;localhost,127.0.0.1,localaddress,.localdomain.com&#34;</span>
+</span></span><span style="display:flex;"><span>    export http_proxy<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;socks5://127.0.0.1:1081&#34;</span>
+</span></span><span style="display:flex;"><span>    export https_proxy<span style="color:#f92672">=</span>$http_proxy
+</span></span><span style="display:flex;"><span>    echo <span style="color:#e6db74">&#34;proxy on: </span>$http_proxy<span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">}</span>
+</span></span></code></pre></div></li>
+<li>run <code>ss-local ... -v</code></li>
+<li>test via <code>curl cip.cc</code> or <code>curl ifconfig.me</code>, by right the ip that running shadowsocks server should be printed</li>
+</ol>
+<h2 id="reference">Reference<a href="#reference" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">systemd config</a> or check by <code>man systemd.service</code></li>
+<li><a href="https://www.linuxbabe.com/ubuntu/shadowsocks-libev-proxy-server-ubuntu">https://www.linuxbabe.com/ubuntu/shadowsocks-libev-proxy-server-ubuntu</a></li>
+<li><a href="https://upcloud.com/community/tutorials/install-shadowsocks-libev-socks5-proxy/">https://upcloud.com/community/tutorials/install-shadowsocks-libev-socks5-proxy/</a></li>
+<li><a href="https://unix.stackexchange.com/questions/225401/how-to-see-full-log-from-systemctl-status-service">https://unix.stackexchange.com/questions/225401/how-to-see-full-log-from-systemctl-status-service</a></li>
+<li><a href="https://shadowsockshelp.github.io/Shadowsocks/Chrome.html">https://shadowsockshelp.github.io/Shadowsocks/Chrome.html</a></li>
+</ul>
+      </div></div>
+
+  
+  
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="/posts/hhkb/">
+                <span class="button__icon">←</span>
+                <span class="button__text">HHKB</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="/posts/network/hardware/">
+                <span class="button__text">Brief Introduction of Network Hardware</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+
+</div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+<script src="/assets/main.js"></script>
+<script src="/assets/prism.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>
