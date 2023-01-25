@@ -26,7 +26,7 @@ The purpose of both is to connect the internal network (LAN), they do not know I
 - It's the **Gateway** of a network, it detemines if the packet was meant for it's own network
 - It normally works at the [Network layer of OSI](https://en.wikipedia.org/wiki/OSI_model#Layer_3:_Network_Layer)
 
-> ![Hub vs Switch vs Router](/images/hub_switch_router.png)
+  ![Hub vs Switch vs Router](/images/hub_switch_router.png)
 
 #### Modem
 Modems (modulators-demodulators) are used to transmit digital signals over analog telephone lines
@@ -34,7 +34,7 @@ Modems (modulators-demodulators) are used to transmit digital signals over analo
 - Demodulator: it demodulate **incoming** analog signals into a digital signal
 - Modems work on both the Physical and Data Link layers.
 
-> ![Modem](/images/modem.png)
+  ![Modem](/images/modem.png)
 
 #### Access Point
 - A Wireless AP relays data **a wired network** and **wireless devices**
@@ -42,7 +42,7 @@ Modems (modulators-demodulators) are used to transmit digital signals over analo
 - A Wireless AP connects directly to an organization's router where the router is connected directly to a modem, which gives the wireless device access to the internet 
 - An AP works at the second OSI layer, the Data Link layer
 
-> ![Wireless Access Point](/images/ap.png)
+  ![Wireless Access Point](/images/ap.png)
 
 ---
 #### Reference:

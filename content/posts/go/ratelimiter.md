@@ -15,7 +15,7 @@ series = []
 - **token**: refer to https://en.wikipedia.org/wiki/Token_bucket
 - **limit**: the number of tokens that is obtained per second
 ## Core function
-```golang
+```go
 // reserveN is a helper method for AllowN, ReserveN, and WaitN.
 // maxFutureReserve specifies the maximum reservation wait duration allowed.
 // reserveN returns Reservation, not *Reservation, to avoid allocation in AllowN and WaitN.

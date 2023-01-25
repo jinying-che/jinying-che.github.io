@@ -1,9 +1,6 @@
 # Personal Blog
 
-**This Project is no longer being maintained, all blogs will be migrated to https://gist.github.com/jinying-che**
-
----
-This project is used to generate the static Web code which is powered by [Hugo](https://gohugo.io/)
+This project is used to generate the static Web site which is powered by [Hugo](https://gohugo.io/) and [hugo-theme-terminal](https://github.com/panr/hugo-theme-terminal)
 
 Here is my [blog](https://jinying-che.github.io/)
 
