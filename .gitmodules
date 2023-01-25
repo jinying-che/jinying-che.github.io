@@ -1,18 +1,1 @@
-[submodule "themes/ananke"]
-	path = themes/ananke
-	url = https://github.com/budparr/gohugo-theme-ananke.git
-[submodule "themes/ng"]
-	path = themes/ng
-	url = https://github.com/rhazdon/hugo-theme-hello-friend-ng
-[submodule "themes/hugo-coder"]
-	path = themes/hugo-coder
-	url = https://github.com/luizdepra/hugo-coder.git
-[submodule "themes/anatole"]
-	path = themes/anatole
-	url = https://github.com/lxndrblz/anatole.git
-[submodule "public"]
-	path = public
-	url = git@github.com:jinying-che/jinying-che.github.io.git
-[submodule "themes/smol"]
-	path = themes/smol
-	url = https://github.com/colorchestra/smol
+
