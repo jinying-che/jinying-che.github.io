@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>network on Terminal</title><link>https://jinying-che.github.io/tags/network/</link><description>Recent content in network on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Thu, 26 Jan 2023 16:22:21 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>Iptables</title><link>https://jinying-che.github.io/posts/network/iptables/</link><pubDate>Thu, 26 Jan 2023 16:22:21 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/iptables/</guid><description>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different Netfilter modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.
+In a nutshell: Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules Tables There are five tables, the Priority is: filter, nat, mangle, raw, security
+https://www.thegeekstuff.com/2011/01/iptables-fundamentals/ https://linux.</description><content>&lt;p>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/">Netfilter&lt;/a> modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p>
+&lt;h2 id="in-a-nutshell">In a nutshell:&lt;/h2>
+&lt;ul>
+&lt;li>Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
+&lt;img src="https://jinying-che.github.io/images/iptable.png" alt="package flow through iptables">&lt;/li>
+&lt;/ul>
+&lt;h2 id="tables">Tables&lt;/h2>
+&lt;p>There are five tables, the &lt;em>Priority&lt;/em> is: &lt;strong>filter, nat, mangle, raw, security&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a href="https://www.thegeekstuff.com/2011/01/iptables-fundamentals/">https://www.thegeekstuff.com/2011/01/iptables-fundamentals/&lt;/a>
+&lt;a href="https://linux.die.net/man/8/iptables">https://linux.die.net/man/8/iptables&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># show filter table by default&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>iptables -L -v -n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># which is equal to &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>iptables -t filter -L -v -n
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="chains">Chains&lt;/h2>
+&lt;p>There are five predefined chains (mapping to the five available Netfilter hooks), though a table may not have all chains.&lt;/p>
+&lt;ul>
+&lt;li>PREROUTING: Packets will enter this chain before a routing decision is made.&lt;/li>
+&lt;li>INPUT: Packet is going to be locally delivered. It does not have anything to do with processes having an opened socket; local delivery is controlled by the &amp;ldquo;local-delivery&amp;rdquo; routing table: ip route show table local.&lt;/li>
+&lt;li>FORWARD: All packets that have been routed and were not for local delivery will traverse this chain.&lt;/li>
+&lt;li>OUTPUT: Packets sent from the machine itself will be visiting this chain.&lt;/li>
+&lt;li>POSTROUTING: Routing decision has been made. Packets enter this chain just before handing them off to the hardware.&lt;/li>
+&lt;/ul>
+&lt;p>The system administrator can create as many other chains as desired.&lt;/p>
+&lt;h2 id="rules">Rules&lt;/h2>
+&lt;ul>
+&lt;li>ACCEPT – Firewall will accept the packet.&lt;/li>
+&lt;li>DROP – Firewall will drop the packet.&lt;/li>
+&lt;li>QUEUE – Firewall will pass the packet to the userspace.&lt;/li>
+&lt;li>RETURN – Firewall will stop executing the next set of rules in the current chain for this packet. The control will be returned to the calling chain.&lt;/li>
+&lt;/ul>
+&lt;h2 id="cheat-sheet">Cheat Sheet&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># drop ip packet:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># modify the filter table, insert the rule DROP into the INPUT chain at the specific number (1 by default)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -A means append the rule at the end of the chain&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo iptables -I INPUT -s 10.129.106.98 -j DROP
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># delele drop ip packet &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo iptables -D INPUT -s 10.129.106.98 -j DROP
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.netfilter.org/documentation/HOWTO/netfilter-hacking-HOWTO-3.html">https://www.netfilter.org/documentation/HOWTO/netfilter-hacking-HOWTO-3.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://lartc.org/">Linux Advanced Routing &amp;amp; Traffic Control How To&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.docker.com/network/iptables/">https://docs.docker.com/network/iptables/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.linode.com/docs/guides/control-network-traffic-with-iptables/">https://www.linode.com/docs/guides/control-network-traffic-with-iptables/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.cyberciti.biz/faq/linux-iptables-drop/">https://www.cyberciti.biz/faq/linux-iptables-drop/&lt;/a>&lt;/li>
+&lt;/ul></content></item></channel></rss>
