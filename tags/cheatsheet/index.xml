@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>cheatsheet on Terminal</title><link>https://jinying-che.github.io/tags/cheatsheet/</link><description>Recent content in cheatsheet on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 10 Jul 2021 11:20:07 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml"/><item><title>Vim Cheat Sheet</title><link>https://jinying-che.github.io/posts/vim/</link><pubDate>Sat, 10 Jul 2021 11:20:07 +0800</pubDate><guid>https://jinying-che.github.io/posts/vim/</guid><description>Basic Usage delete inside parentheses (which can be replaced with any symbol) di( di&amp;quot; di' &amp;hellip; Split Horizontal: ctrl + w + s Vertical: ctrl + w + v Replace a word with yanked text yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;). Move the cursor to another word (say &amp;#34;second&amp;#34;). ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode) Move the cursor to another word (say &amp;#34;third&amp;#34;).</description><content>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
+&lt;ul>
+&lt;li>delete inside parentheses (which can be replaced with any symbol)
+&lt;ul>
+&lt;li>&lt;code>di(&lt;/code>&lt;/li>
+&lt;li>&lt;code>di&amp;quot;&lt;/code>&lt;/li>
+&lt;li>&lt;code>di'&lt;/code>&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="split">Split&lt;/h3>
+&lt;ul>
+&lt;li>Horizontal: &lt;code>ctrl + w + s&lt;/code>&lt;/li>
+&lt;li>Vertical: &lt;code>ctrl + w + v&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="replace-a-word-with-yanked-text">Replace a word with yanked text&lt;/h3>
+&lt;pre tabindex="0">&lt;code>yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;).
+Move the cursor to another word (say &amp;#34;second&amp;#34;).
+ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode)
+Move the cursor to another word (say &amp;#34;third&amp;#34;).
+. Repeat the operation (change word and replace it with &amp;#34;first&amp;#34;).
+Move the cursor to another word and press . to repeat the change.
+ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
+&lt;/code>&lt;/pre></content></item></channel></rss>
