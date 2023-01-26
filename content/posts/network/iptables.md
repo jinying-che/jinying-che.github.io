@@ -1,7 +1,7 @@
 ---
 title: "Iptables"
 date: "2023-01-26T16:22:21+08:00"
-tags: ["network", "linux"]
+tags: ["network"]
 description: "iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall"
 ---
 

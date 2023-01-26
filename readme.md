@@ -25,7 +25,11 @@ Here is my [blog](https://jinying-che.github.io/)
 - Hugo
 	- [Font Matter](https://gohugo.io/content-management/front-matter/#example)
 	- [Hugo x Github Pages x Github Action](https://gohugo.io/hosting-and-deployment/hosting-on-github/)
+	- Some [hugo-theme-terminal](https://github.com/panr/hugo-theme-terminal) Users:
+		- https://skoula.cz/
+		- https://mn3m.info/
 - GitHub
 	- [Pages](https://pages.github.com/)
 	- [Action](https://docs.github.com/en/actions/quickstart)
 	- [Events](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push)
+
