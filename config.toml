@@ -73,7 +73,7 @@ paginate = 5
     words = "words"
 
     [languages.en.params.logo]
-      logoText = "jinying-che"
+      logoText = "jinying-che:~#"
       logoHomeLink = "/"
 
     [languages.en.menu]
@@ -81,6 +81,11 @@ paginate = 5
         identifier = "posts"
         name = "Home"
         url = "/posts"
+
+      [[languages.en.menu.main]]
+        identifier = "tags"
+        name = "Tags"
+        url = "/tags"
 
 
 [module]
