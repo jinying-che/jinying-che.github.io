@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>design on Terminal</title><link>https://jinying-che.github.io/tags/design/</link><description>Recent content in design on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 13 Feb 2023 22:27:32 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/design/index.xml" rel="self" type="application/rss+xml"/><item><title>API Design</title><link>https://jinying-che.github.io/posts/api_design/</link><pubDate>Mon, 13 Feb 2023 22:27:32 +0800</pubDate><guid>https://jinying-che.github.io/posts/api_design/</guid><description>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.
+Simple Put:
+REST is a software architectural and common communication standard. OpenAPI is a specification, which defines a standard, programming language-agnostic interface description for HTTP APIs. gRPC is a high performance Remote Procedure Call (RPC) framework.</description><content>&lt;p>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.&lt;/p>
+&lt;p>Simple Put:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>REST&lt;/code> is a software &lt;strong>architectural&lt;/strong> and common communication &lt;strong>standard&lt;/strong>.&lt;/li>
+&lt;li>&lt;code>OpenAPI&lt;/code> is a &lt;strong>specification&lt;/strong>, which defines a standard, programming language-agnostic interface description for HTTP APIs.&lt;/li>
+&lt;li>&lt;code>gRPC&lt;/code> is a high performance Remote Procedure Call (RPC) &lt;strong>framework&lt;/strong>.&lt;/li>
+&lt;li>&lt;code>GraphQL&lt;/code> is a &lt;strong>query language&lt;/strong> for your API.&lt;/li>
+&lt;/ul>
+&lt;h2 id="1-rest">1. Rest&lt;/h2>
+&lt;p>Representational state transfer (REST) is a software architectural style that describes a uniform interface between physically separate components, often across the Internet in a client-server architecture.&lt;/p>
+&lt;p>REST is the most common communication standard between computers over the internet, an API that follows the REST standard is called a RESTful API.&lt;/p>
+&lt;h3 id="11-architectural-constraints">1.1 Architectural Constraints&lt;/h3>
+&lt;ul>
+&lt;li>Client–server architecture&lt;/li>
+&lt;li>Statelessness&lt;/li>
+&lt;li>Cacheability&lt;/li>
+&lt;li>Layered system&lt;/li>
+&lt;li>Code on demand (optional)&lt;/li>
+&lt;li>Uniform interface&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>refer to &lt;a href="https://en.wikipedia.org/wiki/Representational_state_transfer#Architectural_constraints">wikipedia&lt;/a> for more details&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="12-applied-to-web-services">1.2 Applied to web services&lt;/h3>
+&lt;ul>
+&lt;li>a base URI, such as &lt;a href="http://api.example.com/">http://api.example.com/&lt;/a>&lt;/li>
+&lt;li>standard HTTP methods (e.g., GET, POST, PUT, and DELETE)&lt;/li>
+&lt;li>a media type that defines state transition data elements&lt;/li>
+&lt;/ul>
+&lt;h3 id="13-crud">1.3 CRUD&lt;/h3>
+&lt;ul>
+&lt;li>POST &amp;ndash;&amp;gt; CREATE &lt;em>(non-idempotent)&lt;/em>&lt;/li>
+&lt;li>GET &amp;ndash;&amp;gt; READ &lt;em>(idempotent)&lt;/em>&lt;/li>
+&lt;li>PUT &amp;ndash;&amp;gt; UPDATE &lt;em>(idempotent)&lt;/em>&lt;/li>
+&lt;li>DELETE &amp;ndash;&amp;gt; DELETE &lt;em>(idempotent)&lt;/em>&lt;/li>
+&lt;/ul>
+&lt;h3 id="14-version">1.4 Version&lt;/h3>
+&lt;p>Versioning allows an implementation to provide backward compatibility so that if we introduce breaking changes from one version to another, consumers get enough time to move to the next version.&lt;/p>
+&lt;p>There are many ways to version an API. The most straightforward is to prefix the version before the resource on the URI. For instance:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://shopee.com/v1/products">https://shopee.com/v1/products&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://shopee.com/v2/products">https://shopee.com/v2/products&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-grpc">2. gRPC&lt;/h2>
+&lt;ol>
+&lt;li>gPRC is an implementation of Remote Procedure Call (RPC)&lt;/li>
+&lt;li>It is modern open source high performance RPC framework that can run in any environment.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>RPC (Remote Procedure Call) is called “remote” because it enables communications between remote services when services are deployed to different servers under microservice architecture. From the user’s point of view, it acts like a local function call.&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="21-core-concepts">2.1 Core Concepts&lt;/h3>
+&lt;ul>
+&lt;li>Design service API using &lt;a href="https://developers.google.com/protocol-buffers">protocol buffers&lt;/a> as Interface Definition Language (IDL)&lt;/li>
+&lt;li>protocol buffers TODO?&lt;/li>
+&lt;li>gRPC builds on &lt;a href="https://www.rfc-editor.org/rfc/rfc7540">HTTP/2&lt;/a> long-lived connections for inter-service communication&lt;/li>
+&lt;/ul>
+&lt;h3 id="22-overall">2.2 Overall&lt;/h3>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/grpc_overall.jpeg" alt="gprc overall">&lt;/p>
+&lt;h2 id="3-openapi">3. OpenAPI&lt;/h2>
+&lt;ol>
+&lt;li>The OpenAPI Specification (OAS) defines an &lt;strong>interface description&lt;/strong> for HTTP APIs&lt;/li>
+&lt;li>It&amp;rsquo;s tend to be industry standard&lt;/li>
+&lt;li>It&amp;rsquo;s programming language-agnostic&lt;/li>
+&lt;li>Both human and computers can understand and discover the capabilities of a service&lt;/li>
+&lt;li>It removes the guesswork in calling a service and saves the communication effort&lt;/li>
+&lt;li>Consumer can interact the remote service with minimal implementation logic (with the rich &lt;a href="https://openapi.tools">OpenAPI Tools&lt;/a>)&lt;/li>
+&lt;li>It boost the &lt;a href="https://swagger.io/resources/articles/adopting-an-api-first-approach/">API driven development&lt;/a>&lt;/li>
+&lt;li>It supports Restful API&lt;/li>
+&lt;li>The OpenAPI doc are represented in YAML or JSON format which may be produced and served statically or &lt;strong>generated dynamically&lt;/strong> from an application. (e.g. &lt;a href="https://github.com/swaggo/swag">generate RESTful API documentation with Swagger 2.0 for Go&lt;/a>)&lt;/li>
+&lt;/ol>
+&lt;h3 id="31-what-we-can-do-with-openapi-spec">3.1 What we can do with OpenAPI Spec&lt;/h3>
+&lt;ol>
+&lt;li>Interactive documentation&lt;/li>
+&lt;li>Code generation for documentation, clients, and servers&lt;/li>
+&lt;li>automation of test cases&lt;/li>
+&lt;li>etc.&lt;/li>
+&lt;/ol>
+&lt;h2 id="4-demo">4. Demo&lt;/h2>
+&lt;ol>
+&lt;li>&lt;a href="rest_api">REST API&lt;/a>&lt;/li>
+&lt;li>&lt;a href="grpc/go">gRPC&lt;/a>&lt;/li>
+&lt;li>&lt;a href="openapi">OpenAPI&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;h2 id="5-reference">5. Reference&lt;/h2>
+&lt;h4 id="rest">Rest&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://blog.bytebytego.com/p/why-is-restful-api-so-popular">https://blog.bytebytego.com/p/why-is-restful-api-so-popular&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://en.wikipedia.org/wiki/Representational_state_transfer">https://en.wikipedia.org/wiki/Representational_state_transfer&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://cloud.google.com/blog/products/api-management/understanding-grpc-openapi-and-rest-and-when-to-use-them">gRPC vs REST: Understanding gRPC, OpenAPI and REST and when to use them in API design&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="grpc">gRPC&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://blog.bytebytego.com/i/84137023/how-does-grpc-work">https://blog.bytebytego.com/i/84137023/how-does-grpc-work&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://grpc.io/blog/grpc-on-http2/">https://grpc.io/blog/grpc-on-http2/&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h4 id="openapi">OpenAPI&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://spec.openapis.org/oas/v3.1.0">https://spec.openapis.org/oas/v3.1.0&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=uBs6dfUgxcI">Better API Design With OpenAPI&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/OAI/OpenAPI-Specification/">https://github.com/OAI/OpenAPI-Specification/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://swagger.io/resources/articles/adopting-an-api-first-approach/">https://swagger.io/resources/articles/adopting-an-api-first-approach/&lt;/a>&lt;/li>
+&lt;/ul></content></item></channel></rss>
