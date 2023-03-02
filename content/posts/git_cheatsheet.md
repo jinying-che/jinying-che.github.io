@@ -4,8 +4,9 @@ date: "2023-01-31T16:14:39+08:00"
 tags: ["git", "cheatsheet"]
 description: "git best practices"
 ---
-TODO: git architecture
-### everything about the changes rollback
+### Overall
+![git architecture](/images/git.svg)
+### Everything about the changes rollback
 - code changed without `git add`
   ```shell
   # `git add .` and `git checkout .` is a pair of inverse operations
@@ -36,10 +37,10 @@ TODO: git architecture
   git push -f
   ```
 
-### [how can I see the changes in a git commit](https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit)?
+### [How can I see the changes in a git commit](https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit)?
 `git diff COMMIT~ COMMIT` or `git show COMMIT`
     
-### how to include config directives from another source? 
+### How to include config directives from another source? 
 setup a `.gitconfig`, `.gitconfig-garena`, and `.gitconfig-github` at $HOME as follows, all the projects under the folder will be configured recursively:
 ```toml
 # .gitconfig
@@ -60,7 +61,7 @@ setup a `.gitconfig`, `.gitconfig-garena`, and `.gitconfig-github` at $HOME as f
 	email = chejinying@me.com 
 ```
 
-### keep the local changes, delete the remote changes 
+### Keep the local changes, delete the remote changes 
 delete the local cache, push to the remote
 ```shell
 1. git rm —cache -r directory
@@ -68,7 +69,7 @@ delete the local cache, push to the remote
 3. git pushf
  ```
 
-### git merge the update from the forked project
+### Git merge the update from the forked project
 ```shell
 1. git remote add upstream url
 2. git fetch upstream
@@ -78,20 +79,20 @@ delete the local cache, push to the remote
  git remote -v
 ```
 
-### git merge the file from the other branch
+### Git merge the file from the other branch
 exactly, it's `checkout`, pls be reminded that this command will overwrite the local file without merging process
 ```shell
 git checkout branch_name filename
 ```
 
-### overwrite the local via the remote
+### Overwrite the local via the remote
 ```shell
 1. git fetch --all
 2. git reset --hard origin/master
 
 ```
 
-## squash commits
+### Squash commits
 1. `git rebase -i commit-version` (which is earlist one that squash beginning from)
 2. change `pick` to `s`(squash) manually by edting the file, leave the first `pick`, then `:wq`(for vim)
 3. Edit the commit message, leave the msg for the final commiting, then`:wq`(for vim)

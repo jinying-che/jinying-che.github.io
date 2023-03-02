@@ -1,0 +1,17 @@
+@startuml
+database "Local Repository(Last Index)" as start
+collections Workspace as workspace
+queue "Stage (Index)" as stage
+database "Local Repository" as local
+database "Remote Repository" as remote
+start -> workspace : edit file
+workspace -> start : git checkout 
+workspace -> stage : git add 
+stage -> workspace : git reset
+stage -> local : git commit
+local -> workspace : git reset head^
+local -> start : git reset head^ --hard
+local -> remote : git push
+remote -> local : git fetch
+remote -> workspace : git pull
+@enduml
