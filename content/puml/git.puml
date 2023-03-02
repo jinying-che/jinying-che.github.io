@@ -13,5 +13,6 @@ local -> workspace : git reset head^
 local -> start : git reset head^ --hard
 local -> remote : git push
 remote -> local : git fetch
+local -> workspace : git merge
 remote -> workspace : git pull
 @enduml
