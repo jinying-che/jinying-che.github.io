@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pumls on Terminal</title><link>https://jinying-che.github.io/puml/</link><description>Recent content in Pumls on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://jinying-che.github.io/puml/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://jinying-che.github.io/puml/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://jinying-che.github.io/puml/readme/</guid><description>PlantUML This folder stores all the PlantUML files dedicated for the blogs
+How to make PlantUML? check https://plantuml.com/
+How to make PlantUML in vim? check plantuml using vim
+TL;DR Edit PlantUML in vim :PlantumlOpen to preview the uml in brower Run :PlantumlSave static/images/git.svg to export the uml to svg (or any other supported file type: png, svg, eps, pdf, vdx, xmi, scxml, html, txt, utxt, latex) Reference https://github.com/weirongxu/plantuml-previewer.vim</description><content>&lt;h1 id="plantuml">PlantUML&lt;/h1>
+&lt;p>This folder stores all the PlantUML files dedicated for the blogs&lt;/p>
+&lt;h3 id="how-to-make-plantuml">How to make PlantUML?&lt;/h3>
+&lt;p>check &lt;a href="https://plantuml.com/">https://plantuml.com/&lt;/a>&lt;/p>
+&lt;h3 id="how-to-make-plantuml-in-vim">How to make PlantUML in vim?&lt;/h3>
+&lt;p>check &lt;a href="https://jekhokie.github.io/linux/vim/plantuml/2020/07/25/plantuml-using-vim.html">plantuml using vim&lt;/a>&lt;/p>
+&lt;h4 id="tldr">TL;DR&lt;/h4>
+&lt;ol>
+&lt;li>Edit PlantUML in vim&lt;/li>
+&lt;li>&lt;code>:PlantumlOpen&lt;/code> to preview the uml in brower&lt;/li>
+&lt;li>Run &lt;code>:PlantumlSave static/images/git.svg&lt;/code> to export the uml to svg (or any other supported file type: &lt;em>png, svg, eps, pdf, vdx, xmi, scxml, html, txt, utxt, latex&lt;/em>)&lt;/li>
+&lt;/ol>
+&lt;h3 id="reference">Reference&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/weirongxu/plantuml-previewer.vim">https://github.com/weirongxu/plantuml-previewer.vim&lt;/a>&lt;/li>
+&lt;/ul></content></item></channel></rss>

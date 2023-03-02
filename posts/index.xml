@@ -142,12 +142,12 @@ REST is a software architectural and common communication standard. OpenAPI is a
 &lt;li>&lt;a href="https://swagger.io/resources/articles/adopting-an-api-first-approach/">https://swagger.io/resources/articles/adopting-an-api-first-approach/&lt;/a>&lt;/li>
 &lt;li>Examples: &lt;a href="https://github.com/OAI/OpenAPI-Specification/tree/main/examples">https://github.com/OAI/OpenAPI-Specification/tree/main/examples&lt;/a>&lt;/li>
 &lt;li>Best Practice: &lt;a href="https://oai.github.io/Documentation/best-practices.html">https://oai.github.io/Documentation/best-practices.html&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>TODO: git architecture
-everything about the changes rollback code changed without git add
+&lt;/ul></content></item><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>Overall Everything about the changes rollback code changed without git add
 # `git add .` and `git checkout .` is a pair of inverse operations git checkout . or git reset --hard git add . done without git commit
 git reset + git chekcout . or git reset --hard git commit done
-# option 1: keep the changes in worksapce, rollback committed chagnes in local repo git reset head^ # option 2: rollback the changes in both workspace and local repo git reset --hard head^ git push done</description><content>&lt;p>TODO: git architecture&lt;/p>
-&lt;h3 id="everything-about-the-changes-rollback">everything about the changes rollback&lt;/h3>
+# option 1: keep the changes in worksapce, rollback committed chagnes in local repo git reset head^ # option 2: rollback the changes in both workspace and local repo git reset --hard head^ git push done</description><content>&lt;h3 id="overall">Overall&lt;/h3>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/git.svg" alt="git architecture">&lt;/p>
+&lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
 &lt;ul>
 &lt;li>
 &lt;p>code changed without &lt;code>git add&lt;/code>&lt;/p>
@@ -176,9 +176,9 @@ git reset + git chekcout . or git reset --hard git commit done
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push -f
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
 &lt;/ul>
-&lt;h3 id="how-can-i-see-the-changes-in-a-git-commithttpsstackoverflowcomquestions17563726how-can-i-see-the-changes-in-a-git-commit">&lt;a href="https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit">how can I see the changes in a git commit&lt;/a>?&lt;/h3>
+&lt;h3 id="how-can-i-see-the-changes-in-a-git-commithttpsstackoverflowcomquestions17563726how-can-i-see-the-changes-in-a-git-commit">&lt;a href="https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit">How can I see the changes in a git commit&lt;/a>?&lt;/h3>
 &lt;p>&lt;code>git diff COMMIT~ COMMIT&lt;/code> or &lt;code>git show COMMIT&lt;/code>&lt;/p>
-&lt;h3 id="how-to-include-config-directives-from-another-source">how to include config directives from another source?&lt;/h3>
+&lt;h3 id="how-to-include-config-directives-from-another-source">How to include config directives from another source?&lt;/h3>
 &lt;p>setup a &lt;code>.gitconfig&lt;/code>, &lt;code>.gitconfig-garena&lt;/code>, and &lt;code>.gitconfig-github&lt;/code> at $HOME as follows, all the projects under the folder will be configured recursively:&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># .gitconfig&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">includeIf&lt;/span> &lt;span style="color:#e6db74">&amp;#34;gitdir:~/workspace/garena.com/&amp;#34;&lt;/span>]
@@ -196,25 +196,25 @@ git reset + git chekcout . or git reset --hard git commit done
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">user&lt;/span>]
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">name&lt;/span> = &lt;span style="color:#a6e22e">Jinying&lt;/span> &lt;span style="color:#a6e22e">Che&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">email&lt;/span> = &lt;span style="color:#a6e22e">chejinying&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">@&lt;/span>&lt;span style="color:#a6e22e">me&lt;/span>.&lt;span style="color:#a6e22e">com&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="keep-the-local-changes-delete-the-remote-changes">keep the local changes, delete the remote changes&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="keep-the-local-changes-delete-the-remote-changes">Keep the local changes, delete the remote changes&lt;/h3>
 &lt;p>delete the local cache, push to the remote&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>1. git rm —cache -r directory
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2. git commit -m &lt;span style="color:#e6db74">&amp;#34;del&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>3. git pushf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="git-merge-the-update-from-the-forked-project">git merge the update from the forked project&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="git-merge-the-update-from-the-forked-project">Git merge the update from the forked project&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>1. git remote add upstream url
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2. git fetch upstream
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>3. git merge upsteam/master
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># NOTE check the remote brach status:&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> git remote -v
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="git-merge-the-file-from-the-other-branch">git merge the file from the other branch&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="git-merge-the-file-from-the-other-branch">Git merge the file from the other branch&lt;/h3>
 &lt;p>exactly, it&amp;rsquo;s &lt;code>checkout&lt;/code>, pls be reminded that this command will overwrite the local file without merging process&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git checkout branch_name filename
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="overwrite-the-local-via-the-remote">overwrite the local via the remote&lt;/h3>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="overwrite-the-local-via-the-remote">Overwrite the local via the remote&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>1. git fetch --all
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2. git reset --hard origin/master
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="squash-commits">squash commits&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="squash-commits">Squash commits&lt;/h3>
 &lt;ol>
 &lt;li>&lt;code>git rebase -i commit-version&lt;/code> (which is earlist one that squash beginning from)&lt;/li>
 &lt;li>change &lt;code>pick&lt;/code> to &lt;code>s&lt;/code>(squash) manually by edting the file, leave the first &lt;code>pick&lt;/code>, then &lt;code>:wq&lt;/code>(for vim)&lt;/li>
