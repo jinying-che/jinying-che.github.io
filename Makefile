@@ -1,0 +1,2 @@
+local:
+	@hugo server --buildDrafts
