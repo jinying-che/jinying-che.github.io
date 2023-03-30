@@ -11,7 +11,10 @@ Two Key Attributes How to classify a problem as a Dynamic Programming algorithm 
 &lt;/blockquote>
 &lt;h2 id="the-steps-to-resove-the-a-dynamic-programming-problem">The Steps To Resove The A Dynamic Programming Problem&lt;/h2>
 &lt;h4 id="1-identify-a-dp-problem-identify-the-subproblems">1. Identify a &lt;strong>DP&lt;/strong> problem, Identify the &lt;strong>subproblems&lt;/strong>&lt;/h4>
-&lt;p>refer to two key attributes&lt;/p>
+&lt;ol>
+&lt;li>refer to two key attributes&lt;/li>
+&lt;li>transfer the real world probelm to the math model, e.g. &lt;a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/">Best Time to Buy and Sell Stock&lt;/a>, actaully in the math world, which means to find the min and max value of the array, which is a significant dynamic problem flag.&lt;/li>
+&lt;/ol>
 &lt;h4 id="2-decide-a-state-expression-with-the-least-parameters">2. Decide a state expression with the Least parameters&lt;/h4>
 &lt;p>Determine what information you need to represent the solution to each subproblem. This is often done using a state vector or matrix.&lt;/p>
 &lt;h4 id="3-formulate-state-and-transition-relationships">3. Formulate state and transition relationships&lt;/h4>
@@ -20,4 +23,4 @@ Two Key Attributes How to classify a problem as a Dynamic Programming algorithm 
 &lt;p>Simply storing the state solution will allow us to access it from memory the next time that state is needed. Solve the subproblems in a bottom-up (tabulation) or top-down (memorization) manner.&lt;/p>
 &lt;h4 id="5-compute-the-final-solution-using-the-solutions-to-the-subproblems">5. Compute the final solution using the solutions to the subproblems.&lt;/h4>
 &lt;p>TODO: Example&lt;/p>
-&lt;h2 id="nmemoization-vs-tabulation-todo">nmemoization vs tabulation (TODO)&lt;/h2></content></item></channel></rss>
+&lt;h2 id="memoization-vs-tabulation-todo">memoization vs tabulation (TODO)&lt;/h2></content></item></channel></rss>
