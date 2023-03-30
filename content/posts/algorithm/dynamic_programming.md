@@ -19,7 +19,8 @@ The solution to a given optimization problem can be obtained by the combination 
 ## The Steps To Resove The A Dynamic Programming Problem
 
 #### 1. Identify a **DP** problem, Identify the **subproblems**
-refer to two key attributes 
+1. refer to two key attributes 
+2. transfer the real world probelm to the math model, e.g. [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/), actaully in the math world, which means to find the min and max value of the array, which is a significant dynamic problem flag.
 #### 2. Decide a state expression with the Least parameters
 Determine what information you need to represent the solution to each subproblem. This is often done using a state vector or matrix.
 #### 3. Formulate state and transition relationships 
@@ -30,4 +31,4 @@ Simply storing the state solution will allow us to access it from memory the nex
 
 TODO: Example
 
-## nmemoization vs tabulation (TODO)
+## memoization vs tabulation (TODO)
