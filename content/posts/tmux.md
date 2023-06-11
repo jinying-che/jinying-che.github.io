@@ -14,6 +14,7 @@ date: 2021-07-10T11:18:14+08:00
 - split pane horizontally: `ctrl+b` then `%`
 - split pane vertically: `ctrl+b` then `"`
 - cloes current pane: `ctrl+b` then `x`
+- swap panes: `ctrl+b` then `o`
 
 ### Window
 - Create current window: `ctrl+b` then `c`
