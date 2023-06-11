@@ -1,4 +1,382 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Terminal</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Sat, 11 Mar 2023 23:03:37 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Dynamic Programming</title><link>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</link><pubDate>Sat, 11 Mar 2023 23:03:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</guid><description>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Terminal</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 08 Jun 2023 15:41:00 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell Cheatsheet</title><link>https://jinying-che.github.io/posts/shell_cheatsheet/</link><pubDate>Thu, 08 Jun 2023 15:41:00 +0800</pubDate><guid>https://jinying-che.github.io/posts/shell_cheatsheet/</guid><description>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.
+fzf + zsh Add the fzf plugin for zsh, the terminal is fully enhanced!
+- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting) + plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting fzf) Try some comands to see the fzf integartion, e.g.
+cd ** + TAB(key) Ctrl + r &amp;hellip; Reference:
+https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh mycli pager By default, mycli shows the sql result in a new window (press q to quit and all results gone), but it would be annoyed when result needs to be kept in the current window, the behavior is controlled by Pager Configuraton.</description><content>&lt;p>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.&lt;/p>
+&lt;h3 id="fzfhttpsgithubcomjunegunnfzf--zsh">&lt;a href="https://github.com/junegunn/fzf">fzf&lt;/a> + zsh&lt;/h3>
+&lt;p>Add the fzf plugin for zsh, the terminal is fully enhanced!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-diff" data-lang="diff">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&lt;/span>&lt;span style="color:#a6e22e">+ plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting fzf)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Try some comands to see the fzf integartion, e.g.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>cd **&lt;/code> + &lt;code>TAB(key)&lt;/code>&lt;/li>
+&lt;li>&lt;code>Ctrl&lt;/code> + &lt;code>r&lt;/code>&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;p>Reference:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh">https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="myclihttpsgithubcomdbclimycli-pager">&lt;a href="https://github.com/dbcli/mycli">mycli&lt;/a> pager&lt;/h3>
+&lt;p>By default, &lt;code>mycli&lt;/code> shows the sql result in a new window (press &lt;code>q&lt;/code> to quit and all results gone), but it would be annoyed when result needs to be kept in the current window, the behavior is controlled by &lt;strong>Pager Configuraton&lt;/strong>.&lt;/p>
+&lt;p>On macOS and Linux, the pager will default to less for most users.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># disable pager &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">enable_pager&lt;/span> = &lt;span style="color:#a6e22e">False&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Reference:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://www.mycli.net/pager">https://www.mycli.net/pager&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="linuxunix-os-version">linux/unix os version&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>- cat /etc/os-release
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- lsb_release -a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="批量删除进程">批量删除进程&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>ps aux | grep redis | grep -v grep | awk &lt;span style="color:#e6db74">&amp;#39;{print $2}&amp;#39;&lt;/span> | xargs kill -9
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&lt;code>awk '{print $2}' &lt;/code>是打印所有进程的&lt;strong>pid&lt;/strong>&lt;/p>
+&lt;h2 id="21">2&amp;gt;&amp;amp;1&lt;/h2>
+&lt;p>&lt;strong>&amp;gt; ** ：代表重定向到哪里(&lt;/strong>&amp;gt;&lt;strong>：会覆盖，&lt;/strong>&amp;raquo;**：追加，不覆盖)
+**1 ** ：表示stdout标准输出，系统默认值是1（&lt;strong>0&lt;/strong>代表标准输入）
+&lt;strong>2 ** ：表示stderr标准错误
+&lt;strong>&amp;amp; ** ：表示等同于的意思，2&amp;gt;&amp;amp;1，表示2的输出重定向等同于1（&lt;strong>错误输出&lt;/strong>的位置同&lt;/strong>标准输出&lt;/strong>一样）&lt;/p>
+&lt;h2 id="heading">#!&lt;/h2>
+&lt;p>&lt;code>#!&lt;/code> 是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行，即使用哪一种 Shell&lt;/p>
+&lt;h2 id="shell-编程">shell 编程&lt;/h2>
+&lt;h4 id="关于">关于[]&lt;/h4>
+&lt;ul>
+&lt;li>实际上是bash 中 test 命令的简写。即所有的 [ expr ] 等于 test expr (expr与[]之间，要有空格)&lt;/li>
+&lt;li>使用逻辑判断，应该是：&lt;code>[] || []&lt;/code>和&lt;code>[] &amp;amp;&amp;amp; []&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="变量">变量&lt;/h4>
+&lt;ul>
+&lt;li>变量赋值不应有空格： &lt;code>param=$1&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>##ssh&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>ssh 连接服务器&lt;/p>
+&lt;p>&lt;code>ssh -P port username@ip&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ssh 使用scope复制本机文件到远程服务器&lt;/p>
+&lt;p>&lt;code>scope local-directory/local-file username@ip:remote-directory&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>ssh 公钥登陆流程：&lt;/p>
+&lt;blockquote>
+&lt;p>所谓&amp;quot;公钥登录&amp;quot;，原理很简单，就是用户将自己的公钥储存在远程主机上。登录的时候，远程主机会向用户发送一段随机字符串，用户用自己的私钥加密后，再发回来。远程主机用事先储存的公钥进行解密，如果成功，就证明用户是可信的，直接允许登录shell，不再要求密码。&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>打印连接&lt;strong>debug&lt;/strong>信息(分析连接流程)： &lt;code>ssh -v root@74.82.202.131 -p 28382&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>-v 参数：打印debug信息&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;p>##Disk&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>df&lt;/strong> displays the amount of disk space available on the file system containing each file name argument&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;code>df -lh&lt;/code> : If no file name is given, the space available on all currently mounted file systems is shown.&lt;/li>
+&lt;li>&lt;code>df -lh path&lt;/code>: show information about the file system on which each path resides&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;strong>du&lt;/strong> Summarize disk usage of the set of FILEs, recursively for directories.&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;code>du -h --max-depth=1&lt;/code> : display the usage of first depth in a human readable format&lt;/li>
+&lt;li>&lt;code>du -hs * | sort -rh | head -10&lt;/code> : display the usage of this depth and sort the output in a human readable format&lt;/li>
+&lt;/ul>
+&lt;h2 id="查目录下的文件数">查目录下的文件数&lt;/h2>
+&lt;ul>
+&lt;li>ls -all | wc -l&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Linux系统中的wc(Word Count)命令的功能为统计指定文件中的字节数、字数、行数，并将统计结果显示输出。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="查看二进制bin文件">查看二进制(bin)文件&lt;/h2>
+&lt;p>For bin :&lt;/p>
+&lt;pre tabindex="0">&lt;code>xxd -b file
+&lt;/code>&lt;/pre>&lt;p>For hex :&lt;/p>
+&lt;pre tabindex="0">&lt;code>xxd file
+&lt;/code>&lt;/pre>&lt;h2 id="进程进入后台并运行">进程进入后台并运行&lt;/h2>
+&lt;blockquote>
+&lt;p>这是个悲伤的故事，把socket服务通过&lt;code>ctrl-z&lt;/code>放入后台，天真地认为进程在后台运行，其实进程已被暂停&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>后台运行： &lt;code>command &amp;amp;&lt;/code>（在命令后加**&amp;amp;**）&lt;/li>
+&lt;li>后台暂停： &lt;code>ctrl-z&lt;/code>（将线程放入后台，并暂停其运行）&lt;/li>
+&lt;/ul>
+&lt;h2 id="解压">解压&lt;/h2>
+&lt;p>####tar&lt;/p>
+&lt;ul>
+&lt;li>解压：&lt;code>tar -xvf file.jar.gz&lt;/code>&lt;/li>
+&lt;li>解压到指定文件：
+&lt;ul>
+&lt;li>&lt;code>mkdir directory&lt;/code>&lt;/li>
+&lt;li>&lt;code>tar -xvf file.jar.gz -C directory&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>压缩：&lt;code>tar -zcvf directory/filename file||directory &lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="zip">zip&lt;/h4>
+&lt;ul>
+&lt;li>解压：&lt;code>gzip -d file.gz&lt;/code>&lt;/li>
+&lt;li>压缩：&lt;code>gzip file&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="linux-网络">Linux 网络&lt;/h2>
+&lt;blockquote>
+&lt;ul>
+&lt;li>nethogs: 按进程查看流量占用&lt;/li>
+&lt;li>iptraf: 按连接/端口查看流量&lt;/li>
+&lt;li>ifstat: 按设备查看流量&lt;/li>
+&lt;li>ethtool: 诊断工具&lt;/li>
+&lt;li>tcpdump: 抓包工具&lt;/li>
+&lt;li>ss: 连接查看工具&lt;/li>
+&lt;li>其他: dstat, slurm, nload, bmon&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;p>###查看tcp端口&lt;/p>
+&lt;ul>
+&lt;li>查看所有tcp端口的使用情况：&lt;code>netstat -nptl | grep pid/port/app&lt;/code> （可能需要root权限）&lt;/li>
+&lt;li>check the TCP status : &lt;code>netstat -atp&lt;/code>
+&lt;ul>
+&lt;li>For Established : &lt;code>netstat -atp | grep ESTABLISHED&lt;/code>&lt;/li>
+&lt;li>For Established and specific port : &lt;code>netstat -atp | grep ESTABLISHED | grep port&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>端口即文件：&lt;code>lsof -i:port&lt;/code> （可能需要root权限）&lt;/li>
+&lt;li>For Mac: &lt;code>netstat -an -ptcp | grep LISTEN&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="ss">ss&lt;/h3>
+&lt;blockquote>
+&lt;p>它利用到了TCP协议栈中tcp_diag。tcp_diag是一个用于分析统计的模块，可以获得Linux 内核中第一手的信息，这就确保了ss的快捷高效。当然，如果你的系统中没有tcp_diag，ss也可以正常运行，只是效率会变得稍慢&lt;/p>
+&lt;/blockquote>
+&lt;p>ss的用法与netstat类似，比如&lt;code>ss -nptl | grep pid&lt;/code>&lt;/p>
+&lt;p>###网络配置&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a href="http://www.cnblogs.com/xiaoluo501395377/archive/2013/05/26/3100065.html">reference:&lt;/a>&lt;/p>
+&lt;p>Linux支持将多块物理网卡绑定成一块逻辑网卡，绑定后的逻辑网卡可以并行使用组成其的所有物理网卡，通过这样的方式可以提高带宽以及网路的稳定性。&lt;/p>
+&lt;p>Linux下支持三种模式的网卡绑定：&lt;/p>
+&lt;p>&lt;strong>①模式0&lt;/strong>：&lt;strong>平衡轮训&lt;/strong>　　使用这种模式来进行多网卡绑定时我们可以提高网络的带宽，其流量是从绑定的多块网卡上平均分配的&lt;/p>
+&lt;p>&lt;strong>②模式1&lt;/strong>：&lt;strong>主动备份&lt;/strong>　　使用这种模式来进行多网卡绑定时我们可以提高网络的稳定性，这种模式不会提高网络的带宽，每次只有一块网卡在走流量，只有当这块网卡发生故障时，绑定在一起的其它物理网卡才会工作&lt;/p>
+&lt;p>&lt;strong>③模式3&lt;/strong>：&lt;strong>广播模式&lt;/strong>　　这种模式一般都不用&lt;/p>
+&lt;p>我们如果想通过多网卡绑定来提升网络的带宽，就选择模式0，如果想提高网络的稳定性，则选择模式1&lt;/p>
+&lt;/blockquote>
+&lt;p>模式由bond0配置文件中的BONDING_OPTS决定，配置文件在&lt;code>/etc/network/network-scripts&lt;/code>路径下，文件命名可能如下：ifcfg-bond0、ifcfg-eth0、ifconfig-eth1等等&lt;/p>
+&lt;pre tabindex="0">&lt;code>//ifcfg-bond0 文件
+DEVICE=bond0
+ONBOOT=yes
+BONDING_OPTS=&amp;#34;miimon=1000 mode=1&amp;#34; //模式选择
+TYPE=Ethernet
+BOOTPROTO=none
+IPADDR=10.86.67.42
+NETMASK=255.255.255.0
+&lt;/code>&lt;/pre>&lt;h3 id="端口连通性测试">端口连通性测试&lt;/h3>
+&lt;p>&lt;code>nc -zv ip port&lt;/code>&lt;/p>
+&lt;p>&lt;code>telnet ip port&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>nc 命令可起个临时的tcp服务 : &lt;code>nc -l&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="sudo-and-su">sudo and su&lt;/h2>
+&lt;p>####sudo vs su&lt;/p>
+&lt;ul>
+&lt;li>两个命令的最大区别是：&lt;code>sudo&lt;/code> 命令需要输入当前用户的密码，&lt;code>su&lt;/code> 命令需要输入 root 用户的密码&lt;/li>
+&lt;li>两个命令之间的另外一个区别是其默认行为。&lt;code>sudo&lt;/code> 命令只允许使用提升的权限运行单个命令，而 &lt;code>su&lt;/code> 命令会启动一个新的 shell，同时允许使用 root 权限运行尽可能多的命令，直到明确退出登录####&lt;/li>
+&lt;/ul>
+&lt;h4 id="sudo-su">sudo su&lt;/h4>
+&lt;p>以当前用户的身份（即只需要当前用户的密码），就可登录root用户，而不需要root密码&lt;/p>
+&lt;h4 id="su-vs-su--">su vs su -&lt;/h4>
+&lt;p>前者在切换到 root 用户之后仍然保持旧的（或者说原始用户的）环境，而后者则是创建一个新的环境（由 root 用户 &lt;code>~/.bashrc&lt;/code> 文件所设置的环境），相当于使用 root 用户正常登录（从登录屏幕登录）&lt;/p>
+&lt;p>&lt;strong>所以推荐使用 &lt;code>su -&lt;/code>&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a href="https://linux.cn/article-8404-1.html">深入理解 sudo 与 su 之间的区别&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="更改文件所属用户及用户组">更改文件所属用户及用户组&lt;/h2>
+&lt;p>&lt;code>chown -R user:group file/directory&lt;/code>&lt;/p>
+&lt;h2 id="查看文件类型">查看文件类型&lt;/h2>
+&lt;p>&lt;code>file&lt;/code> 命令：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>file filename&lt;/code> 若显示为data，可能为压缩文件&lt;/li>
+&lt;/ul>
+&lt;p>cat /etc/sysconfig/network&lt;/p>
+&lt;blockquote>
+&lt;p>解释：-R 递归修改&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="查看进程所在目录">查看进程所在目录&lt;/h2>
+&lt;h3 id="pwdx">pwdx&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>$ pwdx &amp;lt;PID&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="lsof">lsof&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>$ lsof -p &amp;lt;PID&amp;gt; | grep cwd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="proc">/proc&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>$ readlink -e /proc/&amp;lt;PID&amp;gt;/cwd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="linux-系统参数">Linux 系统参数&lt;/h2>
+&lt;p>#####一个进程文件句柄数限制&lt;/p>
+&lt;ul>
+&lt;li>查看
+&lt;ul>
+&lt;li>&lt;code>ulimit -n&lt;/code> (默认soft)&lt;/li>
+&lt;li>&lt;code>ulimit -Hn&lt;/code>(hard)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>临时修改：ulimit -n 1000000，只对当前登录用户目前的使用环境有效，系统重启或用户退出后就会失效&lt;/li>
+&lt;li>永久修改：编辑 /etc/security/limits.conf 文件，( 修改完重新登录就可以见到)， 修改后内容为&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-text" data-lang="text">&lt;span style="display:flex;">&lt;span>* soft nofile 1000000
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>* hard nofile 1000000
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;p>soft是一个警告值，而hard则是一个真正意义的阀值，超过就会报错。soft 指的是当前系统生效的设置值。hard 表明系统中所能设定的最大值nofile - 打开文件的最大数目星号表示针对所有用户，若仅针对某个用户登录ID，替换星号。&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="端口数量压测客户端">端口数量（压测客户端）&lt;/h5>
+&lt;ul>
+&lt;li>
+&lt;p>查看：&lt;code>cat /proc/sys/net/ipv4/ip_local_port_range &lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>临时修改： &lt;code>echo &amp;quot;1024 65535&amp;quot;&amp;gt; /proc/sys/net/ipv4/ip_local_port_range&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>永久修改：&lt;code>/etc/sysctl.conf 增加 net.ipv4.ip_local_port_range= 1024 65535 &lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>并令其生效sysctl -p现在可以使用的端口达到64510个&lt;/p>
+&lt;/blockquote>
+&lt;p>#####系统全局可用句柄数目限制&lt;/p>
+&lt;ul>
+&lt;li>查看：&lt;code>cat /proc/sys/fs/file-max&lt;/code>&lt;/li>
+&lt;li>当前会话修改，可以这么做：&lt;code>echo 1048576 &amp;gt; /proc/sys/fs/file-max&lt;/code> 但系统重启后消失。&lt;/li>
+&lt;li>永久修改，要添加到 /etc/sysctl.conf 文件中：&lt;code>fs.file-max = 1048576&lt;/code>保存并使之生效：&lt;code>sysctl -p&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="top">Top&lt;/h2>
+&lt;blockquote>
+&lt;p>以前只是在 linux 机器上使用 top 命令。常用的快键键是:&lt;/p>
+&lt;ul>
+&lt;li>p 键 - 按 cpu 使用率排序&lt;/li>
+&lt;li>m 键 - 按内存使用量排序&lt;/li>
+&lt;/ul>
+&lt;p>这 2 个快捷键在 mac 上都不一样。对应的是，先输入 o，然后输入 cpu 则按 cpu 使用量排序，输入 rsize 则按内存使用量排序。&lt;/p>
+&lt;p>如果记不清了，可以在 top 的界面上按 &lt;code>?&lt;/code>，在弹出的帮助界面中即可看到。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="查看进程">查看进程&lt;/h4>
+&lt;p>&lt;code>top -H -p pid&lt;/code>&lt;/p>
+&lt;h2 id="cpu">CPU&lt;/h2>
+&lt;h4 id="查看物理cpu个数">查看物理cpu个数&lt;/h4>
+&lt;p>&lt;code>grep 'physical id' /proc/cpuinfo | sort -u | wc -l&lt;/code>&lt;/p>
+&lt;p>####查看核心数量&lt;/p>
+&lt;p>&lt;code>grep 'core id' /proc/cpuinfo | sort -u | wc -l&lt;/code>&lt;/p>
+&lt;p>####查看线程数或逻辑CPU的个数&lt;/p>
+&lt;p>&lt;code>grep 'processor' /proc/cpuinfo | sort -u | wc -l&lt;/code>&lt;/p>
+&lt;h3 id="docker中cpu的查看">Docker中cpu的查看&lt;/h3>
+&lt;ul>
+&lt;li>&lt;code>cat /sys/fs/cgroup/cpu/cpu.cfs_quota_us&lt;/code>&lt;/li>
+&lt;li>&lt;code>cat /sys/fs/cgroup/cpu/cpu.cfs_period_us&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>&lt;code>cfs_quota_us&lt;/code>和&lt;code>cfs_period_us&lt;/code>两个值是联合使用的，两者的比值，即&lt;code>cfs_quota_us&lt;/code>/&lt;code>cfs_period_us&lt;/code>代表了该容器实际可用的做多的CPU核数。&lt;/p>
+&lt;p>比如&lt;code>cfs_quota_us&lt;/code>=50000，&lt;code>cfs_period_us&lt;/code>=100000，那么二者的比值是0.5，也就是说该容器可以使用0.5个cpu。这样的管控粒度更细，在cgroup使用systemd时最低可以到0.01核。&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="watch">watch&lt;/h2>
+&lt;p>watch命令默认每隔2秒执行后面参数给出的命令，也可手动指定，最小间隔0.1秒&lt;/p>
+&lt;p>&lt;code>watch -n 0.1 date&lt;/code>: 每隔100ms，打印日期&lt;/p>
+&lt;h2 id="curl">curl&lt;/h2>
+&lt;h4 id="分析http请求耗时">分析http请求耗时&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>构建输出格式&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span> curl-format.txt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time_namelookup: %{time_namelookup}\n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time_connect: %{time_connect}\n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time_appconnect: %{time_appconnect}\n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time_redirect: %{time_redirect}\n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time_pretransfer: %{time_pretransfer}\n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time_starttransfer: %{time_starttransfer}\n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ----------\n
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> time_total: %{time_total}\n
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;blockquote>
+&lt;ul>
+&lt;li>&lt;code>time_namelookup&lt;/code>：DNS 域名解析的时候，就是把 &lt;code>https://zhihu.com&lt;/code> 转换成 ip 地址的过程&lt;/li>
+&lt;li>&lt;code>time_connect&lt;/code>：TCP 连接建立的时间，就是三次握手的时间&lt;/li>
+&lt;li>&lt;code>time_appconnect&lt;/code>：SSL/SSH 等上层协议建立连接的时间，比如 connect/handshake 的时间&lt;/li>
+&lt;li>&lt;code>time_redirect&lt;/code>：从开始到最后一个请求事务的时间&lt;/li>
+&lt;li>&lt;code>time_pretransfer&lt;/code>：从请求开始到响应开始传输的时间&lt;/li>
+&lt;li>&lt;code>time_starttransfer&lt;/code>：从请求开始到第一个字节将要传输的时间&lt;/li>
+&lt;li>&lt;code>time_total&lt;/code>：这次请求花费的全部时间&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>curl -w &amp;ldquo;@curl-format.txt&amp;rdquo; -o /dev/null -s -L &amp;ldquo;&lt;a href="http://cizixs.com">http://cizixs.com&lt;/a>&amp;rdquo;`&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="grep">grep&lt;/h2>
+&lt;ul>
+&lt;li>取反： &lt;code>-v&lt;/code>&lt;/li>
+&lt;li>Ignore case: &lt;code>-i&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="lsof-1">lsof&lt;/h2>
+&lt;blockquote>
+&lt;p>lsof (list open files)是一个列出当前系统打开文件的工具。拥有查看你进程开打的文件，打开文件的进程，进程打开的端口(TCP、UDP)，找回/恢复删除的文件等功能&lt;/p>
+&lt;/blockquote>
+&lt;p>##Shell Script&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;code>lsof -i | awk '{print $2}' | sort | uniq -c | sort -nr&lt;/code> :&lt;/p>
+&lt;blockquote>
+&lt;p>sort by the internet file descriptor, in reverse order&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>Port status&lt;/p>
+&lt;p>&lt;code>lsof -nP -i:8081&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>QPS&lt;/p>
+&lt;p>&lt;code>grep -a &amp;quot;got job&amp;quot; notify_server.log | cut -c -19 | uniq -c&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="innotop">innotop&lt;/h2>
+&lt;blockquote>
+&lt;p>The monitor tool for mysql&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>login:&lt;code> innotop -uroot -p password&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="history">history&lt;/h2>
+&lt;ul>
+&lt;li>execute comand by number line: &lt;code>!number&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="scp">scp&lt;/h2>
+&lt;ul>
+&lt;li>repLocal to server (file): &lt;code>scp path/file username@ip:/where/to/put&lt;/code>&lt;/li>
+&lt;li>Local to server (dir): &lt;code>scp -r path/file username@ip:/where/to/put&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>##nohup&lt;/p>
+&lt;blockquote>
+&lt;p>run a command immune to hangups, with output to a non-tty&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="keep-process-running-when-ssh-log-out">keep process running when ssh log out&lt;/h4>
+&lt;p>&lt;code>nohup command &amp;amp;&lt;/code>&lt;/p>
+&lt;h4 id="and-no-nohupout">and no &lt;strong>nohup.out&lt;/strong>&lt;/h4>
+&lt;p>&lt;code>nohup command &amp;gt; /dev/null 2&amp;gt;&amp;amp;1 &amp;amp;&lt;/code>&lt;/p>
+&lt;h2 id="ps">PS&lt;/h2>
+&lt;ul>
+&lt;li>To print a process tree: &lt;code>ps axjf&lt;/code> (alse add some grep: &lt;code>ps axjf | grep &amp;quot;keyname&amp;quot;&lt;/code>)&lt;/li>
+&lt;/ul>
+&lt;h2 id="xargs">xargs&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>list files (exclude some files that you don&amp;rsquo;t want) , then copy to some dictionary&lt;/strong>&lt;/p>
+&lt;p>&lt;code>ls -S | grep -E -v 'GPNServer.log*' | xargs cp -r -t ../gpns_backup&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>list process, then get the specific process that you want to kill, then kill&lt;/strong>&lt;/p>
+&lt;p>&lt;code>ps aux | grep kafka_2 | grep server | awk {'print$2'} | xargs kill -9&lt;/code>&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="find">find&lt;/h2>
+&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>Dynamic Programming</title><link>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</link><pubDate>Sat, 11 Mar 2023 23:03:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</guid><description>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial
 Two Key Attributes How to classify a problem as a Dynamic Programming algorithm Problem?</description><content>&lt;p>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial&lt;/p>
 &lt;h2 id="two-key-attributes">Two Key Attributes&lt;/h2>
 &lt;p>How to classify a problem as a Dynamic Programming algorithm Problem?&lt;/p>
