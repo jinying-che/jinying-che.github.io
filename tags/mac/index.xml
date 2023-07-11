@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mac on Terminal</title><link>https://jinying-che.github.io/tags/mac/</link><description>Recent content in mac on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 01 Jul 2023 23:26:50 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/mac/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description> iterm2 Homebrew Install ZSH: brew install zsh oh-my-zsh Generating a new SSH key and adding it to the ssh-agent</description><content>&lt;ol>
+&lt;li>&lt;a href="https://iterm2.com/">iterm2&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://brew.sh/">Homebrew&lt;/a>&lt;/li>
+&lt;li>Install ZSH: &lt;code>brew install zsh&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://ohmyz.sh/#install">oh-my-zsh&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent&lt;/a>&lt;/li>
+&lt;/ol></content></item></channel></rss>
