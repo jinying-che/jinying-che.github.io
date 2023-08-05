@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Terminal</title><link>https://jinying-che.github.io/</link><description>Recent content on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 01 Jul 2023 23:26:50 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>Please kindly follow the instructions below in order.
-Turn on three finger drag for your Mac trackpad Increase the cursor moving speed: System Preferences -&amp;gt; Keyboard -&amp;gt; Increase Key Repeat Rate switch the ctrl and caps lock key: https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac Install iterm2 theme: one dark font: source code pro Install Homebrew Install ZSH: brew install zsh Install oh-my-zsh Generating a new SSH key and adding it to the ssh-agent After ssh setup and add to the https://github.</description><content>&lt;p>Please kindly follow the instructions below in order.&lt;/p>
+1. Mac Setting Turn on three finger drag for your Mac trackpad Increase the cursor moving speed: System Preferences -&amp;gt; Keyboard -&amp;gt; Increase Key Repeat Rate switch the ctrl and caps lock key: https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac 2. Shell Install iterm2 theme: one dark font: source code pro Install Homebrew Install ZSH: brew install zsh Install oh-my-zsh Generating a new SSH key and adding it to the ssh-agent After ssh setup and add to the https://github.</description><content>&lt;p>Please kindly follow the instructions below in order.&lt;/p>
+&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
 &lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>
 &lt;li>switch the &lt;code>ctrl&lt;/code> and &lt;code>caps lock&lt;/code> key: &lt;a href="https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac">https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-shell">2. Shell&lt;/h2>
+&lt;ul>
 &lt;li>Install &lt;a href="https://iterm2.com/">iterm2&lt;/a>
 &lt;ul>
 &lt;li>theme: &lt;a href="https://github.com/one-dark/iterm-one-dark-theme">one dark&lt;/a>&lt;/li>
@@ -24,15 +28,10 @@ Turn on three finger drag for your Mac trackpad Increase the cursor moving speed
 &lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>vim (&lt;a href="https://github.com/jinying-che/config/blob/master/.vimrc">.vimrc&lt;/a>):
-&lt;ul>
-&lt;li>install nvim: &lt;code>brew install neovim&lt;/code>&lt;/li>
-&lt;li>init nvim: &lt;a href="https://neovim.io/doc/user/nvim.html#nvim-from-vim">https://neovim.io/doc/user/nvim.html#nvim-from-vim&lt;/a>&lt;/li>
-&lt;li>install &lt;a href="https://github.com/junegunn/vim-plug">vim-plug&lt;/a>, copy &lt;code>.vimrc&lt;/code> and &lt;code>:PlugInstall&lt;/code> to install plugins&lt;/li>
-&lt;li>install &lt;a href="https://github.com/neoclide/coc.nvim">coc.nvim&lt;/a> (&lt;code>brew install node&lt;/code> first)&lt;/li>
+&lt;li>Init &lt;a href="https://github.com/jinying-che/config">.gitconfig&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;/li>
-&lt;li>Install golang: &lt;a href="https://go.dev/doc/install">https://go.dev/doc/install&lt;/a>&lt;/li>
+&lt;h3 id="21-zsh-plugin">2.1 Zsh Plugin&lt;/h3>
+&lt;ul>
 &lt;li>zsh (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc">.zshrc&lt;/a>)
 &lt;ul>
 &lt;li>plugins:
@@ -50,10 +49,41 @@ Turn on three finger drag for your Mac trackpad Increase the cursor moving speed
 &lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;li>Install &lt;a href="https://github.com/sharkdp/fd">fd&lt;/a>: &lt;code>brew install fd&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-vim">3. vim&lt;/h2>
+&lt;ul>
+&lt;li>vim (&lt;a href="https://github.com/jinying-che/config/blob/master/.vimrc">.vimrc&lt;/a>):
+&lt;ul>
+&lt;li>install nvim: &lt;code>brew install neovim&lt;/code>&lt;/li>
+&lt;li>init nvim: &lt;a href="https://neovim.io/doc/user/nvim.html#nvim-from-vim">https://neovim.io/doc/user/nvim.html#nvim-from-vim&lt;/a>&lt;/li>
+&lt;li>install &lt;a href="https://github.com/junegunn/vim-plug">vim-plug&lt;/a>, copy &lt;code>.vimrc&lt;/code> and &lt;code>:PlugInstall&lt;/code> to install plugins&lt;/li>
+&lt;li>install &lt;a href="https://github.com/neoclide/coc.nvim">coc.nvim&lt;/a> (&lt;code>brew install node&lt;/code> first)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="31-cocnvimhttpsgithubcomneoclidecocnvim">3.1 &lt;a href="https://github.com/neoclide/coc.nvim/">coc.nvim&lt;/a>&lt;/h3>
+&lt;p>I would say coc.nvim is VS Code in neo vim, as well as the function is also expanded by plugins. Here&amp;rsquo;s the basic plugins we used in daily development.&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/neoclide/coc-lists">coc-lists&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/josa42/coc-go">coc-go&lt;/a> (for golang developer)&lt;/li>
+&lt;li>&lt;a href="https://github.com/fannheyward/coc-pyright">coc-pyright&lt;/a> (for python developer)&lt;/li>
+&lt;/ul>
+&lt;h2 id="4-tool">4. Tool&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/sharkdp/fd">fd&lt;/a> is a simple, fast and user-friendly alternative to &lt;code>find&lt;/code>: &lt;code>brew install fd&lt;/code>&lt;/li>
 &lt;li>Personal Script: &lt;code>git clone https://github.com/jinying-che/Geript&lt;/code>, add into &lt;strong>system path&lt;/strong> in &lt;code>.zshrc&lt;/code>&lt;/li>
-&lt;li>Install &lt;a href="https://github.com/gohugoio/hugo">Hugo&lt;/a>: &lt;code>brew install hugo&lt;/code>&lt;/li>
-&lt;li>Init &lt;a href="https://github.com/jinying-che/config">.gitconfig&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/gohugoio/hugo">Hugo&lt;/a> is one of the most popular open-source static site generators.: &lt;code>brew install hugo&lt;/code>&lt;/li>
+&lt;li>GitHub Readme Instant Preview: &lt;code>brew install grip&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="5-development">5. Development&lt;/h2>
+&lt;h3 id="51-golang">5.1 golang&lt;/h3>
+&lt;ul>
+&lt;li>Install &lt;code>golang&lt;/code>: &lt;a href="https://go.dev/doc/install">https://go.dev/doc/install&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="52-python">5.2 python&lt;/h3>
+&lt;ul>
+&lt;li>Install python: &lt;code>brew install python3&lt;/code>&lt;/li>
+&lt;li>Install ipython: &lt;code>pip install &amp;quot;ipython[all]&amp;quot;&lt;/code>&lt;/li>
 &lt;/ul></content></item><item><title>Shell Cheatsheet</title><link>https://jinying-che.github.io/posts/shell_cheatsheet/</link><pubDate>Thu, 08 Jun 2023 15:41:00 +0800</pubDate><guid>https://jinying-che.github.io/posts/shell_cheatsheet/</guid><description>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.
 fzf + zsh Add the fzf plugin for zsh, the terminal is fully enhanced!
 - plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting) + plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting fzf) Try some comands to see the fzf integartion, e.g.
