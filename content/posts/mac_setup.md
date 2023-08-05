@@ -26,15 +26,23 @@ Please kindly follow the instructions below in order.
     - To install new fonts on mac: Open `Font Book` App -> Open File -> Add Fonts To Current User -> Choose the downlaoded font files
 - Init [.gitconfig](https://github.com/jinying-che/config)
 
-### 2.1 Zsh Plugin
-- zsh ([.zshrc](https://github.com/jinying-che/config/blob/master/.zshrc))
-  - plugins:
-    - [autojump](https://github.com/wting/autojump): `brew install autojump`
-    - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions): `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
-    - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting): `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
-    - [fzf](https://github.com/junegunn/fzf#using-homebrew)
-      - `brew install fzf`
-      - `$(brew --prefix)/opt/fzf/install`
+### 2.1 Zsh 
+- configuration ([.zshrc](https://github.com/jinying-che/config/blob/master/.zshrc))
+- setting:
+  - move the cursor by words:
+  ```
+  1. Go to iTerm2 (in the menu bar) > Settings... > Profiles > Keys (not Preferences... > Keys)
+  2. On current versions (3.14+) you then switch to the Key Mappings tab
+  3. Press Presets... dropdown button.
+  4. Select Natural Text Editing
+  ```
+- plugins:
+  - [autojump](https://github.com/wting/autojump): `brew install autojump`
+  - [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions): `git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
+  - [zsh-syntax-highlighting](https://github.com/zsh-users/zsh-syntax-highlighting): `git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting`
+  - [fzf](https://github.com/junegunn/fzf#using-homebrew)
+    - `brew install fzf`
+    - `$(brew --prefix)/opt/fzf/install`
 
 ## 3. vim 
 - vim ([.vimrc](https://github.com/jinying-che/config/blob/master/.vimrc)):
