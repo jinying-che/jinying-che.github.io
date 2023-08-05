@@ -7,9 +7,12 @@ description: "the check list for mac setup"
 
 Please kindly follow the instructions below in order.
 
+## 1. Mac Setting
 - [Turn on three finger drag for your Mac trackpad](https://support.apple.com/en-sg/HT204609)
 - Increase the cursor moving speed: `System Preferences` -> `Keyboard` -> `Increase Key Repeat Rate`
 - switch the `ctrl` and `caps lock` key: https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac
+
+## 2. Shell
 - Install [iterm2](https://iterm2.com/)
   - theme: [one dark](https://github.com/one-dark/iterm-one-dark-theme)
   - font: [source code pro](https://github.com/adobe-fonts/source-code-pro) 
@@ -21,12 +24,9 @@ Please kindly follow the instructions below in order.
   - theme: [one dark](https://github.com/one-dark/iterm-one-dark-theme)
   - font: [source code pro](https://github.com/adobe-fonts/source-code-pro)  
     - To install new fonts on mac: Open `Font Book` App -> Open File -> Add Fonts To Current User -> Choose the downlaoded font files
-- vim ([.vimrc](https://github.com/jinying-che/config/blob/master/.vimrc)):
-  - install nvim: `brew install neovim`
-  - init nvim: https://neovim.io/doc/user/nvim.html#nvim-from-vim
-  - install [vim-plug](https://github.com/junegunn/vim-plug), copy `.vimrc` and `:PlugInstall` to install plugins
-  - install [coc.nvim](https://github.com/neoclide/coc.nvim) (`brew install node` first)
-- Install golang: https://go.dev/doc/install
+- Init [.gitconfig](https://github.com/jinying-che/config)
+
+### 2.1 Zsh Plugin
 - zsh ([.zshrc](https://github.com/jinying-che/config/blob/master/.zshrc))
   - plugins:
     - [autojump](https://github.com/wting/autojump): `brew install autojump`
@@ -35,7 +35,33 @@ Please kindly follow the instructions below in order.
     - [fzf](https://github.com/junegunn/fzf#using-homebrew)
       - `brew install fzf`
       - `$(brew --prefix)/opt/fzf/install`
-- Install [fd](https://github.com/sharkdp/fd): `brew install fd`
+
+## 3. vim 
+- vim ([.vimrc](https://github.com/jinying-che/config/blob/master/.vimrc)):
+  - install nvim: `brew install neovim`
+  - init nvim: https://neovim.io/doc/user/nvim.html#nvim-from-vim
+  - install [vim-plug](https://github.com/junegunn/vim-plug), copy `.vimrc` and `:PlugInstall` to install plugins
+  - install [coc.nvim](https://github.com/neoclide/coc.nvim) (`brew install node` first)
+
+### 3.1 [coc.nvim](https://github.com/neoclide/coc.nvim/)
+I would say coc.nvim is VS Code in neo vim, as well as the function is also expanded by plugins. Here's the basic plugins we used in daily development.
+
+- [coc-lists](https://github.com/neoclide/coc-lists)
+- [coc-go](https://github.com/josa42/coc-go) (for golang developer)
+- [coc-pyright](https://github.com/fannheyward/coc-pyright) (for python developer)
+
+## 4. Tool
+- [fd](https://github.com/sharkdp/fd) is a simple, fast and user-friendly alternative to `find`: `brew install fd`
 - Personal Script: `git clone https://github.com/jinying-che/Geript`, add into **system path** in `.zshrc`
-- Install [Hugo](https://github.com/gohugoio/hugo): `brew install hugo`
-- Init [.gitconfig](https://github.com/jinying-che/config)
+- [Hugo](https://github.com/gohugoio/hugo) is one of the most popular open-source static site generators.: `brew install hugo`
+- GitHub Readme Instant Preview: `brew install grip`
+
+## 5. Development
+### 5.1 golang 
+- Install `golang`: https://go.dev/doc/install
+
+### 5.2 python
+- Install python: `brew install python3`
+- Install ipython: `pip install "ipython[all]"`
+
+

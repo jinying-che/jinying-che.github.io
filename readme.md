@@ -19,6 +19,13 @@ Here is my [blog](https://jinying-che.github.io/)
 	- actoin 2: pages build and deployment from `gh-pages` branch
 
 ## Hugo 
+- init hugo project: 
+  ```
+  hugo mod clean
+  hugo mod get -u ./...
+  hugo server
+  ```
+
 - How to install theme: [install-theme-as-hugo-module](https://github.com/panr/hugo-theme-terminal#install-theme-as-hugo-module)
 
 ## Reference
