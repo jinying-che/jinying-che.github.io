@@ -30,10 +30,18 @@
 &lt;/li>
 &lt;li>Init &lt;a href="https://github.com/jinying-che/config">.gitconfig&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="21-zsh-plugin">2.1 Zsh Plugin&lt;/h3>
+&lt;h3 id="21-zsh">2.1 Zsh&lt;/h3>
 &lt;ul>
-&lt;li>zsh (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc">.zshrc&lt;/a>)
+&lt;li>configuration (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc">.zshrc&lt;/a>)&lt;/li>
+&lt;li>setting:
 &lt;ul>
+&lt;li>move the cursor by words:&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>1. Go to iTerm2 (in the menu bar) &amp;gt; Settings... &amp;gt; Profiles &amp;gt; Keys (not Preferences... &amp;gt; Keys)
+2. On current versions (3.14+) you then switch to the Key Mappings tab
+3. Press Presets... dropdown button.
+4. Select Natural Text Editing
+&lt;/code>&lt;/pre>&lt;/li>
 &lt;li>plugins:
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/wting/autojump">autojump&lt;/a>: &lt;code>brew install autojump&lt;/code>&lt;/li>
@@ -43,8 +51,6 @@
 &lt;ul>
 &lt;li>&lt;code>brew install fzf&lt;/code>&lt;/li>
 &lt;li>&lt;code>$(brew --prefix)/opt/fzf/install&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
