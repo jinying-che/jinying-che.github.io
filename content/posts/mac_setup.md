@@ -5,8 +5,6 @@ tags: ["setup", "mac"]
 description: "the check list for mac setup"
 ---
 
-Please kindly follow the instructions below in order.
-
 ## 1. Mac Setting
 - [Turn on three finger drag for your Mac trackpad](https://support.apple.com/en-sg/HT204609)
 - Increase the cursor moving speed: `System Preferences` -> `Keyboard` -> `Increase Key Repeat Rate`
