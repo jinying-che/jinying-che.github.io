@@ -27,6 +27,8 @@ date: 2021-07-10T11:18:14+08:00
 ### View in tmux
 `ctrl+b` then `[`
 
+> The better way to use tmux is to customize in your way, feel free to refer my [tmux config](https://github.com/jinying-che/config/blob/master/.tmux.conf)
+
 ---
 Reference
 - https://tmuxcheatsheet.com/

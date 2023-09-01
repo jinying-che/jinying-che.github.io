@@ -19,7 +19,7 @@ description: "the check list for mac setup"
 - Install [oh-my-zsh](https://ohmyz.sh/#install)
 - [Generating a new SSH key and adding it to the ssh-agent](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 - After **ssh** setup and add to the https://github.com/, it's able to `git clone` resource for iterm2 now:
-  - theme: [one dark](https://github.com/one-dark/iterm-one-dark-theme)
+  - theme: [github-nvim-theme](https://github.com/projekt0n/github-nvim-theme)
   - font: [source code pro](https://github.com/adobe-fonts/source-code-pro)  
     - To install new fonts on mac: Open `Font Book` App -> Open File -> Add Fonts To Current User -> Choose the downlaoded font files
 - Init [.gitconfig](https://github.com/jinying-che/config)
@@ -55,6 +55,15 @@ I would say coc.nvim is VS Code in neo vim, as well as the function is also expa
 - [coc-lists](https://github.com/neoclide/coc-lists)
 - [coc-go](https://github.com/josa42/coc-go) (for golang developer)
 - [coc-pyright](https://github.com/fannheyward/coc-pyright) (for python developer)
+
+## tmux
+- `brew install tmux`
+- install tmux plugin manager: https://github.com/tmux-plugins/tpm
+- copy [config](https://github.com/jinying-che/config/blob/master/.tmux.conf) to `~/.tmux.conf`
+- `tmux source ~/.tmux.conf` (type this in terminal if tmux is already running)
+- theme: https://github.com/catppuccin/tmux 
+    - intall by tpm (included in the config above)
+    - patch font via https://github.com/catppuccin/tmux#installation (for font installation refer to shell section 2)
 
 ## 4. Tool
 - [fd](https://github.com/sharkdp/fd) is a simple, fast and user-friendly alternative to `find`: `brew install fd`
