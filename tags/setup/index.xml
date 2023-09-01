@@ -18,7 +18,7 @@
 &lt;li>&lt;a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent&lt;/a>&lt;/li>
 &lt;li>After &lt;strong>ssh&lt;/strong> setup and add to the &lt;a href="https://github.com/">https://github.com/&lt;/a>, it&amp;rsquo;s able to &lt;code>git clone&lt;/code> resource for iterm2 now:
 &lt;ul>
-&lt;li>theme: &lt;a href="https://github.com/one-dark/iterm-one-dark-theme">one dark&lt;/a>&lt;/li>
+&lt;li>theme: &lt;a href="https://github.com/projekt0n/github-nvim-theme">github-nvim-theme&lt;/a>&lt;/li>
 &lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>
 &lt;ul>
 &lt;li>To install new fonts on mac: Open &lt;code>Font Book&lt;/code> App -&amp;gt; Open File -&amp;gt; Add Fonts To Current User -&amp;gt; Choose the downlaoded font files&lt;/li>
@@ -71,6 +71,19 @@
 &lt;li>&lt;a href="https://github.com/neoclide/coc-lists">coc-lists&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/josa42/coc-go">coc-go&lt;/a> (for golang developer)&lt;/li>
 &lt;li>&lt;a href="https://github.com/fannheyward/coc-pyright">coc-pyright&lt;/a> (for python developer)&lt;/li>
+&lt;/ul>
+&lt;h2 id="tmux">tmux&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>brew install tmux&lt;/code>&lt;/li>
+&lt;li>install tmux plugin manager: &lt;a href="https://github.com/tmux-plugins/tpm">https://github.com/tmux-plugins/tpm&lt;/a>&lt;/li>
+&lt;li>copy &lt;a href="https://github.com/jinying-che/config/blob/master/.tmux.conf">config&lt;/a> to &lt;code>~/.tmux.conf&lt;/code>&lt;/li>
+&lt;li>&lt;code>tmux source ~/.tmux.conf&lt;/code> (type this in terminal if tmux is already running)&lt;/li>
+&lt;li>theme: &lt;a href="https://github.com/catppuccin/tmux">https://github.com/catppuccin/tmux&lt;/a>
+&lt;ul>
+&lt;li>intall by tpm (included in the config above)&lt;/li>
+&lt;li>patch font via &lt;a href="https://github.com/catppuccin/tmux#installation">https://github.com/catppuccin/tmux#installation&lt;/a> (for font installation refer to shell section 2)&lt;/li>
+&lt;/ul>
+&lt;/li>
 &lt;/ul>
 &lt;h2 id="4-tool">4. Tool&lt;/h2>
 &lt;ul>
