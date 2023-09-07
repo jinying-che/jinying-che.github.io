@@ -1224,6 +1224,20 @@ $ sudo reboot
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/lru-cache/">146. LRU Cache&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/lfu-cache/">460. LFU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lfu-cache/discuss/1086255/Golang460two-ways-to-resolve-LFU-Cache">discussion&lt;/a>]&lt;/li>
+&lt;/ul></content></item><item><title>TCP</title><link>https://jinying-che.github.io/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/tcp/</guid><description>TCP is really complex protocol, let&amp;rsquo;s dive into TCP step by step.
+TCP State Machine To understand tcp state machine is the first and significant step to master TCP.
+TCP State Machine TCP Open/Close Reference http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm</description><content>&lt;p>TCP is really complex protocol, let&amp;rsquo;s dive into TCP step by step.&lt;/p>
+&lt;h3 id="tcp-state-machine">TCP State Machine&lt;/h3>
+&lt;p>To understand &lt;code>tcp state machine&lt;/code> is the first and significant step to master TCP.&lt;/p>
+&lt;hr>
+&lt;h4 id="tcp-state-machine-1">TCP State Machine&lt;/h4>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/tcpfsm.png" alt="tcp state Machine">&lt;/p>
+&lt;h4 id="tcp-openclose">TCP Open/Close&lt;/h4>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open_close.jpg" alt="tcp open and close">&lt;/p>
+&lt;h3 id="reference">Reference&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm">http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm">http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm&lt;/a>&lt;/li>
 &lt;/ul></content></item><item><title>Setup Universal Ctags for Mac</title><link>https://jinying-che.github.io/posts/c/ctags/</link><pubDate>Sat, 23 Jan 2021 15:16:29 +0800</pubDate><guid>https://jinying-che.github.io/posts/c/ctags/</guid><description>&lt;p>At the Beginning of this year, I&amp;rsquo;m going to start reading &lt;em>Computer System A Programmer's Perspective&lt;/em>, this whole book introduces the different aspects of computer system basing on C language, and there&amp;rsquo;s also plenty of C demos provided in the &lt;a href="http://csapp.cs.cmu.edu/3e/code.html">web&lt;/a>, to navigate the code, I try to use &lt;strong>ctags&lt;/strong>.&lt;/p></description><content>&lt;p>At the Beginning of this year, I&amp;rsquo;m going to start reading &lt;em>Computer System A Programmer's Perspective&lt;/em>, this whole book introduces the different aspects of computer system basing on C language, and there&amp;rsquo;s also plenty of C demos provided in the &lt;a href="http://csapp.cs.cmu.edu/3e/code.html">web&lt;/a>, to navigate the code, I try to use &lt;strong>ctags&lt;/strong>.&lt;/p>
 &lt;h3 id="what-is-universal-ctags">What is Universal Ctags?&lt;/h3>
 &lt;p>&lt;a href="https://ctags.io/">Universal Ctags&lt;/a> (abbreviated as u-ctags) is a maintained implementation of ctags. ctags generates an index (or tag) file of language objects found in source files for programming languages. This index makes it easy for text editors and other tools to locate the indexed items.&lt;/p>

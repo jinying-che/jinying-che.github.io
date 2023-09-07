@@ -70,4 +70,18 @@ It also supports STP, VLAN filter, and multicast snooping.&lt;/p>
 &lt;li>&lt;a href="https://github.com/mz1999/blog/blob/master/docs/docker-network-bridge.md">https://github.com/mz1999/blog/blob/master/docs/docker-network-bridge.md&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://time.geekbang.org/column/article/64948?cid=100015201">https://time.geekbang.org/column/article/64948?cid=100015201&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://en.wikipedia.org/wiki/Iptables">https://en.wikipedia.org/wiki/Iptables&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>TCP</title><link>https://jinying-che.github.io/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/tcp/</guid><description>TCP is really complex protocol, let&amp;rsquo;s dive into TCP step by step.
+TCP State Machine To understand tcp state machine is the first and significant step to master TCP.
+TCP State Machine TCP Open/Close Reference http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm</description><content>&lt;p>TCP is really complex protocol, let&amp;rsquo;s dive into TCP step by step.&lt;/p>
+&lt;h3 id="tcp-state-machine">TCP State Machine&lt;/h3>
+&lt;p>To understand &lt;code>tcp state machine&lt;/code> is the first and significant step to master TCP.&lt;/p>
+&lt;hr>
+&lt;h4 id="tcp-state-machine-1">TCP State Machine&lt;/h4>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/tcpfsm.png" alt="tcp state Machine">&lt;/p>
+&lt;h4 id="tcp-openclose">TCP Open/Close&lt;/h4>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open_close.jpg" alt="tcp open and close">&lt;/p>
+&lt;h3 id="reference">Reference&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm">http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm">http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm&lt;/a>&lt;/li>
 &lt;/ul></content></item></channel></rss>
