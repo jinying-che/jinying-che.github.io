@@ -14,12 +14,19 @@ description: "some shortcus of Visual Studio Code"
 - `Command j`: toggle terminal
 - `Command ,`: open config
 - `Command p`: go to file
+- `Option + Tab`: switch windows 
 
-### Common Issue
+### Common Cases
 
-1. To enable key-repeating
+1. Enable key-repeating
 
 ```sh
 # https://github.com/VSCodeVim/Vim#mac
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
+```
+
+2. Launching from the command line
+
+```
+https://code.visualstudio.com/docs/setup/mac#_launching-from-the-command-line
 ```
