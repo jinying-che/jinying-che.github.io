@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>DevOps on Terminal</title><link>https://jinying-che.github.io/tags/devops/</link><description>Recent content in DevOps on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 09 Sep 2023 18:02:13 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/devops/index.xml" rel="self" type="application/rss+xml"/><item><title>SRE vs DevOps</title><link>https://jinying-che.github.io/posts/sre_vs_devops/</link><pubDate>Sat, 09 Sep 2023 18:02:13 +0800</pubDate><guid>https://jinying-che.github.io/posts/sre_vs_devops/</guid><description>TL;DR class SRE implements DevOps SRE DevOps Reference https://www.youtube.com/watch?v=uTEL8Ff1Zvk</description><content>&lt;h2 id="tldr">TL;DR&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SRE&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> DevOps
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="sre">SRE&lt;/h2>
+&lt;h2 id="devops">DevOps&lt;/h2>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.youtube.com/watch?v=uTEL8Ff1Zvk">https://www.youtube.com/watch?v=uTEL8Ff1Zvk&lt;/a>&lt;/li>
+&lt;/ul></content></item></channel></rss>
