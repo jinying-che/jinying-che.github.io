@@ -1,11 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Terminal</title><link>https://jinying-che.github.io/</link><description>Recent content on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 09 Sep 2023 18:02:13 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>SRE vs DevOps</title><link>https://jinying-che.github.io/posts/sre_vs_devops/</link><pubDate>Sat, 09 Sep 2023 18:02:13 +0800</pubDate><guid>https://jinying-che.github.io/posts/sre_vs_devops/</guid><description>TL;DR class SRE implements DevOps SRE DevOps Reference https://www.youtube.com/watch?v=uTEL8Ff1Zvk</description><content>&lt;h2 id="tldr">TL;DR&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-java" data-lang="java">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">class&lt;/span> &lt;span style="color:#a6e22e">SRE&lt;/span> &lt;span style="color:#66d9ef">implements&lt;/span> DevOps
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="sre">SRE&lt;/h2>
-&lt;h2 id="devops">DevOps&lt;/h2>
-&lt;h2 id="reference">Reference&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://www.youtube.com/watch?v=uTEL8Ff1Zvk">https://www.youtube.com/watch?v=uTEL8Ff1Zvk&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>SLA vs SLO vs SLI</title><link>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</link><pubDate>Sat, 09 Sep 2023 16:58:58 +0800</pubDate><guid>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</guid><description>To dive into the terms throughly, it&amp;rsquo;s better to read Google SRE Book. This post is just a glance.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Terminal</title><link>https://jinying-che.github.io/</link><description>Recent content on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 09 Sep 2023 16:58:58 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>SLA vs SLO vs SLI</title><link>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</link><pubDate>Sat, 09 Sep 2023 16:58:58 +0800</pubDate><guid>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</guid><description>To dive into the terms throughly, it&amp;rsquo;s better to read Google SRE Book. This post is just a glance.
 TL;DR SLIs drive SLOs which inform SLAs. (From Google SRE Team)
 SLA: Service Level Agreements An SLA is an agreement between provider and client about measurable metrics like uptime, responsiveness, and responsibilities.
 SRE doesn’t typically get involved in constructing SLAs, because SLAs are closely tied to business and product decisions.
@@ -1241,13 +1234,9 @@ $ sudo reboot
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=OxiY4yf6GGg">https://www.youtube.com/watch?v=OxiY4yf6GGg&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=Mad4kQ5835Y">https://www.youtube.com/watch?v=Mad4kQ5835Y&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=1z0ULvg_pW8">https://www.youtube.com/watch?v=1z0ULvg_pW8&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Algorithm: How I leetcode</title><link>https://jinying-che.github.io/posts/algorithm/</link><pubDate>Sat, 13 Feb 2021 16:31:28 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/</guid><description>&lt;p>When do you usually use &lt;a href="https://leetcode.com/">leetcode&lt;/a>? For most of people, I think, the answer is to prepare the interview, me too.&lt;/p>
-&lt;p>&lt;em>This post will be kept updating&lt;/em>&lt;/p></description><content>&lt;p>When do you usually use &lt;a href="https://leetcode.com/">leetcode&lt;/a>? For most of people, I think, the answer is to prepare the interview, me too.&lt;/p>
-&lt;p>&lt;em>This post will be kept updating&lt;/em>&lt;/p>
-&lt;blockquote>
-&lt;p>Algorithm is basing on the &lt;strong>Data Structure&lt;/strong>, the algorithm that I mentioned below includes the Data Structure by default.&lt;/p>
-&lt;/blockquote>
-&lt;p>But more than that, the algorithm that you used to resolve the problem is really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot, yes indeed, we sometimes can see that there are some guys who get the Google offer by leetcode, it&amp;rsquo;s cool, meanwhile I believe that algorithm we learned can makes us become a better engineer or a real &lt;strong>Geek&lt;/strong>.&lt;/p>
+&lt;/ul></content></item><item><title>Algorithm: How I leetcode</title><link>https://jinying-che.github.io/posts/algorithm/leetcode/</link><pubDate>Sat, 13 Feb 2021 16:31:28 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/leetcode/</guid><description>When do you play with leetcode? Personally, I open it only before the algorithm interview.
+It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.</description><content>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
+&lt;p>It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.&lt;/p>
 &lt;p>This post is showing that how I leetcode, it&amp;rsquo;s only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.&lt;/p>
 &lt;p>Enjoy the Algorithm, let&amp;rsquo;s leetcode!&lt;/p>
 &lt;h3 id="data-structure">Data Structure&lt;/h3>
@@ -1309,6 +1298,146 @@ $ sudo reboot
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/lru-cache/">146. LRU Cache&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/lfu-cache/">460. LFU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lfu-cache/discuss/1086255/Golang460two-ways-to-resolve-LFU-Cache">discussion&lt;/a>]&lt;/li>
+&lt;/ul></content></item><item><title>TCP</title><link>https://jinying-che.github.io/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/tcp/</guid><description>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official RFC 793 as the only true source. Here&amp;rsquo;s a summary of RFC 793.
+TCP Header TCP Header Format
+0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Source Port | Destination Port | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Sequence Number | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Acknowledgment Number | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Data | |U|A|P|R|S|F| | | Offset| Reserved |R|C|S|S|Y|I| Window | | | |G|K|H|T|N|N| | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Checksum | Urgent Pointer | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Options | Padding | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | data | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ TCP State Machine Be noted that 11 TCP Connection States Diagram indicating state to state transformation not cliet to server communication.</description><content>&lt;p>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a> as the only true source. Here&amp;rsquo;s a summary of &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>.&lt;/p>
+&lt;h3 id="tcp-header">TCP Header&lt;/h3>
+&lt;p>&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">TCP Header Format&lt;/a>&lt;/p>
+&lt;pre tabindex="0">&lt;code> 0 1 2 3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Source Port | Destination Port |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Sequence Number |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Acknowledgment Number |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Data | |U|A|P|R|S|F| |
+| Offset| Reserved |R|C|S|S|Y|I| Window |
+| | |G|K|H|T|N|N| |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Checksum | Urgent Pointer |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Options | Padding |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| data |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/code>&lt;/pre>&lt;h3 id="tcp-state-machine">TCP State Machine&lt;/h3>
+&lt;p>Be noted that 11 &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-17">TCP Connection States Diagram&lt;/a> indicating state to state transformation not cliet to server communication.&lt;/p>
+&lt;pre tabindex="0">&lt;code>
++---------+ ---------\ active OPEN
+| CLOSED | \ -----------
++---------+&amp;lt;---------\ \ create TCB
+| ^ \ \ snd SYN
+passive OPEN | | CLOSE \ \
+------------ | | ---------- \ \
+create TCB | | delete TCB \ \
+V | \ \
++---------+ CLOSE | \
+| LISTEN | ---------- | |
++---------+ delete TCB | |
+rcv SYN | | SEND | |
+----------- | | ------- | V
++---------+ snd SYN,ACK / \ snd SYN +---------+
+| |&amp;lt;----------------- ------------------&amp;gt;| |
+| SYN | rcv SYN | SYN |
+| RCVD |&amp;lt;-----------------------------------------------| SENT |
+| | snd ACK | |
+| |------------------ -------------------| |
++---------+ rcv ACK of SYN \ / rcv SYN,ACK +---------+
+| -------------- | | -----------
+| x | | snd ACK
+| V V
+| CLOSE +---------+
+| ------- | ESTAB |
+| snd FIN +---------+
+| CLOSE | | rcv FIN
+V ------- | | -------
++---------+ snd FIN / \ snd ACK +---------+
+| FIN |&amp;lt;----------------- ------------------&amp;gt;| CLOSE |
+| WAIT-1 |------------------ | WAIT |
++---------+ rcv FIN \ +---------+
+| rcv ACK of FIN ------- | CLOSE |
+| -------------- snd ACK | ------- |
+V x V snd FIN V
++---------+ +---------+ +---------+
+|FINWAIT-2| | CLOSING | | LAST-ACK|
++---------+ +---------+ +---------+
+| rcv ACK of FIN | rcv ACK of FIN |
+| rcv FIN -------------- | Timeout=2MSL -------------- |
+| ------- x V ------------ x V
+\ snd ACK +---------+delete TCB +---------+
+------------------------&amp;gt;|TIME WAIT|------------------&amp;gt;| CLOSED |
++---------+ +---------+
+&lt;/code>&lt;/pre>&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Head&lt;/th>
+&lt;th>Meaning&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>LISTEN&lt;/td>
+&lt;td>represents waiting for a connection request from any remote TCP and port&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>SYN-SENT&lt;/td>
+&lt;td>represents waiting for a matching connection request after having sent a connection request&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>SYN-RECEIVED&lt;/td>
+&lt;td>represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>ESTABLISHED&lt;/td>
+&lt;td>represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>FIN-WAIT-1&lt;/td>
+&lt;td>represents waiting for a connection termination request from the remote TCP, or an acknowledgment of the connection termination request previously sent&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>FIN-WAIT-2&lt;/td>
+&lt;td>represents waiting for a connection termination request from the remote TCP&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CLOSE-WAIT&lt;/td>
+&lt;td>represents waiting for a connection termination request from the local user&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CLOSING&lt;/td>
+&lt;td>represents waiting for a connection termination request acknowledgment from the remote TCP&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>LAST-ACK&lt;/td>
+&lt;td>represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP (which includes an acknowledgment of its connection termination request)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>TIME-WAIT&lt;/td>
+&lt;td>represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>CLOSED&lt;/td>
+&lt;td>represents no connection state at all&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>Here may be a more readable diagram.
+&lt;img src="https://jinying-che.github.io/images/tcpfsm.png" alt="tcp state Machine">&lt;/p>
+&lt;h4 id="tcp-open-three-way-handshake">TCP Open: Three-Way Handshake&lt;/h4>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open.svg" alt="tcp open">&lt;/p>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open_bytebytego.png" alt="tcp open">&lt;/p>
+&lt;h4 id="tcp-close-four-way-handshake">TCP Close: Four-Way Handshake&lt;/h4>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_close_bytebytego.png" alt="tcp close">&lt;/p>
+&lt;h3 id="reference">Reference&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm">http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm">http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://draveness.me/whys-the-design-tcp-three-way-handshake/">https://draveness.me/whys-the-design-tcp-three-way-handshake/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://blog.bytebytego.com/p/everything-you-always-wanted-to-know">https://blog.bytebytego.com/p/everything-you-always-wanted-to-know&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.alibabacloud.com/blog/tcp-syn-queue-and-accept-queue-overflow-explained_599203">Alibaba: TCP SYN Queue and Accept Queue Overflow Explained&lt;/a>&lt;/li>
 &lt;/ul></content></item><item><title>Setup Universal Ctags for Mac</title><link>https://jinying-che.github.io/posts/c/ctags/</link><pubDate>Sat, 23 Jan 2021 15:16:29 +0800</pubDate><guid>https://jinying-che.github.io/posts/c/ctags/</guid><description>&lt;p>At the Beginning of this year, I&amp;rsquo;m going to start reading &lt;em>Computer System A Programmer's Perspective&lt;/em>, this whole book introduces the different aspects of computer system basing on C language, and there&amp;rsquo;s also plenty of C demos provided in the &lt;a href="http://csapp.cs.cmu.edu/3e/code.html">web&lt;/a>, to navigate the code, I try to use &lt;strong>ctags&lt;/strong>.&lt;/p></description><content>&lt;p>At the Beginning of this year, I&amp;rsquo;m going to start reading &lt;em>Computer System A Programmer's Perspective&lt;/em>, this whole book introduces the different aspects of computer system basing on C language, and there&amp;rsquo;s also plenty of C demos provided in the &lt;a href="http://csapp.cs.cmu.edu/3e/code.html">web&lt;/a>, to navigate the code, I try to use &lt;strong>ctags&lt;/strong>.&lt;/p>
 &lt;h3 id="what-is-universal-ctags">What is Universal Ctags?&lt;/h3>
 &lt;p>&lt;a href="https://ctags.io/">Universal Ctags&lt;/a> (abbreviated as u-ctags) is a maintained implementation of ctags. ctags generates an index (or tag) file of language objects found in source files for programming languages. This index makes it easy for text editors and other tools to locate the indexed items.&lt;/p>
