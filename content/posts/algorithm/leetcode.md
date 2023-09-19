@@ -1,17 +1,13 @@
 ---
 title: "Algorithm: How I leetcode"
 date: 2021-02-13T16:31:28+08:00
-tag: algorithm, data structure
+tags: ["algorithm", "data structure"]
+description: "leetcode checklist for the algorithm interview"
 ---
 
-When do you usually use [leetcode](https://leetcode.com/)? For most of people, I think, the answer is to prepare the interview, me too.
+When do you play with [leetcode](https://leetcode.com/)? Personally, I open it only before the algorithm interview.
 
-*This post will be kept updating*
-
-<!--more-->
-> Algorithm is basing on the **Data Structure**, the algorithm that I mentioned below includes the Data Structure by default.
-
-But more than that, the algorithm that you used to resolve the problem is really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot, yes indeed, we sometimes can see that there are some guys who get the Google offer by leetcode, it's cool, meanwhile I believe that algorithm we learned can makes us become a better engineer or a real **Geek**. 
+It's wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.
 
 This post is showing that how I leetcode, it's only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.
 

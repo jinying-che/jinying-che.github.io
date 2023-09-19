@@ -1,0 +1,17 @@
+@startuml
+participant client as client
+participant server as server
+queue "syn queue" as syn
+queue "accept queue" as accept
+client -> server ++ #Teal : syn
+activate client #DarkSalmon
+rnote over client: SYN_SENT
+rnote over server: SYN_RECEIVED
+server -> syn : put conn
+server -> client -- : syn/ack
+rnote over client: ESTABLISHED
+client -> server ++ #Teal : ack
+server -> syn : remove conn
+server -> accept : put conn
+rnote over server: ESTABLISHED
+@enduml
