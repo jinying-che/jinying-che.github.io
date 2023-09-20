@@ -70,6 +70,7 @@ I would say coc.nvim is VS Code in neo vim, as well as the function is also expa
 - Personal Script: `git clone https://github.com/jinying-che/Geript`, add into **system path** in `.zshrc`
 - [Hugo](https://github.com/gohugoio/hugo) is one of the most popular open-source static site generators.: `brew install hugo`
 - GitHub Readme Instant Preview: `brew install grip`
+- [tlrd](https://github.com/tldr-pages/tldr): collection of community-maintained help pages for command-line tools, that aims to be a simpler, more approachable complement to traditional man pages.
 
 ## 5. Development
 ### 5.1 golang 

@@ -33,7 +33,6 @@ Enjoy the Algorithm, let's leetcode!
 
 #### Heap
 - [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) -- [[disscussion: Implement the Min Heap on my own](https://leetcode.com/problems/top-k-frequent-elements/discuss/1108972/Golang347-Implement-the-Min-Heap-on-my-own)]
-- [1353. Maximum Number of Events That Can Be Attended](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/) -- [heap, breedy, sort]
 
 ### Algorithm
 #### Recursion
@@ -53,6 +52,7 @@ Enjoy the Algorithm, let's leetcode!
 
 #### Greedy
 - [763. Partition Labels](https://leetcode.com/problems/partition-labels/)
+- [1353. Maximum Number of Events That Can Be Attended](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/) -- [[solution]](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/solutions/4066650/1353-python-maximum-number-of-events-that-can-be-attended)
 
 ### Design
 - [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
