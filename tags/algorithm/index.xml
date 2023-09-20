@@ -56,7 +56,6 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;h4 id="heap">Heap&lt;/h4>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/top-k-frequent-elements/">347. Top K Frequent Elements&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/top-k-frequent-elements/discuss/1108972/Golang347-Implement-the-Min-Heap-on-my-own">disscussion: Implement the Min Heap on my own&lt;/a>]&lt;/li>
-&lt;li>&lt;a href="https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/">1353. Maximum Number of Events That Can Be Attended&lt;/a> &amp;ndash; [heap, breedy, sort]&lt;/li>
 &lt;/ul>
 &lt;h3 id="algorithm">Algorithm&lt;/h3>
 &lt;h4 id="recursion">Recursion&lt;/h4>
@@ -82,6 +81,7 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;h4 id="greedy">Greedy&lt;/h4>
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/partition-labels/">763. Partition Labels&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/">1353. Maximum Number of Events That Can Be Attended&lt;/a> &amp;ndash; &lt;a href="https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/solutions/4066650/1353-python-maximum-number-of-events-that-can-be-attended">[solution]&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h3 id="design">Design&lt;/h3>
 &lt;ul>

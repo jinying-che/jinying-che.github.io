@@ -91,6 +91,7 @@
 &lt;li>Personal Script: &lt;code>git clone https://github.com/jinying-che/Geript&lt;/code>, add into &lt;strong>system path&lt;/strong> in &lt;code>.zshrc&lt;/code>&lt;/li>
 &lt;li>&lt;a href="https://github.com/gohugoio/hugo">Hugo&lt;/a> is one of the most popular open-source static site generators.: &lt;code>brew install hugo&lt;/code>&lt;/li>
 &lt;li>GitHub Readme Instant Preview: &lt;code>brew install grip&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/tldr-pages/tldr">tlrd&lt;/a>: collection of community-maintained help pages for command-line tools, that aims to be a simpler, more approachable complement to traditional man pages.&lt;/li>
 &lt;/ul>
 &lt;h2 id="5-development">5. Development&lt;/h2>
 &lt;h3 id="51-golang">5.1 golang&lt;/h3>
