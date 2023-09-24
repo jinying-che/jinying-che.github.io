@@ -117,9 +117,18 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;/tbody>
 &lt;/table>
 &lt;h2 id="configuration">Configuration&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Local server&lt;/span>
+&lt;p>There&amp;rsquo;re two way to query the ip address by domain, typically whenever a system needs to resolve a name, it first checks the &lt;code>/etc/hosts&lt;/code> file. If no entry matched, it sends a query to the configured DNS server (by &lt;code>/etc/resolv.conf&lt;/code>).&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># /etc/resolv.conf defines the namesever address&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /etc/resolv.conf
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nameserver 114.114.114.114
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># /etc/hosts defines the domain and ip address pair directly&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /etc/hosts
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 localhost
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The order in which the /etc/hosts and /etc/resolv.conf files are checked is defined in the /etc/nsswitch.conf file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cat /etc/nsswitch.conf | grep host
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hosts: files dns
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="protocol">Protocol&lt;/h2>
 &lt;p>DNS originally used the &lt;code>UDP&lt;/code> as transport over IP. Reliability, security, and privacy concerns spawned the use of the &lt;code>TCP&lt;/code> as well as numerous other protocol developments.&lt;/p>
 &lt;h2 id="referrence">Referrence&lt;/h2>
@@ -132,4 +141,5 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;li>&lt;a href="https://time.geekbang.org/column/article/81850">https://time.geekbang.org/column/article/81850&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc1035">RFC 1035&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">DNS Record Names&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.computernetworkingnotes.com/linux-tutorials/the-etc-hosts-etc-resolv-conf-and-etc-nsswitch-conf-files.html">/etc/hosts vs /etc/resolv.conf vs etc/nsswitch.conf&lt;/a>&lt;/li>
 &lt;/ul></content></item></channel></rss>
