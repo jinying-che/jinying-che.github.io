@@ -109,17 +109,24 @@ There're a lot of [DNS Record types](https://en.wikipedia.org/wiki/List_of_DNS_r
 | CNAME | Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name |
 
 ## Configuration
+There're two way to query the ip address by domain, typically whenever a system needs to resolve a name, it first checks the `/etc/hosts` file. If no entry matched, it sends a query to the configured DNS server (by `/etc/resolv.conf`).
+
 ```shell
-# Local server
+# /etc/resolv.conf defines the namesever address
 $ cat /etc/resolv.conf
 nameserver 114.114.114.114
+
+# /etc/hosts defines the domain and ip address pair directly
+$ cat /etc/hosts
+127.0.0.1 localhost      
+
+# The order in which the /etc/hosts and /etc/resolv.conf files are checked is defined in the /etc/nsswitch.conf file
+cat /etc/nsswitch.conf | grep host 
+hosts:          files dns
 ```
 
 ## Protocol
 DNS originally used the `UDP` as transport over IP. Reliability, security, and privacy concerns spawned the use of the `TCP` as well as numerous other protocol developments.
-
-
-
 
 ## Referrence
 - https://www.cloudflare.com/learning/dns/what-is-dns/
@@ -130,3 +137,4 @@ DNS originally used the `UDP` as transport over IP. Reliability, security, and p
 - https://time.geekbang.org/column/article/81850
 - [RFC 1035](https://datatracker.ietf.org/doc/html/rfc1035)
 - [DNS Record Names](https://en.wikipedia.org/wiki/List_of_DNS_record_types)
+- [/etc/hosts vs /etc/resolv.conf vs etc/nsswitch.conf](https://www.computernetworkingnotes.com/linux-tutorials/the-etc-hosts-etc-resolv-conf-and-etc-nsswitch-conf-files.html)
