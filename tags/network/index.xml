@@ -59,6 +59,7 @@ Basically there&amp;rsquo;re two way for key exchange, the key point is how to g
 &lt;li>&lt;a href="https://blog.bytebytego.com/p/how-does-https-work-episode-6">https://blog.bytebytego.com/p/how-does-https-work-episode-6&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc5246">RFC5246: TLS1.2&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446: TLS1.3&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc2818">RFC2818: HTTPS&lt;/a>&lt;/li>
 &lt;/ul></content></item><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
 DNS is not very complex but super useful.
 How does DNS work? The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.
