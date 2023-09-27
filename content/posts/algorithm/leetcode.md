@@ -34,6 +34,10 @@ Enjoy the Algorithm, let's leetcode!
 #### Heap
 - [347. Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) -- [[disscussion: Implement the Min Heap on my own](https://leetcode.com/problems/top-k-frequent-elements/discuss/1108972/Golang347-Implement-the-Min-Heap-on-my-own)]
 
+#### Binary 
+To master binary related problems, understanding the binary operation is the key point: `^`, `|`, `&`, `>>` and `<<`
+- [461. Hamming Distance](https://leetcode.com/problems/hamming-distance/description/)
+
 ### Algorithm
 #### Recursion
 - [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) -- [[discussion](https://leetcode.com/problems/reverse-linked-list/discuss/1057045/golang206recursion-is-beautiful)]

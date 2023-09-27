@@ -70,3 +70,4 @@ SSL(Secure Sockets Layer) was the original security protocol developed for HTTP.
 - https://blog.bytebytego.com/p/how-does-https-work-episode-6
 - [RFC5246: TLS1.2](https://datatracker.ietf.org/doc/html/rfc5246)
 - [RFC8446: TLS1.3](https://datatracker.ietf.org/doc/html/rfc8446)
+- [RFC2818: HTTPS](https://datatracker.ietf.org/doc/html/rfc2818)
