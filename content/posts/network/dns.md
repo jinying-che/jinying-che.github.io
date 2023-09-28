@@ -120,7 +120,8 @@ nameserver 114.114.114.114
 $ cat /etc/hosts
 127.0.0.1 localhost      
 
-# The order in which the /etc/hosts and /etc/resolv.conf files are checked is defined in the /etc/nsswitch.conf file
+# The order in which (/etc/hosts and /etc/resolv.conf) file is checked 
+# is defined in the /etc/nsswitch.conf file
 cat /etc/nsswitch.conf | grep host 
 hosts:          files dns
 ```

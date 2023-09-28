@@ -3,6 +3,7 @@ title: "Kafka"
 date: "2023-09-28T11:14:32+08:00"
 tags: ["mq", "kafka"]
 description: "Kafka Overview"
+draft: true
 ---
 
 ## Key Design
@@ -24,4 +25,4 @@ he Kafka protocol is built around a “message set” abstraction that naturally
 TBD
 
 ## Reference
-- https://docs.confluent.io/kafka/design/efficient-design.html
+- https://kafka.apache.org/documentation/#maximizingefficiency
