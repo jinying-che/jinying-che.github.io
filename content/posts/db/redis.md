@@ -1,10 +1,12 @@
 ---
 title: "Redis"
-date: "2023-09-16T17:37:10+08:00"
+date: "2019-09-16T17:37:10+08:00"
 tags: ["database", "redis", "nosql"]
 description: "Redis Overview"
-draft: true
 ---
+
+## Data Structure
+![redis data structure](/images/redis_data_structure.png)
 
 ## redis配置
 
@@ -91,5 +93,5 @@ draft: true
 
 
 
-##TCP 拆包、黏包问题
-
+## Referrence
+- https://blog.bytebytego.com/p/why-is-redis-so-fast
