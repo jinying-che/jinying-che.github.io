@@ -1,66 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Terminal</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 21 Sep 2023 11:19:47 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>HTTPS</title><link>https://jinying-che.github.io/posts/network/https/</link><pubDate>Thu, 21 Sep 2023 11:19:47 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/https/</guid><description>TL;DR HTTPS = HTTP Over TLS, when we talk about HTTPS, we actually talk about the TLS more specifically.
-Handshake The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.
-Handshake TLS 1.2 Basically it&amp;rsquo;s a 3-Way TCP handshake + 4 Way TLS handshake.</description><content>&lt;h2 id="tldr">TL;DR&lt;/h2>
-&lt;p>&lt;strong>HTTPS = HTTP Over TLS&lt;/strong>, when we talk about HTTPS, we actually talk about the TLS more specifically.&lt;/p>
-&lt;h2 id="handshake">Handshake&lt;/h2>
-&lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
-&lt;h4 id="handshake-tls-12">Handshake TLS 1.2&lt;/h4>
-&lt;p>Basically it&amp;rsquo;s a &lt;em>3-Way TCP handshake&lt;/em> + &lt;em>4 Way TLS handshake&lt;/em>.
-&lt;img src="https://jinying-che.github.io/images/https_handshake.png" alt="https handshake">&lt;/p>
-&lt;pre tabindex="0">&lt;code> Client Server
--------------------- TCP 3-Way Handshke -----------------
-SYNC
-SYNC + ACK
-ACK
--------------------- TLS 4-Way Handshake ---------------
-ClientHello --------&amp;gt;
-ServerHello
-Certificate*
-ServerKeyExchange*
-CertificateRequest*
-&amp;lt;-------- ServerHelloDone
-Certificate*
-ClientKeyExchange
-CertificateVerify*
-[ChangeCipherSpec]
-Finished --------&amp;gt;
-[ChangeCipherSpec]
-&amp;lt;-------- Finished
-Application Data &amp;lt;-------&amp;gt; Application Data
-&lt;/code>&lt;/pre>&lt;p>Understand the classic handshake in 4 general steps:&lt;/p>
-&lt;ol>
-&lt;li>TCP Handshake&lt;/li>
-&lt;li>Certificate Check (&lt;strong>TCP&lt;/strong>: client says hello, server says hello)&lt;/li>
-&lt;li>Key Exchange (&lt;strong>Asymmetric Encryption&lt;/strong>)
-Basically there&amp;rsquo;re two way for key exchange, the key point is how to generate the &lt;strong>premaster secret&lt;/strong> which is used to generate master secret which is used for data transmission eventually:
-&lt;ol>
-&lt;li>client generates the premaster secret key, encrypts by the public key, send to server (RSA algorithm)&lt;/li>
-&lt;li>client and server generate the same premaster secret seperately using client and server params (ECDHE algorithm )&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Data Transmission (&lt;strong>Symmetric Encryption&lt;/strong>)&lt;/li>
-&lt;/ol>
-&lt;h4 id="handshake-tls-13">Handshake TLS 1.3&lt;/h4>
-&lt;p>TBD&lt;/p>
-&lt;h2 id="man-in-the-middle-attacker">Man-In-The-Middle Attacker&lt;/h2>
-&lt;p>Assume there&amp;rsquo;s an attacker who can detect the info during the TLS handshake, trying to defend the attacker is a better way to understand the HTTPS design more throughly.&lt;/p>
-&lt;ol>
-&lt;li>Attacker is disguised as server? Use &lt;strong>Certificate Authority (CA)&lt;/strong> to validate the server&lt;/li>
-&lt;li>Attacker steal the transmission key (master secret)? Use &lt;strong>Asymmetric Encryption (one way encryption)&lt;/strong>, even if attacker get the public key, still he&amp;rsquo;s not able to know what client sends to server (e.g. premaster secret) as only the private key can decrypt&lt;/li>
-&lt;li>Attacker get the leaked private key? Use ECDHE algoritm to generate the premaster secret instead of passing from client to server.&lt;/li>
-&lt;/ol>
-&lt;h2 id="ssl-vs-tls">SSL vs TLS&lt;/h2>
-&lt;p>SSL(Secure Sockets Layer) was the original security protocol developed for HTTP. SSL was replaced by TLS(Transport Layer Security) some time ago. SSL handshakes are now called TLS handshakes, although the &amp;ldquo;SSL&amp;rdquo; name is still in wide use.&lt;/p>
-&lt;blockquote>
-&lt;p>SSL v3.1 = TLS v1.0&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="referrence">Referrence&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://blog.bytebytego.com/p/how-does-https-work-episode-6">https://blog.bytebytego.com/p/how-does-https-work-episode-6&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc5246">RFC5246: TLS1.2&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446: TLS1.3&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc2818">RFC2818: HTTPS&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Terminal</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 20 Sep 2023 11:47:31 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
 DNS is not very complex but super useful.
 How does DNS work? The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.
 Brower cache and OS cache DNS Resolver: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought.</description><content>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
@@ -188,7 +126,8 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /etc/hosts
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 localhost
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The order in which the /etc/hosts and /etc/resolv.conf files are checked is defined in the /etc/nsswitch.conf file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The order in which (/etc/hosts and /etc/resolv.conf) file is checked &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># is defined in the /etc/nsswitch.conf file&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cat /etc/nsswitch.conf | grep host
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hosts: files dns
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="protocol">Protocol&lt;/h2>
@@ -1796,7 +1735,175 @@ import _ &amp;quot;net/http/pprof&amp;quot; http.ListenAndServe(&amp;quot;the ad
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">mu&lt;/span>.&lt;span style="color:#a6e22e">Unlock&lt;/span>()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">r&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>MySQL</title><link>https://jinying-che.github.io/posts/mysql/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/mysql/</guid><description>mysql，在InnoDB引擎的背景下
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>Data Structure redis配置 redis初始并不设置所用内存大小，默认会使用全部物理内存，但有maxmemory选项可以配置。
+# In short... if you have slaves attached it is suggested that you set a lower # limit for maxmemory so that there is some free RAM on the system for slave # output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;). # # maxmemory &amp;lt;bytes&amp;gt; Redis 命令 ###zrem
+这个命令的返回值很特别：
+zset中存在的元素被删除，则返回1 zset中不存在的元素、不存在的zset的key，返回0 key存在，但不是zset类型，报错 ##LUA
+碎片率 出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用 解决办法：数据对齐，安全重启（高可用/主从切换）。 数据结构 列表（list） 压缩列表 每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content） 双向循环链表 会有单独的list的对象，来记录链表的头、尾、长度等信息 字典（hash） 压缩列表</description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/redis_data_structure.png" alt="redis data structure">&lt;/p>
+&lt;h2 id="redis配置">redis配置&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>redis初始并不设置所用内存大小，默认会使用全部物理内存，但有&lt;code>maxmemory&lt;/code>选项可以配置。&lt;/p>
+&lt;pre tabindex="0">&lt;code># In short... if you have slaves attached it is suggested that you set a lower
+# limit for maxmemory so that there is some free RAM on the system for slave
+# output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;).
+#
+# maxmemory &amp;lt;bytes&amp;gt;
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;/ol>
+&lt;h2 id="redis-命令">Redis 命令&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>###zrem&lt;/p>
+&lt;p>这个命令的返回值很特别：&lt;/p>
+&lt;ol>
+&lt;li>zset中存在的元素被删除，则返回1&lt;/li>
+&lt;li>zset中不存在的元素、不存在的zset的key，返回0&lt;/li>
+&lt;li>key存在，但不是zset类型，报错&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;p>##LUA&lt;/p>
+&lt;h2 id="碎片率">碎片率&lt;/h2>
+&lt;blockquote>
+&lt;pre>&lt;code>出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用
+解决办法：数据对齐，安全重启（高可用/主从切换）。
+&lt;/code>&lt;/pre>
+&lt;/blockquote>
+&lt;h2 id="数据结构">数据结构&lt;/h2>
+&lt;h4 id="列表list">列表（list）&lt;/h4>
+&lt;ul>
+&lt;li>压缩列表
+&lt;ul>
+&lt;li>每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>双向循环链表
+&lt;ul>
+&lt;li>会有单独的&lt;strong>list&lt;/strong>的对象，来记录链表的&lt;strong>头、尾、长度&lt;/strong>等信息&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="字典hash">字典（hash）&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;p>压缩列表&lt;/p>
+&lt;ul>
+&lt;li>将健值对依次放入压缩列表，查询复杂度为0(n)，需要遍历&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>散列表&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>解决冲突：&lt;strong>通过链表法解决，每个数据节点都有&lt;/strong>next&lt;/strong>指针，冲突的节点会从头部插入&lt;/p>
+&lt;p>&lt;strong>rehash期间:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>字典的删除、查找、更新，会在两个哈希表上进行，插入操作只会在新表上进行&lt;/li>
+&lt;li>渐进式rehash会维护一个游标（rehashidx），每次有请求时，会按顺序进行rehash，直到将旧的hash表重新映射到新的hash表&lt;/li>
+&lt;li>负载因子：在进行&lt;strong>BGSAVE&lt;/strong>或者&lt;strong>BGREWRITEAOF&lt;/strong>，会fork子进程来后台处理，大多数操作系统都是通过写时复制的策略，即子进程在读操作时，会共享而不复制父进程的内存，只有在写时，才会复制，所以在此期间会尽量控制写操作，减少内存的复制，因此负载因子会升高&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;/li>
+&lt;/ul>
+&lt;p>####集合 (set)&lt;/p>
+&lt;ul>
+&lt;li>有序数组&lt;/li>
+&lt;li>散列表&lt;/li>
+&lt;/ul>
+&lt;h4 id="有序集合-sorted-set">有序集合 (sorted set)&lt;/h4>
+&lt;ul>
+&lt;li>压缩列表&lt;/li>
+&lt;li>同时使用跳跃表和字典
+&lt;ul>
+&lt;li>查询一组数据(zrange)利用跳跃表&lt;/li>
+&lt;li>查询单个数据用字典&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="事务">事务&lt;/h2>
+&lt;ul>
+&lt;li>redis的事务，是通过客户端的事务状态、服务端的队列，简单封装redis命令实现的&lt;/li>
+&lt;li>事务中的命令要不就全部执行，或者都不执行
+&lt;ul>
+&lt;li>当入队的命令出错时，事务取消，都不执行&lt;/li>
+&lt;li>当部分命令失败时，继续执行
+&lt;ul>
+&lt;li>redis不提供回滚机制&lt;/li>
+&lt;li>部分出错的命令结果会返回给客户端，客户端会根据错误情况进行处理，保证业务逻辑正确&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="rdb">RDB&lt;/h2>
+&lt;h2 id="aof">AOF&lt;/h2>
+&lt;h2 id="referrence">Referrence&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://blog.bytebytego.com/p/why-is-redis-so-fast">https://blog.bytebytego.com/p/why-is-redis-so-fast&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>HTTPS</title><link>https://jinying-che.github.io/posts/network/https/</link><pubDate>Mon, 10 Jun 2019 11:19:47 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/https/</guid><description>TL;DR HTTPS = HTTP Over TLS, when we talk about HTTPS, we actually talk about the TLS more specifically.
+Handshake The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.
+Handshake TLS 1.2 Basically it&amp;rsquo;s a 3-Way TCP handshake + 4 Way TLS handshake.</description><content>&lt;h2 id="tldr">TL;DR&lt;/h2>
+&lt;p>&lt;strong>HTTPS = HTTP Over TLS&lt;/strong>, when we talk about HTTPS, we actually talk about the TLS more specifically.&lt;/p>
+&lt;h2 id="handshake">Handshake&lt;/h2>
+&lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
+&lt;h4 id="handshake-tls-12">Handshake TLS 1.2&lt;/h4>
+&lt;p>Basically it&amp;rsquo;s a &lt;em>3-Way TCP handshake&lt;/em> + &lt;em>4 Way TLS handshake&lt;/em>.
+&lt;img src="https://jinying-che.github.io/images/https_handshake.png" alt="https handshake">&lt;/p>
+&lt;pre tabindex="0">&lt;code> Client Server
+-------------------- TCP 3-Way Handshke -----------------
+SYNC
+SYNC + ACK
+ACK
+-------------------- TLS 4-Way Handshake ---------------
+ClientHello --------&amp;gt;
+ServerHello
+Certificate*
+ServerKeyExchange*
+CertificateRequest*
+&amp;lt;-------- ServerHelloDone
+Certificate*
+ClientKeyExchange
+CertificateVerify*
+[ChangeCipherSpec]
+Finished --------&amp;gt;
+[ChangeCipherSpec]
+&amp;lt;-------- Finished
+Application Data &amp;lt;-------&amp;gt; Application Data
+&lt;/code>&lt;/pre>&lt;p>Understand the classic handshake in 4 general steps:&lt;/p>
+&lt;ol>
+&lt;li>TCP Handshake&lt;/li>
+&lt;li>Certificate Check (&lt;strong>TCP&lt;/strong>: client says hello, server says hello)&lt;/li>
+&lt;li>Key Exchange (&lt;strong>Asymmetric Encryption&lt;/strong>)
+Basically there&amp;rsquo;re two way for key exchange, the key point is how to generate the &lt;strong>premaster secret&lt;/strong> which is used to generate master secret which is used for data transmission eventually:
+&lt;ol>
+&lt;li>client generates the premaster secret key, encrypts by the public key, send to server (RSA algorithm)&lt;/li>
+&lt;li>client and server generate the same premaster secret seperately using client and server params (ECDHE algorithm )&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>Data Transmission (&lt;strong>Symmetric Encryption&lt;/strong>)&lt;/li>
+&lt;/ol>
+&lt;h4 id="handshake-tls-13">Handshake TLS 1.3&lt;/h4>
+&lt;p>TBD&lt;/p>
+&lt;h2 id="man-in-the-middle-attacker">Man-In-The-Middle Attacker&lt;/h2>
+&lt;p>Assume there&amp;rsquo;s an attacker who can detect the info during the TLS handshake, trying to defend the attacker is a better way to understand the HTTPS design more throughly.&lt;/p>
+&lt;ol>
+&lt;li>Attacker is disguised as server? Use &lt;strong>Certificate Authority (CA)&lt;/strong> to validate the server&lt;/li>
+&lt;li>Attacker steal the transmission key (master secret)? Use &lt;strong>Asymmetric Encryption (one way encryption)&lt;/strong>, even if attacker get the public key, still he&amp;rsquo;s not able to know what client sends to server (e.g. premaster secret) as only the private key can decrypt&lt;/li>
+&lt;li>Attacker get the leaked private key? Use ECDHE algoritm to generate the premaster secret instead of passing from client to server.&lt;/li>
+&lt;/ol>
+&lt;h2 id="ssl-vs-tls">SSL vs TLS&lt;/h2>
+&lt;p>SSL(Secure Sockets Layer) was the original security protocol developed for HTTP. SSL was replaced by TLS(Transport Layer Security) some time ago. SSL handshakes are now called TLS handshakes, although the &amp;ldquo;SSL&amp;rdquo; name is still in wide use.&lt;/p>
+&lt;blockquote>
+&lt;p>SSL v3.1 = TLS v1.0&lt;/p>
+&lt;/blockquote>
+&lt;h2 id="referrence">Referrence&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://blog.bytebytego.com/p/how-does-https-work-episode-6">https://blog.bytebytego.com/p/how-does-https-work-episode-6&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc5246">RFC5246: TLS1.2&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446: TLS1.3&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc2818">RFC2818: HTTPS&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>MySQL</title><link>https://jinying-che.github.io/posts/mysql/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/mysql/</guid><description>mysql，在InnoDB引擎的背景下
 随想 每碰到一个新数据库，我们需要先关注它的数据模型，这样才能从理论上分析出这个数据库的适用场景 索引 B+树 使用m叉树，而不是二叉树，是因为树的高度，代表了访问的次数，而数据库是需要访问磁盘的，访问成本高，减少树的高度，就是减少访问磁盘的次数 类型 主键维度 聚簇索引(clustered index)，也叫主键索引，叶子节点存储整行数据。
 非主键索引，也叫二级索引(secondary index)，二级索引存储的是主键的值。
 回表：根据普通索引查询，需要先查询二级索引树，得到主键值，再查询主键索引树，这个过程既是回表。

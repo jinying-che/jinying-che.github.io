@@ -126,7 +126,8 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /etc/hosts
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 localhost
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The order in which the /etc/hosts and /etc/resolv.conf files are checked is defined in the /etc/nsswitch.conf file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The order in which (/etc/hosts and /etc/resolv.conf) file is checked &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># is defined in the /etc/nsswitch.conf file&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cat /etc/nsswitch.conf | grep host
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hosts: files dns
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="protocol">Protocol&lt;/h2>
