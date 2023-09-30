@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>memory on Terminal</title><link>https://jinying-che.github.io/tags/memory/</link><description>Recent content in memory on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 Sep 2023 16:10:39 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/memory/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Memory</title><link>https://jinying-che.github.io/posts/linux_memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/linux_memory/</guid><description>Virtual Memory Virtual memory is an abstraction for memory management by operation system Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU The physical memory is only allocated to process when memory is firstly accessed. (e.g. mmap() and brk() in C just allocate the virtual memory first, hence you can see VIRT in top command is usually much higher than RES) Virtual maps to physical memory and disk (swap) Virtual memory for one process includes both user space and kernel space.</description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
+&lt;ol>
+&lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
+&lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
+&lt;li>The physical memory is only allocated to process when memory is firstly accessed. (e.g. &lt;code>mmap()&lt;/code> and &lt;code>brk()&lt;/code> in C just allocate the virtual memory first, hence you can see &lt;code>VIRT&lt;/code> in &lt;code>top&lt;/code> command is usually much higher than &lt;code>RES&lt;/code>)&lt;/li>
+&lt;li>Virtual maps to physical memory and disk (swap)&lt;/li>
+&lt;li>Virtual memory for one process includes both user space and kernel space.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/virtual_memory.png" alt="virtual memory">&lt;/p>
+&lt;h2 id="buffer-vs-cache">Buffer vs Cache&lt;/h2>
+&lt;ul>
+&lt;li>Buffer: the memory used for the disk (both read and write)&lt;/li>
+&lt;li>Cache: the memory used for the file (both read and write)&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>Common Mistake: Buffer is for write only, whereas Cache is for read only --&amp;gt; WRONG!
+&lt;/code>&lt;/pre>&lt;h2 id="reclaim-memory">Reclaim Memory&lt;/h2>
+&lt;p>Operation system will try to reclaim the memory when the resource is lack:&lt;/p>
+&lt;ol>
+&lt;li>LRU（Least Recently Used）&lt;/li>
+&lt;li>Swap the less used memory to disk&lt;/li>
+&lt;li>OOM (Out of Memory): kill the process who takes up lots of memory&lt;/li>
+&lt;/ol>
+&lt;h2 id="allocating-kernel-memory-tbd">Allocating kernel memory (TBD)&lt;/h2>
+&lt;h4 id="buddy-system">Buddy System&lt;/h4>
+&lt;p>The buddy system is a memory allocation algorithm that works by dividing memory into blocks of a fixed size, with each block being a power of two in size.&lt;/p>
+&lt;p>&lt;strong>Drawback&lt;/strong>: The main drawback in buddy system is internal fragmentation as larger block of memory is acquired then required. For example if a 36 kb request is made then it can only be satisfied by 64 kb segment and remaining memory is wasted.&lt;/p>
+&lt;h4 id="slab-system">Slab System&lt;/h4>
+&lt;p>The slab system is a memory allocation algorithm that is designed specifically for kernel memory. It works by dividing memory into fixed-size caches or slabs, each of which contains a set of objects of the same type&lt;/p>
+&lt;h2 id="troubleshooting">TroubleShooting&lt;/h2>
+&lt;h4 id="1-tophtop">1. top/htop&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># top, press M (order by memory)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.7 us, 0.7 sy, 0.0 ni, 98.7 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 35.8/957.5 &lt;span style="color:#f92672">[||||||||||||||||||||||||||||||||||||&lt;/span> &lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 4.1/2400.0 &lt;span style="color:#f92672">[||||&lt;/span> &lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">428&lt;/span> root rt &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">289312&lt;/span> &lt;span style="color:#ae81ff">27100&lt;/span> &lt;span style="color:#ae81ff">9072&lt;/span> S 0.3 2.8 4:20.42 multipathd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">745&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">1209328&lt;/span> &lt;span style="color:#ae81ff">7900&lt;/span> &lt;span style="color:#ae81ff">1832&lt;/span> S 0.3 0.8 15:47.03 containerd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">359212&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">15424&lt;/span> &lt;span style="color:#ae81ff">9208&lt;/span> &lt;span style="color:#ae81ff">7600&lt;/span> S 0.3 0.9 0:00.01 sshd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167692&lt;/span> &lt;span style="color:#ae81ff">8560&lt;/span> &lt;span style="color:#ae81ff">5560&lt;/span> S 0.0 0.9 1:30.35 systemd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.37 kthreadd
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run &lt;code>man top&lt;/code>:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>VIRT&lt;/code>: The total amount of virtual memory used by the task. It includes all code, data and shared libraries plus pages that have been swapped out and pages that have been mapped but not used.&lt;/li>
+&lt;li>&lt;code>RES&lt;/code>: A subset of the virtual address space (VIRT) representing the non-swapped &lt;strong>physical memory&lt;/strong> a task is currently using.&lt;/li>
+&lt;li>&lt;code>SHR&lt;/code>: A subset of resident memory (RES) that may be used by other processes.&lt;/li>
+&lt;li>&lt;code>%MEM&lt;/code>: A task&amp;rsquo;s currently resident share of available physical memory.&lt;/li>
+&lt;/ul>
+&lt;h4 id="2-free">2. free&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># free displays the total amount of free and used physical and swap memory in the system, as well as the buffers and caches used by the kernel. The information is gathered by parsing /proc/meminfo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ free
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> total used free shared buff/cache available
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Mem: &lt;span style="color:#ae81ff">980508&lt;/span> &lt;span style="color:#ae81ff">183624&lt;/span> &lt;span style="color:#ae81ff">74136&lt;/span> &lt;span style="color:#ae81ff">348&lt;/span> &lt;span style="color:#ae81ff">722748&lt;/span> &lt;span style="color:#ae81ff">631876&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Swap: &lt;span style="color:#ae81ff">2457596&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">2355648&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run &lt;code>man free&lt;/code>:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>total&lt;/code>: Total installed memory (MemTotal and SwapTotal in /proc/meminfo)&lt;/li>
+&lt;li>&lt;code>used&lt;/code>: Used memory (calculated as total - free - buffers - cache)&lt;/li>
+&lt;li>&lt;code>free&lt;/code>: Unused memory (MemFree and SwapFree in /proc/meminfo)&lt;/li>
+&lt;li>&lt;code>shared&lt;/code>: Memory used (mostly) by tmpfs (Shmem in /proc/meminfo)&lt;/li>
+&lt;li>&lt;code>buffers&lt;/code>: Memory used by kernel buffers (Buffers in /proc/meminfo)&lt;/li>
+&lt;li>&lt;code>cache&lt;/code>: Memory used by the page cache and slabs (Cached and SReclaimable in /proc/meminfo)&lt;/li>
+&lt;li>&lt;code>buff/cache&lt;/code>: Sum of buffers and cache&lt;/li>
+&lt;li>&lt;code>available&lt;/code>: Estimation of how much memory is available for starting new applications, without swapping.&lt;/li>
+&lt;/ul>
+&lt;h4 id="3-vmstat">3. vmstat&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># usage: vmstat [options] [delay [count]]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ vmstat -t &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">5&lt;/span> &lt;span style="color:#75715e"># report virtual memory statistics per 2 second, total 5 &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu----- -----timestamp-----
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> r b swpd free buff cache si so bi bo in cs us sy id wa st UTC
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85464&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">6&lt;/span> &lt;span style="color:#ae81ff">14&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:49
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">226&lt;/span> &lt;span style="color:#ae81ff">50&lt;/span> &lt;span style="color:#ae81ff">85&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:51
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">4&lt;/span> &lt;span style="color:#ae81ff">60&lt;/span> &lt;span style="color:#ae81ff">104&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">99&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:53
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">41&lt;/span> &lt;span style="color:#ae81ff">62&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:55
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">12&lt;/span> &lt;span style="color:#ae81ff">39&lt;/span> &lt;span style="color:#ae81ff">76&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">99&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:57
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run &lt;code>man vmstat&lt;/code>:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>Memory&lt;/p>
+&lt;ul>
+&lt;li>These are affected by the &amp;ndash;unit option.&lt;/li>
+&lt;li>swpd: the amount of swap memory used.&lt;/li>
+&lt;li>free: the amount of idle memory.&lt;/li>
+&lt;li>buff: the amount of memory used as buffers.&lt;/li>
+&lt;li>cache: the amount of memory used as cache.&lt;/li>
+&lt;li>inact: the amount of inactive memory. (-a option)&lt;/li>
+&lt;li>active: the amount of active memory. (-a option)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>Swap&lt;/p>
+&lt;ul>
+&lt;li>These are affected by the &amp;ndash;unit option.&lt;/li>
+&lt;li>si: Amount of memory swapped in from disk (/s).&lt;/li>
+&lt;li>so: Amount of memory swapped to disk (/s).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>IO&lt;/p>
+&lt;ul>
+&lt;li>bi: Blocks received from a block device (blocks/s).&lt;/li>
+&lt;li>bo: Blocks sent to a block device (blocks/s).&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>System&lt;/p>
+&lt;ul>
+&lt;li>in: The number of interrupts per second, including the clock.&lt;/li>
+&lt;li>cs: The number of context switches per second.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>CPU&lt;/p>
+&lt;ul>
+&lt;li>These are percentages of total CPU time.&lt;/li>
+&lt;li>us: Time spent running non-kernel code. (user time, including nice time)&lt;/li>
+&lt;li>sy: Time spent running kernel code. (system time)&lt;/li>
+&lt;li>id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.&lt;/li>
+&lt;li>wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.&lt;/li>
+&lt;li>st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="4-procmeminfo">4. /proc/meminfo&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># This file reports statistics about memory usage on the system.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /proc/meminfo
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># show the first several rows only&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MemTotal: &lt;span style="color:#ae81ff">980508&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MemFree: &lt;span style="color:#ae81ff">74136&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MemAvailable: &lt;span style="color:#ae81ff">634416&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Buffers: &lt;span style="color:#ae81ff">85092&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Cached: &lt;span style="color:#ae81ff">571860&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SwapCached: &lt;span style="color:#ae81ff">9556&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Active: &lt;span style="color:#ae81ff">408724&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inactive: &lt;span style="color:#ae81ff">305408&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Active&lt;span style="color:#f92672">(&lt;/span>anon&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">21352&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inactive&lt;span style="color:#f92672">(&lt;/span>anon&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">45240&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Active&lt;span style="color:#f92672">(&lt;/span>file&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">387372&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inactive&lt;span style="color:#f92672">(&lt;/span>file&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">260168&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Unevictable: &lt;span style="color:#ae81ff">27620&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Mlocked: &lt;span style="color:#ae81ff">27620&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SwapTotal: &lt;span style="color:#ae81ff">2457596&lt;/span> kB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="5-memleak">5. memleak&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># memleak - Print a summary of outstanding allocations and their call stacks to detect memory leaks. Uses Linux eBPF/bcc.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Install: https://github.com/iovisor/bcc/blob/master/INSTALL.md#installing-bcc&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ /usr/sbin/memleak-bpfcc -p &lt;span style="color:#66d9ef">$(&lt;/span>pidof systemd&lt;span style="color:#66d9ef">)&lt;/span> &lt;span style="color:#75715e"># systemd no memory leak&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Attaching to pid 212971, Ctrl+C to quit.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>04:34:51&lt;span style="color:#f92672">]&lt;/span> Top &lt;span style="color:#ae81ff">10&lt;/span> stacks with outstanding allocations:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>04:34:56&lt;span style="color:#f92672">]&lt;/span> Top &lt;span style="color:#ae81ff">10&lt;/span> stacks with outstanding allocations:
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>04:35:01&lt;span style="color:#f92672">]&lt;/span> Top &lt;span style="color:#ae81ff">10&lt;/span> stacks with outstanding allocations:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.geeksforgeeks.org/operating-system-allocating-kernel-memory-buddy-system-slab-system/">https://www.geeksforgeeks.org/operating-system-allocating-kernel-memory-buddy-system-slab-system/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.kernel.org/doc/html/next/admin-guide/mm/concepts.html">https://www.kernel.org/doc/html/next/admin-guide/mm/concepts.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/iovisor/bcc">BPF Compiler Collection&lt;/a>&lt;/li>
+&lt;/ul></content></item></channel></rss>
