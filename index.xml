@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Terminal</title><link>https://jinying-che.github.io/</link><description>Recent content on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 Sep 2023 16:10:39 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Memory</title><link>https://jinying-che.github.io/posts/linux_memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/linux_memory/</guid><description>Virtual Memory Virtual memory is an abstraction for memory management by operation system Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU The physical memory is only allocated to process when memory is firstly accessed. (e.g. mmap() and brk() in C just allocate the virtual memory first, hence you can see VIRT in top command is usually much higher than RES) Virtual maps to physical memory and disk (swap) Virtual memory for one process includes both user space and kernel space.</description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://jinying-che.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 Sep 2023 16:10:39 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Memory</title><link>https://jinying-che.github.io/posts/linux_memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/linux_memory/</guid><description>Virtual Memory Virtual memory is an abstraction for memory management by operation system Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU The physical memory is only allocated to process when memory is firstly accessed. (e.g. mmap() and brk() in C just allocate the virtual memory first, hence you can see VIRT in top command is usually much higher than RES) Virtual maps to physical memory and disk (swap) Virtual memory for one process includes both user space and kernel space.</description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
 &lt;ol>
 &lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
 &lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
@@ -1540,9 +1540,20 @@ $ sudo reboot
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=Mad4kQ5835Y">https://www.youtube.com/watch?v=Mad4kQ5835Y&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=1z0ULvg_pW8">https://www.youtube.com/watch?v=1z0ULvg_pW8&lt;/a>&lt;/li>
 &lt;/ul></content></item><item><title>Algorithm: How I leetcode</title><link>https://jinying-che.github.io/posts/algorithm/leetcode/</link><pubDate>Sat, 13 Feb 2021 16:31:28 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/leetcode/</guid><description>When do you play with leetcode? Personally, I open it only before the algorithm interview.
-It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.</description><content>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
-&lt;p>It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.&lt;/p>
-&lt;p>This post is showing that how I leetcode, it&amp;rsquo;s only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.&lt;/p>
+It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.</description><content>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
+&lt;p>It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.&lt;/p>
+&lt;p>This post is showing how I leetcode, it&amp;rsquo;s only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.&lt;/p>
+&lt;p>The general steps to resovle a problem:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Abstract the problem&lt;/strong>: Most questions are from some scenario in the real world, try to abstract the problem, transfer the problem to the computer world.&lt;/li>
+&lt;li>&lt;strong>Map to the data structure and algorithm&lt;/strong>: Do a brainstorm, map the problem to any data structur and algorithm that you are familiar with. If lucky it&amp;rsquo;s exactly matched, apply it.
+&lt;ol>
+&lt;li>Don&amp;rsquo;t try to use smartest solution first, it&amp;rsquo;s probably time consuming, for example, maybe Brute Force at first then optimize it step by step.&lt;/li>
+&lt;li>No any clue? congratulations! you get space to grow, don&amp;rsquo;t be too sad for the failure of one interview, the better future is waiting for you ahead.&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>&lt;strong>Implemente the solution&lt;/strong>: there&amp;rsquo;s a gap between the idea and the code, no magic here, practice more to improve the code skills.&lt;/li>
+&lt;/ol>
 &lt;p>Enjoy the Algorithm, let&amp;rsquo;s leetcode!&lt;/p>
 &lt;h3 id="data-structure">Data Structure&lt;/h3>
 &lt;h4 id="array">Array&lt;/h4>
@@ -1578,6 +1589,10 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/hamming-distance/description/">461. Hamming Distance&lt;/a>&lt;/li>
 &lt;/ul>
+&lt;h4 id="stack">Stack&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://leetcode.com/problems/valid-parentheses/description/">20. Valid Parentheses&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h3 id="algorithm">Algorithm&lt;/h3>
 &lt;h4 id="recursion">Recursion&lt;/h4>
 &lt;ul>
@@ -1604,9 +1619,13 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;li>&lt;a href="https://leetcode.com/problems/partition-labels/">763. Partition Labels&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/">1353. Maximum Number of Events That Can Be Attended&lt;/a> &amp;ndash; &lt;a href="https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/solutions/4066650/1353-python-maximum-number-of-events-that-can-be-attended">[solution]&lt;/a>&lt;/li>
 &lt;/ul>
+&lt;h4 id="math">Math&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://leetcode.com/problems/count-primes/description/">204. Count Primes&lt;/a> &amp;ndash; &lt;a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h3 id="design">Design&lt;/h3>
 &lt;ul>
-&lt;li>&lt;a href="https://leetcode.com/problems/lru-cache/">146. LRU Cache&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://leetcode.com/problems/lru-cache/">146. LRU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lru-cache/solutions/4113594/python-146-lru-cache/">discussion&lt;/a>]&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/lfu-cache/">460. LFU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lfu-cache/discuss/1086255/Golang460two-ways-to-resolve-LFU-Cache">discussion&lt;/a>]&lt;/li>
 &lt;/ul></content></item><item><title>TCP</title><link>https://jinying-che.github.io/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/tcp/</guid><description>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official RFC 793 as the only true source. Here&amp;rsquo;s a summary of RFC 793.
 TCP Header TCP Header Format
@@ -2409,7 +2428,94 @@ Type 1. Cluster Index Each InnoDB table has a special index called the clustered
 &lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html">https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></content></item><item><title/><link>https://jinying-che.github.io/puml/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://jinying-che.github.io/puml/readme/</guid><description>PlantUML This folder stores all the PlantUML files dedicated for the blogs
+&lt;/ul></content></item><item><title>HTTP</title><link>https://jinying-che.github.io/posts/network/http/</link><pubDate>Wed, 10 Oct 2018 11:19:45 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/http/</guid><description> HTTP位于网络的应用层，使用TCP/IP协议进行传输
+TCP连接 HTTP/1.0：通过非标准字段Connection: keep-alive保持TCP连接 HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理 HTTP/2： HTTP/0.9 客户端请求，服务器回复完毕，TCP连接即关闭 只有一个命令：GET 服务器只能回应HTML格式的字符串 HTTP/1.0 加入POST、HEAD命令 协议分为头部和数据部，头部字段如：Content-Type、Content-Encoding等 为了保持TCP的复用，引入头部字段：Connection: keep-alive HTTP/1.1 TCP默认为持久连接，由客户端和服务端主动关闭
+引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）
+服务端可以区分多个请求的基础：Content-Length字段，即知道每个请求的长度 在1.0版中，Content-Length字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。 引入流模式
+对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。
+因此，1.1版规定可以不使用Content-Length字段，而使用&amp;ldquo;分块传输编码&amp;rdquo;（chunked transfer encoding）。只要请求或回应的头信息有Transfer-Encoding字段，就表明回应将由数量未定的数据块组成。
+《HTTP 协议入门》 阮一峰
+当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。
+《HTTP概述》 MDN
+服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&amp;ldquo;队头堵塞&amp;rdquo;（Head-of-line blocking）。
+HTTP/2.0 2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。
+这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。
+头部和数据部都是二进制，统称为“帧” 全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题） 实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID 客户端和服务器都可以发送信号（RST_STREAM帧），取消这个数据流 头信息压缩 服务器未经允许，主动推送数据到客户端 Reference:
+《HTTP 协议入门》 阮一峰 《HTTP概述》 MDN</description><content>&lt;blockquote>
+&lt;p>HTTP位于网络的应用层，使用TCP/IP协议进行传输&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>TCP连接
+&lt;ul>
+&lt;li>HTTP/1.0：通过非标准字段&lt;code>Connection: keep-alive&lt;/code>保持TCP连接&lt;/li>
+&lt;li>HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理&lt;/li>
+&lt;li>HTTP/2：&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="http09">HTTP/0.9&lt;/h2>
+&lt;ul>
+&lt;li>客户端请求，服务器回复完毕，TCP连接即关闭&lt;/li>
+&lt;li>只有一个命令：&lt;code>GET&lt;/code>&lt;/li>
+&lt;li>服务器只能回应HTML格式的字符串&lt;/li>
+&lt;/ul>
+&lt;h2 id="http10">HTTP/1.0&lt;/h2>
+&lt;ul>
+&lt;li>加入&lt;code>POST&lt;/code>、&lt;code>HEAD&lt;/code>命令&lt;/li>
+&lt;li>协议分为头部和数据部，头部字段如：&lt;code>Content-Type&lt;/code>、&lt;code>Content-Encoding&lt;/code>等&lt;/li>
+&lt;li>为了保持TCP的复用，引入头部字段：&lt;code>Connection: keep-alive&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="http11">HTTP/1.1&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>TCP默认为持久连接，由客户端和服务端主动关闭&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）&lt;/p>
+&lt;ul>
+&lt;li>服务端可以区分多个请求的基础：&lt;code>Content-Length&lt;/code>字段，即知道每个请求的长度&lt;/li>
+&lt;li>在1.0版中，&lt;code>Content-Length&lt;/code>字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>引入流模式&lt;/p>
+&lt;blockquote>
+&lt;p>对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。&lt;/p>
+&lt;p>因此，1.1版规定可以不使用&lt;code>Content-Length&lt;/code>字段，而使用&lt;a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81">&amp;ldquo;分块传输编码&amp;rdquo;&lt;/a>（chunked transfer encoding）。只要请求或回应的头信息有&lt;code>Transfer-Encoding&lt;/code>字段，就表明回应将由数量未定的数据块组成。&lt;/p>
+&lt;p>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。&lt;/p>
+&lt;p>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&lt;a href="https://zh.wikipedia.org/wiki/%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E">&amp;ldquo;队头堵塞&amp;rdquo;&lt;/a>（Head-of-line blocking）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="http20">HTTP/2.0&lt;/h2>
+&lt;blockquote>
+&lt;p>2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。&lt;/p>
+&lt;p>这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>头部和数据部都是二进制，统称为“帧”&lt;/li>
+&lt;li>全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题）
+&lt;ul>
+&lt;li>实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID&lt;/li>
+&lt;li>客户端和服务器都可以发送信号（&lt;code>RST_STREAM&lt;/code>帧），取消这个数据流&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>头信息压缩&lt;/li>
+&lt;li>服务器未经允许，主动推送数据到客户端&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Reference:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/blockquote></content></item><item><title/><link>https://jinying-che.github.io/puml/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://jinying-che.github.io/puml/readme/</guid><description>PlantUML This folder stores all the PlantUML files dedicated for the blogs
 How to make PlantUML? check https://plantuml.com/
 How to make PlantUML in vim? check plantuml using vim
 TL;DR Edit PlantUML in vim :PlantumlOpen to preview the uml in brower Run :PlantumlSave static/images/git.svg to export the uml to svg (or any other supported file type: png, svg, eps, pdf, vdx, xmi, scxml, html, txt, utxt, latex) Reference https://github.com/weirongxu/plantuml-previewer.vim</description><content>&lt;h1 id="plantuml">PlantUML&lt;/h1>

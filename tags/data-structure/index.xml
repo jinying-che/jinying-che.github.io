@@ -1,7 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>data structure on Terminal</title><link>https://jinying-che.github.io/tags/data-structure/</link><description>Recent content in data structure on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 13 Feb 2021 16:31:28 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/data-structure/index.xml" rel="self" type="application/rss+xml"/><item><title>Algorithm: How I leetcode</title><link>https://jinying-che.github.io/posts/algorithm/leetcode/</link><pubDate>Sat, 13 Feb 2021 16:31:28 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/leetcode/</guid><description>When do you play with leetcode? Personally, I open it only before the algorithm interview.
-It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.</description><content>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
-&lt;p>It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.&lt;/p>
-&lt;p>This post is showing that how I leetcode, it&amp;rsquo;s only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>data structure on</title><link>https://jinying-che.github.io/tags/data-structure/</link><description>Recent content in data structure on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 13 Feb 2021 16:31:28 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/data-structure/index.xml" rel="self" type="application/rss+xml"/><item><title>Algorithm: How I leetcode</title><link>https://jinying-che.github.io/posts/algorithm/leetcode/</link><pubDate>Sat, 13 Feb 2021 16:31:28 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/leetcode/</guid><description>When do you play with leetcode? Personally, I open it only before the algorithm interview.
+It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.</description><content>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
+&lt;p>It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.&lt;/p>
+&lt;p>This post is showing how I leetcode, it&amp;rsquo;s only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.&lt;/p>
+&lt;p>The general steps to resovle a problem:&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Abstract the problem&lt;/strong>: Most questions are from some scenario in the real world, try to abstract the problem, transfer the problem to the computer world.&lt;/li>
+&lt;li>&lt;strong>Map to the data structure and algorithm&lt;/strong>: Do a brainstorm, map the problem to any data structur and algorithm that you are familiar with. If lucky it&amp;rsquo;s exactly matched, apply it.
+&lt;ol>
+&lt;li>Don&amp;rsquo;t try to use smartest solution first, it&amp;rsquo;s probably time consuming, for example, maybe Brute Force at first then optimize it step by step.&lt;/li>
+&lt;li>No any clue? congratulations! you get space to grow, don&amp;rsquo;t be too sad for the failure of one interview, the better future is waiting for you ahead.&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>&lt;strong>Implemente the solution&lt;/strong>: there&amp;rsquo;s a gap between the idea and the code, no magic here, practice more to improve the code skills.&lt;/li>
+&lt;/ol>
 &lt;p>Enjoy the Algorithm, let&amp;rsquo;s leetcode!&lt;/p>
 &lt;h3 id="data-structure">Data Structure&lt;/h3>
 &lt;h4 id="array">Array&lt;/h4>
@@ -37,6 +48,10 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/hamming-distance/description/">461. Hamming Distance&lt;/a>&lt;/li>
 &lt;/ul>
+&lt;h4 id="stack">Stack&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://leetcode.com/problems/valid-parentheses/description/">20. Valid Parentheses&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h3 id="algorithm">Algorithm&lt;/h3>
 &lt;h4 id="recursion">Recursion&lt;/h4>
 &lt;ul>
@@ -63,8 +78,12 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;li>&lt;a href="https://leetcode.com/problems/partition-labels/">763. Partition Labels&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/">1353. Maximum Number of Events That Can Be Attended&lt;/a> &amp;ndash; &lt;a href="https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/solutions/4066650/1353-python-maximum-number-of-events-that-can-be-attended">[solution]&lt;/a>&lt;/li>
 &lt;/ul>
+&lt;h4 id="math">Math&lt;/h4>
+&lt;ul>
+&lt;li>&lt;a href="https://leetcode.com/problems/count-primes/description/">204. Count Primes&lt;/a> &amp;ndash; &lt;a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h3 id="design">Design&lt;/h3>
 &lt;ul>
-&lt;li>&lt;a href="https://leetcode.com/problems/lru-cache/">146. LRU Cache&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://leetcode.com/problems/lru-cache/">146. LRU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lru-cache/solutions/4113594/python-146-lru-cache/">discussion&lt;/a>]&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/lfu-cache/">460. LFU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lfu-cache/discuss/1086255/Golang460two-ways-to-resolve-LFU-Cache">discussion&lt;/a>]&lt;/li>
 &lt;/ul></content></item></channel></rss>

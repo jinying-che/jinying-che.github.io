@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>network on Terminal</title><link>https://jinying-che.github.io/tags/network/</link><description>Recent content in network on Terminal</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 20 Sep 2023 11:47:31 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>network on</title><link>https://jinying-che.github.io/tags/network/</link><description>Recent content in network on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 20 Sep 2023 11:47:31 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
 DNS is not very complex but super useful.
 How does DNS work? The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.
 Brower cache and OS cache DNS Resolver: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought.</description><content>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
@@ -417,4 +417,91 @@ Basically there&amp;rsquo;re two way for key exchange, the key point is how to g
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc5246">RFC5246: TLS1.2&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446: TLS1.3&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc2818">RFC2818: HTTPS&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+&lt;/ul></content></item><item><title>HTTP</title><link>https://jinying-che.github.io/posts/network/http/</link><pubDate>Wed, 10 Oct 2018 11:19:45 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/http/</guid><description> HTTP位于网络的应用层，使用TCP/IP协议进行传输
+TCP连接 HTTP/1.0：通过非标准字段Connection: keep-alive保持TCP连接 HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理 HTTP/2： HTTP/0.9 客户端请求，服务器回复完毕，TCP连接即关闭 只有一个命令：GET 服务器只能回应HTML格式的字符串 HTTP/1.0 加入POST、HEAD命令 协议分为头部和数据部，头部字段如：Content-Type、Content-Encoding等 为了保持TCP的复用，引入头部字段：Connection: keep-alive HTTP/1.1 TCP默认为持久连接，由客户端和服务端主动关闭
+引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）
+服务端可以区分多个请求的基础：Content-Length字段，即知道每个请求的长度 在1.0版中，Content-Length字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。 引入流模式
+对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。
+因此，1.1版规定可以不使用Content-Length字段，而使用&amp;ldquo;分块传输编码&amp;rdquo;（chunked transfer encoding）。只要请求或回应的头信息有Transfer-Encoding字段，就表明回应将由数量未定的数据块组成。
+《HTTP 协议入门》 阮一峰
+当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。
+《HTTP概述》 MDN
+服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&amp;ldquo;队头堵塞&amp;rdquo;（Head-of-line blocking）。
+HTTP/2.0 2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。
+这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。
+头部和数据部都是二进制，统称为“帧” 全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题） 实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID 客户端和服务器都可以发送信号（RST_STREAM帧），取消这个数据流 头信息压缩 服务器未经允许，主动推送数据到客户端 Reference:
+《HTTP 协议入门》 阮一峰 《HTTP概述》 MDN</description><content>&lt;blockquote>
+&lt;p>HTTP位于网络的应用层，使用TCP/IP协议进行传输&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>TCP连接
+&lt;ul>
+&lt;li>HTTP/1.0：通过非标准字段&lt;code>Connection: keep-alive&lt;/code>保持TCP连接&lt;/li>
+&lt;li>HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理&lt;/li>
+&lt;li>HTTP/2：&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="http09">HTTP/0.9&lt;/h2>
+&lt;ul>
+&lt;li>客户端请求，服务器回复完毕，TCP连接即关闭&lt;/li>
+&lt;li>只有一个命令：&lt;code>GET&lt;/code>&lt;/li>
+&lt;li>服务器只能回应HTML格式的字符串&lt;/li>
+&lt;/ul>
+&lt;h2 id="http10">HTTP/1.0&lt;/h2>
+&lt;ul>
+&lt;li>加入&lt;code>POST&lt;/code>、&lt;code>HEAD&lt;/code>命令&lt;/li>
+&lt;li>协议分为头部和数据部，头部字段如：&lt;code>Content-Type&lt;/code>、&lt;code>Content-Encoding&lt;/code>等&lt;/li>
+&lt;li>为了保持TCP的复用，引入头部字段：&lt;code>Connection: keep-alive&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="http11">HTTP/1.1&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>TCP默认为持久连接，由客户端和服务端主动关闭&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）&lt;/p>
+&lt;ul>
+&lt;li>服务端可以区分多个请求的基础：&lt;code>Content-Length&lt;/code>字段，即知道每个请求的长度&lt;/li>
+&lt;li>在1.0版中，&lt;code>Content-Length&lt;/code>字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>引入流模式&lt;/p>
+&lt;blockquote>
+&lt;p>对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。&lt;/p>
+&lt;p>因此，1.1版规定可以不使用&lt;code>Content-Length&lt;/code>字段，而使用&lt;a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81">&amp;ldquo;分块传输编码&amp;rdquo;&lt;/a>（chunked transfer encoding）。只要请求或回应的头信息有&lt;code>Transfer-Encoding&lt;/code>字段，就表明回应将由数量未定的数据块组成。&lt;/p>
+&lt;p>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。&lt;/p>
+&lt;p>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&lt;a href="https://zh.wikipedia.org/wiki/%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E">&amp;ldquo;队头堵塞&amp;rdquo;&lt;/a>（Head-of-line blocking）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="http20">HTTP/2.0&lt;/h2>
+&lt;blockquote>
+&lt;p>2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。&lt;/p>
+&lt;p>这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>头部和数据部都是二进制，统称为“帧”&lt;/li>
+&lt;li>全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题）
+&lt;ul>
+&lt;li>实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID&lt;/li>
+&lt;li>客户端和服务器都可以发送信号（&lt;code>RST_STREAM&lt;/code>帧），取消这个数据流&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>头信息压缩&lt;/li>
+&lt;li>服务器未经允许，主动推送数据到客户端&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Reference:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/blockquote></content></item></channel></rss>
