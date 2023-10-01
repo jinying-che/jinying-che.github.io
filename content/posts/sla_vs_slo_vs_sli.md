@@ -1,7 +1,7 @@
 ---
 title: "SLA vs SLO vs SLI"
 date: "2023-09-09T16:58:58+08:00"
-tags: ["SRE"]
+tags: ["sre"]
 description: "What's the difference?"
 ---
 

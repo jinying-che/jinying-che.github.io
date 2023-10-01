@@ -3,7 +3,6 @@ title: "HTTP"
 date: "2018-10-10T11:19:45+08:00"
 tags: ["network", "protocol", "http"]
 description: "HTTP History"
-draft: true
 ---
 
 > HTTP位于网络的应用层，使用TCP/IP协议进行传输

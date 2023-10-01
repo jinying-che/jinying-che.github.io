@@ -1,7 +1,7 @@
 ---
 title: "TCP"
 date: 2021-02-01T23:25:26+08:00
-tags: ["network", "TCP"]
+tags: ["network", "tcp"]
 description: "TCP overview"
 ---
 

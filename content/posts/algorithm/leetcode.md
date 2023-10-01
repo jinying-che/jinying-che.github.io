@@ -7,9 +7,16 @@ description: "leetcode checklist for the algorithm interview"
 
 When do you play with [leetcode](https://leetcode.com/)? Personally, I open it only before the algorithm interview.
 
-It's wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned better engineer we can be.
+It's wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.
 
-This post is showing that how I leetcode, it's only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.
+This post is showing how I leetcode, it's only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.
+
+The general steps to resovle a problem:
+1. **Abstract the problem**: Most questions are from some scenario in the real world, try to abstract the problem, transfer the problem to the computer world.
+2. **Map to the data structure and algorithm**: Do a brainstorm, map the problem to any data structur and algorithm that you are familiar with. If lucky it's exactly matched, apply it. 
+    1. Don't try to use smartest solution first, it's probably time consuming, for example, maybe Brute Force at first then optimize it step by step.
+    2. No any clue? congratulations! you get space to grow, don't be too sad for the failure of one interview, the better future is waiting for you ahead.
+3. **Implemente the solution**: there's a gap between the idea and the code, no magic here, practice more to improve the code skills.
 
 Enjoy the Algorithm, let's leetcode!
 
@@ -38,6 +45,9 @@ Enjoy the Algorithm, let's leetcode!
 To master binary related problems, understanding the binary operation is the key point: `^`, `|`, `&`, `>>` and `<<`
 - [461. Hamming Distance](https://leetcode.com/problems/hamming-distance/description/)
 
+#### Stack
+- [20. Valid Parentheses](https://leetcode.com/problems/valid-parentheses/description/)
+
 ### Algorithm
 #### Recursion
 - [206. Reverse Linked List](https://leetcode.com/problems/reverse-linked-list/) -- [[discussion](https://leetcode.com/problems/reverse-linked-list/discuss/1057045/golang206recursion-is-beautiful)]
@@ -58,6 +68,9 @@ To master binary related problems, understanding the binary operation is the key
 - [763. Partition Labels](https://leetcode.com/problems/partition-labels/)
 - [1353. Maximum Number of Events That Can Be Attended](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/) -- [[solution]](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/solutions/4066650/1353-python-maximum-number-of-events-that-can-be-attended)
 
+#### Math
+- [204. Count Primes](https://leetcode.com/problems/count-primes/description/) -- [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+
 ### Design
-- [146. LRU Cache](https://leetcode.com/problems/lru-cache/)
+- [146. LRU Cache](https://leetcode.com/problems/lru-cache/) -- [[discussion](https://leetcode.com/problems/lru-cache/solutions/4113594/python-146-lru-cache/)]
 - [460. LFU Cache](https://leetcode.com/problems/lfu-cache/) -- [[discussion](https://leetcode.com/problems/lfu-cache/discuss/1086255/Golang460two-ways-to-resolve-LFU-Cache)]
