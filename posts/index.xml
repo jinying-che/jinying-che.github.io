@@ -1621,7 +1621,7 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;/ul>
 &lt;h4 id="math">Math&lt;/h4>
 &lt;ul>
-&lt;li>&lt;a href="https://leetcode.com/problems/count-primes/description/">204. Count Primes&lt;/a> &amp;ndash; &lt;a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://leetcode.com/problems/count-primes/description/">204. Count Primes&lt;/a> &amp;ndash; &lt;a href="https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes">Sieve of Eratosthenes&lt;/a> [https://en.oi-wiki.org/math/sieve/]&lt;/li>
 &lt;/ul>
 &lt;h3 id="design">Design&lt;/h3>
 &lt;ul>
