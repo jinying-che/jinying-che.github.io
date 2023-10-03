@@ -22,7 +22,13 @@ Linux views all file systems from the perspective of a common set of objects. Th
 
 ## VFS
 
+## Block Layer
+
 ## Troubleshooting
+
+## Linux Storage Stack
+![linux storage stack](/images/Linux-storage-stack-diagram_v6.2/linux_storage_stack.svg)
+https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram
 
 ## Reference
 - https://developer.ibm.com/tutorials/l-linux-filesystem/

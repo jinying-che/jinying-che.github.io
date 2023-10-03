@@ -69,7 +69,7 @@ To master binary related problems, understanding the binary operation is the key
 - [1353. Maximum Number of Events That Can Be Attended](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/) -- [[solution]](https://leetcode.com/problems/maximum-number-of-events-that-can-be-attended/solutions/4066650/1353-python-maximum-number-of-events-that-can-be-attended)
 
 #### Math
-- [204. Count Primes](https://leetcode.com/problems/count-primes/description/) -- [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- [204. Count Primes](https://leetcode.com/problems/count-primes/description/) -- [Sieve of Eratosthenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes) [https://en.oi-wiki.org/math/sieve/]
 
 ### Design
 - [146. LRU Cache](https://leetcode.com/problems/lru-cache/) -- [[discussion](https://leetcode.com/problems/lru-cache/solutions/4113594/python-146-lru-cache/)]
