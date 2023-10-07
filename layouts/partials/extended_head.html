@@ -1,0 +1,8 @@
+<!--
+To add an extended head section, please create
+`layouts/partials/extended_head.html` in your Hugo directory.
+-->
+
+{{ if or .Params.math .Site.Params.math }}
+{{ partial "math.html" . }}
+{{ end }}

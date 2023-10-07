@@ -9,18 +9,18 @@ draft: true
 ## Architecture
 ![file system](/images/linux_file_system.svg)
 
-## Data Structure
-Linux views all file systems from the perspective of a common set of objects. These objects are the superblock, inode, dentry, and file.
+## VFS
+The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
+
+A VFS specifies an interface (or a "contract") between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.
 
 #### Superblock
 
-#### Index Node 
-
 #### Directory Entry
 
-#### file
+#### Index Node 
 
-## VFS
+#### file
 
 ## Block Layer
 
