@@ -60,6 +60,8 @@ To master binary related problems, understanding the binary operation is the key
 - [704. Binary Search](https://leetcode.com/problems/binary-search/) -- [[discussion](https://leetcode.com/problems/binary-search/discuss/1055849/golang704beautiful-code-of-binary-search)]
 - [34. Find First and Last Position of Element in Sorted Array](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/) -- [[discussion](https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/1056313/golang34easy-way-to-understand-with-two-binary-search)]
 
+- [35. Search Insert Position](https://leetcode.com/problems/search-insert-position/)
+
 #### Quick Sort
 - [215. Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) -- [[discussion: two partition schema]](https://leetcode.com/problems/kth-largest-element-in-an-array/discuss/1108891/Golang215two-partition-schema-of-quick-select)
 - [347. Top K Frequent Elements](https://leetcode.com/submissions/detail/465797355/)
