@@ -1606,8 +1606,15 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;/ul>
 &lt;h4 id="binary-search">Binary Search&lt;/h4>
 &lt;ul>
-&lt;li>&lt;a href="https://leetcode.com/problems/binary-search/">704. Binary Search&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/binary-search/discuss/1055849/golang704beautiful-code-of-binary-search">discussion&lt;/a>]&lt;/li>
-&lt;li>&lt;a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">34. Find First and Last Position of Element in Sorted Array&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/1056313/golang34easy-way-to-understand-with-two-binary-search">discussion&lt;/a>]&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://leetcode.com/problems/binary-search/">704. Binary Search&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/binary-search/discuss/1055849/golang704beautiful-code-of-binary-search">discussion&lt;/a>]&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/">34. Find First and Last Position of Element in Sorted Array&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/discuss/1056313/golang34easy-way-to-understand-with-two-binary-search">discussion&lt;/a>]&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://leetcode.com/problems/search-insert-position/">35. Search Insert Position&lt;/a>&lt;/p>
+&lt;/li>
 &lt;/ul>
 &lt;h4 id="quick-sort">Quick Sort&lt;/h4>
 &lt;ul>
