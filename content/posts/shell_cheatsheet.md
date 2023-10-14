@@ -91,18 +91,6 @@ ps aux | grep redis | grep -v grep | awk '{print $2}' | xargs kill -9
 
   > -v 参数：打印debug信息
 
-##Disk 
-
-> **df** displays the amount of disk space available on the file system containing each file name argument
-
-- `df -lh` : If no file name is given, the space available on all currently mounted file systems is shown.
-- `df -lh path`: show information about the file system on which each path resides
-
-> **du** Summarize disk usage of the set of FILEs, recursively for directories.
-
-- `du -h --max-depth=1` : display the usage of first depth in a human readable format
-- `du -hs * | sort -rh | head -10` : display the usage of this depth and sort the output in a human readable format
-
 ## 查目录下的文件数
 
 - ls -all | wc -l 

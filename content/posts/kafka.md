@@ -1,7 +1,7 @@
 ---
 title: "Kafka"
 date: "2023-09-28T11:14:32+08:00"
-tags: ["mq", "kafka"]
+tags: ["kafka"]
 description: "Kafka Overview"
 draft: true
 ---
