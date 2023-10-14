@@ -558,21 +558,6 @@ https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh mycli pager By
 &lt;/blockquote>
 &lt;/li>
 &lt;/ul>
-&lt;p>##Disk&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>df&lt;/strong> displays the amount of disk space available on the file system containing each file name argument&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>&lt;code>df -lh&lt;/code> : If no file name is given, the space available on all currently mounted file systems is shown.&lt;/li>
-&lt;li>&lt;code>df -lh path&lt;/code>: show information about the file system on which each path resides&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>&lt;strong>du&lt;/strong> Summarize disk usage of the set of FILEs, recursively for directories.&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>&lt;code>du -h --max-depth=1&lt;/code> : display the usage of first depth in a human readable format&lt;/li>
-&lt;li>&lt;code>du -hs * | sort -rh | head -10&lt;/code> : display the usage of this depth and sort the output in a human readable format&lt;/li>
-&lt;/ul>
 &lt;h2 id="查目录下的文件数">查目录下的文件数&lt;/h2>
 &lt;ul>
 &lt;li>ls -all | wc -l&lt;/li>
@@ -862,8 +847,8 @@ NETMASK=255.255.255.0
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="find">find&lt;/h2>
-&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>Dynamic Programming</title><link>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</link><pubDate>Sat, 11 Mar 2023 23:03:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</guid><description>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial
-Two Key Attributes How to classify a problem as a Dynamic Programming algorithm Problem?</description><content>&lt;p>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial&lt;/p>
+&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>Dynamic Programming</title><link>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</link><pubDate>Sat, 11 Mar 2023 23:03:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</guid><description>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial.
+Two Key Attributes How to classify a problem as a Dynamic Programming algorithm Problem?</description><content>&lt;p>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial.&lt;/p>
 &lt;h2 id="two-key-attributes">Two Key Attributes&lt;/h2>
 &lt;p>How to classify a problem as a Dynamic Programming algorithm Problem?&lt;/p>
 &lt;h4 id="1-overlapping-subproblems">1. Overlapping Subproblems&lt;/h4>

@@ -72,21 +72,6 @@ https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh mycli pager By
 &lt;/blockquote>
 &lt;/li>
 &lt;/ul>
-&lt;p>##Disk&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>df&lt;/strong> displays the amount of disk space available on the file system containing each file name argument&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>&lt;code>df -lh&lt;/code> : If no file name is given, the space available on all currently mounted file systems is shown.&lt;/li>
-&lt;li>&lt;code>df -lh path&lt;/code>: show information about the file system on which each path resides&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>&lt;strong>du&lt;/strong> Summarize disk usage of the set of FILEs, recursively for directories.&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>&lt;code>du -h --max-depth=1&lt;/code> : display the usage of first depth in a human readable format&lt;/li>
-&lt;li>&lt;code>du -hs * | sort -rh | head -10&lt;/code> : display the usage of this depth and sort the output in a human readable format&lt;/li>
-&lt;/ul>
 &lt;h2 id="查目录下的文件数">查目录下的文件数&lt;/h2>
 &lt;ul>
 &lt;li>ls -all | wc -l&lt;/li>
