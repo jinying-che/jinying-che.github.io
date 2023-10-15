@@ -1,4 +1,239 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 28 Sep 2023 16:10:39 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux Memory</title><link>https://jinying-che.github.io/posts/linux_memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/linux_memory/</guid><description>Virtual Memory Virtual memory is an abstraction for memory management by operation system Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU The physical memory is only allocated to process when memory is firstly accessed. (e.g. mmap() and brk() in C just allocate the virtual memory first, hence you can see VIRT in top command is usually much higher than RES) Virtual maps to physical memory and disk (swap) Virtual memory for one process includes both user space and kernel space.</description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 30 Sep 2023 15:25:41 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>Linux File System</title><link>https://jinying-che.github.io/posts/linux_file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/linux_file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
+A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/linux_file_system.svg" alt="file system">&lt;/p>
+&lt;h2 id="vfs">VFS&lt;/h2>
+&lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
+&lt;p>A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p>
+&lt;h4 id="superblock">Superblock&lt;/h4>
+&lt;p>The superblock records various information about the enclosing filesystem, such as block counts, inode counts, supported features, maintenance information, and more.&lt;/p>
+&lt;p>Show the super block info in Linux:&lt;/p>
+&lt;blockquote>
+&lt;p>all examples in this post are from my vps (OS: Ubuntu 22.04.2 LTS)&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ df -h
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem Size Used Avail Use% Mounted on
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 1.3M 95M 2% /run
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/vda1 24G 12G 11G 52% /
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 479M &lt;span style="color:#ae81ff">0&lt;/span> 479M 0% /dev/shm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 5.0M &lt;span style="color:#ae81ff">0&lt;/span> 5.0M 0% /run/lock
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 4.0K 96M 1% /run/user/0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ dumpe2fs /dev/vda1
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dumpe2fs 1.46.5 &lt;span style="color:#f92672">(&lt;/span>30-Dec-2021&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem volume name: &amp;lt;none&amp;gt;
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Last mounted on: /
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem UUID: cc673143-6902-4174-990e-8cba0304cb7a
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem magic number: 0xEF53
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem revision &lt;span style="color:#75715e">#: 1 (dynamic)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem features: has_journal ext_attr resize_inode dir_index filetype needs_recovery extent 64bit flex_bg sparse_super large_file huge_file dir_nlink extra_isize metadata_csum
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem flags: signed_directory_hash
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Default mount options: user_xattr acl discard
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem state: clean
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Errors behavior: Continue
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem OS type: Linux
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inode count: &lt;span style="color:#ae81ff">6537600&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Block count: &lt;span style="color:#ae81ff">6553339&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Reserved block count: &lt;span style="color:#ae81ff">327666&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Free blocks: &lt;span style="color:#ae81ff">3333553&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Free inodes: &lt;span style="color:#ae81ff">6325191&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>First block: &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Block size: &lt;span style="color:#ae81ff">4096&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Fragment size: &lt;span style="color:#ae81ff">4096&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/b9ddbb0cde2adcedda26045cc58f31316a492215/include/linux/fs.h#L1188">super_block c source code&lt;/a>&lt;/p>
+&lt;h4 id="directory-entry-dentry">Directory Entry (Dentry)&lt;/h4>
+&lt;ol>
+&lt;li>Dentry is used by VFS to represent information about the &lt;strong>directories and files&lt;/strong> inside the &lt;strong>memory&lt;/strong>&lt;/li>
+&lt;li>Dentries live in RAM and are never saved to disc: they exist only for performance. (RAM cannot save all dentries -&amp;gt; LFU cache)&lt;/li>
+&lt;li>An individual dentry usually has a pointer to an inode&lt;/li>
+&lt;li>It&amp;rsquo;s a fast look-up mechanism to translate a pathname (filename) into a specific &lt;strong>dentry&lt;/strong> then &lt;strong>inode&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/b9ddbb0cde2adcedda26045cc58f31316a492215/include/linux/dcache.h#L82">dentry c source code&lt;/a>&lt;/p>
+&lt;h4 id="index-node">Index Node&lt;/h4>
+&lt;ol>
+&lt;li>Index node(Inode) is a data structure that stores ownership, permissions, file size, and other metadata-related terms.&lt;/li>
+&lt;li>They live either on the disc (for block device filesystems) or in the memory (for pseudo filesystems). Inodes that live on the disc are copied into the memory when required and changes to the inode are written back to disc.&lt;/li>
+&lt;li>Every file and directory on Linux is represented by a unique inode number used by the system to identify it on the file system.&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ls&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -i, --inode&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># print the index number of each file&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls -i workspace/main.go
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">1067025&lt;/span> workspace/main.go
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls -i workspace
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">1067025&lt;/span> main.go
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># stat - display file or file system status&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ stat workspace/main.go
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> File: workspace/main.go
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Size: &lt;span style="color:#ae81ff">72&lt;/span> Blocks: &lt;span style="color:#ae81ff">8&lt;/span> IO Block: &lt;span style="color:#ae81ff">4096&lt;/span> regular file
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device: fc01h/64513d Inode: &lt;span style="color:#ae81ff">1067025&lt;/span> Links: &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: &lt;span style="color:#f92672">(&lt;/span>0644/-rw-r--r--&lt;span style="color:#f92672">)&lt;/span> Uid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span> Gid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: 2023-10-09 22:12:30.884848072 +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Modify: 2023-06-11 22:44:14.194331022 +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Change: 2023-06-11 22:44:14.194331022 +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Birth: 2023-06-11 22:44:14.194331022 +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ stat workspace
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> File: workspace
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Size: &lt;span style="color:#ae81ff">4096&lt;/span> Blocks: &lt;span style="color:#ae81ff">8&lt;/span> IO Block: &lt;span style="color:#ae81ff">4096&lt;/span> directory
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device: fc01h/64513d Inode: &lt;span style="color:#ae81ff">1066674&lt;/span> Links: &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: &lt;span style="color:#f92672">(&lt;/span>0755/drwxr-xr-x&lt;span style="color:#f92672">)&lt;/span> Uid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span> Gid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: 2023-10-09 22:12:33.196939026 +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Modify: 2023-10-09 22:12:32.612916118 +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Change: 2023-10-09 22:12:32.612916118 +0800
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Birth: 2023-06-11 22:43:01.453639583 +0800
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/94f6f0550c625fab1f373bb86a6669b45e9748b3/include/linux/fs.h#L639">inode c source code&lt;/a>&lt;/p>
+&lt;h4 id="file">File&lt;/h4>
+&lt;ol>
+&lt;li>The file object is the in-memory representation of an open file.&lt;/li>
+&lt;li>The file object is initialized with a pointer to the dentry and a set of file operation member functions which are taken from the inode data.&lt;/li>
+&lt;li>The file structure is placed into the file descriptor table for the process.&lt;/li>
+&lt;li>Reading, writing and closing files are done by using the userspace &lt;strong>file descriptor&lt;/strong> to grab the appropriate file structure.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/b9ddbb0cde2adcedda26045cc58f31316a492215/include/linux/fs.h#L992">file c source code&lt;/a>&lt;/p>
+&lt;h2 id="what-happens-when-reading-a-file-in-linux">What happens when reading a file in Linux?&lt;/h2>
+&lt;p>TBD Diagram to elaborate on the concepts above&lt;/p>
+&lt;h2 id="block-layer">Block Layer&lt;/h2>
+&lt;p>TBD&lt;/p>
+&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>df &amp;amp; du&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># df displays the amount of disk space available on the file system containing each file name argument&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ df -h
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem Size Used Avail Use% Mounted on
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 1.3M 95M 2% /run
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/vda1 24G 12G 11G 52% /
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 479M &lt;span style="color:#ae81ff">0&lt;/span> 479M 0% /dev/shm
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 5.0M &lt;span style="color:#ae81ff">0&lt;/span> 5.0M 0% /run/lock
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 4.0K 96M 1% /run/user/0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># du Summarize disk usage of the set of FILEs, recursively for directories.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/usr &amp;gt; du -h --max-depth&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#75715e"># display the usage of first depth in a human readable format &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>4.0K ./lib32
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>32M ./sbin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>465M ./src
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>4.0K ./lib64
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>439M ./share
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># display the usage of this depth and sort the output in a human readable format&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ du -hs * | sort -rh | head -10
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>5.0G usr
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>3.9G var
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2.4G swapfile
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>1.1G snap
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>iostat (device level)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display a continuous device report of extended statistics at two second intervals.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># take note of the following statistics: &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - %util: percentage of elapsed time during which I/O requests were issued to the device &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - r/s, w/s: read/write requests per second for the device&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - rKB/s, rWB/s: the number of sectors (kilobytes, megabytes) read/write for the device per second&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - r_await, w_await: the average time (in milliseconds) for read/write requests issued to the device to be served. This includes the time spent by the requests in queue and the time spent servicing them.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ iostat -x -d &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device r/s rkB/s rrqm/s %rrqm r_await rareq-sz w/s wkB/s wrqm/s %wrqm w_await wareq-sz d/s dkB/s drqm/s %drqm d_await dareq-sz f/s f_await aqu-sz %util
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop0 0.00 0.02 0.00 0.00 0.29 47.11 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop1 0.00 0.00 0.00 0.00 0.14 34.80 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sr0 0.00 0.00 0.00 0.00 0.00 0.12 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vda 0.24 6.06 0.09 28.32 0.37 25.79 2.18 15.93 0.48 17.94 0.38 7.32 0.01 8.63 0.00 0.00 2.14 1258.27 0.20 0.14 0.00 0.10
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device r/s rkB/s rrqm/s %rrqm r_await rareq-sz w/s wkB/s wrqm/s %wrqm w_await wareq-sz d/s dkB/s drqm/s %drqm d_await dareq-sz f/s f_await aqu-sz %util
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop0 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop1 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sr0 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vda 0.00 0.00 0.00 0.00 0.00 0.00 1.00 30.00 6.50 86.67 0.50 30.00 0.50 2.00 0.00 0.00 2.00 4.00 1.00 0.00 0.00 0.20
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>pidstat (process level)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># pidstat - Report statistics for Linux tasks.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat -d &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#75715e"># report I/O statistics per second &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:01 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 16.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:01 PM UID PID kB_rd/s kB_wr/s kB_ccwr/s iodelay Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:02 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 36.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:02 PM UID PID kB_rd/s kB_wr/s kB_ccwr/s iodelay Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:03 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 32.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:03 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">825&lt;/span> 0.00 4.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> sshd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat -d -p &lt;span style="color:#ae81ff">387&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#75715e"># report I/O statistics for process 387 per second &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:24 PM UID PID kB_rd/s kB_wr/s kB_ccwr/s iodelay Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:25 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 16.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:26 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:27 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 32.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:28 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>iotop&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># iotop - simple top-like I/O monitor&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NOTE: not handy as kernal config may need to update (at least the CONFIG_TASK_DELAY_ACCT, CONFIG_TASK_IO_ACCOUNTING, CON-FIG_TASKSTATS and CONFIG_VM_EVENT_COUNTERS options need to be enabled in your Linux kernel build configuration.)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ iotop
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Total DISK READ : 0.00 B/s | Total DISK WRITE : 7.85 K/s
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Actual DISK READ: 0.00 B/s | Actual DISK WRITE: 0.00 B/s
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> TID PRIO USER DISK READ DISK WRITE SWAPIN IO&amp;gt; COMMAND
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">15055&lt;/span> be/3 root 0.00 B/s 7.85 K/s 0.00 % 0.00 % systemd-journald
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>strace&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># strace - trace system calls and signals&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># process 654373 is a prometheus node exporter, through the strace (system calls), it&amp;#39;s able to roughly understand how does node exporter work &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ strace -p &lt;span style="color:#ae81ff">654373&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>newfstatat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc&amp;#34;&lt;/span>, &lt;span style="color:#f92672">{&lt;/span>st_mode&lt;span style="color:#f92672">=&lt;/span>S_IFDIR|0555, st_size&lt;span style="color:#f92672">=&lt;/span>0, ...&lt;span style="color:#f92672">}&lt;/span>, 0&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>statfs&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;/proc&amp;#34;&lt;/span>, &lt;span style="color:#f92672">{&lt;/span>f_type&lt;span style="color:#f92672">=&lt;/span>PROC_SUPER_MAGIC, f_bsize&lt;span style="color:#f92672">=&lt;/span>4096, f_blocks&lt;span style="color:#f92672">=&lt;/span>0, f_bfree&lt;span style="color:#f92672">=&lt;/span>0, f_bavail&lt;span style="color:#f92672">=&lt;/span>0, f_files&lt;span style="color:#f92672">=&lt;/span>0, f_ffree&lt;span style="color:#f92672">=&lt;/span>0, f_fsid&lt;span style="color:#f92672">={&lt;/span>val&lt;span style="color:#f92672">=[&lt;/span>0, 0&lt;span style="color:#f92672">]}&lt;/span>, f_namelen&lt;span style="color:#f92672">=&lt;/span>255, f_frsize&lt;span style="color:#f92672">=&lt;/span>4096, f_flags&lt;span style="color:#f92672">=&lt;/span>ST_VALID|ST_NOSUID|ST_NODEV|ST_NOEXEC|ST_RELATIME&lt;span style="color:#f92672">})&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>newfstatat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc/655152&amp;#34;&lt;/span>, &lt;span style="color:#f92672">{&lt;/span>st_mode&lt;span style="color:#f92672">=&lt;/span>S_IFDIR|0555, st_size&lt;span style="color:#f92672">=&lt;/span>0, ...&lt;span style="color:#f92672">}&lt;/span>, 0&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>openat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc/655152/stat&amp;#34;&lt;/span>, O_RDONLY|O_CLOEXEC&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">8&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_GETFL&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> 0x8000 &lt;span style="color:#f92672">(&lt;/span>flags O_RDONLY|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_SETFL, O_RDONLY|O_NONBLOCK|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>epoll_ctl&lt;span style="color:#f92672">(&lt;/span>4, EPOLL_CTL_ADD, 8, &lt;span style="color:#f92672">{&lt;/span>events&lt;span style="color:#f92672">=&lt;/span>EPOLLIN|EPOLLOUT|EPOLLRDHUP|EPOLLET, data&lt;span style="color:#f92672">={&lt;/span>u32&lt;span style="color:#f92672">=&lt;/span>1268860600, u64&lt;span style="color:#f92672">=&lt;/span>139673605326520&lt;span style="color:#f92672">}})&lt;/span> &lt;span style="color:#f92672">=&lt;/span> -1 EPERM &lt;span style="color:#f92672">(&lt;/span>Operation not permitted&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_GETFL&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> 0x8800 &lt;span style="color:#f92672">(&lt;/span>flags O_RDONLY|O_NONBLOCK|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_SETFL, O_RDONLY|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>read&lt;span style="color:#f92672">(&lt;/span>8, &lt;span style="color:#e6db74">&amp;#34;655152 (node_exporter) R 655107 &amp;#34;&lt;/span>..., 512&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">308&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>read&lt;span style="color:#f92672">(&lt;/span>8, &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>, 204&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>close&lt;span style="color:#f92672">(&lt;/span>8&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>openat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc/stat&amp;#34;&lt;/span>, O_RDONLY|O_CLOEXEC&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">8&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_GETFL&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> 0x8000 &lt;span style="color:#f92672">(&lt;/span>flags O_RDONLY|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_SETFL, O_RDONLY|O_NONBLOCK|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>epoll_ctl&lt;span style="color:#f92672">(&lt;/span>4, EPOLL_CTL_ADD, 8, &lt;span style="color:#f92672">{&lt;/span>events&lt;span style="color:#f92672">=&lt;/span>EPOLLIN|EPOLLOUT|EPOLLRDHUP|EPOLLET, data&lt;span style="color:#f92672">={&lt;/span>u32&lt;span style="color:#f92672">=&lt;/span>1268860600, u64&lt;span style="color:#f92672">=&lt;/span>139673605326520&lt;span style="color:#f92672">}})&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>read&lt;span style="color:#f92672">(&lt;/span>8, &lt;span style="color:#e6db74">&amp;#34;cpu 773459 68488 441098 3776333&amp;#34;&lt;/span>..., 512&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">512&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>lsof&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># lsof - lists on its standard output file information about files opened by processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># An open file may be a regular file, a directory, a block special file, a character special file, an executing text reference, a library, a stream or a network file (Internet socket, NFS file or UNIX domain socket.)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man lsof for more details &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ lsof -p &lt;span style="color:#ae81ff">654373&lt;/span> &lt;span style="color:#75715e"># list all files opened by node exporter&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root cwd DIR 252,1 &lt;span style="color:#ae81ff">4096&lt;/span> &lt;span style="color:#ae81ff">1046028&lt;/span> /root/workspace/node_exporter-1.6.1.linux-amd64
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root rtd DIR 252,1 &lt;span style="color:#ae81ff">4096&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> /
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root txt REG 252,1 &lt;span style="color:#ae81ff">20025119&lt;/span> &lt;span style="color:#ae81ff">1046289&lt;/span> /root/workspace/node_exporter-1.6.1.linux-amd64/node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 0u CHR 136,5 0t0 &lt;span style="color:#ae81ff">8&lt;/span> /dev/pts/5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 1u CHR 136,5 0t0 &lt;span style="color:#ae81ff">8&lt;/span> /dev/pts/5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 2u CHR 136,5 0t0 &lt;span style="color:#ae81ff">8&lt;/span> /dev/pts/5
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 3u IPv6 &lt;span style="color:#ae81ff">10182875&lt;/span> 0t0 TCP *:9100 &lt;span style="color:#f92672">(&lt;/span>LISTEN&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 4u a_inode 0,14 &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">12477&lt;/span> &lt;span style="color:#f92672">[&lt;/span>eventpoll&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 5r FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 6w FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;/ol>
+&lt;h2 id="linux-storage-stack">Linux Storage Stack&lt;/h2>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/Linux-storage-stack-diagram_v6.2/linux_storage_stack.svg" alt="linux storage stack">
+&lt;a href="https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram">https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram&lt;/a>&lt;/p>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://developer.ibm.com/tutorials/l-linux-filesystem/">https://developer.ibm.com/tutorials/l-linux-filesystem/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/ext4/globals.html?highlight=file+system+super+block">super block &amp;ndash; kernel doc&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/vfs.html?highlight=inode">vfs overview &amp;ndash; kernel doc&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://itslinuxfoss.com/what-is-superblock-inode-dentry-and-file/#:~:text=The%20superblock%20is%20the%20data,of%20bytes%20in%20different%20forms.">What is a Superblock, Dentry, Inode and a File?&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>Linux Memory</title><link>https://jinying-che.github.io/posts/linux_memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/linux_memory/</guid><description>Virtual Memory Virtual memory is an abstraction for memory management by operation system Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU The physical memory is only allocated to process when memory is firstly accessed. (e.g. mmap() and brk() in C just allocate the virtual memory first, hence you can see VIRT in top command is usually much higher than RES) Virtual maps to physical memory and disk (swap) Virtual memory for one process includes both user space and kernel space.</description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
 &lt;ol>
 &lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
 &lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
@@ -847,32 +1082,7 @@ NETMASK=255.255.255.0
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="find">find&lt;/h2>
-&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>Dynamic Programming</title><link>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</link><pubDate>Sat, 11 Mar 2023 23:03:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/dynamic_programming/</guid><description>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial.
-Two Key Attributes How to classify a problem as a Dynamic Programming algorithm Problem?</description><content>&lt;p>Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial.&lt;/p>
-&lt;h2 id="two-key-attributes">Two Key Attributes&lt;/h2>
-&lt;p>How to classify a problem as a Dynamic Programming algorithm Problem?&lt;/p>
-&lt;h4 id="1-overlapping-subproblems">1. Overlapping Subproblems&lt;/h4>
-&lt;p>The solutions to the same subproblems are needed repetitively for solving the actual problem.&lt;/p>
-&lt;h4 id="2-optimal-substructure-property">2. Optimal Substructure Property&lt;/h4>
-&lt;p>The solution to a given optimization problem can be obtained by the combination of optimal solutions to its sub-problems. Such optimal substructures are usually described by means of recursion.&lt;/p>
-&lt;blockquote>
-&lt;p>If a problem can be solved by combining optimal solutions to non-overlapping sub-problems, the strategy is called &amp;ldquo;divide and conquer&amp;rdquo; instead. This is why merge sort and quick sort are not classified as dynamic programming problems.&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="the-steps-to-resove-the-a-dynamic-programming-problem">The Steps To Resove The A Dynamic Programming Problem&lt;/h2>
-&lt;h4 id="1-identify-a-dp-problem-identify-the-subproblems">1. Identify a &lt;strong>DP&lt;/strong> problem, Identify the &lt;strong>subproblems&lt;/strong>&lt;/h4>
-&lt;ol>
-&lt;li>refer to two key attributes&lt;/li>
-&lt;li>transfer the real world probelm to the math model, e.g. &lt;a href="https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/">Best Time to Buy and Sell Stock&lt;/a>, actaully in the math world, which means to find the min and max value of the array, which is a significant dynamic problem flag.&lt;/li>
-&lt;/ol>
-&lt;h4 id="2-decide-a-state-expression-with-the-least-parameters">2. Decide a state expression with the Least parameters&lt;/h4>
-&lt;p>Determine what information you need to represent the solution to each subproblem. This is often done using a state vector or matrix.&lt;/p>
-&lt;h4 id="3-formulate-state-and-transition-relationships">3. Formulate state and transition relationships&lt;/h4>
-&lt;p>Determine the relationship between the solution to a subproblem and the solutions to its smaller subproblems. This is often done using a recursive formula or a set of rules.&lt;/p>
-&lt;h4 id="4-adding-memoization-or-tabulation-for-the-state">4. Adding memoization or tabulation for the state&lt;/h4>
-&lt;p>Simply storing the state solution will allow us to access it from memory the next time that state is needed. Solve the subproblems in a bottom-up (tabulation) or top-down (memorization) manner.&lt;/p>
-&lt;h4 id="5-compute-the-final-solution-using-the-solutions-to-the-subproblems">5. Compute the final solution using the solutions to the subproblems.&lt;/h4>
-&lt;p>TODO: Example&lt;/p>
-&lt;h2 id="memoization-vs-tabulation-todo">memoization vs tabulation (TODO)&lt;/h2></content></item><item><title>API Design</title><link>https://jinying-che.github.io/posts/api_design/</link><pubDate>Mon, 13 Feb 2023 22:27:32 +0800</pubDate><guid>https://jinying-che.github.io/posts/api_design/</guid><description>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.
+&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>API Design</title><link>https://jinying-che.github.io/posts/api_design/</link><pubDate>Mon, 13 Feb 2023 22:27:32 +0800</pubDate><guid>https://jinying-che.github.io/posts/api_design/</guid><description>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.
 Simple Put:
 REST is a software architectural and common communication standard. OpenAPI is a specification, which defines a standard, programming language-agnostic interface description for HTTP APIs. gRPC is a high performance Remote Procedure Call (RPC) framework.</description><content>&lt;p>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.&lt;/p>
 &lt;p>Simple Put:&lt;/p>
@@ -1538,8 +1748,12 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;/ol>
 &lt;/li>
 &lt;li>&lt;strong>Implemente the solution&lt;/strong>: there&amp;rsquo;s a gap between the idea and the code, no magic here, practice more to improve the code skills.&lt;/li>
+&lt;li>verify with some test cases and edge cases&lt;/li>
 &lt;/ol>
-&lt;p>Enjoy the Algorithm, let&amp;rsquo;s leetcode!&lt;/p>
+&lt;p>Enjoy the Algorithm, let&amp;rsquo;s leetcode with the popular algorithm list:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://leetcode.com/studyplan/top-interview-150/">https://leetcode.com/studyplan/top-interview-150/&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h3 id="data-structure">Data Structure&lt;/h3>
 &lt;h4 id="array">Array&lt;/h4>
 &lt;ul>
@@ -1588,6 +1802,7 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/fibonacci-number/">509. Fibonacci Number&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/fibonacci-number/discuss/1057880/golang509four-ways-to-resolve-fibonacci-number">discussion&lt;/a>]&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/climbing-stairs/">70. Climbing Stairs&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://leetcode.com/problems/house-robber/">198. House Robber&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h4 id="binary-search">Binary Search&lt;/h4>
 &lt;ul>
