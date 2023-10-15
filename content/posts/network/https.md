@@ -1,7 +1,7 @@
 ---
 title: "HTTPS"
 date: "2019-06-10T11:19:47+08:00"
-tags: ["network", "protocol", "http"]
+tags: ["network"]
 description: "HTTPS Overivew"
 ---
 

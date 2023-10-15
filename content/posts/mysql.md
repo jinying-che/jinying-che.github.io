@@ -1,7 +1,7 @@
 ---
 title: "MySQL"
 date: "2019-06-05T11:48:53+08:00"
-tags: ["database", "mysql"]
+tags: ["database"]
 description: "MySQL Overview"
 ---
 

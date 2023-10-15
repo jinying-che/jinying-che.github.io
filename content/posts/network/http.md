@@ -1,7 +1,7 @@
 ---
 title: "HTTP"
 date: "2018-10-10T11:19:45+08:00"
-tags: ["network", "protocol", "http"]
+tags: ["network"]
 description: "HTTP History"
 ---
 

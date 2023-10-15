@@ -1,7 +1,7 @@
 ---
 title: "DNS"
 date: "2023-09-20T11:47:31+08:00"
-tags: ["network", "dns"]
+tags: ["network"]
 description: "DNS Overview"
 ---
 

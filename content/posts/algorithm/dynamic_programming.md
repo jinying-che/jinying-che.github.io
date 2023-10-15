@@ -3,6 +3,7 @@ title: "Dynamic Programming"
 date: "2023-03-11T23:03:37+08:00"
 tags: ["algorithm"]
 description: "Dynamic Programming is simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner"
+draft: true
 ---
 Dynamic Programming is mainly an optimization over plain recursion. Wherever we see a recursive solution that has repeated calls for the same inputs, we can optimize it using Dynamic Programming. The idea is to simply store the results of subproblems so that we do not have to re-compute them when needed later. This simple optimization reduces time complexities from exponential to polynomial.
 
@@ -20,7 +21,7 @@ The solution to a given optimization problem can be obtained by the combination 
 
 #### 1. Identify a **DP** problem, Identify the **subproblems**
 1. refer to two key attributes 
-2. transfer the real world probelm to the math model, e.g. [Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/), actaully in the math world, which means to find the min and max value of the array, which is a significant dynamic problem flag.
+2. transfer the real world probelm to the math model
 #### 2. Decide a state expression with the Least parameters
 Determine what information you need to represent the solution to each subproblem. This is often done using a state vector or matrix.
 #### 3. Formulate state and transition relationships 
@@ -30,5 +31,6 @@ Simply storing the state solution will allow us to access it from memory the nex
 #### 5. Compute the final solution using the solutions to the subproblems.
 
 TODO: Example
+[Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/), actaully in the math world, which means to find the min and max value of the array, which is a significant dynamic problem flag.
 
 ## memoization vs tabulation (TODO)

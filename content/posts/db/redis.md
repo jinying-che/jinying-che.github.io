@@ -1,7 +1,7 @@
 ---
 title: "Redis"
 date: "2019-09-16T17:37:10+08:00"
-tags: ["database", "redis", "nosql"]
+tags: ["database"]
 description: "Redis Overview"
 ---
 

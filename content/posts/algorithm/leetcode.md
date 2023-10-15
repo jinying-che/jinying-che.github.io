@@ -1,7 +1,7 @@
 ---
 title: "Algorithm: How I leetcode"
 date: 2021-02-13T16:31:28+08:00
-tags: ["algorithm", "data structure"]
+tags: ["algorithm"]
 description: "leetcode checklist for the algorithm interview"
 ---
 
@@ -17,8 +17,10 @@ The general steps to resovle a problem:
     1. Don't try to use smartest solution first, it's probably time consuming, for example, maybe Brute Force at first then optimize it step by step.
     2. No any clue? congratulations! you get space to grow, don't be too sad for the failure of one interview, the better future is waiting for you ahead.
 3. **Implemente the solution**: there's a gap between the idea and the code, no magic here, practice more to improve the code skills.
+4. verify with some test cases and edge cases
 
-Enjoy the Algorithm, let's leetcode!
+Enjoy the Algorithm, let's leetcode with the popular algorithm list:
+- https://leetcode.com/studyplan/top-interview-150/
 
 ### Data Structure
 #### Array
@@ -55,6 +57,7 @@ To master binary related problems, understanding the binary operation is the key
 #### Dynamic Programming
 - [509. Fibonacci Number](https://leetcode.com/problems/fibonacci-number/) -- [[discussion](https://leetcode.com/problems/fibonacci-number/discuss/1057880/golang509four-ways-to-resolve-fibonacci-number)]
 - [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+- [198. House Robber](https://leetcode.com/problems/house-robber/)
 
 #### Binary Search
 - [704. Binary Search](https://leetcode.com/problems/binary-search/) -- [[discussion](https://leetcode.com/problems/binary-search/discuss/1055849/golang704beautiful-code-of-binary-search)]
