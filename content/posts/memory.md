@@ -1,5 +1,5 @@
 ---
-title: "Linux Memory"
+title: "Memory"
 date: "2023-09-28T16:10:39+08:00"
 tags: ["linux"]
 description: "Linux Memroy Overview"

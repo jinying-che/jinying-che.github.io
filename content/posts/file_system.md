@@ -1,5 +1,5 @@
 ---
-title: "Linux File System"
+title: "File System"
 date: "2023-09-30T15:25:41+08:00"
 tags: ["linux"]
 description: "File System Overview"
