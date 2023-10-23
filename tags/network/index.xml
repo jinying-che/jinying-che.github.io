@@ -316,11 +316,11 @@ V x V snd FIN V
 &lt;/tr>
 &lt;tr>
 &lt;td>FIN-WAIT-2&lt;/td>
-&lt;td>represents waiting for a connection termination request from the remote TCP&lt;/td>
+&lt;td>represents waiting for a connection termination request from the &lt;em>remote&lt;/em> TCP&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>CLOSE-WAIT&lt;/td>
-&lt;td>represents waiting for a connection termination request from the local user&lt;/td>
+&lt;td>represents waiting for a connection termination request from the &lt;em>local&lt;/em> user&lt;/td>
 &lt;/tr>
 &lt;tr>
 &lt;td>CLOSING&lt;/td>
