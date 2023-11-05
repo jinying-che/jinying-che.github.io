@@ -3,7 +3,6 @@ title: "CAP"
 date: "2023-11-03T10:03:19+08:00"
 tags: ["distributed system"]
 description: "CAP Overview"
-draft: true
 ---
 ## Theorem
 - **Consistency**: Every read receives the most recent write or an error.
