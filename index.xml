@@ -1,4 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://jinying-che.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Oct 2023 22:54:48 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://jinying-che.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 03 Nov 2023 10:03:19 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>CAP</title><link>https://jinying-che.github.io/posts/cap/</link><pubDate>Fri, 03 Nov 2023 10:03:19 +0800</pubDate><guid>https://jinying-che.github.io/posts/cap/</guid><description>Theorem Consistency: Every read receives the most recent write or an error. Availability: Every request receives a (non-error) response, without the guarantee that it contains the most recent write. Partition Tolerance: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes. In the absence of a partition, both availability and consistency can be satisfied, but when the network partition occurs, one is then left with two options: consistency or availability.</description><content>&lt;h2 id="theorem">Theorem&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Consistency&lt;/strong>: Every read receives the most recent write or an error.&lt;/li>
+&lt;li>&lt;strong>Availability&lt;/strong>: Every request receives a (non-error) response, without the guarantee that it contains the most recent write.&lt;/li>
+&lt;li>&lt;strong>Partition Tolerance&lt;/strong>: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/cap.svg" alt="cap">
+In the absence of a &lt;strong>partition&lt;/strong>, both availability and consistency can be satisfied, but when the network partition occurs, one is then left with two options: consistency or availability.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>CP System&lt;/strong>: When choosing consistency over availability, the system will return an error or a time out if particular information cannot be guaranteed to be up to date due to network partitioning. (Only make sure &lt;strong>partial service nodes&lt;/strong> are available, the system has to shut down the non-consistent node)&lt;/li>
+&lt;li>&lt;strong>AP System&lt;/strong>: When choosing availability over consistency, the system will always process the query and try to return the most recent available version of the information, even if it cannot guarantee it is up to date due to network partitioning. (All nodes are available, when the partition is resolved, the AP databases typically resync the nodes to repair all inconsistencies in the system.)&lt;/li>
+&lt;li>&lt;strong>CA System&lt;/strong>: It&amp;rsquo;s impossible to delivery both strong consistency and Availability as the consistency protocol (e.g. 2PC) cannot be satified.&lt;/li>
+&lt;/ul>
+&lt;h2 id="consensus-protocol-tbd">Consensus Protocol (TBD)&lt;/h2>
+&lt;h4 id="1-paxos">1. Paxos&lt;/h4>
+&lt;h4 id="2-zab">2. Zab&lt;/h4>
+&lt;h4 id="3-raft">3. Raft&lt;/h4>
+&lt;p>A Raft cluster contains several servers; five is a typical number, which allows the system to tolerate two failures.&lt;/p>
+&lt;p>At any given time each server is in one of three states:&lt;/p>
+&lt;ul>
+&lt;li>Leader: The leader handles all client requests (if a client contacts a follower, the follower redirects it to the leader).&lt;/li>
+&lt;li>Follower: Followers are passive: they issue no requests on their own but simply respond to requests from leaders and candidates.&lt;/li>
+&lt;li>Candidate: is used to elect a new leader&lt;/li>
+&lt;/ul>
+&lt;p>In normal operation there is exactly &lt;strong>one leader&lt;/strong> and all of the other servers are &lt;strong>followers&lt;/strong>.&lt;/p>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/raft_server_status.png" alt="Raft State Machine">&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;em>From Raft Paper: &lt;a href="https://raft.github.io/raft.pdf">https://raft.github.io/raft.pdf&lt;/a>&lt;/em>&lt;/p>
+&lt;/blockquote>
+&lt;p>Check the &lt;a href="https://thesecretlivesofdata.com/raft/">visualization&lt;/a> for the quick udnerstanding.&lt;/p>
+&lt;h4 id="4-gossip">4. Gossip&lt;/h4>
+&lt;h4 id="5-2pc">5. 2PC&lt;/h4>
+&lt;h2 id="reference">Reference&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://en.wikipedia.org/wiki/CAP_theorem">https://en.wikipedia.org/wiki/CAP_theorem&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.ibm.com/topics/cap-theorem">https://www.ibm.com/topics/cap-theorem&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://raft.github.io/">https://raft.github.io/&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
 Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 users, load average: 0.00, 0.00, 0.00 Tasks: 127 total, 1 running, 126 sleeping, 0 stopped, 0 zombie %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache MiB Swap: 2400.0 total, 2282.0 free, 118.0 used.</description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
 &lt;p>TBD&lt;/p>
 &lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
