@@ -91,8 +91,8 @@ Be noted that 11 [TCP Connection States Diagram](https://datatracker.ietf.org/do
 | SYN-RECEIVED | represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request |
 | ESTABLISHED  | represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection |
 | FIN-WAIT-1   | represents waiting for a connection termination request from the remote TCP, or an acknowledgment of the connection termination request previously sent |
-| FIN-WAIT-2   | represents waiting for a connection termination request from the remote TCP |
-| CLOSE-WAIT   | represents waiting for a connection termination request from the local user |
+| FIN-WAIT-2   | represents waiting for a connection termination request from the *remote* TCP |
+| CLOSE-WAIT   | represents waiting for a connection termination request from the *local* user |
 | CLOSING      | represents waiting for a connection termination request acknowledgment from the remote TCP |
 | LAST-ACK     | represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP (which includes an acknowledgment of its connection termination request) |
 | TIME-WAIT    | represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request |
