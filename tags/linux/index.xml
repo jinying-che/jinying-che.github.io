@@ -1,4 +1,147 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on</title><link>https://jinying-che.github.io/tags/linux/</link><description>Recent content in linux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 30 Sep 2023 15:25:41 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on</title><link>https://jinying-che.github.io/tags/linux/</link><description>Recent content in linux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Oct 2023 22:54:48 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
+Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 users, load average: 0.00, 0.00, 0.00 Tasks: 127 total, 1 running, 126 sleeping, 0 stopped, 0 zombie %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache MiB Swap: 2400.0 total, 2282.0 free, 118.0 used.</description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
+&lt;p>TBD&lt;/p>
+&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/cpu_tools.png" alt="overview">&lt;/p>
+&lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
+&lt;h4 id="1-top">1. top&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>top - 17:18:53 up &lt;span style="color:#ae81ff">50&lt;/span> days, 16:06, &lt;span style="color:#ae81ff">7&lt;/span> users, load average: 0.00, 0.00, 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Tasks: &lt;span style="color:#ae81ff">127&lt;/span> total, &lt;span style="color:#ae81ff">1&lt;/span> running, &lt;span style="color:#ae81ff">126&lt;/span> sleeping, &lt;span style="color:#ae81ff">0&lt;/span> stopped, &lt;span style="color:#ae81ff">0&lt;/span> zombie
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 2400.0 total, 2282.0 free, 118.0 used. 622.7 avail Mem
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">782513&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">17312&lt;/span> &lt;span style="color:#ae81ff">11036&lt;/span> &lt;span style="color:#ae81ff">8652&lt;/span> S 0.3 1.1 0:00.04 sshd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167728&lt;/span> &lt;span style="color:#ae81ff">9424&lt;/span> &lt;span style="color:#ae81ff">6504&lt;/span> S 0.0 1.0 3:05.88 systemd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.66 kthreadd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man top to get top details, simple put:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># load average : the average number of processes that are either in a runnable or uninterruptable state for the past 1, 5, and 15 minutes. &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g. `load average = 1.5` in 6 cpu system means 1/4 cpu is under laod, 3/4 cpu is idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># us, user : time running un-niced user processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># sy, system : time running kernel processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ni, nice : time running niced user processes (process priority, a negative nice value means higher priority, whereas a positive nice value means lower priority)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># id, idle : time spent in the kernel idle handler&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># wa, IO-wait : time waiting for I/O completion&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hi : time spent servicing hardware interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># si : time spent servicing software interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># st : time stolen from this vm by the hypervisor&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PR: The scheduling priority of the task (real priority of a process as seen by the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NI: The nice value of the task (a priority hint for the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># VIRT: The total amount of virtual memory used by the task (physical memory + swap)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># RES: A subset of the virtual address space (VIRT) representing the non-swapped physical memory (only physical memory)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># SHR: A subset of resident memory (RES) that may be used by other processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S: Process Status, the status of the task which can be one of:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># D = uninterruptible sleep&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># I = idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># R = running&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S = sleeping&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># T = stopped by job control signal&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># t = stopped by debugger during trace&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Z = zombie&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-vmstat">2. vmstat&lt;/h4>
+&lt;p>vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity&lt;/p>
+&lt;p>refer to &lt;a href="https://jinying-che.github.io/posts/memory/#3-vmstat">details&lt;/a>&lt;/p>
+&lt;h4 id="3-pidstat-process-level">3. pidstat (process level)&lt;/h4>
+&lt;p>&lt;code>pidstat&lt;/code> report statistics (cpu, memory, disk, stack) for Linux tasks (process), by defaut is cpu utilization without params.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>-d&lt;/code> Report I/O statistics&lt;/li>
+&lt;li>&lt;code>-R&lt;/code> Report realtime priority and scheduling policy information.&lt;/li>
+&lt;li>&lt;code>-r&lt;/code> Report page faults and memory utilization.&lt;/li>
+&lt;li>&lt;code>-s&lt;/code> Report stack utilization.&lt;/li>
+&lt;li>&lt;code>-u&lt;/code> Report CPU utilization&lt;/li>
+&lt;li>&lt;code>-v&lt;/code> Report values of some kernel tables.&lt;/li>
+&lt;li>&lt;code>-w&lt;/code> Report task switching activity&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display 2 reports of CPU statistics for every active task in the system per second intervals.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:13 PM UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:14 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">798270&lt;/span> 0.00 1.00 0.00 0.00 1.00 &lt;span style="color:#ae81ff">0&lt;/span> pidstat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:14 PM UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">798270&lt;/span> 0.00 0.50 0.00 0.00 0.50 - pidstat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -p Select tasks (processes) for which statistics are to be reported &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat -p &lt;span style="color:#ae81ff">655152&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:38:56 PM UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:38:58 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:39:00 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:39:02 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 - node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man pidstat for details, simple put&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PID The identification number of the task being monitored.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %usr Percentage of CPU used by the task while executing at the user level (application)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %system Percentage of CPU used by the task while executing at the system level (kernel).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %guest Percentage of CPU spent by the task in virtual machine (running a virtual processor)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %wait Percentage of CPU spent by the task while waiting to run.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %CPU Total percentage of CPU time used by the task. &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># CPU Processor number to which the task is attached.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Command The command name of the task.&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="4-mpstat-cpu-level">4. mpstat (cpu level)&lt;/h4>
+&lt;p>mpstat - Report &lt;strong>processors&lt;/strong> related statistics.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display 2 reports of statistics for all processors at 1 second intervals.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ mpstat -P ALL &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:14 PM CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM all 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 99.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM &lt;span style="color:#ae81ff">0&lt;/span> 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 99.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:16 PM all 1.02 0.00 1.02 0.00 0.00 0.00 0.00 0.00 0.00 97.96
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:16 PM &lt;span style="color:#ae81ff">0&lt;/span> 1.02 0.00 1.02 0.00 0.00 0.00 0.00 0.00 0.00 97.96
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: all 1.01 0.00 0.51 0.00 0.00 0.00 0.00 0.00 0.00 98.48
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> 1.01 0.00 0.51 0.00 0.00 0.00 0.00 0.00 0.00 98.48
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man mpstat for details, simple put&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %usr Show the percentage of CPU utilization that occurred while executing at the user level (application).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %nice Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %sys Show the percentage of CPU utilization that occurred while executing at the system level (kernel). Note that this does not include time spent servicing hardware and software interrupts.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %iowait Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %irq Show the percentage of time spent by the CPU or CPUs to service hardware interrupts.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %soft Show the percentage of time spent by the CPU or CPUs to service software interrupts.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %steal Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %guest Show the percentage of time spent by the CPU or CPUs to run a virtual processor.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %gnice Show the percentage of time spent by the CPU or CPUs to run a niced guest.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %idle Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="5-perf">5. perf&lt;/h4>
+&lt;p>Performance analysis tools for Linux (TBD after the actual usage)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># install perf in linux (with root)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ apt-get install linux-tools-common linux-tools-generic linux-tools-&lt;span style="color:#e6db74">`&lt;/span>uname -r&lt;span style="color:#e6db74">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Samples: 22K of event &lt;span style="color:#e6db74">&amp;#39;cycles&amp;#39;&lt;/span>, &lt;span style="color:#ae81ff">4000&lt;/span> Hz, Event count &lt;span style="color:#f92672">(&lt;/span>approx.&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">1228941005&lt;/span> lost: 0/0 drop: 0/734
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Overhead Shared Object Symbol
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 14.88% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> __symbols__insert
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 9.56% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rb_next
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.74% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rust_demangle_callback
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.53% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> output_resort
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.44% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> dso__find_symbol
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.23% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rb_insert_color
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.04% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> clear_page_rep
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.89% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> hist_entry__sort
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.88% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> hpp__sort_overhead
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.88% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> asm_sysvec_apic_timer_interrupt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.82% libslang.so.2.3.2 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> SLsmg_write_chars
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.66% libc.so.6 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> cfree
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.63% libc.so.6 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> 0x00000000000a1747
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.60% sshd &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> 0x000000000006228c
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.57% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> memcpy_toio
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -g Enables call-graph (stack chain/backtrace) recording&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top -g -p &lt;span style="color:#ae81ff">655152&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-strace">6. strace&lt;/h4>
+&lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
 A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img src="https://jinying-che.github.io/images/linux_file_system.svg" alt="file system">&lt;/p>
 &lt;h2 id="vfs">VFS&lt;/h2>

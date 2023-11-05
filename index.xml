@@ -1,4 +1,147 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://jinying-che.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 30 Sep 2023 15:25:41 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://jinying-che.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Oct 2023 22:54:48 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
+Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 users, load average: 0.00, 0.00, 0.00 Tasks: 127 total, 1 running, 126 sleeping, 0 stopped, 0 zombie %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache MiB Swap: 2400.0 total, 2282.0 free, 118.0 used.</description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
+&lt;p>TBD&lt;/p>
+&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
+&lt;p>&lt;img src="https://jinying-che.github.io/images/cpu_tools.png" alt="overview">&lt;/p>
+&lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
+&lt;h4 id="1-top">1. top&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>top - 17:18:53 up &lt;span style="color:#ae81ff">50&lt;/span> days, 16:06, &lt;span style="color:#ae81ff">7&lt;/span> users, load average: 0.00, 0.00, 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Tasks: &lt;span style="color:#ae81ff">127&lt;/span> total, &lt;span style="color:#ae81ff">1&lt;/span> running, &lt;span style="color:#ae81ff">126&lt;/span> sleeping, &lt;span style="color:#ae81ff">0&lt;/span> stopped, &lt;span style="color:#ae81ff">0&lt;/span> zombie
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 2400.0 total, 2282.0 free, 118.0 used. 622.7 avail Mem
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">782513&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">17312&lt;/span> &lt;span style="color:#ae81ff">11036&lt;/span> &lt;span style="color:#ae81ff">8652&lt;/span> S 0.3 1.1 0:00.04 sshd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167728&lt;/span> &lt;span style="color:#ae81ff">9424&lt;/span> &lt;span style="color:#ae81ff">6504&lt;/span> S 0.0 1.0 3:05.88 systemd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.66 kthreadd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man top to get top details, simple put:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># load average : the average number of processes that are either in a runnable or uninterruptable state for the past 1, 5, and 15 minutes. &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g. `load average = 1.5` in 6 cpu system means 1/4 cpu is under laod, 3/4 cpu is idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># us, user : time running un-niced user processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># sy, system : time running kernel processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ni, nice : time running niced user processes (process priority, a negative nice value means higher priority, whereas a positive nice value means lower priority)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># id, idle : time spent in the kernel idle handler&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># wa, IO-wait : time waiting for I/O completion&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hi : time spent servicing hardware interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># si : time spent servicing software interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># st : time stolen from this vm by the hypervisor&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PR: The scheduling priority of the task (real priority of a process as seen by the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NI: The nice value of the task (a priority hint for the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># VIRT: The total amount of virtual memory used by the task (physical memory + swap)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># RES: A subset of the virtual address space (VIRT) representing the non-swapped physical memory (only physical memory)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># SHR: A subset of resident memory (RES) that may be used by other processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S: Process Status, the status of the task which can be one of:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># D = uninterruptible sleep&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># I = idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># R = running&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S = sleeping&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># T = stopped by job control signal&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># t = stopped by debugger during trace&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Z = zombie&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-vmstat">2. vmstat&lt;/h4>
+&lt;p>vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity&lt;/p>
+&lt;p>refer to &lt;a href="https://jinying-che.github.io/posts/memory/#3-vmstat">details&lt;/a>&lt;/p>
+&lt;h4 id="3-pidstat-process-level">3. pidstat (process level)&lt;/h4>
+&lt;p>&lt;code>pidstat&lt;/code> report statistics (cpu, memory, disk, stack) for Linux tasks (process), by defaut is cpu utilization without params.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>-d&lt;/code> Report I/O statistics&lt;/li>
+&lt;li>&lt;code>-R&lt;/code> Report realtime priority and scheduling policy information.&lt;/li>
+&lt;li>&lt;code>-r&lt;/code> Report page faults and memory utilization.&lt;/li>
+&lt;li>&lt;code>-s&lt;/code> Report stack utilization.&lt;/li>
+&lt;li>&lt;code>-u&lt;/code> Report CPU utilization&lt;/li>
+&lt;li>&lt;code>-v&lt;/code> Report values of some kernel tables.&lt;/li>
+&lt;li>&lt;code>-w&lt;/code> Report task switching activity&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display 2 reports of CPU statistics for every active task in the system per second intervals.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:13 PM UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:14 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">798270&lt;/span> 0.00 1.00 0.00 0.00 1.00 &lt;span style="color:#ae81ff">0&lt;/span> pidstat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:14 PM UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">798270&lt;/span> 0.00 0.50 0.00 0.00 0.50 - pidstat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -p Select tasks (processes) for which statistics are to be reported &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat -p &lt;span style="color:#ae81ff">655152&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:38:56 PM UID PID %usr %system %guest %wait %CPU CPU Command
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:38:58 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:39:00 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:39:02 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 - node_exporter
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man pidstat for details, simple put&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PID The identification number of the task being monitored.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %usr Percentage of CPU used by the task while executing at the user level (application)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %system Percentage of CPU used by the task while executing at the system level (kernel).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %guest Percentage of CPU spent by the task in virtual machine (running a virtual processor)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %wait Percentage of CPU spent by the task while waiting to run.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %CPU Total percentage of CPU time used by the task. &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># CPU Processor number to which the task is attached.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Command The command name of the task.&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="4-mpstat-cpu-level">4. mpstat (cpu level)&lt;/h4>
+&lt;p>mpstat - Report &lt;strong>processors&lt;/strong> related statistics.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display 2 reports of statistics for all processors at 1 second intervals.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ mpstat -P ALL &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:14 PM CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM all 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 99.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM &lt;span style="color:#ae81ff">0&lt;/span> 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 99.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:16 PM all 1.02 0.00 1.02 0.00 0.00 0.00 0.00 0.00 0.00 97.96
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:16 PM &lt;span style="color:#ae81ff">0&lt;/span> 1.02 0.00 1.02 0.00 0.00 0.00 0.00 0.00 0.00 97.96
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: all 1.01 0.00 0.51 0.00 0.00 0.00 0.00 0.00 0.00 98.48
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> 1.01 0.00 0.51 0.00 0.00 0.00 0.00 0.00 0.00 98.48
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man mpstat for details, simple put&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %usr Show the percentage of CPU utilization that occurred while executing at the user level (application).&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %nice Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %sys Show the percentage of CPU utilization that occurred while executing at the system level (kernel). Note that this does not include time spent servicing hardware and software interrupts.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %iowait Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %irq Show the percentage of time spent by the CPU or CPUs to service hardware interrupts.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %soft Show the percentage of time spent by the CPU or CPUs to service software interrupts.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %steal Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %guest Show the percentage of time spent by the CPU or CPUs to run a virtual processor.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %gnice Show the percentage of time spent by the CPU or CPUs to run a niced guest.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %idle Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="5-perf">5. perf&lt;/h4>
+&lt;p>Performance analysis tools for Linux (TBD after the actual usage)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># install perf in linux (with root)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ apt-get install linux-tools-common linux-tools-generic linux-tools-&lt;span style="color:#e6db74">`&lt;/span>uname -r&lt;span style="color:#e6db74">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Samples: 22K of event &lt;span style="color:#e6db74">&amp;#39;cycles&amp;#39;&lt;/span>, &lt;span style="color:#ae81ff">4000&lt;/span> Hz, Event count &lt;span style="color:#f92672">(&lt;/span>approx.&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">1228941005&lt;/span> lost: 0/0 drop: 0/734
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Overhead Shared Object Symbol
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 14.88% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> __symbols__insert
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 9.56% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rb_next
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.74% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rust_demangle_callback
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.53% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> output_resort
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.44% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> dso__find_symbol
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.23% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rb_insert_color
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.04% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> clear_page_rep
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.89% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> hist_entry__sort
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.88% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> hpp__sort_overhead
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.88% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> asm_sysvec_apic_timer_interrupt
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.82% libslang.so.2.3.2 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> SLsmg_write_chars
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.66% libc.so.6 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> cfree
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.63% libc.so.6 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> 0x00000000000a1747
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.60% sshd &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> 0x000000000006228c
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.57% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> memcpy_toio
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -g Enables call-graph (stack chain/backtrace) recording&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top -g -p &lt;span style="color:#ae81ff">655152&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-strace">6. strace&lt;/h4>
+&lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
 A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img src="https://jinying-che.github.io/images/linux_file_system.svg" alt="file system">&lt;/p>
 &lt;h2 id="vfs">VFS&lt;/h2>
@@ -2276,318 +2419,6 @@ Basically there&amp;rsquo;re two way for key exchange, the key point is how to g
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc5246">RFC5246: TLS1.2&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446: TLS1.3&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc2818">RFC2818: HTTPS&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>MySQL</title><link>https://jinying-che.github.io/posts/mysql/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/mysql/</guid><description>mysql，在InnoDB引擎的背景下
-随想 每碰到一个新数据库，我们需要先关注它的数据模型，这样才能从理论上分析出这个数据库的适用场景 索引 B+树 使用m叉树，而不是二叉树，是因为树的高度，代表了访问的次数，而数据库是需要访问磁盘的，访问成本高，减少树的高度，就是减少访问磁盘的次数 类型 主键维度 聚簇索引(clustered index)，也叫主键索引，叶子节点存储整行数据。
-非主键索引，也叫二级索引(secondary index)，二级索引存储的是主键的值。
-回表：根据普通索引查询，需要先查询二级索引树，得到主键值，再查询主键索引树，这个过程既是回表。
-唯一性维度 唯一索引：建立索引的字段是唯一的
-普通索引：不保证唯一
-查询过程：
-普通索引：查到满足条件的记录，继续查询(数据有序，顺序向后查询) 唯一索引：查到满足条件的记录，即退出 性能几乎没有差距，InnoDB 的数据是按数据页为单位来读写的，一页有近千条数据，满足条件的记录分散在不同数据页的几率极低，所以&amp;quot;查找和判断下一条记录&amp;quot;的操作，只需要一次指针移动和一次计算，性能差距很小。
-更新过程：
-(如果能命中内存数据页，都是直接更新内存，行为相同，主要讨论不命中内存页的场景)
-普通索引：先更新到change buffer里，等目标的数据页因查询被更新到内存后，再进行merge操作 唯一索引：所有的更新操作都要先判断这个操作是否违反唯一性约束，所以不能使用change buffer 两者的选择：
-在业务允许的条件下，优先选择普通索引(可以利用到change buffer) 更新记录后，马上对其大量查询，应该关闭change buffer 索引维护 页分裂：当插入一条数据时，数据所在的数据页已经满了，根据B+树的算法，会申请新的数据页，并挪动部分数据过去，性能自然会受到影响，利用率也会下降
-页合并：页合并的逆过程，当相邻的两个页由于删除数据，利用率降低，会发生页合并
-从性能角度：自增主键能够有效的降低页分裂 从存储角度：普通索引存储的是主键索引的值，主键索引占用空间越小，普通索引占用空间也就越小 所以，尽量采用自增主键
-优化 尽量少地访问资源，是数据库设计的重要原则之一 将数据从磁盘读入内存涉及随机 IO 的访问，是数据库里面成本最高的操作之一 减少回表的次数，覆盖索引是一个常用的性能优化手段 最左匹配原则：在建立联合索引时，如果通过调整顺序，可以少维护一个索引，那么这个顺序有限考虑采用 而 MySQL 5.6 引入的索引下推优化（index condition pushdown)， 可以在索引遍历过程中，对索引中包含的字段先做判断，直接过滤掉不满足条件的记录，减少回表次数。 设计 Mysql可以分为Server层和存储引擎层
-数据页 InnoDB 的数据是按数据页为单位来读写的。也就是说，当需要读一条记录的时候，并不是将这个记录本身从磁盘读出来，而是以页为单位，将其整体读入内存。在 InnoDB 中，每个数据页的大小默认是 16KB。 change buffer 当需要更新一个数据页时，如果数据页在内存中就直接更新，而如果这个数据页还没有在内存中的话，在不影响数据一致性的前提下，InooDB 会将这些更新操作缓存在 change buffer 中，这样就不需要从磁盘中读入这个数据页了。在下次查询需要访问这个数据页的时候，将数据页读入内存，然后执行 change buffer 中与这个页有关的操作。通过这种方式就能保证这个数据逻辑的正确性</description><content>&lt;blockquote>
-&lt;p>mysql，在InnoDB引擎的背景下&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="随想">随想&lt;/h2>
-&lt;ul>
-&lt;li>每碰到一个新数据库，我们需要先关注它的数据模型，这样才能从理论上分析出这个数据库的适用场景&lt;/li>
-&lt;/ul>
-&lt;h2 id="索引">索引&lt;/h2>
-&lt;h4 id="b树">B+树&lt;/h4>
-&lt;ul>
-&lt;li>使用m叉树，而不是二叉树，是因为树的高度，代表了访问的次数，而数据库是需要访问磁盘的，访问成本高，减少树的高度，就是减少访问磁盘的次数&lt;/li>
-&lt;/ul>
-&lt;h4 id="类型">类型&lt;/h4>
-&lt;h5 id="主键维度">主键维度&lt;/h5>
-&lt;ul>
-&lt;li>
-&lt;p>聚簇索引(clustered index)，也叫主键索引，叶子节点存储整行数据。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>非主键索引，也叫二级索引(secondary index)，二级索引存储的是主键的值。&lt;/p>
-&lt;blockquote>
-&lt;p>回表：根据普通索引查询，需要先查询二级索引树，得到主键值，再查询主键索引树，这个过程既是回表。&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;/ul>
-&lt;h5 id="唯一性维度">唯一性维度&lt;/h5>
-&lt;ul>
-&lt;li>
-&lt;p>唯一索引：建立索引的字段是唯一的&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>普通索引：不保证唯一&lt;/p>
-&lt;blockquote>
-&lt;p>查询过程：&lt;/p>
-&lt;ul>
-&lt;li>普通索引：查到满足条件的记录，继续查询(数据有序，顺序向后查询)&lt;/li>
-&lt;li>唯一索引：查到满足条件的记录，即退出&lt;/li>
-&lt;/ul>
-&lt;p>性能几乎没有差距，InnoDB 的数据是按数据页为单位来读写的，一页有近千条数据，满足条件的记录分散在不同数据页的几率极低，所以&amp;quot;查找和判断下一条记录&amp;quot;的操作，只需要一次指针移动和一次计算，性能差距很小。&lt;/p>
-&lt;/blockquote>
-&lt;blockquote>
-&lt;p>更新过程：&lt;/p>
-&lt;p>(如果能命中内存数据页，都是直接更新内存，行为相同，主要讨论不命中内存页的场景)&lt;/p>
-&lt;ul>
-&lt;li>普通索引：先更新到&lt;code>change buffer&lt;/code>里，等目标的数据页因查询被更新到内存后，再进行merge操作&lt;/li>
-&lt;li>唯一索引：所有的更新操作都要先判断这个操作是否违反唯一性约束，所以不能使用&lt;code>change buffer&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;blockquote>
-&lt;p>两者的选择：&lt;/p>
-&lt;ul>
-&lt;li>在业务允许的条件下，优先选择普通索引(可以利用到&lt;code>change buffer&lt;/code>)&lt;/li>
-&lt;li>更新记录后，马上对其大量查询，应该关闭&lt;code>change buffer&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;/li>
-&lt;/ul>
-&lt;h4 id="索引维护">索引维护&lt;/h4>
-&lt;ul>
-&lt;li>
-&lt;p>页分裂：当插入一条数据时，数据所在的数据页已经满了，根据B+树的算法，会申请新的数据页，并挪动部分数据过去，性能自然会受到影响，利用率也会下降&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>页合并：页合并的逆过程，当相邻的两个页由于删除数据，利用率降低，会发生页合并&lt;/p>
-&lt;blockquote>
-&lt;ul>
-&lt;li>从性能角度：自增主键能够有效的降低页分裂&lt;/li>
-&lt;li>从存储角度：普通索引存储的是主键索引的值，主键索引占用空间越小，普通索引占用空间也就越小&lt;/li>
-&lt;/ul>
-&lt;p>所以，尽量采用自增主键&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;/ul>
-&lt;h4 id="优化">优化&lt;/h4>
-&lt;blockquote>
-&lt;ul>
-&lt;li>尽量少地访问资源，是数据库设计的重要原则之一&lt;/li>
-&lt;li>将数据从磁盘读入内存涉及随机 IO 的访问，是数据库里面成本最高的操作之一&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>减少回表的次数，&lt;strong>覆盖索引&lt;/strong>是一个常用的性能优化手段&lt;/li>
-&lt;li>最左匹配原则：在建立联合索引时，如果通过调整顺序，可以少维护一个索引，那么这个顺序有限考虑采用&lt;/li>
-&lt;li>而 MySQL 5.6 引入的索引下推优化（index condition pushdown)， 可以在索引遍历过程中，对索引中包含的字段先做判断，直接过滤掉不满足条件的记录，减少回表次数。&lt;/li>
-&lt;/ul>
-&lt;h2 id="设计">设计&lt;/h2>
-&lt;blockquote>
-&lt;p>Mysql可以分为Server层和存储引擎层&lt;/p>
-&lt;p>&lt;img src="https://static001.geekbang.org/resource/image/0d/d9/0d2070e8f84c4801adbfa03bda1f98d9.png" alt="img">&lt;/p>
-&lt;/blockquote>
-&lt;h3 id="数据页">数据页&lt;/h3>
-&lt;ul>
-&lt;li>InnoDB 的数据是按数据页为单位来读写的。也就是说，当需要读一条记录的时候，并不是将这个记录本身从磁盘读出来，而是以页为单位，将其整体读入内存。在 InnoDB 中，每个数据页的大小默认是 16KB。&lt;/li>
-&lt;/ul>
-&lt;h3 id="change-buffer">change buffer&lt;/h3>
-&lt;ul>
-&lt;li>
-&lt;blockquote>
-&lt;p>当需要更新一个数据页时，如果数据页在内存中就直接更新，而如果这个数据页还没有在内存中的话，在不影响数据一致性的前提下，InooDB 会将这些更新操作缓存在 change buffer 中，这样就不需要从磁盘中读入这个数据页了。在下次查询需要访问这个数据页的时候，将数据页读入内存，然后执行 change buffer 中与这个页有关的操作。通过这种方式就能保证这个数据逻辑的正确性&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;li>
-&lt;blockquote>
-&lt;p>change buffer 在内存中有拷贝，也会被写入到磁盘上&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;li>
-&lt;blockquote>
-&lt;p>将 change buffer 中的操作应用到原数据页，得到最新结果的过程称为 merge。除了访问这个数据页会触发 merge 外，系统有后台线程会定期 merge。在数据库正常关闭（shutdown）的过程中，也会执行 merge 操作&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;li>
-&lt;blockquote>
-&lt;p>如果能够将更新操作先记录在 change buffer，减少读磁盘，语句的执行速度会得到明显的提升。而且，数据读入内存是需要占用 buffer pool 的，所以这种方式还能够避免占用内存，提高内存利用率&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="一条查询语句的执行">一条查询语句的执行&lt;/h3>
-&lt;blockquote>
-&lt;p>&lt;strong>不建议开启查询缓存&lt;/strong>：查询缓存的失效非常频繁，只要有对一个表的更新，这个表上所有的所有查询缓存都会被清空。&lt;/p>
-&lt;/blockquote>
-&lt;p>&lt;code>查询&lt;/code>—&amp;gt;&lt;code>查询缓存命中即返回，否则继续&lt;/code>—&amp;gt;&lt;code>分析器&lt;/code>—&amp;gt;&lt;code>优化器&lt;/code>—&amp;gt;&lt;code>执行器&lt;/code>—&amp;gt;&lt;code>存储引擎&lt;/code>&lt;/p>
-&lt;h3 id="一条更新语句的执行">一条更新语句的执行&lt;/h3>
-&lt;blockquote>
-&lt;p>注意：此处的数据页内存，是InnoDB控制，而不是在&lt;strong>server层&lt;/strong>的查询缓存&lt;/p>
-&lt;/blockquote>
-&lt;p>&lt;code>update T set c=c+1 where ID=2;&lt;/code>&lt;/p>
-&lt;p>浅色框表示在InnoDB内部执行，深色框表示在执行器中执行&lt;/p>
-&lt;p>&lt;img src="https://static001.geekbang.org/resource/image/2e/be/2e5bff4910ec189fe1ee6e2ecc7b4bbe.png" alt="img">&lt;/p>
-&lt;h3 id="两阶段提交">两阶段提交&lt;/h3>
-&lt;p>为保证两份日志之间逻辑的一致性，需要两阶段提交，流程如上图所示：&lt;/p>
-&lt;ol>
-&lt;li>写入redo log, 处于&lt;strong>prepare&lt;/strong>阶段&lt;/li>
-&lt;li>写入bin log&lt;/li>
-&lt;li>更新redo log为&lt;strong>commit&lt;/strong>状态&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>崩溃分析：&lt;/p>
-&lt;ul>
-&lt;li>在1、2之间崩溃，发现没有commit，回滚数据，一致&lt;/li>
-&lt;li>在2、3之间崩溃，虽然没有commit，但满足prepare和binlog完整，所以重启恢复时会自动commit，一致&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;h3 id="wal">WAL&lt;/h3>
-&lt;blockquote>
-&lt;p>Write-Ahead Logging，先写日志，再写磁盘&lt;/p>
-&lt;/blockquote>
-&lt;p>当有一条记录需要更新的时候，InnoDB 引擎就会先把记录写到 redo log里面，并更新内存，这个时候更新就算完成了。同时，InnoDB 引擎会在适当的时候，将这个操作记录更新到磁盘里面，而这个更新往往是在系统比较空闲的时候做。&lt;/p>
-&lt;h2 id="日志">日志&lt;/h2>
-&lt;h3 id="redo-log">redo log&lt;/h3>
-&lt;blockquote>
-&lt;p>属于InnoDB引擎特有的日志，写入到磁盘&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>
-&lt;p>redo log是固定大小的，循环利用，&lt;code>write pos&lt;/code>和&lt;code>check point&lt;/code>之间是可以写入的空间，当空间不足时，&lt;code>check point&lt;/code> 向后移动进行数据擦除，擦除前要将数据更新到数据文件。&lt;/p>
-&lt;p>&lt;img src="https://static001.geekbang.org/resource/image/16/a7/16a7950217b3f0f4ed02db5db59562a7.png" alt="img">&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>记录数据页的改动&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="binlog">binlog&lt;/h3>
-&lt;blockquote>
-&lt;p>server层的日志，写入到磁盘&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>Binlog有两种模式，statement 格式的话是记sql语句， row格式会记录行的内容，记两条，更新前和更新后都有&lt;/li>
-&lt;/ul>
-&lt;h3 id="undo-log">undo log&lt;/h3>
-&lt;blockquote>
-&lt;p>用于事务回滚&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="事务隔离">事务隔离&lt;/h2>
-&lt;h3 id="概念">概念&lt;/h3>
-&lt;ul>
-&lt;li>读未提交是指(read uncommitted)，一个事务还没提交时，它做的变更就能被别的事务看到。&lt;/li>
-&lt;li>读提交是指(read committed)，一个事务提交之后，它做的变更才会被其他事务看到。&lt;/li>
-&lt;li>可重复读是指(repeatable read)，一个事务执行过程中看到的数据，总是跟这个事务在启动时看到的数据是一致的。当然在可重复读隔离级别下，未提交变更对其他事务也是不可见的。&lt;/li>
-&lt;li>串行化(serializable)，顾名思义是对于同一行记录，“写”会加“写锁”，“读”会加“读锁”。当出现读写锁冲突的时候，后访问的事务必须等前一个事务执行完成，才能继续执行。&lt;/li>
-&lt;/ul>
-&lt;h3 id="隔离的实现">隔离的实现&lt;/h3>
-&lt;blockquote>
-&lt;ul>
-&lt;li>在mysql中，每条记录更新的同时，都会记录一条回滚操作&lt;/li>
-&lt;li>这是数据库多版本并发控制（MVCC）的基础&lt;/li>
-&lt;li>不同的视图，对应不同的版本&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;p>数据库里面会创建一个视图，访问的时候以视图的逻辑结果为准。&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>在&lt;strong>可重复读&lt;/strong>隔离级别下，这个视图是在事务启动时创建的，整个事务存在期间都用这个视图&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>在&lt;strong>读提交&lt;/strong>隔离级别下，这个视图是在每个 SQL 语句开始执行的时候创建的&lt;/p>
-&lt;blockquote>
-&lt;p>比如：在每次select时，都会拿到最新的数据，即使在事务中，区别于&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>读未提交&lt;/strong>隔离级别下直接返回记录上的最新值，没有视图概念&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;strong>串行化&lt;/strong>隔离级别下直接用加锁的方式来避免并行访问&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="锁">锁&lt;/h2>
-&lt;h3 id="全局锁">全局锁&lt;/h3>
-&lt;ul>
-&lt;li>
-&lt;p>对整个数据库加锁，场景多事全库逻辑备份，命令是：&lt;code>Flush tables with read lock (FTWRL)&lt;/code>，全局锁会锁住所有的更新操作，全库处于只读状态&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>前一种方式不优雅，可以在可重复读的级别下开启事务，拿到一致性的视图，由于MVCC(多版本控制)的支持，期间数据是可以正常更新的，但前提是引擎要支持这个隔离级别 (InnoDB支持，MyISAM不支持)&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>全库只读，还可以用&lt;code>set global readonly=true&lt;/code>的方式，不建议的原因：&lt;/p>
-&lt;blockquote>
-&lt;ul>
-&lt;li>一是，在有些系统中，readonly 的值会被用来做其他逻辑，比如用来判断一个库是主库还是备库。因此，修改 global 变量的方式影响面更大&lt;/li>
-&lt;li>二是，在异常处理机制上有差异。如果执行 FTWRL 命令之后由于客户端发生异常断开，那么 MySQL 会自动释放这个全局锁，整个库回到可以正常更新的状态。而将整个库设置为 readonly 之后，如果客户端发生异常，则数据库就会一直保持 readonly 状态，这样会导致整个库长时间处于不可写状态，风险较高&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="表锁">表锁&lt;/h3>
-&lt;blockquote>
-&lt;p>加表锁的场景： 给一个表加字段，或者修改字段，或者加索引，需要扫描全表的数据&lt;/p>
-&lt;/blockquote>
-&lt;p>Mysql表级锁有两种：&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>表锁&lt;/p>
-&lt;ul>
-&lt;li>语法：&lt;code>lock table T read/write&lt;/code>&lt;/li>
-&lt;li>分读锁、写锁：
-&lt;ol>
-&lt;li>一个线程持有读锁，则其他线程可读，不可写&lt;/li>
-&lt;li>一个线程持有写锁，其他线程不可读、不可写&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>断开：
-&lt;ol>
-&lt;li>主动断开&lt;/li>
-&lt;li>客户端连接断开&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>元数据锁(meta data lock, MDL)&lt;/p>
-&lt;blockquote>
-&lt;p>不需要显示使用，访问时自动加锁&lt;/p>
-&lt;ul>
-&lt;li>当对一个表做增删改查操作的时候，加 MDL 读锁&lt;/li>
-&lt;li>当要对表做结构变更操作的时候，加 MDL 写锁&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>读锁之间不互斥，因此你可以有多个线程同时对一张表增删改查。&lt;/li>
-&lt;li>读写锁之间、写锁之间是互斥的，用来保证变更表结构操作的安全性。因此，如果有两个线程要同时给一个表加字段，其中一个要等另一个执行完才能开始执行&lt;/li>
-&lt;li>事务中的 MDL 锁，在语句执行开始时申请，但是语句结束后并不会马上释放，而会等到整个事务提交后再释放。&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>&lt;strong>常见坑：给小表加字段，导致整个库挂，复盘如下：&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>一个长事务在执行读写操作(select * from T .. join.. join)，加MDL读锁&lt;/li>
-&lt;li>一个变更表操作到来，需要加MDL写锁，被长事务阻塞&lt;/li>
-&lt;li>后续读写操作均被上一个&lt;strong>MDL&lt;/strong>写锁阻塞&lt;/li>
-&lt;li>这个表完全不可读写，整个库线程池打满，无法响应请求&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>解决：&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>变更表操作时，kill掉长事务&lt;/li>
-&lt;li>加写锁时，设置超时时间&lt;/li>
-&lt;/ul>
-&lt;p>参考:&lt;/p>
-&lt;p>&lt;a href="https://time.geekbang.org/column/article/69862">https://time.geekbang.org/column/article/69862&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="行锁">行锁&lt;/h3>
-&lt;h4 id="两阶段锁">两阶段锁&lt;/h4>
-&lt;blockquote>
-&lt;p>锁多个行，语句顺序&lt;/p>
-&lt;/blockquote>
-&lt;h4 id="死锁">死锁&lt;/h4>
-&lt;h4 id="mvcc中的快照">MVCC中的快照&lt;/h4>
-&lt;h4 id="事务id">事务ID&lt;/h4>
-&lt;h4 id="当前读">当前读&lt;/h4>
-&lt;h2 id="分库分表">分库分表&lt;/h2>
-&lt;h2 id="command">Command&lt;/h2>
-&lt;h4 id="innodb-buffer">innodb buffer&lt;/h4>
-&lt;ul>
-&lt;li>&lt;code>show global variables like 'innodb_buffer_pool_size';&lt;/code>&lt;/li>
-&lt;li>&lt;code>set global innodb_buffer_pool_size=512000000;&lt;/code>&lt;/li>
 &lt;/ul></content></item><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>This post is based on MySQL InnoDB Storage Engine.
 Type 1. Cluster Index Each InnoDB table has a special index called the clustered index that stores row data. Typically, the clustered index is synonymous with the primary key.
 2. Secondery Index In InnoDB, each record in a secondary index contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.</description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
