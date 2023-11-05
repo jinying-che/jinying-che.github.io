@@ -3,6 +3,7 @@ title: "MySQL"
 date: "2019-06-05T11:48:53+08:00"
 tags: ["database"]
 description: "MySQL Overview"
+draft: true
 ---
 
 > mysql，在InnoDB引擎的背景下

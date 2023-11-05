@@ -3,7 +3,6 @@ title: "CPU"
 date: "2023-10-16T22:54:48+08:00"
 tags: ["linux"]
 description: "Linux CPU Overview"
-draft: true
 ---
 
 ## Process vs Thread
