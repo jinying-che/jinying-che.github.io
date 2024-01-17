@@ -98,6 +98,13 @@ jinying-che.github.io.  3600    IN      A       185.199.111.153
 3. Get NS Record: Authoritative Nameserver from one of TLD `a0.nic.io`
 4. Get A Record: Actual ip address from one of Authoritative Nameserver `dns1.p05.nsone.net`
 
+**TXT Record**:
+```sh
+# example
+host.widgets.com.   IN   TXT   "printer=lpr5"
+sam.widgets.com.    IN   TXT   "favorite drink=orange juice"
+```
+
 
 ## DNS Record
 There're a lot of [DNS Record types](https://en.wikipedia.org/wiki/List_of_DNS_record_types), the follows are the common record from the client perspective:
@@ -107,6 +114,7 @@ There're a lot of [DNS Record types](https://en.wikipedia.org/wiki/List_of_DNS_r
 | AAAA | IPv6 address record: Returns a 128-bit IPv6 address |
 | NS | Name server record: Delegates a DNS zone to use the given authoritative name servers |
 | CNAME | Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name |
+| TXT | arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification | 
 
 ## Configuration
 There're two way to query the ip address by domain, typically whenever a system needs to resolve a name, it first checks the `/etc/hosts` file. If no entry matched, it sends a query to the configured DNS server (by `/etc/resolv.conf`).
