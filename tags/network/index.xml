@@ -88,7 +88,11 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;li>Get NS Record: Authoritative Nameserver from one of TLD &lt;code>a0.nic.io&lt;/code>&lt;/li>
 &lt;li>Get A Record: Actual ip address from one of Authoritative Nameserver &lt;code>dns1.p05.nsone.net&lt;/code>&lt;/li>
 &lt;/ol>
-&lt;h2 id="dns-record">DNS Record&lt;/h2>
+&lt;p>&lt;strong>TXT Record&lt;/strong>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># example&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>host.widgets.com. IN TXT &lt;span style="color:#e6db74">&amp;#34;printer=lpr5&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sam.widgets.com. IN TXT &lt;span style="color:#e6db74">&amp;#34;favorite drink=orange juice&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dns-record">DNS Record&lt;/h2>
 &lt;p>There&amp;rsquo;re a lot of &lt;a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">DNS Record types&lt;/a>, the follows are the common record from the client perspective:&lt;/p>
 &lt;table>
 &lt;thead>
@@ -113,6 +117,10 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;tr>
 &lt;td>CNAME&lt;/td>
 &lt;td>Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>TXT&lt;/td>
+&lt;td>arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
