@@ -1,5 +1,6 @@
 ---
 title: "Tmux Cheat Sheet"
+tags: ["tmux"]
 description: "The basic usage of [Tmux](https://github.com/tmux/tmux/wiki), personally, I think Tmux makes more sense in server side than local."
 date: 2021-07-10T11:18:14+08:00
 ---
@@ -27,8 +28,11 @@ date: 2021-07-10T11:18:14+08:00
 ### View in tmux
 `ctrl+b` then `[`
 
+### Plugin
+- [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect) Restore tmux environment after system restart.
+
 > The better way to use tmux is to customize in your way, feel free to refer my [tmux config](https://github.com/jinying-che/config/blob/master/.tmux.conf)
 
 ---
-Reference
+## Reference
 - https://tmuxcheatsheet.com/

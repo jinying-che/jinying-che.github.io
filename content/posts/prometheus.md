@@ -64,5 +64,43 @@ Prometheus supports four types of metrics, which are - Counter - Gauge - Histogr
 
 ## Quick Start
 
+## Storage
+### On Disk Layout
+```txt
+./data
+├── 01BKGV7JBM69T2G1BGBGM6KB12
+│   └── meta.json
+├── 01BKGTZQ1SYQJTR4PB43C8PD98
+│   ├── chunks
+│   │   └── 000001
+│   ├── tombstones
+│   ├── index
+│   └── meta.json
+├── 01BKGTZQ1HHWHV8FBJXW1Y3W0K
+│   └── meta.json
+├── 01BKGV7JC0RY8A6MACW02A2PJD
+│   ├── chunks
+│   │   └── 000001
+│   ├── tombstones
+│   ├── index
+│   └── meta.json
+├── chunks_head
+│   └── 000001
+└── wal
+    ├── 000000002
+    └── checkpoint.00000001
+        └── 00000000
+```
+- blocks: Ingested samples are grouped into blocks of two hours. e.g. `01BKGV7JBM69T2G1BGBGM6KB12` is a block
+- chunks:
+- tombstones
+- index
+- meta.json
+
+### Writing Data Flow
+
 ## Reference
 - https://prometheus.io/docs/introduction/overview/
+- https://promlabs.com/blog/2023/08/31/high-availability-for-prometheus-and-alertmanager-an-overview/
+- [PromCon 2016 - The Prometheus TSDB Slides](https://docs.google.com/presentation/d/1TMvzwdaS8Vw9MtscI9ehDyiMngII8iB_Z5D4QW4U4ho/edit?pli=1#slide=id.gae9988762_0_0)
+- [The Evolution of Prometheus Storage Layer](https://zhenghe-md.github.io/blog/2020/02/27/The-Evolution-of-Prometheus-Storage-Layer/)
