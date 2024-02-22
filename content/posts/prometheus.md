@@ -1,5 +1,5 @@
 ---
-title: "Prometheus"
+title: "Prometheus Overview"
 date: "2023-12-31T09:41:04+08:00"
 tags: ["monitor", "prometheus"]
 description: "Prometheus Overview"
@@ -10,8 +10,9 @@ draft: true
 
 ![Architecture](/images/prometheus.png)
 
-## Data Model
+## Quick Start
 
+## Data Model
 Every time series is uniquely identified by its **metric name** and optional key-value pairs called **labels**.
 - Metric Name
 - Metric Label
@@ -62,19 +63,16 @@ Prometheus supports four types of metrics, which are - Counter - Gauge - Histogr
   ```
 - Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)
 
-## Quick Start
-
 ## Storage
-### On Disk Layout
 ```txt
 ./data
 ├── 01BKGV7JBM69T2G1BGBGM6KB12
 │   └── meta.json
-├── 01BKGTZQ1SYQJTR4PB43C8PD98
-│   ├── chunks
+├── 01BKGTZQ1SYQJTR4PB43C8PD98 
+│   ├── chunks                 
 │   │   └── 000001
 │   ├── tombstones
-│   ├── index
+│   ├── index                  
 │   └── meta.json
 ├── 01BKGTZQ1HHWHV8FBJXW1Y3W0K
 │   └── meta.json
@@ -91,16 +89,46 @@ Prometheus supports four types of metrics, which are - Counter - Gauge - Histogr
     └── checkpoint.00000001
         └── 00000000
 ```
-- blocks: Ingested samples are grouped into blocks of two hours. e.g. `01BKGV7JBM69T2G1BGBGM6KB12` is a block
-- chunks:
-- tombstones
-- index
-- meta.json
+- `blocks`: ingested samples are grouped into blocks of two hours, e.g. *01BKGV7JBM69T2G1BGBGM6KB12* is a block
+- `chunks`: all the time series samples for that window of time
+- `tombstones`: marked deletion records (instead of deleting the data immediately from the chunk segments)
+- `index`: **inverted index** which indexes metric names and labels to time series in the chunks directory
+- `meta.json`: block info
 
-### Writing Data Flow
+## PromQL
+### Time series Selectors
+#### Instant Vector 
+Instant vector selectors allow the selection of a set of time series and a single sample value for each at a given timestamp (instant)
+```shell
+# only metric name
+http_requests_total
+
+# with labels
+http_requests_total{job="prometheus",group="canary"}
+
+# with regex
+http_requests_total{environment=~"staging|testing|development",method!="GET"}
+```
+
+#### Range Vector Selectors
+Range vector literals work like instant vector literals, except that they select a range of samples back from the current instant
+```shell
+http_requests_total{job="prometheus"}[5m]
+```
+
+#### Offset Modifier
+The offset modifier allows changing the time offset for individual **instant** and **range vectors in a query.
+```shell
+# returns the 5-minute rate that http_requests_total had a week ago
+rate(http_requests_total[5m] offset 1w)
+```
+
+### Functions
 
 ## Reference
 - https://prometheus.io/docs/introduction/overview/
+- https://prometheus.io/docs/prometheus/latest/querying/basics/
 - https://promlabs.com/blog/2023/08/31/high-availability-for-prometheus-and-alertmanager-an-overview/
 - [PromCon 2016 - The Prometheus TSDB Slides](https://docs.google.com/presentation/d/1TMvzwdaS8Vw9MtscI9ehDyiMngII8iB_Z5D4QW4U4ho/edit?pli=1#slide=id.gae9988762_0_0)
 - [The Evolution of Prometheus Storage Layer](https://zhenghe-md.github.io/blog/2020/02/27/The-Evolution-of-Prometheus-Storage-Layer/)
+- [Prometheus TSDB](https://ganeshvernekar.com/blog/prometheus-tsdb-the-head-block/)
