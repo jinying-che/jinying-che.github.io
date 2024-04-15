@@ -96,8 +96,9 @@ Prometheus supports four types of metrics, which are - Counter - Gauge - Histogr
 - `meta.json`: block info
 
 ## PromQL
-### Time series Selectors
-#### Instant Vector 
+#### Time series Selectors
+**Instant Vector**
+
 Instant vector selectors allow the selection of a set of time series and a single sample value for each at a given timestamp (instant)
 ```shell
 # only metric name
@@ -110,20 +111,22 @@ http_requests_total{job="prometheus",group="canary"}
 http_requests_total{environment=~"staging|testing|development",method!="GET"}
 ```
 
-#### Range Vector Selectors
+**Range Vector Selectors**
+
 Range vector literals work like instant vector literals, except that they select a range of samples back from the current instant
 ```shell
 http_requests_total{job="prometheus"}[5m]
 ```
 
-#### Offset Modifier
+**Offset Modifier**
+
 The offset modifier allows changing the time offset for individual **instant** and **range vectors in a query.
 ```shell
 # returns the 5-minute rate that http_requests_total had a week ago
 rate(http_requests_total[5m] offset 1w)
 ```
 
-### Functions
+#### Functions
 
 ## Reference
 - https://prometheus.io/docs/introduction/overview/

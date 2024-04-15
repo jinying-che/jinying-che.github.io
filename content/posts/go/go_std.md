@@ -1,6 +1,8 @@
 ---
 title: "Golang Standard Library"
 date: 2021-06-27T17:34:13+08:00
+tags: ["golang", "lib"]
+description: "Golang Standard Library Overview"
 ---
 Dive into golang standard library, where we can learn how high quality code is written and what the golang convention and style is.
 <!--more-->
