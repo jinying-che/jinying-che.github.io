@@ -64,6 +64,7 @@ Prometheus supports four types of metrics, which are - Counter - Gauge - Histogr
 - Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)
 
 ## Storage
+![workflow](/images/tsdb_write.png)
 ```txt
 ./data
 ├── 01BKGV7JBM69T2G1BGBGM6KB12
