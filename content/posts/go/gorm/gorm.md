@@ -5,9 +5,6 @@ tags: ["golang", "lib"]
 description: "Deep into https://github.com/go-gorm/gorm"
 ---
 
-### Statement Process
-![Basic Flow](/images/wait_group.png)
-
 ### Source Code
 When you run CRUD interface by gorm, what happened inside isn't that straightforward, let's take a look!
 
