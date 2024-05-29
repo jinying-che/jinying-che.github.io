@@ -1,11 +1,79 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>network on</title><link>https://jinying-che.github.io/tags/network/</link><description>Recent content in network on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 20 Sep 2023 11:47:31 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Network on</title><link>https://jinying-che.github.io/tags/network/</link><description>Recent content in Network on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 19 May 2024 11:10:54 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>v2ray setup</title><link>https://jinying-che.github.io/posts/v2ray/</link><pubDate>Sun, 19 May 2024 11:10:54 +0800</pubDate><guid>https://jinying-che.github.io/posts/v2ray/</guid><description>V2Ray is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.
+Install Server The v2ray server is usually hosted in a linux server, the official way is to install with a script, which setups the systemd config as well.
+# run with root privilege bash &amp;lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) # output installed: /usr/local/bin/v2ray installed: /usr/local/share/v2ray/geoip.</description><content>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
+&lt;h3 id="install">Install&lt;/h3>
+&lt;h4 id="server">Server&lt;/h4>
+&lt;p>The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray">official way&lt;/a> is to install with a script, which setups the systemd config as well.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># run with root privilege&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash &amp;lt;&lt;span style="color:#f92672">(&lt;/span>curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/bin/v2ray
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geoip.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geosite.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/etc/v2ray/config.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/access.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/error.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray@.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client">Client&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># macos &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>brew install v2ray
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run">Run&lt;/h3>
+&lt;h4 id="server-1">Server&lt;/h4>
+&lt;p>For v2ray server, we use &lt;a href="https://systemd.io/">systemd&lt;/a> to manage the v2ray process in &lt;code>/usr/local/etc/v2ray/config.json&lt;/code> which is empty after installation. We modify the config based on the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#server">Novice Guide&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;log&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;loglevel&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;warning&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;access&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/access.log&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;error&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/error.log&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;inbounds&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;port&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">10086&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;vmess&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;settings&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;clients&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;b831381d-6324-4d53-ad4f-8cda48b30811&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;outbounds&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;freedom&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>run service via &lt;code>systemctl&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>systemctl enable v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl start v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check status&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl status v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check tcp port under LISTEN&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ss -tlp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client-1">Client&lt;/h4>
+&lt;p>follow the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#client">Novice Guide&lt;/a> to setup the config and run: &lt;code>v2ray -c path/to/config.json&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>NOTE: To successfully connect, you need to make sure that the id and port are consistent with the client in the server configuration.&lt;/p>
+&lt;/blockquote>
+&lt;p>After setup the local proxy &lt;code>127.0.0.1:1081&lt;/code>, in order to route brower traffic to the v2ray tunnel, &lt;a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif">Proxy SwitchyOmega&lt;/a> is quite helpful.&lt;/p>
+&lt;h3 id="reference">Reference&lt;/h3>
+&lt;ul>
+&lt;li>quick start: &lt;a href="https://www.v2fly.org/en_US/guide/install.html">https://www.v2fly.org/en_US/guide/install.html&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
 DNS is not very complex but super useful.
 How does DNS work? The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.
 Brower cache and OS cache DNS Resolver: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought.</description><content>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
 &lt;p>DNS is not very complex but super useful.&lt;/p>
 &lt;h2 id="how-does-dns-work">How does DNS work?&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/dns_architecture.svg" alt="dns architecutre">&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/dns_flow.png" alt="dns flow">&lt;/p>
+&lt;p>&lt;img alt="dns architecutre" src="https://jinying-che.github.io/images/dns_architecture.svg">&lt;/p>
+&lt;p>&lt;img alt="dns flow" src="https://jinying-che.github.io/images/dns_flow.png">&lt;/p>
 &lt;p>The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.&lt;/p>
 &lt;ol>
 &lt;li>&lt;strong>Brower cache and OS cache&lt;/strong>&lt;/li>
@@ -157,7 +225,7 @@ https://www.thegeekstuff.com/2011/01/iptables-fundamentals/ https://linux.</desc
 &lt;h2 id="in-a-nutshell">In a nutshell:&lt;/h2>
 &lt;ul>
 &lt;li>Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
-&lt;img src="https://jinying-che.github.io/images/iptable.png" alt="package flow through iptables">&lt;/li>
+&lt;img alt="package flow through iptables" src="https://jinying-che.github.io/images/iptable.png">&lt;/li>
 &lt;/ul>
 &lt;h2 id="tables">Tables&lt;/h2>
 &lt;p>There are five tables, the &lt;em>Priority&lt;/em> is: &lt;strong>filter, nat, mangle, raw, security&lt;/strong>&lt;/p>
@@ -349,12 +417,12 @@ V x V snd FIN V
 &lt;/tbody>
 &lt;/table>
 &lt;p>Here may be a more readable diagram.
-&lt;img src="https://jinying-che.github.io/images/tcpfsm.png" alt="tcp state Machine">&lt;/p>
+&lt;img alt="tcp state Machine" src="https://jinying-che.github.io/images/tcpfsm.png">&lt;/p>
 &lt;h4 id="tcp-open-three-way-handshake">TCP Open: Three-Way Handshake&lt;/h4>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open.svg" alt="tcp open">&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open_bytebytego.png" alt="tcp open">&lt;/p>
+&lt;p>&lt;img alt="tcp open" src="https://jinying-che.github.io/images/tcp_open.svg">&lt;/p>
+&lt;p>&lt;img alt="tcp open" src="https://jinying-che.github.io/images/tcp_open_bytebytego.png">&lt;/p>
 &lt;h4 id="tcp-close-four-way-handshake">TCP Close: Four-Way Handshake&lt;/h4>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_close_bytebytego.png" alt="tcp close">&lt;/p>
+&lt;p>&lt;img alt="tcp close" src="https://jinying-che.github.io/images/tcp_close_bytebytego.png">&lt;/p>
 &lt;h3 id="reference">Reference&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm">http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm&lt;/a>&lt;/li>
@@ -371,7 +439,7 @@ Handshake TLS 1.2 Basically it&amp;rsquo;s a 3-Way TCP handshake + 4 Way TLS han
 &lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
 &lt;h4 id="handshake-tls-12">Handshake TLS 1.2&lt;/h4>
 &lt;p>Basically it&amp;rsquo;s a &lt;em>3-Way TCP handshake&lt;/em> + &lt;em>4 Way TLS handshake&lt;/em>.
-&lt;img src="https://jinying-che.github.io/images/https_handshake.png" alt="https handshake">&lt;/p>
+&lt;img alt="https handshake" src="https://jinying-che.github.io/images/https_handshake.png">&lt;/p>
 &lt;pre tabindex="0">&lt;code> Client Server
 -------------------- TCP 3-Way Handshke -----------------
 SYNC

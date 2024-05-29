@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Protocol on</title><link>https://jinying-che.github.io/tags/protocol/</link><description>Recent content in Protocol on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 19 May 2024 11:10:54 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/protocol/index.xml" rel="self" type="application/rss+xml"/><item><title>v2ray setup</title><link>https://jinying-che.github.io/posts/v2ray/</link><pubDate>Sun, 19 May 2024 11:10:54 +0800</pubDate><guid>https://jinying-che.github.io/posts/v2ray/</guid><description>V2Ray is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.
+Install Server The v2ray server is usually hosted in a linux server, the official way is to install with a script, which setups the systemd config as well.
+# run with root privilege bash &amp;lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) # output installed: /usr/local/bin/v2ray installed: /usr/local/share/v2ray/geoip.</description><content>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
+&lt;h3 id="install">Install&lt;/h3>
+&lt;h4 id="server">Server&lt;/h4>
+&lt;p>The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray">official way&lt;/a> is to install with a script, which setups the systemd config as well.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># run with root privilege&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash &amp;lt;&lt;span style="color:#f92672">(&lt;/span>curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/bin/v2ray
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geoip.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geosite.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/etc/v2ray/config.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/access.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/error.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray@.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client">Client&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># macos &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>brew install v2ray
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run">Run&lt;/h3>
+&lt;h4 id="server-1">Server&lt;/h4>
+&lt;p>For v2ray server, we use &lt;a href="https://systemd.io/">systemd&lt;/a> to manage the v2ray process in &lt;code>/usr/local/etc/v2ray/config.json&lt;/code> which is empty after installation. We modify the config based on the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#server">Novice Guide&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;log&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;loglevel&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;warning&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;access&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/access.log&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;error&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/error.log&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;inbounds&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;port&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">10086&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;vmess&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;settings&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;clients&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;b831381d-6324-4d53-ad4f-8cda48b30811&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;outbounds&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;freedom&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>run service via &lt;code>systemctl&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>systemctl enable v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl start v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check status&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl status v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check tcp port under LISTEN&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ss -tlp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client-1">Client&lt;/h4>
+&lt;p>follow the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#client">Novice Guide&lt;/a> to setup the config and run: &lt;code>v2ray -c path/to/config.json&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>NOTE: To successfully connect, you need to make sure that the id and port are consistent with the client in the server configuration.&lt;/p>
+&lt;/blockquote>
+&lt;p>After setup the local proxy &lt;code>127.0.0.1:1081&lt;/code>, in order to route brower traffic to the v2ray tunnel, &lt;a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif">Proxy SwitchyOmega&lt;/a> is quite helpful.&lt;/p>
+&lt;h3 id="reference">Reference&lt;/h3>
+&lt;ul>
+&lt;li>quick start: &lt;a href="https://www.v2fly.org/en_US/guide/install.html">https://www.v2fly.org/en_US/guide/install.html&lt;/a>&lt;/li>
+&lt;/ul></content></item></channel></rss>

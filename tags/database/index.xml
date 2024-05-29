@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>database on</title><link>https://jinying-che.github.io/tags/database/</link><description>Recent content in database on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Sep 2019 17:37:10 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>Data Structure redis配置 redis初始并不设置所用内存大小，默认会使用全部物理内存，但有maxmemory选项可以配置。
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Database on</title><link>https://jinying-che.github.io/tags/database/</link><description>Recent content in Database on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Sep 2019 17:37:10 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>Data Structure redis配置 redis初始并不设置所用内存大小，默认会使用全部物理内存，但有maxmemory选项可以配置。
 # In short... if you have slaves attached it is suggested that you set a lower # limit for maxmemory so that there is some free RAM on the system for slave # output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;). # # maxmemory &amp;lt;bytes&amp;gt; Redis 命令 ###zrem
 这个命令的返回值很特别：
 zset中存在的元素被删除，则返回1 zset中不存在的元素、不存在的zset的key，返回0 key存在，但不是zset类型，报错 ##LUA
 碎片率 出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用 解决办法：数据对齐，安全重启（高可用/主从切换）。 数据结构 列表（list） 压缩列表 每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content） 双向循环链表 会有单独的list的对象，来记录链表的头、尾、长度等信息 字典（hash） 压缩列表</description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/redis_data_structure.png" alt="redis data structure">&lt;/p>
+&lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
 &lt;h2 id="redis配置">redis配置&lt;/h2>
 &lt;ol>
 &lt;li>
@@ -116,7 +116,7 @@ Type 1. Cluster Index Each InnoDB table has a special index called the clustered
 &lt;h2 id="data-structure">Data Structure&lt;/h2>
 &lt;p>The index data is organized in &lt;strong>B+ Tree&lt;/strong> which is common data structure widely used in the relation databases. B+ Tree is upgrading from B Tree, it eliminates the drawback B-tree used for indexing by storing data pointers only at the leaf nodes of the tree.&lt;/p>
 &lt;h3 id="b-tree-vs-b-tree">B+ Tree vs B Tree&lt;/h3>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/btree.svg" alt="b tree vs b+ tree">&lt;/p>
+&lt;p>&lt;img alt="b tree vs b+ tree" src="https://jinying-che.github.io/images/btree.svg">&lt;/p>
 &lt;h5 id="similarity">Similarity&lt;/h5>
 &lt;ol>
 &lt;li>Both B Tree and B+ Tree are balanced tree. (Efficiency for quering, lower the tree height, less the disk access)&lt;/li>

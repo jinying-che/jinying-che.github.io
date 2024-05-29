@@ -1,10 +1,173 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://jinying-che.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 03 Nov 2023 10:03:19 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>CAP</title><link>https://jinying-che.github.io/posts/cap/</link><pubDate>Fri, 03 Nov 2023 10:03:19 +0800</pubDate><guid>https://jinying-che.github.io/posts/cap/</guid><description>Theorem Consistency: Every read receives the most recent write or an error. Availability: Every request receives a (non-error) response, without the guarantee that it contains the most recent write. Partition Tolerance: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes. In the absence of a partition, both availability and consistency can be satisfied, but when the network partition occurs, one is then left with two options: consistency or availability.</description><content>&lt;h2 id="theorem">Theorem&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title/><link>https://jinying-che.github.io/</link><description>Recent content on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 19 May 2024 11:10:54 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>v2ray setup</title><link>https://jinying-che.github.io/posts/v2ray/</link><pubDate>Sun, 19 May 2024 11:10:54 +0800</pubDate><guid>https://jinying-che.github.io/posts/v2ray/</guid><description>V2Ray is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.
+Install Server The v2ray server is usually hosted in a linux server, the official way is to install with a script, which setups the systemd config as well.
+# run with root privilege bash &amp;lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) # output installed: /usr/local/bin/v2ray installed: /usr/local/share/v2ray/geoip.</description><content>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
+&lt;h3 id="install">Install&lt;/h3>
+&lt;h4 id="server">Server&lt;/h4>
+&lt;p>The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray">official way&lt;/a> is to install with a script, which setups the systemd config as well.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># run with root privilege&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash &amp;lt;&lt;span style="color:#f92672">(&lt;/span>curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/bin/v2ray
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geoip.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geosite.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/etc/v2ray/config.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/access.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/error.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray@.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client">Client&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># macos &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>brew install v2ray
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run">Run&lt;/h3>
+&lt;h4 id="server-1">Server&lt;/h4>
+&lt;p>For v2ray server, we use &lt;a href="https://systemd.io/">systemd&lt;/a> to manage the v2ray process in &lt;code>/usr/local/etc/v2ray/config.json&lt;/code> which is empty after installation. We modify the config based on the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#server">Novice Guide&lt;/a>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;log&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;loglevel&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;warning&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;access&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/access.log&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;error&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/error.log&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;inbounds&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;port&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">10086&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;vmess&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;settings&amp;#34;&lt;/span>: {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;clients&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;b831381d-6324-4d53-ad4f-8cda48b30811&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ],
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;outbounds&amp;#34;&lt;/span>: [
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;freedom&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>run service via &lt;code>systemctl&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>systemctl enable v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl start v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check status&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl status v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check tcp port under LISTEN&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ss -tlp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client-1">Client&lt;/h4>
+&lt;p>follow the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#client">Novice Guide&lt;/a> to setup the config and run: &lt;code>v2ray -c path/to/config.json&lt;/code>&lt;/p>
+&lt;blockquote>
+&lt;p>NOTE: To successfully connect, you need to make sure that the id and port are consistent with the client in the server configuration.&lt;/p>
+&lt;/blockquote>
+&lt;p>After setup the local proxy &lt;code>127.0.0.1:1081&lt;/code>, in order to route brower traffic to the v2ray tunnel, &lt;a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif">Proxy SwitchyOmega&lt;/a> is quite helpful.&lt;/p>
+&lt;h3 id="reference">Reference&lt;/h3>
+&lt;ul>
+&lt;li>quick start: &lt;a href="https://www.v2fly.org/en_US/guide/install.html">https://www.v2fly.org/en_US/guide/install.html&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>GORM</title><link>https://jinying-che.github.io/posts/go/gorm/gorm/</link><pubDate>Sat, 16 Mar 2024 17:19:46 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/gorm/gorm/</guid><description>Source Code When you run CRUD interface by gorm, what happened inside isn&amp;rsquo;t that straightforward, let&amp;rsquo;s take a look!
+1. Basic gorm usage func main() { users := []User{ {Name: &amp;#34;Jinzhu&amp;#34;, Age: 18}, {Name: &amp;#34;Jackson&amp;#34;, Age: 19}, } db.Create(users) // pass a slice to insert multiple row user := User{Name: &amp;#34;Jinzhu&amp;#34;, Age: 18} db.Find(user) db.Updates(user) db.Delete(user) } 2. Flow of the function, e.g. db.Find(): // gorm.io/finisher_api.go func (db *DB) Find(dest interface{}, conds .</description><content>&lt;h3 id="source-code">Source Code&lt;/h3>
+&lt;p>When you run CRUD interface by gorm, what happened inside isn&amp;rsquo;t that straightforward, let&amp;rsquo;s take a look!&lt;/p>
+&lt;h5 id="1-basic-gorm-usage">1. Basic gorm usage&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">users&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> []&lt;span style="color:#a6e22e">User&lt;/span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {&lt;span style="color:#a6e22e">Name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jinzhu&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Age&lt;/span>: &lt;span style="color:#ae81ff">18&lt;/span>},
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {&lt;span style="color:#a6e22e">Name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jackson&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Age&lt;/span>: &lt;span style="color:#ae81ff">19&lt;/span>},
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Create&lt;/span>(&lt;span style="color:#a6e22e">users&lt;/span>) &lt;span style="color:#75715e">// pass a slice to insert multiple row
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">user&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">User&lt;/span>{&lt;span style="color:#a6e22e">Name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jinzhu&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Age&lt;/span>: &lt;span style="color:#ae81ff">18&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Find&lt;/span>(&lt;span style="color:#a6e22e">user&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Updates&lt;/span>(&lt;span style="color:#a6e22e">user&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Delete&lt;/span>(&lt;span style="color:#a6e22e">user&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="2-flow-of-the-function-eg-dbfind">2. Flow of the function, e.g. &lt;code>db.Find()&lt;/code>:&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/finisher_api.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>) &lt;span style="color:#a6e22e">Find&lt;/span>(&lt;span style="color:#a6e22e">dest&lt;/span> &lt;span style="color:#66d9ef">interface&lt;/span>{}, &lt;span style="color:#a6e22e">conds&lt;/span> &lt;span style="color:#f92672">...&lt;/span>&lt;span style="color:#66d9ef">interface&lt;/span>{}) (&lt;span style="color:#a6e22e">tx&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">tx&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span>.&lt;span style="color:#a6e22e">Query&lt;/span>().&lt;span style="color:#a6e22e">Execute&lt;/span>(&lt;span style="color:#a6e22e">tx&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/callbacks.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">cs&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">callbacks&lt;/span>) &lt;span style="color:#a6e22e">Query&lt;/span>() &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">processor&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">cs&lt;/span>.&lt;span style="color:#a6e22e">processors&lt;/span>[&lt;span style="color:#e6db74">&amp;#34;query&amp;#34;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">processor&lt;/span>) &lt;span style="color:#a6e22e">Execute&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>) &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">f&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">fns&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">f&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">db&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">processor&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Clauses&lt;/span> []&lt;span style="color:#66d9ef">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">fns&lt;/span> []&lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">callbacks&lt;/span> []&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">callback&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="3-where-is-the-processorfns">3. Where is the &lt;code>processor.fns&lt;/code>?&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/callbacks.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">processor&lt;/span>) &lt;span style="color:#a6e22e">compile&lt;/span>() (&lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">fns&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> = &lt;span style="color:#a6e22e">sortCallbacks&lt;/span>(&lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span>); &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Logger&lt;/span>.&lt;span style="color:#a6e22e">Error&lt;/span>(&lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>(), &lt;span style="color:#e6db74">&amp;#34;Got error when compile callbacks, got %v&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">c&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">callback&lt;/span>) &lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#a6e22e">name&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>, &lt;span style="color:#a6e22e">fn&lt;/span> &lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>)) &lt;span style="color:#66d9ef">error&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">c&lt;/span>.&lt;span style="color:#a6e22e">processor&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span> = append(&lt;span style="color:#a6e22e">c&lt;/span>.&lt;span style="color:#a6e22e">processor&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span>, &lt;span style="color:#a6e22e">c&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>.&lt;span style="color:#a6e22e">processor&lt;/span>.&lt;span style="color:#a6e22e">compile&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="4-who-will-register-the-callback">4. Who will register the callback?&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/callbacks/callbacks.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">RegisterDefaultCallbacks&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">gorm&lt;/span>.&lt;span style="color:#a6e22e">DB&lt;/span>, &lt;span style="color:#a6e22e">config&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">Config&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Callback&lt;/span>().&lt;span style="color:#a6e22e">Create&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Match&lt;/span>(&lt;span style="color:#a6e22e">enableTransaction&lt;/span>).&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:begin_transaction&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">BeginTransaction&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:before_create&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">BeforeCreate&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:save_before_associations&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">SaveBeforeAssociations&lt;/span>(&lt;span style="color:#66d9ef">true&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:create&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Create&lt;/span>(&lt;span style="color:#a6e22e">config&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:save_after_associations&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">SaveAfterAssociations&lt;/span>(&lt;span style="color:#66d9ef">true&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">queryCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">updateCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">deleteCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="5-who-will-call-registerdefaultcallbacks">5. Who will call &lt;code>RegisterDefaultCallbacks&lt;/code>?&lt;/h5>
+&lt;p>The answer is in &lt;code>&amp;quot;gorm.io/driver/mysql&amp;quot;&lt;/code> instead of &lt;code>&amp;quot;gorm.io/gorm&amp;quot;&lt;/code>:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/gorm.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">Open&lt;/span>(&lt;span style="color:#a6e22e">dialector&lt;/span> &lt;span style="color:#a6e22e">Dialector&lt;/span>, &lt;span style="color:#a6e22e">opts&lt;/span> &lt;span style="color:#f92672">...&lt;/span>&lt;span style="color:#a6e22e">Option&lt;/span>) (&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">Dialector&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">err&lt;/span> = &lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">Dialector&lt;/span>.&lt;span style="color:#a6e22e">Initialize&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/driver/mysql@v1.5.4/mysql.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">dialector&lt;/span> &lt;span style="color:#a6e22e">Dialector&lt;/span>) &lt;span style="color:#a6e22e">Initialize&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">gorm&lt;/span>.&lt;span style="color:#a6e22e">DB&lt;/span>) (&lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">callbacks&lt;/span>.&lt;span style="color:#a6e22e">RegisterDefaultCallbacks&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span>, &lt;span style="color:#a6e22e">callbackConfig&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="end-of-the-story">End Of The Story&lt;/h3>
+&lt;p>ORM framework is relative complex, too much details to understand. Dig into the key design and path, don&amp;rsquo;t get bogged down in the details.&lt;/p>
+&lt;h2 id="referrence">Referrence&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/go-gorm/gorm">https://github.com/go-gorm/gorm&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>CAP</title><link>https://jinying-che.github.io/posts/cap/</link><pubDate>Fri, 03 Nov 2023 10:03:19 +0800</pubDate><guid>https://jinying-che.github.io/posts/cap/</guid><description>Theorem Consistency: Every read receives the most recent write or an error. Availability: Every request receives a (non-error) response, without the guarantee that it contains the most recent write. Partition Tolerance: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes. In the absence of a partition, both availability and consistency can be satisfied, but when the network partition occurs, one is then left with two options: consistency or availability.</description><content>&lt;h2 id="theorem">Theorem&lt;/h2>
 &lt;ul>
 &lt;li>&lt;strong>Consistency&lt;/strong>: Every read receives the most recent write or an error.&lt;/li>
 &lt;li>&lt;strong>Availability&lt;/strong>: Every request receives a (non-error) response, without the guarantee that it contains the most recent write.&lt;/li>
 &lt;li>&lt;strong>Partition Tolerance&lt;/strong>: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/cap.svg" alt="cap">
+&lt;p>&lt;img alt="cap" src="https://jinying-che.github.io/images/cap.svg">
 In the absence of a &lt;strong>partition&lt;/strong>, both availability and consistency can be satisfied, but when the network partition occurs, one is then left with two options: consistency or availability.&lt;/p>
 &lt;ul>
 &lt;li>&lt;strong>CP System&lt;/strong>: When choosing consistency over availability, the system will return an error or a time out if particular information cannot be guaranteed to be up to date due to network partitioning. (Only make sure &lt;strong>partial service nodes&lt;/strong> are available, the system has to shut down the non-consistent node)&lt;/li>
@@ -23,7 +186,7 @@ In the absence of a &lt;strong>partition&lt;/strong>, both availability and cons
 &lt;li>Candidate: is used to elect a new leader&lt;/li>
 &lt;/ul>
 &lt;p>In normal operation there is exactly &lt;strong>one leader&lt;/strong> and all of the other servers are &lt;strong>followers&lt;/strong>.&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/raft_server_status.png" alt="Raft State Machine">&lt;/p>
+&lt;p>&lt;img alt="Raft State Machine" src="https://jinying-che.github.io/images/raft_server_status.png">&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;em>From Raft Paper: &lt;a href="https://raft.github.io/raft.pdf">https://raft.github.io/raft.pdf&lt;/a>&lt;/em>&lt;/p>
 &lt;/blockquote>
@@ -39,7 +202,7 @@ In the absence of a &lt;strong>partition&lt;/strong>, both availability and cons
 Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 users, load average: 0.00, 0.00, 0.00 Tasks: 127 total, 1 running, 126 sleeping, 0 stopped, 0 zombie %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache MiB Swap: 2400.0 total, 2282.0 free, 118.0 used.</description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
 &lt;p>TBD&lt;/p>
 &lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/cpu_tools.png" alt="overview">&lt;/p>
+&lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
 &lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
 &lt;h4 id="1-top">1. top&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
@@ -180,7 +343,7 @@ Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 us
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-strace">6. strace&lt;/h4>
 &lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
 A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/linux_file_system.svg" alt="file system">&lt;/p>
+&lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
 &lt;h2 id="vfs">VFS&lt;/h2>
 &lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
 &lt;p>A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p>
@@ -393,7 +556,7 @@ A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the k
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 5r FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 6w FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="linux-storage-stack">Linux Storage Stack&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/Linux-storage-stack-diagram_v6.2/linux_storage_stack.svg" alt="linux storage stack">
+&lt;p>&lt;img alt="linux storage stack" src="https://jinying-che.github.io/images/Linux-storage-stack-diagram_v6.2/linux_storage_stack.svg">
 &lt;a href="https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram">https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram&lt;/a>&lt;/p>
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
@@ -409,7 +572,7 @@ A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the k
 &lt;li>Virtual maps to physical memory and disk (swap)&lt;/li>
 &lt;li>Virtual memory for one process includes both user space and kernel space.&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/virtual_memory.png" alt="virtual memory">&lt;/p>
+&lt;p>&lt;img alt="virtual memory" src="https://jinying-che.github.io/images/virtual_memory.png">&lt;/p>
 &lt;h2 id="buffer-vs-cache">Buffer vs Cache&lt;/h2>
 &lt;ul>
 &lt;li>Buffer: the memory used for the disk (both read and write)&lt;/li>
@@ -566,8 +729,8 @@ How does DNS work? The basic flow to query dns level by level as follows, the pr
 Brower cache and OS cache DNS Resolver: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought.</description><content>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
 &lt;p>DNS is not very complex but super useful.&lt;/p>
 &lt;h2 id="how-does-dns-work">How does DNS work?&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/dns_architecture.svg" alt="dns architecutre">&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/dns_flow.png" alt="dns flow">&lt;/p>
+&lt;p>&lt;img alt="dns architecutre" src="https://jinying-che.github.io/images/dns_architecture.svg">&lt;/p>
+&lt;p>&lt;img alt="dns flow" src="https://jinying-che.github.io/images/dns_flow.png">&lt;/p>
 &lt;p>The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.&lt;/p>
 &lt;ol>
 &lt;li>&lt;strong>Brower cache and OS cache&lt;/strong>&lt;/li>
@@ -735,7 +898,7 @@ e.g. Service credit if 95th percentile homepage SLI succeeds less than 99.</desc
 &lt;p>Most services consider request latency—how long it takes to return a response to a request—as a key SLI. Other common SLIs include the error rate, often expressed as a fraction of all requests received, and system throughput, typically measured in requests per second.&lt;/p>
 &lt;p>e.g. &lt;em>95th percentile latency of homepage requests over past 5 minutes &amp;lt; 300ms&lt;/em>&lt;/p>
 &lt;h2 id="teams-cooperation">Teams Cooperation&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/sla_vs_slo_vs_sli.png" alt="sla_vs_slo_sli">&lt;/p>
+&lt;p>&lt;img alt="sla_vs_slo_sli" src="https://jinying-che.github.io/images/sla_vs_slo_vs_sli.png">&lt;/p>
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.atlassian.com/incident-management/kpis/sla-vs-slo-vs-sli">https://www.atlassian.com/incident-management/kpis/sla-vs-slo-vs-sli&lt;/a>&lt;/li>
@@ -1341,7 +1504,7 @@ REST is a software architectural and common communication standard. OpenAPI is a
 &lt;li>gRPC builds on &lt;a href="https://www.rfc-editor.org/rfc/rfc7540">HTTP/2&lt;/a> long-lived connections for inter-service communication&lt;/li>
 &lt;/ul>
 &lt;h3 id="22-overall">2.2 Overall&lt;/h3>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/grpc_overall.jpeg" alt="gprc overall">&lt;/p>
+&lt;p>&lt;img alt="gprc overall" src="https://jinying-che.github.io/images/grpc_overall.jpeg">&lt;/p>
 &lt;h3 id="23-quick-start">2.3 Quick Start&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="https://grpc.io/docs/languages/go/quickstart/">https://grpc.io/docs/languages/go/quickstart/&lt;/a>&lt;/li>
@@ -1406,7 +1569,7 @@ REST is a software architectural and common communication standard. OpenAPI is a
 # `git add .` and `git checkout .` is a pair of inverse operations git checkout . or git reset --hard git add . done without git commit
 git reset + git chekcout . or git reset --hard git commit done
 # option 1: keep the changes in worksapce, rollback committed chagnes in local repo git reset head^ # option 2: rollback the changes in both workspace and local repo git reset --hard head^ git push done</description><content>&lt;h3 id="overall">Overall&lt;/h3>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/git.svg" alt="git architecture">&lt;/p>
+&lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
 &lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
 &lt;ul>
 &lt;li>
@@ -1566,7 +1729,7 @@ https://www.thegeekstuff.com/2011/01/iptables-fundamentals/ https://linux.</desc
 &lt;h2 id="in-a-nutshell">In a nutshell:&lt;/h2>
 &lt;ul>
 &lt;li>Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
-&lt;img src="https://jinying-che.github.io/images/iptable.png" alt="package flow through iptables">&lt;/li>
+&lt;img alt="package flow through iptables" src="https://jinying-che.github.io/images/iptable.png">&lt;/li>
 &lt;/ul>
 &lt;h2 id="tables">Tables&lt;/h2>
 &lt;p>There are five tables, the &lt;em>Priority&lt;/em> is: &lt;strong>filter, nat, mangle, raw, security&lt;/strong>&lt;/p>
@@ -1681,11 +1844,15 @@ ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
 &lt;/ul>
 &lt;h3 id="view-in-tmux">View in tmux&lt;/h3>
 &lt;p>&lt;code>ctrl+b&lt;/code> then &lt;code>[&lt;/code>&lt;/p>
+&lt;h3 id="plugin">Plugin&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/tmux-plugins/tmux-resurrect">tmux-resurrect&lt;/a> Restore tmux environment after system restart.&lt;/li>
+&lt;/ul>
 &lt;blockquote>
 &lt;p>The better way to use tmux is to customize in your way, feel free to refer my &lt;a href="https://github.com/jinying-che/config/blob/master/.tmux.conf">tmux config&lt;/a>&lt;/p>
 &lt;/blockquote>
 &lt;hr>
-&lt;p>Reference&lt;/p>
+&lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://tmuxcheatsheet.com/">https://tmuxcheatsheet.com/&lt;/a>&lt;/li>
 &lt;/ul></content></item><item><title>Golang Standard Library</title><link>https://jinying-che.github.io/posts/go/go_std/</link><pubDate>Sun, 27 Jun 2021 17:34:13 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/go_std/</guid><description>&lt;p>Dive into golang standard library, where we can learn how high quality code is written and what the golang convention and style is.&lt;/p></description><content>&lt;p>Dive into golang standard library, where we can learn how high quality code is written and what the golang convention and style is.&lt;/p>
@@ -1703,7 +1870,7 @@ ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
 &lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">state1&lt;/span> &lt;span style="color:#66d9ef">uint64&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">state2&lt;/span> &lt;span style="color:#66d9ef">uint32&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img src="https://jinying-che.github.io/images/wait_group.png" alt="wait group state byte representation">&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;img alt="wait group state byte representation" src="https://jinying-che.github.io/images/wait_group.png">&lt;/p>
 &lt;p>It&amp;rsquo;s based on golang &lt;strong>semaphore&lt;/strong> model, implemented by &lt;code>runtime_Semrelease&lt;/code> and &lt;code>runtime_Semacquire&lt;/code>&lt;/p>
 &lt;blockquote>
 &lt;p>semaphore is common mechanism used in concurrent progamming, like &lt;a href="https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem">Readers–writers problem&lt;/a>&lt;/p>
@@ -1713,7 +1880,7 @@ ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
 &lt;li>&lt;code>Add()&lt;/code> increases or decreases the counter, only reset waiter to 0 when waiter != 0 (which means &lt;code>Wait&lt;/code> has already been called then) and release the semaphore.&lt;/li>
 &lt;li>&lt;code>Wait()&lt;/code> increases the waiter and try to acquire the semaphore.&lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/wait_group_case.png" alt="wait group case">&lt;/p>
+&lt;p>&lt;img alt="wait group case" src="https://jinying-che.github.io/images/wait_group_case.png">&lt;/p>
 &lt;h3 id="syncpool">sync.Pool&lt;/h3></content></item><item><title>HHKB</title><link>https://jinying-che.github.io/posts/hhkb/</link><pubDate>Thu, 24 Jun 2021 21:20:23 +0800</pubDate><guid>https://jinying-che.github.io/posts/hhkb/</guid><description>CheatSheet BS and Delete Win mode: Fn+Control+w Mac mode: Fn+Control+m</description><content>&lt;h4 id="cheatsheet">CheatSheet&lt;/h4>
 &lt;ul>
 &lt;li>BS and Delete
@@ -1723,7 +1890,7 @@ ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/hhkb.png" alt="KKHB CheatSheet">&lt;/p></content></item><item><title>Setup Shadowsocks Server And Client</title><link>https://jinying-che.github.io/posts/shadowsocks/</link><pubDate>Fri, 23 Apr 2021 09:22:08 +0800</pubDate><guid>https://jinying-che.github.io/posts/shadowsocks/</guid><description>&lt;p>In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.&lt;/p></description><content>&lt;p>In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.&lt;/p>
+&lt;p>&lt;img alt="KKHB CheatSheet" src="https://jinying-che.github.io/images/hhkb.png">&lt;/p></content></item><item><title>Setup Shadowsocks Server And Client</title><link>https://jinying-che.github.io/posts/shadowsocks/</link><pubDate>Fri, 23 Apr 2021 09:22:08 +0800</pubDate><guid>https://jinying-che.github.io/posts/shadowsocks/</guid><description>&lt;p>In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.&lt;/p></description><content>&lt;p>In this article, we will setup the Shadowsock Server and Client from scratch and solve the issue during and after the setup.&lt;/p>
 &lt;h2 id="shadowsocks-server">Shadowsocks Server&lt;/h2>
 &lt;hr>
 &lt;p>Install the latest &lt;code>Ubuntu&lt;/code> in vps, my vps provier is &lt;a href="https://bandwagonhost.com/index.php">https://bandwagonhost.com/index.php&lt;/a>, the route is: &lt;em>My Service &amp;gt; KiwiVM Control Panel &amp;gt; Install new OS&lt;/em>&lt;/p>
@@ -1868,7 +2035,7 @@ $ sudo reboot
 &lt;/li>
 &lt;li>
 &lt;p>It normally works at the &lt;a href="https://en.wikipedia.org/wiki/OSI_model#Layer_3:_Network_Layer">Network layer of OSI&lt;/a>&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/hub_switch_router.png" alt="Hub vs Switch vs Router">&lt;/p>
+&lt;p>&lt;img alt="Hub vs Switch vs Router" src="https://jinying-che.github.io/images/hub_switch_router.png">&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;h4 id="modem">Modem&lt;/h4>
@@ -1882,7 +2049,7 @@ $ sudo reboot
 &lt;/li>
 &lt;li>
 &lt;p>Modems work on both the Physical and Data Link layers.&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/modem.png" alt="Modem">&lt;/p>
+&lt;p>&lt;img alt="Modem" src="https://jinying-che.github.io/images/modem.png">&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;h4 id="access-point">Access Point&lt;/h4>
@@ -1898,7 +2065,7 @@ $ sudo reboot
 &lt;/li>
 &lt;li>
 &lt;p>An AP works at the second OSI layer, the Data Link layer&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/ap.png" alt="Wireless Access Point">&lt;/p>
+&lt;p>&lt;img alt="Wireless Access Point" src="https://jinying-che.github.io/images/ap.png">&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;hr>
@@ -2136,12 +2303,12 @@ V x V snd FIN V
 &lt;/tbody>
 &lt;/table>
 &lt;p>Here may be a more readable diagram.
-&lt;img src="https://jinying-che.github.io/images/tcpfsm.png" alt="tcp state Machine">&lt;/p>
+&lt;img alt="tcp state Machine" src="https://jinying-che.github.io/images/tcpfsm.png">&lt;/p>
 &lt;h4 id="tcp-open-three-way-handshake">TCP Open: Three-Way Handshake&lt;/h4>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open.svg" alt="tcp open">&lt;/p>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_open_bytebytego.png" alt="tcp open">&lt;/p>
+&lt;p>&lt;img alt="tcp open" src="https://jinying-che.github.io/images/tcp_open.svg">&lt;/p>
+&lt;p>&lt;img alt="tcp open" src="https://jinying-che.github.io/images/tcp_open_bytebytego.png">&lt;/p>
 &lt;h4 id="tcp-close-four-way-handshake">TCP Close: Four-Way Handshake&lt;/h4>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/tcp_close_bytebytego.png" alt="tcp close">&lt;/p>
+&lt;p>&lt;img alt="tcp close" src="https://jinying-che.github.io/images/tcp_close_bytebytego.png">&lt;/p>
 &lt;h3 id="reference">Reference&lt;/h3>
 &lt;ul>
 &lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm">http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm&lt;/a>&lt;/li>
@@ -2301,7 +2468,7 @@ import _ &amp;quot;net/http/pprof&amp;quot; http.ListenAndServe(&amp;quot;the ad
 这个命令的返回值很特别：
 zset中存在的元素被删除，则返回1 zset中不存在的元素、不存在的zset的key，返回0 key存在，但不是zset类型，报错 ##LUA
 碎片率 出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用 解决办法：数据对齐，安全重启（高可用/主从切换）。 数据结构 列表（list） 压缩列表 每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content） 双向循环链表 会有单独的list的对象，来记录链表的头、尾、长度等信息 字典（hash） 压缩列表</description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/redis_data_structure.png" alt="redis data structure">&lt;/p>
+&lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
 &lt;h2 id="redis配置">redis配置&lt;/h2>
 &lt;ol>
 &lt;li>
@@ -2410,7 +2577,7 @@ Handshake TLS 1.2 Basically it&amp;rsquo;s a 3-Way TCP handshake + 4 Way TLS han
 &lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
 &lt;h4 id="handshake-tls-12">Handshake TLS 1.2&lt;/h4>
 &lt;p>Basically it&amp;rsquo;s a &lt;em>3-Way TCP handshake&lt;/em> + &lt;em>4 Way TLS handshake&lt;/em>.
-&lt;img src="https://jinying-che.github.io/images/https_handshake.png" alt="https handshake">&lt;/p>
+&lt;img alt="https handshake" src="https://jinying-che.github.io/images/https_handshake.png">&lt;/p>
 &lt;pre tabindex="0">&lt;code> Client Server
 -------------------- TCP 3-Way Handshke -----------------
 SYNC
@@ -2476,7 +2643,7 @@ Type 1. Cluster Index Each InnoDB table has a special index called the clustered
 &lt;h2 id="data-structure">Data Structure&lt;/h2>
 &lt;p>The index data is organized in &lt;strong>B+ Tree&lt;/strong> which is common data structure widely used in the relation databases. B+ Tree is upgrading from B Tree, it eliminates the drawback B-tree used for indexing by storing data pointers only at the leaf nodes of the tree.&lt;/p>
 &lt;h3 id="b-tree-vs-b-tree">B+ Tree vs B Tree&lt;/h3>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/btree.svg" alt="b tree vs b+ tree">&lt;/p>
+&lt;p>&lt;img alt="b tree vs b+ tree" src="https://jinying-che.github.io/images/btree.svg">&lt;/p>
 &lt;h5 id="similarity">Similarity&lt;/h5>
 &lt;ol>
 &lt;li>Both B Tree and B+ Tree are balanced tree. (Efficiency for quering, lower the tree height, less the disk access)&lt;/li>

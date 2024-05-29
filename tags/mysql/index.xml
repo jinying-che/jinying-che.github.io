@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mysql on</title><link>https://jinying-che.github.io/tags/mysql/</link><description>Recent content in mysql on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 05 Jun 2019 11:48:53 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>This post is based on MySQL InnoDB Storage Engine.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mysql on</title><link>https://jinying-che.github.io/tags/mysql/</link><description>Recent content in Mysql on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 05 Jun 2019 11:48:53 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>This post is based on MySQL InnoDB Storage Engine.
 Type 1. Cluster Index Each InnoDB table has a special index called the clustered index that stores row data. Typically, the clustered index is synonymous with the primary key.
 2. Secondery Index In InnoDB, each record in a secondary index contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.</description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
 &lt;h2 id="type">Type&lt;/h2>
@@ -10,7 +10,7 @@ Type 1. Cluster Index Each InnoDB table has a special index called the clustered
 &lt;h2 id="data-structure">Data Structure&lt;/h2>
 &lt;p>The index data is organized in &lt;strong>B+ Tree&lt;/strong> which is common data structure widely used in the relation databases. B+ Tree is upgrading from B Tree, it eliminates the drawback B-tree used for indexing by storing data pointers only at the leaf nodes of the tree.&lt;/p>
 &lt;h3 id="b-tree-vs-b-tree">B+ Tree vs B Tree&lt;/h3>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/btree.svg" alt="b tree vs b+ tree">&lt;/p>
+&lt;p>&lt;img alt="b tree vs b+ tree" src="https://jinying-che.github.io/images/btree.svg">&lt;/p>
 &lt;h5 id="similarity">Similarity&lt;/h5>
 &lt;ol>
 &lt;li>Both B Tree and B+ Tree are balanced tree. (Efficiency for quering, lower the tree height, less the disk access)&lt;/li>

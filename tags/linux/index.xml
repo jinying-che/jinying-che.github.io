@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on</title><link>https://jinying-che.github.io/tags/linux/</link><description>Recent content in linux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Oct 2023 22:54:48 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on</title><link>https://jinying-che.github.io/tags/linux/</link><description>Recent content in Linux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Oct 2023 22:54:48 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
 Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 users, load average: 0.00, 0.00, 0.00 Tasks: 127 total, 1 running, 126 sleeping, 0 stopped, 0 zombie %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache MiB Swap: 2400.0 total, 2282.0 free, 118.0 used.</description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
 &lt;p>TBD&lt;/p>
 &lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/cpu_tools.png" alt="overview">&lt;/p>
+&lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
 &lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
 &lt;h4 id="1-top">1. top&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
@@ -143,7 +143,7 @@ Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 us
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-strace">6. strace&lt;/h4>
 &lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
 A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/linux_file_system.svg" alt="file system">&lt;/p>
+&lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
 &lt;h2 id="vfs">VFS&lt;/h2>
 &lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
 &lt;p>A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p>
@@ -356,7 +356,7 @@ A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the k
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 5r FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 6w FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="linux-storage-stack">Linux Storage Stack&lt;/h2>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/Linux-storage-stack-diagram_v6.2/linux_storage_stack.svg" alt="linux storage stack">
+&lt;p>&lt;img alt="linux storage stack" src="https://jinying-che.github.io/images/Linux-storage-stack-diagram_v6.2/linux_storage_stack.svg">
 &lt;a href="https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram">https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram&lt;/a>&lt;/p>
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
@@ -372,7 +372,7 @@ A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the k
 &lt;li>Virtual maps to physical memory and disk (swap)&lt;/li>
 &lt;li>Virtual memory for one process includes both user space and kernel space.&lt;/li>
 &lt;/ol>
-&lt;p>&lt;img src="https://jinying-che.github.io/images/virtual_memory.png" alt="virtual memory">&lt;/p>
+&lt;p>&lt;img alt="virtual memory" src="https://jinying-che.github.io/images/virtual_memory.png">&lt;/p>
 &lt;h2 id="buffer-vs-cache">Buffer vs Cache&lt;/h2>
 &lt;ul>
 &lt;li>Buffer: the memory used for the disk (both read and write)&lt;/li>
