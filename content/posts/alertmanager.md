@@ -3,7 +3,6 @@ title: "alertmanager"
 date: "2024-05-29T08:54:49+08:00"
 tags: ["monitor"]
 description: "alertmanager overview"
-draft: true
 ---
 
 ### Architecture
