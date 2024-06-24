@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Monitor on</title><link>https://jinying-che.github.io/tags/monitor/</link><description>Recent content in Monitor on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 29 May 2024 08:54:49 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/monitor/index.xml" rel="self" type="application/rss+xml"/><item><title>alertmanager</title><link>https://jinying-che.github.io/posts/alertmanager/</link><pubDate>Wed, 29 May 2024 08:54:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/alertmanager/</guid><description>Architecture Design 1. No dedicated status (e.g. firing or resolved) differentiate the alert by EndAt timestamp
-2. group_wait vs group_interval vs repeat_interval Source Code Entrance api: api/v2/api.go dispatch: dispatch/dispatch.go</description><content>&lt;h3 id="architecture">Architecture&lt;/h3>
-&lt;p>&lt;img alt="arch" src="https://jinying-che.github.io/images/alertmanager.png">&lt;/p>
-&lt;h3 id="design">Design&lt;/h3>
-&lt;h5 id="1-no-dedicated-status-eg-firing-or-resolved">1. No dedicated status (e.g. firing or resolved)&lt;/h5>
-&lt;p>differentiate the alert by &lt;code>EndAt&lt;/code> timestamp&lt;/p>
-&lt;h5 id="2-group_wait-vs-group_interval-vs-repeat_interval">2. group_wait vs group_interval vs repeat_interval&lt;/h5>
-&lt;p>&lt;img alt="group" src="https://jinying-che.github.io/images/am_group.png">&lt;/p>
-&lt;h3 id="source-code">Source Code&lt;/h3>
-&lt;ol>
-&lt;li>&lt;strong>Entrance&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;ul>
-&lt;li>api: &lt;code>api/v2/api.go&lt;/code>&lt;/li>
-&lt;li>dispatch: &lt;code>dispatch/dispatch.go&lt;/code>&lt;/li>
-&lt;/ul></content></item><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>Architecture Quick Start Data Model Every time series is uniquely identified by its metric name and optional key-value pairs called labels.
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prometheus on</title><link>https://jinying-che.github.io/tags/prometheus/</link><description>Recent content in Prometheus on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 31 Dec 2023 09:41:04 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>Architecture Quick Start Data Model Every time series is uniquely identified by its metric name and optional key-value pairs called labels.
 Metric Name Metric Label The change of any labels value, including adding or removing labels, will create a new time series. Metric Type Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary
 Counter: a metric value that can only increase or reset # use a counter to represent the number of requests served, tasks completed, or errors - http_requests_total{handler=&amp;#39;/get_user_id&amp;#39;, method=&amp;#39;GET&amp;#39;, status=&amp;#39;200&amp;#39;} - errors_total{type=&amp;#39;runtime&amp;#39;, severity=&amp;#39;critical&amp;#39;} Gauge: a number which can either go up or down # used for measured values like temperatures or current memory usage - memory_usage_bytes{process_name=&amp;#39;web_server&amp;#39;, instance=&amp;#39;10.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
