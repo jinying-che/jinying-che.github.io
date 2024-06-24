@@ -1,7 +1,7 @@
 ---
 title: "Victorial Metrics"
 date: "2024-02-13T07:37:29+08:00"
-tags: ["monitor"]
+tags: ["monitor", "Victoria Metrics"]
 description: "Victorial Metrics"
 draft: true
 ---
@@ -54,3 +54,4 @@ TBD
 
 ## Referrence
 - https://docs.victoriametrics.com/single-server-victoriametrics/
+- https://github.com/VictoriaMetrics/VictoriaMetrics/issues/3268
