@@ -58,10 +58,10 @@ paginate = 5
   [languages.en]
     [languages.en.params]
       languageName = "English"
-      title = "Terminal"
-      subtitle = "A simple, retro theme for Hugo"
-      owner = ""
-      keywords = ""
+      title = "Jinying Tech Blog"
+      subtitle = "a technical blog including os, network, monitor, algorithm, etc."
+      owner = "chejinying@me.com"
+      keywords = "computer, ai, network"
       copyright = ""
       menuMore = "Show more"
       readMore = "Read more"
