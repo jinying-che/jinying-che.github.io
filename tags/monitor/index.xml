@@ -133,4 +133,6 @@ Counter: a metric value that can only increase or reset # use a counter to repre
 &lt;li>&lt;a href="https://docs.google.com/presentation/d/1TMvzwdaS8Vw9MtscI9ehDyiMngII8iB_Z5D4QW4U4ho/edit?pli=1#slide=id.gae9988762_0_0">PromCon 2016 - The Prometheus TSDB Slides&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://zhenghe-md.github.io/blog/2020/02/27/The-Evolution-of-Prometheus-Storage-Layer/">The Evolution of Prometheus Storage Layer&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://ganeshvernekar.com/blog/prometheus-tsdb-the-head-block/">Prometheus TSDB&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://web.archive.org/web/20210803115658/https://fabxc.org/tsdb">Writing a Time Series Database from Scratch&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://news.ycombinator.com/item?id=27730854">Write a time-series database engine from scratch (hancker news)&lt;/a>&lt;/li>
 &lt;/ul></content></item></channel></rss>
