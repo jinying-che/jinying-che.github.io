@@ -119,13 +119,19 @@ http_requests_total{job="prometheus"}[5m]
 
 **Offset Modifier**
 
-The offset modifier allows changing the time offset for individual **instant** and **range vectors in a query.
+The offset modifier allows changing the time offset for individual **instant** and **range** vectors in a query.
 ```shell
 # returns the 5-minute rate that http_requests_total had a week ago
 rate(http_requests_total[5m] offset 1w)
 ```
 
 #### Functions
+There are some common functions in PromQL which are used in most popular queries and scenarios.
+##### 1. rate() && irate()
+[see details](https://jinying-che.github.io/posts/rate_vs_irate/)
+
+###### 2. histogram_quantile()
+How P99 is calculated?
 
 ## Reference
 - https://prometheus.io/docs/introduction/overview/
