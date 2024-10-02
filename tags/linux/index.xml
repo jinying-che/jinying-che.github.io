@@ -1,5 +1,14 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on</title><link>https://jinying-che.github.io/tags/linux/</link><description>Recent content in Linux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 03 Jul 2024 08:19:14 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>systemd</title><link>https://jinying-che.github.io/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/systemd/</guid><description>what is systemd? systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. Where is the config file? systemd-analyze unit-paths The systemd manager scans many directories to load unit files, for user-defined units:
-/etc/systemd/system Unit File A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.</description><content>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on</title><link>https://jinying-che.github.io/tags/linux/</link><description>Recent content in Linux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 03 Jul 2024 08:19:14 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>systemd</title><link>https://jinying-che.github.io/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/systemd/</guid><description>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
+&lt;ol>
+&lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
+&lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
+&lt;/ol>
+&lt;h2 id="where-is-the-config-file">Where is the config file?&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>systemd-analyze unit-paths
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/etc/systemd/system
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="unit-file">Unit File&lt;/h2>
+&lt;p>A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p></description><content>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
 &lt;ol>
 &lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
 &lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
@@ -58,8 +67,53 @@
 &lt;li>&lt;a href="https://systemd.io/">https://systemd.io/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://en.wikipedia.org/wiki/Systemd">https://en.wikipedia.org/wiki/Systemd&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.baeldung.com/linux/systemd-target-multi-user">https://www.baeldung.com/linux/systemd-target-multi-user&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
-Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 users, load average: 0.00, 0.00, 0.00 Tasks: 127 total, 1 running, 126 sleeping, 0 stopped, 0 zombie %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache MiB Swap: 2400.0 total, 2282.0 free, 118.0 used.</description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
+&lt;/ul></content></item><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
+&lt;p>TBD&lt;/p>
+&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
+&lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
+&lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
+&lt;h4 id="1-top">1. top&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>top - 17:18:53 up &lt;span style="color:#ae81ff">50&lt;/span> days, 16:06, &lt;span style="color:#ae81ff">7&lt;/span> users, load average: 0.00, 0.00, 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Tasks: &lt;span style="color:#ae81ff">127&lt;/span> total, &lt;span style="color:#ae81ff">1&lt;/span> running, &lt;span style="color:#ae81ff">126&lt;/span> sleeping, &lt;span style="color:#ae81ff">0&lt;/span> stopped, &lt;span style="color:#ae81ff">0&lt;/span> zombie
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 2400.0 total, 2282.0 free, 118.0 used. 622.7 avail Mem
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">782513&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">17312&lt;/span> &lt;span style="color:#ae81ff">11036&lt;/span> &lt;span style="color:#ae81ff">8652&lt;/span> S 0.3 1.1 0:00.04 sshd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167728&lt;/span> &lt;span style="color:#ae81ff">9424&lt;/span> &lt;span style="color:#ae81ff">6504&lt;/span> S 0.0 1.0 3:05.88 systemd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.66 kthreadd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man top to get top details, simple put:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># load average : the average number of processes that are either in a runnable or uninterruptable state for the past 1, 5, and 15 minutes. &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g. `load average = 1.5` in 6 cpu system means 1/4 cpu is under laod, 3/4 cpu is idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># us, user : time running un-niced user processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># sy, system : time running kernel processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ni, nice : time running niced user processes (process priority, a negative nice value means higher priority, whereas a positive nice value means lower priority)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># id, idle : time spent in the kernel idle handler&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># wa, IO-wait : time waiting for I/O completion&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hi : time spent servicing hardware interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># si : time spent servicing software interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># st : time stolen from this vm by the hypervisor&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PR: The scheduling priority of the task (real priority of a process as seen by the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NI: The nice value of the task (a priority hint for the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># VIRT: The total amount of virtual memory used by the task (physical memory + swap)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># RES: A subset of the virtual address space (VIRT) representing the non-swapped physical memory (only physical memory)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># SHR: A subset of resident memory (RES) that may be used by other processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S: Process Status, the status of the task which can be one of:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># D = uninterruptible sleep&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># I = idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># R = running&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S = sleeping&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># T = stopped by job control signal&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># t = stopped by debugger during trace&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Z = zombie&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-vmstat">2. vmstat&lt;/h4>
+&lt;p>vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity&lt;/p></description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
 &lt;p>TBD&lt;/p>
 &lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
 &lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
@@ -201,8 +255,11 @@ Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 us
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -g Enables call-graph (stack chain/backtrace) recording&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top -g -p &lt;span style="color:#ae81ff">655152&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-strace">6. strace&lt;/h4>
-&lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
-A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
+&lt;h2 id="vfs">VFS&lt;/h2>
+&lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
+&lt;p>A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p></description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
 &lt;h2 id="vfs">VFS&lt;/h2>
 &lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
@@ -424,7 +481,15 @@ A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the k
 &lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/ext4/globals.html?highlight=file+system+super+block">super block &amp;ndash; kernel doc&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/vfs.html?highlight=inode">vfs overview &amp;ndash; kernel doc&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://itslinuxfoss.com/what-is-superblock-inode-dentry-and-file/#:~:text=The%20superblock%20is%20the%20data,of%20bytes%20in%20different%20forms.">What is a Superblock, Dentry, Inode and a File?&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Memory</title><link>https://jinying-che.github.io/posts/memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/memory/</guid><description>Virtual Memory Virtual memory is an abstraction for memory management by operation system Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU The physical memory is only allocated to process when memory is firstly accessed. (e.g. mmap() and brk() in C just allocate the virtual memory first, hence you can see VIRT in top command is usually much higher than RES) Virtual maps to physical memory and disk (swap) Virtual memory for one process includes both user space and kernel space.</description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
+&lt;/ul></content></item><item><title>Memory</title><link>https://jinying-che.github.io/posts/memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/memory/</guid><description>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
+&lt;ol>
+&lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
+&lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
+&lt;li>The physical memory is only allocated to process when memory is firstly accessed. (e.g. &lt;code>mmap()&lt;/code> and &lt;code>brk()&lt;/code> in C just allocate the virtual memory first, hence you can see &lt;code>VIRT&lt;/code> in &lt;code>top&lt;/code> command is usually much higher than &lt;code>RES&lt;/code>)&lt;/li>
+&lt;li>Virtual maps to physical memory and disk (swap)&lt;/li>
+&lt;li>Virtual memory for one process includes both user space and kernel space.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img alt="virtual memory" src="https://jinying-che.github.io/images/virtual_memory.png">&lt;/p></description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
 &lt;ol>
 &lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
 &lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>

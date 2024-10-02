@@ -1,6 +1,89 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prometheus on</title><link>https://jinying-che.github.io/tags/prometheus/</link><description>Recent content in Prometheus on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 31 Dec 2023 09:41:04 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>Architecture Quick Start Data Model Every time series is uniquely identified by its metric name and optional key-value pairs called labels.
-Metric Name Metric Label The change of any labels value, including adding or removing labels, will create a new time series. Metric Type Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary
-Counter: a metric value that can only increase or reset # use a counter to represent the number of requests served, tasks completed, or errors - http_requests_total{handler=&amp;#39;/get_user_id&amp;#39;, method=&amp;#39;GET&amp;#39;, status=&amp;#39;200&amp;#39;} - errors_total{type=&amp;#39;runtime&amp;#39;, severity=&amp;#39;critical&amp;#39;} Gauge: a number which can either go up or down # used for measured values like temperatures or current memory usage - memory_usage_bytes{process_name=&amp;#39;web_server&amp;#39;, instance=&amp;#39;10.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prometheus on</title><link>https://jinying-che.github.io/tags/prometheus/</link><description>Recent content in Prometheus on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 02 Oct 2024 09:52:53 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>rate vs irate</title><link>https://jinying-che.github.io/posts/rate_vs_irate/</link><pubDate>Wed, 02 Oct 2024 09:52:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/rate_vs_irate/</guid><description>&lt;p>&lt;code>rate&lt;/code> and &lt;code>irate&lt;/code> are based on the &lt;strong>counter&lt;/strong> type metrics.&lt;/p>
+&lt;p>&lt;code>rate(v range-vector)&lt;/code> calculates the per-second average rate of increase of the time series in the &lt;strong>range vector&lt;/strong>, for example, &lt;code>rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code>&lt;/p>
+&lt;ol>
+&lt;li>It&amp;rsquo;s a rate: &lt;code>total(now) - total(now - 1m) / 60s&lt;/code>&lt;/li>
+&lt;li>It&amp;rsquo;s an average rate: over 1m&lt;/li>
+&lt;li>Average is calculated over the time range, that&amp;rsquo;s why range vector is required.&lt;/li>
+&lt;li>It provides a &lt;strong>smoother&lt;/strong> trend.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>irate(v range-vector)&lt;/code> calculates the per-second instant rate of increase of the time series in the range vector.&lt;/p></description><content>&lt;p>&lt;code>rate&lt;/code> and &lt;code>irate&lt;/code> are based on the &lt;strong>counter&lt;/strong> type metrics.&lt;/p>
+&lt;p>&lt;code>rate(v range-vector)&lt;/code> calculates the per-second average rate of increase of the time series in the &lt;strong>range vector&lt;/strong>, for example, &lt;code>rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code>&lt;/p>
+&lt;ol>
+&lt;li>It&amp;rsquo;s a rate: &lt;code>total(now) - total(now - 1m) / 60s&lt;/code>&lt;/li>
+&lt;li>It&amp;rsquo;s an average rate: over 1m&lt;/li>
+&lt;li>Average is calculated over the time range, that&amp;rsquo;s why range vector is required.&lt;/li>
+&lt;li>It provides a &lt;strong>smoother&lt;/strong> trend.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>irate(v range-vector)&lt;/code> calculates the per-second instant rate of increase of the time series in the range vector.&lt;/p>
+&lt;ol>
+&lt;li>similar to &lt;code>rate&lt;/code>, but it&amp;rsquo;s an &lt;strong>sensitive&lt;/strong> rate as it&amp;rsquo;s based on &lt;strong>the last two data points&lt;/strong>.&lt;/li>
+&lt;li>why calculate last two points still needs [1m] range? it&amp;rsquo;s for looking back when the data point is missed&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img alt="rate_vs_irate" src="https://jinying-che.github.io/images/rate_vs_irate.png">&lt;/p>
+&lt;h2 id="reference">Reference:&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.robustperception.io/how-does-a-prometheus-counter-work/">https://www.robustperception.io/how-does-a-prometheus-counter-work/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/functions/">https://prometheus.io/docs/prometheus/latest/querying/functions/&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
+&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;h2 id="data-model">Data Model&lt;/h2>
+&lt;p>Every time series is uniquely identified by its &lt;strong>metric name&lt;/strong> and optional key-value pairs called &lt;strong>labels&lt;/strong>.&lt;/p>
+&lt;ul>
+&lt;li>Metric Name&lt;/li>
+&lt;li>Metric Label
+&lt;ul>
+&lt;li>The change of any labels value, including adding or removing labels, will create a new time series.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="metric-type">Metric Type&lt;/h4>
+&lt;p>Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary&lt;/p>
+&lt;ul>
+&lt;li>Counter: a metric value that can only increase or reset
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># use a counter to represent the number of requests served, tasks completed, or errors&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- http_requests_total&lt;span style="color:#f92672">{&lt;/span>handler&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/get_user_id&amp;#39;&lt;/span>, method&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;GET&amp;#39;&lt;/span>, status&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;200&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- errors_total&lt;span style="color:#f92672">{&lt;/span>type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;runtime&amp;#39;&lt;/span>, severity&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;critical&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Gauge: a number which can either go up or down
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># used for measured values like temperatures or current memory usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- memory_usage_bytes&lt;span style="color:#f92672">{&lt;/span>process_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;web_server&amp;#39;&lt;/span>, instance&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;10.0.0.1:8080&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- queue_size&lt;span style="color:#f92672">{&lt;/span>queue_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;low_priority&amp;#39;&lt;/span>, worker_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;background&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Histogram: used for any calculated value which is counted based on bucket values,
+&lt;ul>
+&lt;li>&lt;strong>bucket&lt;/strong> value determines the ordinate value (y coordinate of a standard two-dimensional graph)&lt;/li>
+&lt;li>&lt;strong>cumulative&lt;/strong> counters for the observation buckets, exposed as &lt;!-- raw HTML omitted -->_bucket{le=&amp;quot;&amp;lt;&lt;strong>upper&lt;/strong> inclusive bound&amp;gt;&amp;quot;}&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># usually things like request durations or response sizes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># le=&amp;#34;0.3&amp;#34; means less or equal to 0.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_sum 134420.14452212452
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.05&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 11326.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.1&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.284831e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.15&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285367e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.25&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285592e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285613e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;+Inf&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285619e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_count 2.285619e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># cumulative means that the count for le=”0.5” bucket also includes the count for le=”0.25” bucket.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consider the following hypothetical distribution of observations for 200 observations.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌─────────────┬──────────────────────┬──────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Bucket Size │ Cumulative Frequency │ Upper Bound │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Count │ Percentile │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├─────────────┼──────────────────────┼──────────────────┤
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 50ms │ &lt;span style="color:#ae81ff">20&lt;/span> │ p10 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 100ms │ &lt;span style="color:#ae81ff">70&lt;/span> │ p35 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 250ms │ &lt;span style="color:#ae81ff">120&lt;/span> │ p60 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 500ms │ &lt;span style="color:#ae81ff">150&lt;/span> │ p75 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 1000ms │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ INF │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└─────────────┴──────────────────────┴──────────────────┘
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)&lt;/li>
+&lt;/ul>
+&lt;h2 id="storage">Storage&lt;/h2>
+&lt;p>&lt;img alt="workflow" src="https://jinying-che.github.io/images/tsdb_write.png">&lt;/p></description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
 &lt;h2 id="quick-start">Quick Start&lt;/h2>
 &lt;h2 id="data-model">Data Model&lt;/h2>
@@ -106,10 +189,15 @@ Counter: a metric value that can only increase or reset # use a counter to repre
 &lt;p>Range vector literals work like instant vector literals, except that they select a range of samples back from the current instant&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>http_requests_total&lt;span style="color:#f92672">{&lt;/span>job&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;prometheus&amp;#34;&lt;/span>&lt;span style="color:#f92672">}[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Offset Modifier&lt;/strong>&lt;/p>
-&lt;p>The offset modifier allows changing the time offset for individual &lt;strong>instant&lt;/strong> and **range vectors in a query.&lt;/p>
+&lt;p>The offset modifier allows changing the time offset for individual &lt;strong>instant&lt;/strong> and &lt;strong>range&lt;/strong> vectors in a query.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># returns the 5-minute rate that http_requests_total had a week ago&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rate&lt;span style="color:#f92672">(&lt;/span>http_requests_total&lt;span style="color:#f92672">[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span> offset 1w&lt;span style="color:#f92672">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="functions">Functions&lt;/h4>
+&lt;p>There are some common functions in PromQL which are used in most popular queries and scenarios.&lt;/p>
+&lt;h5 id="1-rate--irate">1. rate() &amp;amp;&amp;amp; irate()&lt;/h5>
+&lt;p>&lt;a href="https://jinying-che.github.io/posts/rate_vs_irate/">see details&lt;/a>&lt;/p>
+&lt;h6 id="2-histogram_quantile">2. histogram_quantile()&lt;/h6>
+&lt;p>How P99 is calculated?&lt;/p>
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/&lt;/a>&lt;/li>

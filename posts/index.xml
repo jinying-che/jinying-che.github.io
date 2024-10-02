@@ -1,5 +1,40 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 03 Jul 2024 08:19:14 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>systemd</title><link>https://jinying-che.github.io/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/systemd/</guid><description>what is systemd? systemd is a suite of basic building blocks for a Linux system. It provides a system and service manager that runs as PID 1 and starts the rest of the system. Where is the config file? systemd-analyze unit-paths The systemd manager scans many directories to load unit files, for user-defined units:
-/etc/systemd/system Unit File A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.</description><content>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 02 Oct 2024 09:52:53 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>rate vs irate</title><link>https://jinying-che.github.io/posts/rate_vs_irate/</link><pubDate>Wed, 02 Oct 2024 09:52:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/rate_vs_irate/</guid><description>&lt;p>&lt;code>rate&lt;/code> and &lt;code>irate&lt;/code> are based on the &lt;strong>counter&lt;/strong> type metrics.&lt;/p>
+&lt;p>&lt;code>rate(v range-vector)&lt;/code> calculates the per-second average rate of increase of the time series in the &lt;strong>range vector&lt;/strong>, for example, &lt;code>rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code>&lt;/p>
+&lt;ol>
+&lt;li>It&amp;rsquo;s a rate: &lt;code>total(now) - total(now - 1m) / 60s&lt;/code>&lt;/li>
+&lt;li>It&amp;rsquo;s an average rate: over 1m&lt;/li>
+&lt;li>Average is calculated over the time range, that&amp;rsquo;s why range vector is required.&lt;/li>
+&lt;li>It provides a &lt;strong>smoother&lt;/strong> trend.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>irate(v range-vector)&lt;/code> calculates the per-second instant rate of increase of the time series in the range vector.&lt;/p></description><content>&lt;p>&lt;code>rate&lt;/code> and &lt;code>irate&lt;/code> are based on the &lt;strong>counter&lt;/strong> type metrics.&lt;/p>
+&lt;p>&lt;code>rate(v range-vector)&lt;/code> calculates the per-second average rate of increase of the time series in the &lt;strong>range vector&lt;/strong>, for example, &lt;code>rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code>&lt;/p>
+&lt;ol>
+&lt;li>It&amp;rsquo;s a rate: &lt;code>total(now) - total(now - 1m) / 60s&lt;/code>&lt;/li>
+&lt;li>It&amp;rsquo;s an average rate: over 1m&lt;/li>
+&lt;li>Average is calculated over the time range, that&amp;rsquo;s why range vector is required.&lt;/li>
+&lt;li>It provides a &lt;strong>smoother&lt;/strong> trend.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;code>irate(v range-vector)&lt;/code> calculates the per-second instant rate of increase of the time series in the range vector.&lt;/p>
+&lt;ol>
+&lt;li>similar to &lt;code>rate&lt;/code>, but it&amp;rsquo;s an &lt;strong>sensitive&lt;/strong> rate as it&amp;rsquo;s based on &lt;strong>the last two data points&lt;/strong>.&lt;/li>
+&lt;li>why calculate last two points still needs [1m] range? it&amp;rsquo;s for looking back when the data point is missed&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img alt="rate_vs_irate" src="https://jinying-che.github.io/images/rate_vs_irate.png">&lt;/p>
+&lt;h2 id="reference">Reference:&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.robustperception.io/how-does-a-prometheus-counter-work/">https://www.robustperception.io/how-does-a-prometheus-counter-work/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/functions/">https://prometheus.io/docs/prometheus/latest/querying/functions/&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>systemd</title><link>https://jinying-che.github.io/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/systemd/</guid><description>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
+&lt;ol>
+&lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
+&lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
+&lt;/ol>
+&lt;h2 id="where-is-the-config-file">Where is the config file?&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>systemd-analyze unit-paths
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/etc/systemd/system
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="unit-file">Unit File&lt;/h2>
+&lt;p>A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p></description><content>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
 &lt;ol>
 &lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
 &lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
@@ -58,8 +93,7 @@
 &lt;li>&lt;a href="https://systemd.io/">https://systemd.io/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://en.wikipedia.org/wiki/Systemd">https://en.wikipedia.org/wiki/Systemd&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.baeldung.com/linux/systemd-target-multi-user">https://www.baeldung.com/linux/systemd-target-multi-user&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>alertmanager</title><link>https://jinying-che.github.io/posts/alertmanager/</link><pubDate>Wed, 29 May 2024 08:54:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/alertmanager/</guid><description>Architecture Design 1. No dedicated status (e.g. firing or resolved) differentiate the alert by EndAt timestamp
-2. group_wait vs group_interval vs repeat_interval Source Code Entrance api: api/v2/api.go dispatch: dispatch/dispatch.go</description><content>&lt;h3 id="architecture">Architecture&lt;/h3>
+&lt;/ul></content></item><item><title>alertmanager</title><link>https://jinying-che.github.io/posts/alertmanager/</link><pubDate>Wed, 29 May 2024 08:54:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/alertmanager/</guid><description>&lt;h3 id="architecture">Architecture&lt;/h3>
 &lt;p>&lt;img alt="arch" src="https://jinying-che.github.io/images/alertmanager.png">&lt;/p>
 &lt;h3 id="design">Design&lt;/h3>
 &lt;h5 id="1-no-dedicated-status-eg-firing-or-resolved">1. No dedicated status (e.g. firing or resolved)&lt;/h5>
@@ -73,9 +107,43 @@
 &lt;ul>
 &lt;li>api: &lt;code>api/v2/api.go&lt;/code>&lt;/li>
 &lt;li>dispatch: &lt;code>dispatch/dispatch.go&lt;/code>&lt;/li>
-&lt;/ul></content></item><item><title>v2ray setup</title><link>https://jinying-che.github.io/posts/v2ray/</link><pubDate>Sun, 19 May 2024 11:10:54 +0800</pubDate><guid>https://jinying-che.github.io/posts/v2ray/</guid><description>V2Ray is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.
-Install Server The v2ray server is usually hosted in a linux server, the official way is to install with a script, which setups the systemd config as well.
-# run with root privilege bash &amp;lt;(curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh) # output installed: /usr/local/bin/v2ray installed: /usr/local/share/v2ray/geoip.</description><content>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
+&lt;/ul></description><content>&lt;h3 id="architecture">Architecture&lt;/h3>
+&lt;p>&lt;img alt="arch" src="https://jinying-che.github.io/images/alertmanager.png">&lt;/p>
+&lt;h3 id="design">Design&lt;/h3>
+&lt;h5 id="1-no-dedicated-status-eg-firing-or-resolved">1. No dedicated status (e.g. firing or resolved)&lt;/h5>
+&lt;p>differentiate the alert by &lt;code>EndAt&lt;/code> timestamp&lt;/p>
+&lt;h5 id="2-group_wait-vs-group_interval-vs-repeat_interval">2. group_wait vs group_interval vs repeat_interval&lt;/h5>
+&lt;p>&lt;img alt="group" src="https://jinying-che.github.io/images/am_group.png">&lt;/p>
+&lt;h3 id="source-code">Source Code&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Entrance&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>api: &lt;code>api/v2/api.go&lt;/code>&lt;/li>
+&lt;li>dispatch: &lt;code>dispatch/dispatch.go&lt;/code>&lt;/li>
+&lt;/ul></content></item><item><title>v2ray setup</title><link>https://jinying-che.github.io/posts/v2ray/</link><pubDate>Sun, 19 May 2024 11:10:54 +0800</pubDate><guid>https://jinying-che.github.io/posts/v2ray/</guid><description>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
+&lt;h3 id="install">Install&lt;/h3>
+&lt;h4 id="server">Server&lt;/h4>
+&lt;p>The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray">official way&lt;/a> is to install with a script, which setups the systemd config as well.&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># run with root privilege&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash &amp;lt;&lt;span style="color:#f92672">(&lt;/span>curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh&lt;span style="color:#f92672">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/bin/v2ray
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geoip.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geosite.dat
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/etc/v2ray/config.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/access.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/error.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray.service
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray@.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client">Client&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># macos &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>brew install v2ray
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run">Run&lt;/h3>
+&lt;h4 id="server-1">Server&lt;/h4>
+&lt;p>For v2ray server, we use &lt;a href="https://systemd.io/">systemd&lt;/a> to manage the v2ray process in &lt;code>/usr/local/etc/v2ray/config.json&lt;/code> which is empty after installation. We modify the config based on the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#server">Novice Guide&lt;/a>:&lt;/p></description><content>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
 &lt;h3 id="install">Install&lt;/h3>
 &lt;h4 id="server">Server&lt;/h4>
 &lt;p>The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray">official way&lt;/a> is to install with a script, which setups the systemd config as well.&lt;/p>
@@ -141,8 +209,82 @@ Install Server The v2ray server is usually hosted in a linux server, the officia
 &lt;h3 id="reference">Reference&lt;/h3>
 &lt;ul>
 &lt;li>quick start: &lt;a href="https://www.v2fly.org/en_US/guide/install.html">https://www.v2fly.org/en_US/guide/install.html&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>GORM</title><link>https://jinying-che.github.io/posts/go/gorm/gorm/</link><pubDate>Sat, 16 Mar 2024 17:19:46 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/gorm/gorm/</guid><description>Source Code When you run CRUD interface by gorm, what happened inside isn&amp;rsquo;t that straightforward, let&amp;rsquo;s take a look!
-1. Basic gorm usage func main() { users := []User{ {Name: &amp;#34;Jinzhu&amp;#34;, Age: 18}, {Name: &amp;#34;Jackson&amp;#34;, Age: 19}, } db.Create(users) // pass a slice to insert multiple row user := User{Name: &amp;#34;Jinzhu&amp;#34;, Age: 18} db.Find(user) db.Updates(user) db.Delete(user) } 2. Flow of the function, e.g. db.Find(): // gorm.io/finisher_api.go func (db *DB) Find(dest interface{}, conds .</description><content>&lt;h3 id="source-code">Source Code&lt;/h3>
+&lt;/ul></content></item><item><title>GORM</title><link>https://jinying-che.github.io/posts/go/gorm/gorm/</link><pubDate>Sat, 16 Mar 2024 17:19:46 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/gorm/gorm/</guid><description>&lt;h3 id="source-code">Source Code&lt;/h3>
+&lt;p>When you run CRUD interface by gorm, what happened inside isn&amp;rsquo;t that straightforward, let&amp;rsquo;s take a look!&lt;/p>
+&lt;h5 id="1-basic-gorm-usage">1. Basic gorm usage&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">users&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> []&lt;span style="color:#a6e22e">User&lt;/span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {&lt;span style="color:#a6e22e">Name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jinzhu&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Age&lt;/span>: &lt;span style="color:#ae81ff">18&lt;/span>},
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {&lt;span style="color:#a6e22e">Name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jackson&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Age&lt;/span>: &lt;span style="color:#ae81ff">19&lt;/span>},
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Create&lt;/span>(&lt;span style="color:#a6e22e">users&lt;/span>) &lt;span style="color:#75715e">// pass a slice to insert multiple row
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">user&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">User&lt;/span>{&lt;span style="color:#a6e22e">Name&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;Jinzhu&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Age&lt;/span>: &lt;span style="color:#ae81ff">18&lt;/span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Find&lt;/span>(&lt;span style="color:#a6e22e">user&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Updates&lt;/span>(&lt;span style="color:#a6e22e">user&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Delete&lt;/span>(&lt;span style="color:#a6e22e">user&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="2-flow-of-the-function-eg-dbfind">2. Flow of the function, e.g. &lt;code>db.Find()&lt;/code>:&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/finisher_api.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>) &lt;span style="color:#a6e22e">Find&lt;/span>(&lt;span style="color:#a6e22e">dest&lt;/span> &lt;span style="color:#66d9ef">interface&lt;/span>{}, &lt;span style="color:#a6e22e">conds&lt;/span> &lt;span style="color:#f92672">...&lt;/span>&lt;span style="color:#66d9ef">interface&lt;/span>{}) (&lt;span style="color:#a6e22e">tx&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">tx&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span>.&lt;span style="color:#a6e22e">Query&lt;/span>().&lt;span style="color:#a6e22e">Execute&lt;/span>(&lt;span style="color:#a6e22e">tx&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/callbacks.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">cs&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">callbacks&lt;/span>) &lt;span style="color:#a6e22e">Query&lt;/span>() &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">processor&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">cs&lt;/span>.&lt;span style="color:#a6e22e">processors&lt;/span>[&lt;span style="color:#e6db74">&amp;#34;query&amp;#34;&lt;/span>]
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">processor&lt;/span>) &lt;span style="color:#a6e22e">Execute&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>) &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">for&lt;/span> &lt;span style="color:#a6e22e">_&lt;/span>, &lt;span style="color:#a6e22e">f&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#66d9ef">range&lt;/span> &lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">fns&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">f&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">db&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">processor&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Clauses&lt;/span> []&lt;span style="color:#66d9ef">string&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">fns&lt;/span> []&lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">callbacks&lt;/span> []&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">callback&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="3-where-is-the-processorfns">3. Where is the &lt;code>processor.fns&lt;/code>?&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/callbacks.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">p&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">processor&lt;/span>) &lt;span style="color:#a6e22e">compile&lt;/span>() (&lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#66d9ef">error&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">fns&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span> = &lt;span style="color:#a6e22e">sortCallbacks&lt;/span>(&lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span>); &lt;span style="color:#a6e22e">err&lt;/span> &lt;span style="color:#f92672">!=&lt;/span> &lt;span style="color:#66d9ef">nil&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">p&lt;/span>.&lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Logger&lt;/span>.&lt;span style="color:#a6e22e">Error&lt;/span>(&lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Background&lt;/span>(), &lt;span style="color:#e6db74">&amp;#34;Got error when compile callbacks, got %v&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">err&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">c&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">callback&lt;/span>) &lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#a6e22e">name&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>, &lt;span style="color:#a6e22e">fn&lt;/span> &lt;span style="color:#66d9ef">func&lt;/span>(&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">DB&lt;/span>)) &lt;span style="color:#66d9ef">error&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">c&lt;/span>.&lt;span style="color:#a6e22e">processor&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span> = append(&lt;span style="color:#a6e22e">c&lt;/span>.&lt;span style="color:#a6e22e">processor&lt;/span>.&lt;span style="color:#a6e22e">callbacks&lt;/span>, &lt;span style="color:#a6e22e">c&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">c&lt;/span>.&lt;span style="color:#a6e22e">processor&lt;/span>.&lt;span style="color:#a6e22e">compile&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="4-who-will-register-the-callback">4. Who will register the callback?&lt;/h5>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// gorm.io/callbacks/callbacks.go
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">RegisterDefaultCallbacks&lt;/span>(&lt;span style="color:#a6e22e">db&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">gorm&lt;/span>.&lt;span style="color:#a6e22e">DB&lt;/span>, &lt;span style="color:#a6e22e">config&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">Config&lt;/span>) {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">db&lt;/span>.&lt;span style="color:#a6e22e">Callback&lt;/span>().&lt;span style="color:#a6e22e">Create&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Match&lt;/span>(&lt;span style="color:#a6e22e">enableTransaction&lt;/span>).&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:begin_transaction&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">BeginTransaction&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:before_create&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">BeforeCreate&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:save_before_associations&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">SaveBeforeAssociations&lt;/span>(&lt;span style="color:#66d9ef">true&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:create&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">Create&lt;/span>(&lt;span style="color:#a6e22e">config&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>(&lt;span style="color:#e6db74">&amp;#34;gorm:save_after_associations&amp;#34;&lt;/span>, &lt;span style="color:#a6e22e">SaveAfterAssociations&lt;/span>(&lt;span style="color:#66d9ef">true&lt;/span>))
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">createCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">queryCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">updateCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">deleteCallback&lt;/span>.&lt;span style="color:#a6e22e">Register&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">...&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h5 id="5-who-will-call-registerdefaultcallbacks">5. Who will call &lt;code>RegisterDefaultCallbacks&lt;/code>?&lt;/h5>
+&lt;p>The answer is in &lt;code>&amp;quot;gorm.io/driver/mysql&amp;quot;&lt;/code> instead of &lt;code>&amp;quot;gorm.io/gorm&amp;quot;&lt;/code>:&lt;/p></description><content>&lt;h3 id="source-code">Source Code&lt;/h3>
 &lt;p>When you run CRUD interface by gorm, what happened inside isn&amp;rsquo;t that straightforward, let&amp;rsquo;s take a look!&lt;/p>
 &lt;h5 id="1-basic-gorm-usage">1. Basic gorm usage&lt;/h5>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">func&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>() {
@@ -236,8 +378,77 @@ Install Server The v2ray server is usually hosted in a linux server, the officia
 &lt;h2 id="referrence">Referrence&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/go-gorm/gorm">https://github.com/go-gorm/gorm&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Victorial Metrics</title><link>https://jinying-che.github.io/posts/victorial_metrics/</link><pubDate>Tue, 13 Feb 2024 07:37:29 +0800</pubDate><guid>https://jinying-che.github.io/posts/victorial_metrics/</guid><description>Quick Start Victoria Metrics
-An easy way to run VictoriaMetrics locally is to build from the source code as there&amp;rsquo;re lots of vm binaries like vmselect, vmstorage, vminsert, etc. to download, and all of them are maintained in the same repository, and Makefile is quite straightforward. git clone git@github.com:VictoriaMetrics/VictoriaMetrics.git make victoria-metrics mv /bin/victoria-metrics /usr/bin Run VictoriaMetrics With Systemd [Unit] Description=&amp;#34;Victoria Metrics Single&amp;#34; Documentation=https://https://docs.victoriametrics.com/ After=network.target [Service] Type=simple ExecStart=/usr/bin/victoria-metrics-prod \ -storageDataPath=/data/vm \ -httpListenAddr=:8428 \ -promscrape.</description><content>&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;/ul></content></item><item><title>Victorial Metrics</title><link>https://jinying-che.github.io/posts/victorial_metrics/</link><pubDate>Tue, 13 Feb 2024 07:37:29 +0800</pubDate><guid>https://jinying-che.github.io/posts/victorial_metrics/</guid><description>&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;p>&lt;strong>Victoria Metrics&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>An easy way to run VictoriaMetrics locally is to build from the &lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/#how-to-build-from-sources">source code&lt;/a> as there&amp;rsquo;re lots of vm binaries like vmselect, vmstorage, vminsert, etc. to download, and all of them are maintained in the same &lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics">repository&lt;/a>, and &lt;code>Makefile&lt;/code> is quite straightforward.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone git@github.com:VictoriaMetrics/VictoriaMetrics.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>make victoria-metrics
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mv /bin/victoria-metrics /usr/bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Run VictoriaMetrics With Systemd&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Unit&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Description&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Victoria Metrics Single&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Documentation&lt;span style="color:#f92672">=&lt;/span>https://https://docs.victoriametrics.com/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>After&lt;span style="color:#f92672">=&lt;/span>network.target
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Service&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Type&lt;span style="color:#f92672">=&lt;/span>simple
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStart&lt;span style="color:#f92672">=&lt;/span>/usr/bin/victoria-metrics-prod &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -storageDataPath&lt;span style="color:#f92672">=&lt;/span>/data/vm &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -httpListenAddr&lt;span style="color:#f92672">=&lt;/span>:8428 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -promscrape.config&lt;span style="color:#f92672">=&lt;/span>/etc/prometheus/scrape.yml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStop&lt;span style="color:#f92672">=&lt;/span>/bin/kill -s SIGTERM $MAINPID
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Restart&lt;span style="color:#f92672">=&lt;/span>on-failure
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SuccessExitStatus&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LimitNOFILE&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">65536&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>StandardOutput&lt;span style="color:#f92672">=&lt;/span>/var/log/vm/out.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>StandardError&lt;span style="color:#f92672">=&lt;/span>/var/log/vm/err.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SyslogIdentifier&lt;span style="color:#f92672">=&lt;/span>prometheus
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Install&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>WantedBy&lt;span style="color:#f92672">=&lt;/span>multi-user.target
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="storage">Storage&lt;/h2>
+&lt;h3 id="on-disk-layout">On Disk Layout&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>./data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── big
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   ├── 17A6101707C91B08
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── index.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── metadata.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── metaindex.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── timestamps.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   └── values.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 2024_02
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── ...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   └── snapshots
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 20240109092239-179E85E399D5EFDA
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   └── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   └── 20240111104529-179E85E399D5EFDB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   └── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── flock.lock
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└── small
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ├── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   ├── 17A6101707CC58EF
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── index.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── metadata.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── metaindex.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── timestamps.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   └── values.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    └── snapshots
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    ├── 20240109092239-179E85E399D5EFDA
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    │   ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    │   └── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    └── 20240111104529-179E85E399D5EFDB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    └── 2024_01
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>For details, see &lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/#storage">doc&lt;/a>&lt;/p></description><content>&lt;h2 id="quick-start">Quick Start&lt;/h2>
 &lt;p>&lt;strong>Victoria Metrics&lt;/strong>&lt;/p>
 &lt;ul>
 &lt;li>An easy way to run VictoriaMetrics locally is to build from the &lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/#how-to-build-from-sources">source code&lt;/a> as there&amp;rsquo;re lots of vm binaries like vmselect, vmstorage, vminsert, etc. to download, and all of them are maintained in the same &lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics">repository&lt;/a>, and &lt;code>Makefile&lt;/code> is quite straightforward.&lt;/li>
@@ -315,9 +526,66 @@ TBD&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/">https://docs.victoriametrics.com/single-server-victoriametrics/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics/issues/3268">https://github.com/VictoriaMetrics/VictoriaMetrics/issues/3268&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>Architecture Quick Start Data Model Every time series is uniquely identified by its metric name and optional key-value pairs called labels.
-Metric Name Metric Label The change of any labels value, including adding or removing labels, will create a new time series. Metric Type Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary
-Counter: a metric value that can only increase or reset # use a counter to represent the number of requests served, tasks completed, or errors - http_requests_total{handler=&amp;#39;/get_user_id&amp;#39;, method=&amp;#39;GET&amp;#39;, status=&amp;#39;200&amp;#39;} - errors_total{type=&amp;#39;runtime&amp;#39;, severity=&amp;#39;critical&amp;#39;} Gauge: a number which can either go up or down # used for measured values like temperatures or current memory usage - memory_usage_bytes{process_name=&amp;#39;web_server&amp;#39;, instance=&amp;#39;10.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;/ul></content></item><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
+&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;h2 id="data-model">Data Model&lt;/h2>
+&lt;p>Every time series is uniquely identified by its &lt;strong>metric name&lt;/strong> and optional key-value pairs called &lt;strong>labels&lt;/strong>.&lt;/p>
+&lt;ul>
+&lt;li>Metric Name&lt;/li>
+&lt;li>Metric Label
+&lt;ul>
+&lt;li>The change of any labels value, including adding or removing labels, will create a new time series.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="metric-type">Metric Type&lt;/h4>
+&lt;p>Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary&lt;/p>
+&lt;ul>
+&lt;li>Counter: a metric value that can only increase or reset
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># use a counter to represent the number of requests served, tasks completed, or errors&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- http_requests_total&lt;span style="color:#f92672">{&lt;/span>handler&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/get_user_id&amp;#39;&lt;/span>, method&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;GET&amp;#39;&lt;/span>, status&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;200&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- errors_total&lt;span style="color:#f92672">{&lt;/span>type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;runtime&amp;#39;&lt;/span>, severity&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;critical&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Gauge: a number which can either go up or down
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># used for measured values like temperatures or current memory usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- memory_usage_bytes&lt;span style="color:#f92672">{&lt;/span>process_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;web_server&amp;#39;&lt;/span>, instance&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;10.0.0.1:8080&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- queue_size&lt;span style="color:#f92672">{&lt;/span>queue_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;low_priority&amp;#39;&lt;/span>, worker_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;background&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Histogram: used for any calculated value which is counted based on bucket values,
+&lt;ul>
+&lt;li>&lt;strong>bucket&lt;/strong> value determines the ordinate value (y coordinate of a standard two-dimensional graph)&lt;/li>
+&lt;li>&lt;strong>cumulative&lt;/strong> counters for the observation buckets, exposed as &lt;!-- raw HTML omitted -->_bucket{le=&amp;quot;&amp;lt;&lt;strong>upper&lt;/strong> inclusive bound&amp;gt;&amp;quot;}&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># usually things like request durations or response sizes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># le=&amp;#34;0.3&amp;#34; means less or equal to 0.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_sum 134420.14452212452
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.05&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 11326.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.1&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.284831e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.15&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285367e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.25&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285592e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285613e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;+Inf&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285619e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_count 2.285619e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># cumulative means that the count for le=”0.5” bucket also includes the count for le=”0.25” bucket.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consider the following hypothetical distribution of observations for 200 observations.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌─────────────┬──────────────────────┬──────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Bucket Size │ Cumulative Frequency │ Upper Bound │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Count │ Percentile │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├─────────────┼──────────────────────┼──────────────────┤
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 50ms │ &lt;span style="color:#ae81ff">20&lt;/span> │ p10 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 100ms │ &lt;span style="color:#ae81ff">70&lt;/span> │ p35 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 250ms │ &lt;span style="color:#ae81ff">120&lt;/span> │ p60 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 500ms │ &lt;span style="color:#ae81ff">150&lt;/span> │ p75 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 1000ms │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ INF │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└─────────────┴──────────────────────┴──────────────────┘
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)&lt;/li>
+&lt;/ul>
+&lt;h2 id="storage">Storage&lt;/h2>
+&lt;p>&lt;img alt="workflow" src="https://jinying-che.github.io/images/tsdb_write.png">&lt;/p></description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
 &lt;h2 id="quick-start">Quick Start&lt;/h2>
 &lt;h2 id="data-model">Data Model&lt;/h2>
@@ -423,10 +691,15 @@ Counter: a metric value that can only increase or reset # use a counter to repre
 &lt;p>Range vector literals work like instant vector literals, except that they select a range of samples back from the current instant&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>http_requests_total&lt;span style="color:#f92672">{&lt;/span>job&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;prometheus&amp;#34;&lt;/span>&lt;span style="color:#f92672">}[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Offset Modifier&lt;/strong>&lt;/p>
-&lt;p>The offset modifier allows changing the time offset for individual &lt;strong>instant&lt;/strong> and **range vectors in a query.&lt;/p>
+&lt;p>The offset modifier allows changing the time offset for individual &lt;strong>instant&lt;/strong> and &lt;strong>range&lt;/strong> vectors in a query.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># returns the 5-minute rate that http_requests_total had a week ago&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rate&lt;span style="color:#f92672">(&lt;/span>http_requests_total&lt;span style="color:#f92672">[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span> offset 1w&lt;span style="color:#f92672">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="functions">Functions&lt;/h4>
+&lt;p>There are some common functions in PromQL which are used in most popular queries and scenarios.&lt;/p>
+&lt;h5 id="1-rate--irate">1. rate() &amp;amp;&amp;amp; irate()&lt;/h5>
+&lt;p>&lt;a href="https://jinying-che.github.io/posts/rate_vs_irate/">see details&lt;/a>&lt;/p>
+&lt;h6 id="2-histogram_quantile">2. histogram_quantile()&lt;/h6>
+&lt;p>How P99 is calculated?&lt;/p>
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/&lt;/a>&lt;/li>
@@ -437,7 +710,14 @@ Counter: a metric value that can only increase or reset # use a counter to repre
 &lt;li>&lt;a href="https://ganeshvernekar.com/blog/prometheus-tsdb-the-head-block/">Prometheus TSDB&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://web.archive.org/web/20210803115658/https://fabxc.org/tsdb">Writing a Time Series Database from Scratch&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://news.ycombinator.com/item?id=27730854">Write a time-series database engine from scratch (hancker news)&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>CAP</title><link>https://jinying-che.github.io/posts/cap/</link><pubDate>Fri, 03 Nov 2023 10:03:19 +0800</pubDate><guid>https://jinying-che.github.io/posts/cap/</guid><description>Theorem Consistency: Every read receives the most recent write or an error. Availability: Every request receives a (non-error) response, without the guarantee that it contains the most recent write. Partition Tolerance: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes. In the absence of a partition, both availability and consistency can be satisfied, but when the network partition occurs, one is then left with two options: consistency or availability.</description><content>&lt;h2 id="theorem">Theorem&lt;/h2>
+&lt;/ul></content></item><item><title>CAP</title><link>https://jinying-che.github.io/posts/cap/</link><pubDate>Fri, 03 Nov 2023 10:03:19 +0800</pubDate><guid>https://jinying-che.github.io/posts/cap/</guid><description>&lt;h2 id="theorem">Theorem&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Consistency&lt;/strong>: Every read receives the most recent write or an error.&lt;/li>
+&lt;li>&lt;strong>Availability&lt;/strong>: Every request receives a (non-error) response, without the guarantee that it contains the most recent write.&lt;/li>
+&lt;li>&lt;strong>Partition Tolerance&lt;/strong>: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes.&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img alt="cap" src="https://jinying-che.github.io/images/cap.svg">
+In the absence of a &lt;strong>partition&lt;/strong>, both availability and consistency can be satisfied, but when the network partition occurs, one is then left with two options: consistency or availability.&lt;/p></description><content>&lt;h2 id="theorem">Theorem&lt;/h2>
 &lt;ul>
 &lt;li>&lt;strong>Consistency&lt;/strong>: Every read receives the most recent write or an error.&lt;/li>
 &lt;li>&lt;strong>Availability&lt;/strong>: Every request receives a (non-error) response, without the guarantee that it contains the most recent write.&lt;/li>
@@ -474,8 +754,53 @@ In the absence of a &lt;strong>partition&lt;/strong>, both availability and cons
 &lt;li>&lt;a href="https://en.wikipedia.org/wiki/CAP_theorem">https://en.wikipedia.org/wiki/CAP_theorem&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.ibm.com/topics/cap-theorem">https://www.ibm.com/topics/cap-theorem&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://raft.github.io/">https://raft.github.io/&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>Process vs Thread TBD
-Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 users, load average: 0.00, 0.00, 0.00 Tasks: 127 total, 1 running, 126 sleeping, 0 stopped, 0 zombie %Cpu(s): 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache MiB Swap: 2400.0 total, 2282.0 free, 118.0 used.</description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
+&lt;/ul></content></item><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
+&lt;p>TBD&lt;/p>
+&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
+&lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
+&lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
+&lt;h4 id="1-top">1. top&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>top - 17:18:53 up &lt;span style="color:#ae81ff">50&lt;/span> days, 16:06, &lt;span style="color:#ae81ff">7&lt;/span> users, load average: 0.00, 0.00, 0.00
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Tasks: &lt;span style="color:#ae81ff">127&lt;/span> total, &lt;span style="color:#ae81ff">1&lt;/span> running, &lt;span style="color:#ae81ff">126&lt;/span> sleeping, &lt;span style="color:#ae81ff">0&lt;/span> stopped, &lt;span style="color:#ae81ff">0&lt;/span> zombie
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 2400.0 total, 2282.0 free, 118.0 used. 622.7 avail Mem
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">782513&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">17312&lt;/span> &lt;span style="color:#ae81ff">11036&lt;/span> &lt;span style="color:#ae81ff">8652&lt;/span> S 0.3 1.1 0:00.04 sshd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167728&lt;/span> &lt;span style="color:#ae81ff">9424&lt;/span> &lt;span style="color:#ae81ff">6504&lt;/span> S 0.0 1.0 3:05.88 systemd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.66 kthreadd
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man top to get top details, simple put:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># load average : the average number of processes that are either in a runnable or uninterruptable state for the past 1, 5, and 15 minutes. &lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g. `load average = 1.5` in 6 cpu system means 1/4 cpu is under laod, 3/4 cpu is idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># us, user : time running un-niced user processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># sy, system : time running kernel processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ni, nice : time running niced user processes (process priority, a negative nice value means higher priority, whereas a positive nice value means lower priority)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># id, idle : time spent in the kernel idle handler&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># wa, IO-wait : time waiting for I/O completion&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hi : time spent servicing hardware interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># si : time spent servicing software interrupts&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># st : time stolen from this vm by the hypervisor&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PR: The scheduling priority of the task (real priority of a process as seen by the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NI: The nice value of the task (a priority hint for the kernel)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># VIRT: The total amount of virtual memory used by the task (physical memory + swap)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># RES: A subset of the virtual address space (VIRT) representing the non-swapped physical memory (only physical memory)&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># SHR: A subset of resident memory (RES) that may be used by other processes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S: Process Status, the status of the task which can be one of:&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># D = uninterruptible sleep&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># I = idle&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># R = running&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S = sleeping&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># T = stopped by job control signal&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># t = stopped by debugger during trace&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Z = zombie&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-vmstat">2. vmstat&lt;/h4>
+&lt;p>vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity&lt;/p></description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
 &lt;p>TBD&lt;/p>
 &lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
 &lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
@@ -617,8 +942,11 @@ Troubleshooting 0 /proc/stat 1. top $ top top - 17:18:53 up 50 days, 16:06, 7 us
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -g Enables call-graph (stack chain/backtrace) recording&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top -g -p &lt;span style="color:#ae81ff">655152&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-strace">6. strace&lt;/h4>
-&lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>Architecture VFS The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.
-A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
+&lt;h2 id="vfs">VFS&lt;/h2>
+&lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
+&lt;p>A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p></description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
 &lt;h2 id="vfs">VFS&lt;/h2>
 &lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
@@ -840,7 +1168,15 @@ A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the k
 &lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/ext4/globals.html?highlight=file+system+super+block">super block &amp;ndash; kernel doc&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/vfs.html?highlight=inode">vfs overview &amp;ndash; kernel doc&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://itslinuxfoss.com/what-is-superblock-inode-dentry-and-file/#:~:text=The%20superblock%20is%20the%20data,of%20bytes%20in%20different%20forms.">What is a Superblock, Dentry, Inode and a File?&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Memory</title><link>https://jinying-che.github.io/posts/memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/memory/</guid><description>Virtual Memory Virtual memory is an abstraction for memory management by operation system Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU The physical memory is only allocated to process when memory is firstly accessed. (e.g. mmap() and brk() in C just allocate the virtual memory first, hence you can see VIRT in top command is usually much higher than RES) Virtual maps to physical memory and disk (swap) Virtual memory for one process includes both user space and kernel space.</description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
+&lt;/ul></content></item><item><title>Memory</title><link>https://jinying-che.github.io/posts/memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/memory/</guid><description>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
+&lt;ol>
+&lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
+&lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
+&lt;li>The physical memory is only allocated to process when memory is firstly accessed. (e.g. &lt;code>mmap()&lt;/code> and &lt;code>brk()&lt;/code> in C just allocate the virtual memory first, hence you can see &lt;code>VIRT&lt;/code> in &lt;code>top&lt;/code> command is usually much higher than &lt;code>RES&lt;/code>)&lt;/li>
+&lt;li>Virtual maps to physical memory and disk (swap)&lt;/li>
+&lt;li>Virtual memory for one process includes both user space and kernel space.&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img alt="virtual memory" src="https://jinying-che.github.io/images/virtual_memory.png">&lt;/p></description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
 &lt;ol>
 &lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
 &lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
@@ -999,10 +1335,43 @@ A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the k
 &lt;li>&lt;a href="https://www.geeksforgeeks.org/operating-system-allocating-kernel-memory-buddy-system-slab-system/">https://www.geeksforgeeks.org/operating-system-allocating-kernel-memory-buddy-system-slab-system/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.kernel.org/doc/html/next/admin-guide/mm/concepts.html">https://www.kernel.org/doc/html/next/admin-guide/mm/concepts.html&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/iovisor/bcc">BPF Compiler Collection&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>Domain Name System (DNS) is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).
-DNS is not very complex but super useful.
-How does DNS work? The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.
-Brower cache and OS cache DNS Resolver: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought.</description><content>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
+&lt;/ul></content></item><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
+&lt;p>DNS is not very complex but super useful.&lt;/p>
+&lt;h2 id="how-does-dns-work">How does DNS work?&lt;/h2>
+&lt;p>&lt;img alt="dns architecutre" src="https://jinying-che.github.io/images/dns_architecture.svg">&lt;/p>
+&lt;p>&lt;img alt="dns flow" src="https://jinying-che.github.io/images/dns_flow.png">&lt;/p>
+&lt;p>The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.&lt;/p>
+&lt;ol>
+&lt;li>&lt;strong>Brower cache and OS cache&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>DNS Resolver&lt;/strong>: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought. DNS resolvers are classified by a variety of query methods, such as &lt;strong>recursive&lt;/strong>, &lt;strong>non-recursive&lt;/strong>, and &lt;strong>iterative&lt;/strong>. A resolution process may use a combination of these methods.&lt;/li>
+&lt;li>&lt;strong>Root Nameserver&lt;/strong>: the first step in translating (resolving) human readable host names into IP addresses. It stores the IP addresses of TLD, There are &lt;strong>13&lt;/strong> logical Root Nameserver globally, e.g.
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>- l.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- m.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- a.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- b.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- c.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- d.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- e.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- f.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- g.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- h.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- i.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- j.root-servers.net.
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- k.root-servers.net.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>&lt;strong>TLD Nameserver&lt;/strong> (Top Level Domain Server): It stores the IP addresses of authoritative name servers, e.g.
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>- .com
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .org
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .edu
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .net
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .us
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .cn
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- ...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>&lt;strong>Authoritative Nameserver&lt;/strong>: it provides the actual anwser for the dns request.&lt;/li>
+&lt;/ol>
+&lt;h3 id="example">Example&lt;/h3>
+&lt;p>Let&amp;rsquo;s try to trace the dns request for &lt;code>jinying-che.github.io&lt;/code> from my local laptop:&lt;/p></description><content>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
 &lt;p>DNS is not very complex but super useful.&lt;/p>
 &lt;h2 id="how-does-dns-work">How does DNS work?&lt;/h2>
 &lt;p>&lt;img alt="dns architecutre" src="https://jinying-che.github.io/images/dns_architecture.svg">&lt;/p>
@@ -1098,30 +1467,30 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Record&lt;/th>
-&lt;th>Function&lt;/th>
+&lt;th style="text-align: left">Record&lt;/th>
+&lt;th style="text-align: left">Function&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>A&lt;/td>
-&lt;td>Address record: Returns a 32-bit IPv4 address&lt;/td>
+&lt;td style="text-align: left">A&lt;/td>
+&lt;td style="text-align: left">Address record: Returns a 32-bit IPv4 address&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>AAAA&lt;/td>
-&lt;td>IPv6 address record: Returns a 128-bit IPv6 address&lt;/td>
+&lt;td style="text-align: left">AAAA&lt;/td>
+&lt;td style="text-align: left">IPv6 address record: Returns a 128-bit IPv6 address&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>NS&lt;/td>
-&lt;td>Name server record: Delegates a DNS zone to use the given authoritative name servers&lt;/td>
+&lt;td style="text-align: left">NS&lt;/td>
+&lt;td style="text-align: left">Name server record: Delegates a DNS zone to use the given authoritative name servers&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>CNAME&lt;/td>
-&lt;td>Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name&lt;/td>
+&lt;td style="text-align: left">CNAME&lt;/td>
+&lt;td style="text-align: left">Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>TXT&lt;/td>
-&lt;td>arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification&lt;/td>
+&lt;td style="text-align: left">TXT&lt;/td>
+&lt;td style="text-align: left">arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -1152,11 +1521,15 @@ Brower cache and OS cache DNS Resolver: is responsible for initiating and sequen
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc1035">RFC 1035&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">DNS Record Names&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.computernetworkingnotes.com/linux-tutorials/the-etc-hosts-etc-resolv-conf-and-etc-nsswitch-conf-files.html">/etc/hosts vs /etc/resolv.conf vs etc/nsswitch.conf&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>SLA vs SLO vs SLI</title><link>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</link><pubDate>Sat, 09 Sep 2023 16:58:58 +0800</pubDate><guid>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</guid><description>To dive into the terms throughly, it&amp;rsquo;s better to read Google SRE Book. This post is just a glance.
-TL;DR SLIs drive SLOs which inform SLAs. (From Google SRE Team)
-SLA: Service Level Agreements An SLA is an agreement between provider and client about measurable metrics like uptime, responsiveness, and responsibilities.
-SRE doesn’t typically get involved in constructing SLAs, because SLAs are closely tied to business and product decisions.
-e.g. Service credit if 95th percentile homepage SLI succeeds less than 99.</description><content>&lt;p>To dive into the terms throughly, it&amp;rsquo;s better to read &lt;a href="https://sre.google/sre-book/service-level-objectives/">Google SRE Book&lt;/a>. This post is just a glance.&lt;/p>
+&lt;/ul></content></item><item><title>SLA vs SLO vs SLI</title><link>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</link><pubDate>Sat, 09 Sep 2023 16:58:58 +0800</pubDate><guid>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</guid><description>&lt;p>To dive into the terms throughly, it&amp;rsquo;s better to read &lt;a href="https://sre.google/sre-book/service-level-objectives/">Google SRE Book&lt;/a>. This post is just a glance.&lt;/p>
+&lt;h2 id="tldr">TL;DR&lt;/h2>
+&lt;p>SLIs drive SLOs which inform SLAs. (From Google SRE Team)&lt;/p>
+&lt;h2 id="sla-service-level-agreements">SLA: Service Level Agreements&lt;/h2>
+&lt;p>An SLA is an agreement between provider and client about measurable metrics like uptime, responsiveness, and responsibilities.&lt;/p>
+&lt;blockquote>
+&lt;p>SRE doesn’t typically get involved in constructing SLAs, because SLAs are closely tied to business and product decisions.&lt;/p>
+&lt;/blockquote>
+&lt;p>e.g. &lt;em>Service credit if 95th percentile homepage SLI succeeds less than 99.5% over tailing year&lt;/em>&lt;/p></description><content>&lt;p>To dive into the terms throughly, it&amp;rsquo;s better to read &lt;a href="https://sre.google/sre-book/service-level-objectives/">Google SRE Book&lt;/a>. This post is just a glance.&lt;/p>
 &lt;h2 id="tldr">TL;DR&lt;/h2>
 &lt;p>SLIs drive SLOs which inform SLAs. (From Google SRE Team)&lt;/p>
 &lt;h2 id="sla-service-level-agreements">SLA: Service Level Agreements&lt;/h2>
@@ -1180,9 +1553,17 @@ e.g. Service credit if 95th percentile homepage SLI succeeds less than 99.</desc
 &lt;li>&lt;a href="https://www.atlassian.com/incident-management/kpis/sla-vs-slo-vs-sli">https://www.atlassian.com/incident-management/kpis/sla-vs-slo-vs-sli&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=tEylFyxbDLE">https://www.youtube.com/watch?v=tEylFyxbDLE&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://cloud.google.com/blog/products/devops-sre/sre-fundamentals-slis-slas-and-slos">https://cloud.google.com/blog/products/devops-sre/sre-fundamentals-slis-slas-and-slos&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Tech Writing</title><link>https://jinying-che.github.io/posts/tech_writing/</link><pubDate>Sun, 03 Sep 2023 15:26:12 +0800</pubDate><guid>https://jinying-che.github.io/posts/tech_writing/</guid><description>Here is the colloction that I think maybe useful for technical article writting.
-The Zen of Go 1 - 3
-Without new blood and new ideas, our community become myopic and wither. ultimately I tend to pick on net/http a lot, and this is not because it is bad, in fact it is the opposite, it is the most successful, oldest, most used API in the Go codebase. And because of that its design, evolution, and shortcoming have been thoroughly picked over.</description><content>&lt;p>Here is the colloction that I think maybe useful for technical article writting.&lt;/p>
+&lt;/ul></content></item><item><title>Tech Writing</title><link>https://jinying-che.github.io/posts/tech_writing/</link><pubDate>Sun, 03 Sep 2023 15:26:12 +0800</pubDate><guid>https://jinying-che.github.io/posts/tech_writing/</guid><description>&lt;p>Here is the colloction that I think maybe useful for technical article writting.&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a href="https://dave.cheney.net/2020/02/23/the-zen-of-go">The Zen of Go&lt;/a> 1 - 3&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>Without new blood and new ideas, our community become &lt;strong>myopic and wither&lt;/strong>.&lt;/li>
+&lt;li>ultimately&lt;/li>
+&lt;li>I tend to pick on net/http a lot, and this is not because it is bad, in fact it is the opposite, it is the most successful, oldest, most used API in the Go codebase. And because of that its design, evolution, and &lt;strong>shortcoming have been thoroughly picked over&lt;/strong>. Think of this as &lt;strong>flattery&lt;/strong>, not &lt;strong>criticism&lt;/strong>.&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>&lt;a href="https://research.swtch.com/hwmm">Hardware Memory Models&lt;/a>&lt;/p></description><content>&lt;p>Here is the colloction that I think maybe useful for technical article writting.&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;a href="https://dave.cheney.net/2020/02/23/the-zen-of-go">The Zen of Go&lt;/a> 1 - 3&lt;/p>
 &lt;/blockquote>
@@ -1230,7 +1611,75 @@ Without new blood and new ideas, our community become myopic and wither. ultimat
 &lt;li>You’ll &lt;strong>step on the toes&lt;/strong> of other commands and confuse users. [slang]&lt;/li>
 &lt;li>The concurrency properties of HTTP/2 allow proxies to be more &lt;strong>performant&lt;/strong>.&lt;/li>
 &lt;li>A failure of a single microservice can have a &lt;strong>cascading&lt;/strong> effect on all microservices and can significantly affect system availability.&lt;/li>
-&lt;/ol></content></item><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>1. Mac Setting Turn on three finger drag for your Mac trackpad Increase the cursor moving speed: System Preferences -&amp;gt; Keyboard -&amp;gt; Increase Key Repeat Rate switch the ctrl and caps lock key: https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac 2. Shell Install iterm2 theme: one dark font: source code pro Install Homebrew Install ZSH: brew install zsh Install oh-my-zsh Generating a new SSH key and adding it to the ssh-agent After ssh setup and add to the https://github.</description><content>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
+&lt;/ol></content></item><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
+&lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>
+&lt;li>switch the &lt;code>ctrl&lt;/code> and &lt;code>caps lock&lt;/code> key: &lt;a href="https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac">https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-shell">2. Shell&lt;/h2>
+&lt;ul>
+&lt;li>Install &lt;a href="https://iterm2.com/">iterm2&lt;/a>
+&lt;ul>
+&lt;li>theme: &lt;a href="https://github.com/one-dark/iterm-one-dark-theme">one dark&lt;/a>&lt;/li>
+&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Install &lt;a href="https://brew.sh/">Homebrew&lt;/a>&lt;/li>
+&lt;li>Install ZSH: &lt;code>brew install zsh&lt;/code>&lt;/li>
+&lt;li>Install &lt;a href="https://ohmyz.sh/#install">oh-my-zsh&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent&lt;/a>&lt;/li>
+&lt;li>After &lt;strong>ssh&lt;/strong> setup and add to the &lt;a href="https://github.com/">https://github.com/&lt;/a>, it&amp;rsquo;s able to &lt;code>git clone&lt;/code> resource for iterm2 now:
+&lt;ul>
+&lt;li>theme: &lt;a href="https://github.com/projekt0n/github-nvim-theme">github-nvim-theme&lt;/a>&lt;/li>
+&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>
+&lt;ul>
+&lt;li>To install new fonts on mac: Open &lt;code>Font Book&lt;/code> App -&amp;gt; Open File -&amp;gt; Add Fonts To Current User -&amp;gt; Choose the downlaoded font files&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Init &lt;a href="https://github.com/jinying-che/config">.gitconfig&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="21-zsh">2.1 Zsh&lt;/h3>
+&lt;ul>
+&lt;li>configuration (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc">.zshrc&lt;/a>)&lt;/li>
+&lt;li>setting:
+&lt;ul>
+&lt;li>move the cursor by words:&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>1. Go to iTerm2 (in the menu bar) &amp;gt; Settings... &amp;gt; Profiles &amp;gt; Keys (not Preferences... &amp;gt; Keys)
+2. On current versions (3.14+) you then switch to the Key Mappings tab
+3. Press Presets... dropdown button.
+4. Select Natural Text Editing
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>plugins:
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/wting/autojump">autojump&lt;/a>: &lt;code>brew install autojump&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/junegunn/fzf#using-homebrew">fzf&lt;/a>
+&lt;ul>
+&lt;li>&lt;code>brew install fzf&lt;/code>&lt;/li>
+&lt;li>&lt;code>$(brew --prefix)/opt/fzf/install&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-vim">3. vim&lt;/h2>
+&lt;ul>
+&lt;li>vim (&lt;a href="https://github.com/jinying-che/config/blob/master/.vimrc">.vimrc&lt;/a>):
+&lt;ul>
+&lt;li>install nvim: &lt;code>brew install neovim&lt;/code>&lt;/li>
+&lt;li>init nvim: &lt;a href="https://neovim.io/doc/user/nvim.html#nvim-from-vim">https://neovim.io/doc/user/nvim.html#nvim-from-vim&lt;/a>&lt;/li>
+&lt;li>install &lt;a href="https://github.com/junegunn/vim-plug">vim-plug&lt;/a>, copy &lt;code>.vimrc&lt;/code> and &lt;code>:PlugInstall&lt;/code> to install plugins&lt;/li>
+&lt;li>install &lt;a href="https://github.com/neoclide/coc.nvim">coc.nvim&lt;/a> (&lt;code>brew install node&lt;/code> first)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="31-cocnvimhttpsgithubcomneoclidecocnvim">3.1 &lt;a href="https://github.com/neoclide/coc.nvim/">coc.nvim&lt;/a>&lt;/h3>
+&lt;p>I would say coc.nvim is VS Code in neo vim, as well as the function is also expanded by plugins. Here&amp;rsquo;s the basic plugins we used in daily development.&lt;/p></description><content>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
 &lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>
@@ -1334,11 +1783,23 @@ Without new blood and new ideas, our community become myopic and wither. ultimat
 &lt;ul>
 &lt;li>Install python: &lt;code>brew install python3&lt;/code>&lt;/li>
 &lt;li>Install ipython: &lt;code>pip install &amp;quot;ipython[all]&amp;quot;&lt;/code>&lt;/li>
-&lt;/ul></content></item><item><title>Shell Cheatsheet</title><link>https://jinying-che.github.io/posts/shell_cheatsheet/</link><pubDate>Thu, 08 Jun 2023 15:41:00 +0800</pubDate><guid>https://jinying-che.github.io/posts/shell_cheatsheet/</guid><description>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.
-fzf + zsh Add the fzf plugin for zsh, the terminal is fully enhanced!
-- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting) + plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting fzf) Try some comands to see the fzf integartion, e.g.
-cd ** + TAB(key) Ctrl + r &amp;hellip; Reference:
-https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh mycli pager By default, mycli shows the sql result in a new window (press q to quit and all results gone), but it would be annoyed when result needs to be kept in the current window, the behavior is controlled by Pager Configuraton.</description><content>&lt;p>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.&lt;/p>
+&lt;/ul></content></item><item><title>Shell Cheatsheet</title><link>https://jinying-che.github.io/posts/shell_cheatsheet/</link><pubDate>Thu, 08 Jun 2023 15:41:00 +0800</pubDate><guid>https://jinying-che.github.io/posts/shell_cheatsheet/</guid><description>&lt;p>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.&lt;/p>
+&lt;h3 id="fzfhttpsgithubcomjunegunnfzf--zsh">&lt;a href="https://github.com/junegunn/fzf">fzf&lt;/a> + zsh&lt;/h3>
+&lt;p>Add the fzf plugin for zsh, the terminal is fully enhanced!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-diff" data-lang="diff">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&lt;/span>&lt;span style="color:#a6e22e">+ plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting fzf)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Try some comands to see the fzf integartion, e.g.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>cd **&lt;/code> + &lt;code>TAB(key)&lt;/code>&lt;/li>
+&lt;li>&lt;code>Ctrl&lt;/code> + &lt;code>r&lt;/code>&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;p>Reference:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh">https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="myclihttpsgithubcomdbclimycli-pager">&lt;a href="https://github.com/dbcli/mycli">mycli&lt;/a> pager&lt;/h3>
+&lt;p>By default, &lt;code>mycli&lt;/code> shows the sql result in a new window (press &lt;code>q&lt;/code> to quit and all results gone), but it would be annoyed when result needs to be kept in the current window, the behavior is controlled by &lt;strong>Pager Configuraton&lt;/strong>.&lt;/p></description><content>&lt;p>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.&lt;/p>
 &lt;h3 id="fzfhttpsgithubcomjunegunnfzf--zsh">&lt;a href="https://github.com/junegunn/fzf">fzf&lt;/a> + zsh&lt;/h3>
 &lt;p>Add the fzf plugin for zsh, the terminal is fully enhanced!&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-diff" data-lang="diff">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)
@@ -1697,9 +2158,16 @@ NETMASK=255.255.255.0
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="find">find&lt;/h2>
-&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>API Design</title><link>https://jinying-che.github.io/posts/api_design/</link><pubDate>Mon, 13 Feb 2023 22:27:32 +0800</pubDate><guid>https://jinying-che.github.io/posts/api_design/</guid><description>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.
-Simple Put:
-REST is a software architectural and common communication standard. OpenAPI is a specification, which defines a standard, programming language-agnostic interface description for HTTP APIs. gRPC is a high performance Remote Procedure Call (RPC) framework.</description><content>&lt;p>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.&lt;/p>
+&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>API Design</title><link>https://jinying-che.github.io/posts/api_design/</link><pubDate>Mon, 13 Feb 2023 22:27:32 +0800</pubDate><guid>https://jinying-che.github.io/posts/api_design/</guid><description>&lt;p>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.&lt;/p>
+&lt;p>Simple Put:&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>REST&lt;/code> is a software &lt;strong>architectural&lt;/strong> and common communication &lt;strong>standard&lt;/strong>.&lt;/li>
+&lt;li>&lt;code>OpenAPI&lt;/code> is a &lt;strong>specification&lt;/strong>, which defines a standard, programming language-agnostic interface description for HTTP APIs.&lt;/li>
+&lt;li>&lt;code>gRPC&lt;/code> is a high performance Remote Procedure Call (RPC) &lt;strong>framework&lt;/strong>.&lt;/li>
+&lt;li>&lt;code>GraphQL&lt;/code> is a &lt;strong>query language&lt;/strong> for your API.&lt;/li>
+&lt;/ul>
+&lt;h2 id="1-rest">1. Rest&lt;/h2>
+&lt;p>Representational state transfer (REST) is a software architectural style that describes a uniform interface between physically separate components, often across the Internet in a client-server architecture.&lt;/p></description><content>&lt;p>There are some similar technologies as Rest, OpenAPI, gRPC and GraphQL which are popular design or standard or framework that related to API design, meanwhile, they are prone to make people confused for the use case.&lt;/p>
 &lt;p>Simple Put:&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>REST&lt;/code> is a software &lt;strong>architectural&lt;/strong> and common communication &lt;strong>standard&lt;/strong>.&lt;/li>
@@ -1841,10 +2309,32 @@ REST is a software architectural and common communication standard. OpenAPI is a
 &lt;li>&lt;a href="https://swagger.io/resources/articles/adopting-an-api-first-approach/">https://swagger.io/resources/articles/adopting-an-api-first-approach/&lt;/a>&lt;/li>
 &lt;li>Examples: &lt;a href="https://github.com/OAI/OpenAPI-Specification/tree/main/examples">https://github.com/OAI/OpenAPI-Specification/tree/main/examples&lt;/a>&lt;/li>
 &lt;li>Best Practice: &lt;a href="https://oai.github.io/Documentation/best-practices.html">https://oai.github.io/Documentation/best-practices.html&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>Overall Everything about the changes rollback code changed without git add
-# `git add .` and `git checkout .` is a pair of inverse operations git checkout . or git reset --hard git add . done without git commit
-git reset + git chekcout . or git reset --hard git commit done
-# option 1: keep the changes in worksapce, rollback committed chagnes in local repo git reset head^ # option 2: rollback the changes in both workspace and local repo git reset --hard head^ git push done</description><content>&lt;h3 id="overall">Overall&lt;/h3>
+&lt;/ul></content></item><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>&lt;h3 id="overall">Overall&lt;/h3>
+&lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
+&lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>code changed without &lt;code>git add&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># `git add .` and `git checkout .` is a pair of inverse operations&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git add .&lt;/code> done without &lt;code>git commit&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git reset + git chekcout .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git commit&lt;/code> done&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 1: keep the changes in worksapce, rollback committed chagnes in local repo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset head^
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 2: rollback the changes in both workspace and local repo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard head^
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git push&lt;/code> done&lt;/p></description><content>&lt;h3 id="overall">Overall&lt;/h3>
 &lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
 &lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
 &lt;ul>
@@ -1922,8 +2412,31 @@ git reset + git chekcout . or git reset --hard git commit done
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.fengerzh.com/git-reset/">https://www.fengerzh.com/git-reset/&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Python Cheatsheet</title><link>https://jinying-che.github.io/posts/python/python_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 11:40:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/python/python_cheatsheet/</guid><description>Pass By Reference Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)
-def main(): n = 9001 print(f&amp;#34;[main] before n: {hex(id(n))} # same&amp;#34;) increment(n) print(f&amp;#34;[main] after n: {hex(id(n))} # same&amp;#34;) def increment(x): print(f&amp;#34;[func] before x: {hex(id(x))} # same&amp;#34;) x += 1 print(f&amp;#34;[func] after x: {hex(id(x))} # address altered after the assignment&amp;#34;) main() # output [main] before n: 0x11035a0b0 # same [func] before x: 0x11035a0b0 # same [func] after x: 0x11035a190 # address altered after the assignment [main] after n: 0x11035a0b0 # same Mutability, an object is mutable if its structure can be changed in place rather than requiring reassignment.</description><content>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
+&lt;/ul></content></item><item><title>Python Cheatsheet</title><link>https://jinying-che.github.io/posts/python/python_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 11:40:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/python/python_cheatsheet/</guid><description>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">9001&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] before n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> increment(n)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] after n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">increment&lt;/span>(x):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] before x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] after x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # address altered after the assignment&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] before n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] before x: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] after x: &lt;span style="color:#ae81ff">0x11035a190&lt;/span> &lt;span style="color:#75715e"># address altered after the assignment&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] after n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Mutability, an object is &lt;strong>mutable&lt;/strong> if its structure can be changed in place rather than requiring reassignment.&lt;/p></description><content>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
 &lt;ol>
 &lt;li>
 &lt;p>Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)&lt;/p>
@@ -1999,9 +2512,14 @@ def main(): n = 9001 print(f&amp;#34;[main] before n: {hex(id(n))} # same&amp;#3
 &lt;ul>
 &lt;li>&lt;a href="https://realpython.com/python-pass-by-reference/#toc">Pass by Reference in Python: Background and Best Practices&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.python.org/3/faq/programming.html#how-do-i-write-a-function-with-output-parameters-call-by-reference">How do I write a function with output parameters (call by reference)?&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Iptables</title><link>https://jinying-che.github.io/posts/network/iptables/</link><pubDate>Thu, 26 Jan 2023 16:22:21 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/iptables/</guid><description>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different Netfilter modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.
-In a nutshell: Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules Tables There are five tables, the Priority is: filter, nat, mangle, raw, security
-https://www.thegeekstuff.com/2011/01/iptables-fundamentals/ https://linux.</description><content>&lt;p>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/">Netfilter&lt;/a> modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p>
+&lt;/ul></content></item><item><title>Iptables</title><link>https://jinying-che.github.io/posts/network/iptables/</link><pubDate>Thu, 26 Jan 2023 16:22:21 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/iptables/</guid><description>&lt;p>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/">Netfilter&lt;/a> modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p>
+&lt;h2 id="in-a-nutshell">In a nutshell:&lt;/h2>
+&lt;ul>
+&lt;li>Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
+&lt;img alt="package flow through iptables" src="https://jinying-che.github.io/images/iptable.png">&lt;/li>
+&lt;/ul>
+&lt;h2 id="tables">Tables&lt;/h2>
+&lt;p>There are five tables, the &lt;em>Priority&lt;/em> is: &lt;strong>filter, nat, mangle, raw, security&lt;/strong>&lt;/p></description><content>&lt;p>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/">Netfilter&lt;/a> modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p>
 &lt;h2 id="in-a-nutshell">In a nutshell:&lt;/h2>
 &lt;ul>
 &lt;li>Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
@@ -2049,8 +2567,11 @@ https://www.thegeekstuff.com/2011/01/iptables-fundamentals/ https://linux.</desc
 &lt;li>&lt;a href="https://docs.docker.com/network/iptables/">https://docs.docker.com/network/iptables/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.linode.com/docs/guides/control-network-traffic-with-iptables/">https://www.linode.com/docs/guides/control-network-traffic-with-iptables/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.cyberciti.biz/faq/linux-iptables-drop/">https://www.cyberciti.biz/faq/linux-iptables-drop/&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Container Networking</title><link>https://jinying-che.github.io/posts/network/container_networking/</link><pubDate>Thu, 26 Aug 2021 10:27:13 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/container_networking/</guid><description>Before VETH The veth devices are virtual Ethernet devices. They can act as tunnels between network namespaces to create a bridge to a physical network device in another namespace, but can also be used as standalone network devices.
-veth device pairs are useful for combining the network facilities of the kernel together in interesting ways. A particularly interesting use case is to place one end of a veth pair in one network namespace and the other end in another network namespace, thus allowing communication between network namespaces.</description><content>&lt;h1 id="before">Before&lt;/h1>
+&lt;/ul></content></item><item><title>Container Networking</title><link>https://jinying-che.github.io/posts/network/container_networking/</link><pubDate>Thu, 26 Aug 2021 10:27:13 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/container_networking/</guid><description>&lt;h1 id="before">Before&lt;/h1>
+&lt;hr>
+&lt;h3 id="veth">VETH&lt;/h3>
+&lt;p>The veth devices are virtual Ethernet devices. They can act as tunnels between network namespaces to create a bridge to a physical network device in another namespace, but can also be used as standalone network devices.&lt;/p>
+&lt;p>veth device pairs are useful for combining the network facilities of the kernel together in interesting ways. A particularly interesting use case is to place one end of a veth pair in one network namespace and the other end in another network namespace, thus allowing communication between network namespaces.&lt;/p></description><content>&lt;h1 id="before">Before&lt;/h1>
 &lt;hr>
 &lt;h3 id="veth">VETH&lt;/h3>
 &lt;p>The veth devices are virtual Ethernet devices. They can act as tunnels between network namespaces to create a bridge to a physical network device in another namespace, but can also be used as standalone network devices.&lt;/p>
@@ -2071,7 +2592,7 @@ It also supports STP, VLAN filter, and multicast snooping.&lt;/p>
 &lt;li>&lt;a href="https://github.com/mz1999/blog/blob/master/docs/docker-network-bridge.md">https://github.com/mz1999/blog/blob/master/docs/docker-network-bridge.md&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://time.geekbang.org/column/article/64948?cid=100015201">https://time.geekbang.org/column/article/64948?cid=100015201&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://en.wikipedia.org/wiki/Iptables">https://en.wikipedia.org/wiki/Iptables&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Vim Cheat Sheet</title><link>https://jinying-che.github.io/posts/vim/</link><pubDate>Sat, 10 Jul 2021 11:20:07 +0800</pubDate><guid>https://jinying-che.github.io/posts/vim/</guid><description>Basic Usage delete inside parentheses (which can be replaced with any symbol) di( di&amp;quot; di' &amp;hellip; Split Horizontal: ctrl + w + s Vertical: ctrl + w + v Replace a word with yanked text yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;). Move the cursor to another word (say &amp;#34;second&amp;#34;). ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode) Move the cursor to another word (say &amp;#34;third&amp;#34;).</description><content>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
+&lt;/ul></content></item><item><title>Vim Cheat Sheet</title><link>https://jinying-che.github.io/posts/vim/</link><pubDate>Sat, 10 Jul 2021 11:20:07 +0800</pubDate><guid>https://jinying-che.github.io/posts/vim/</guid><description>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
 &lt;ul>
 &lt;li>delete inside parentheses (which can be replaced with any symbol)
 &lt;ul>
@@ -2095,7 +2616,55 @@ Move the cursor to another word (say &amp;#34;third&amp;#34;).
 . Repeat the operation (change word and replace it with &amp;#34;first&amp;#34;).
 Move the cursor to another word and press . to repeat the change.
 ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
-&lt;/code>&lt;/pre></content></item><item><title>Tmux Cheat Sheet</title><link>https://jinying-che.github.io/posts/tmux/</link><pubDate>Sat, 10 Jul 2021 11:18:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/tmux/</guid><description>Session new session: tmux new -s name show session: tmux ls attach session with name: tmux a -t name detach from session: ctrl+b then d Panes split pane horizontally: ctrl+b then % split pane vertically: ctrl+b then &amp;quot; cloes current pane: ctrl+b then x swap panes: ctrl+b then o swan and rotate panes: ctrl+b then ctrl+o Window Create current window: ctrl+b then c Close current window: ctrl+b then &amp;amp; Rename current window: ctrl+b then , Next window: ctrl+b then p Previous window: ctrl+b then n View in tmux ctrl+b then [</description><content>&lt;h3 id="session">Session&lt;/h3>
+&lt;/code>&lt;/pre></description><content>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
+&lt;ul>
+&lt;li>delete inside parentheses (which can be replaced with any symbol)
+&lt;ul>
+&lt;li>&lt;code>di(&lt;/code>&lt;/li>
+&lt;li>&lt;code>di&amp;quot;&lt;/code>&lt;/li>
+&lt;li>&lt;code>di'&lt;/code>&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="split">Split&lt;/h3>
+&lt;ul>
+&lt;li>Horizontal: &lt;code>ctrl + w + s&lt;/code>&lt;/li>
+&lt;li>Vertical: &lt;code>ctrl + w + v&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="replace-a-word-with-yanked-text">Replace a word with yanked text&lt;/h3>
+&lt;pre tabindex="0">&lt;code>yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;).
+Move the cursor to another word (say &amp;#34;second&amp;#34;).
+ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode)
+Move the cursor to another word (say &amp;#34;third&amp;#34;).
+. Repeat the operation (change word and replace it with &amp;#34;first&amp;#34;).
+Move the cursor to another word and press . to repeat the change.
+ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
+&lt;/code>&lt;/pre></content></item><item><title>Tmux Cheat Sheet</title><link>https://jinying-che.github.io/posts/tmux/</link><pubDate>Sat, 10 Jul 2021 11:18:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/tmux/</guid><description>&lt;h3 id="session">Session&lt;/h3>
+&lt;ul>
+&lt;li>new session: &lt;code>tmux new -s name&lt;/code>&lt;/li>
+&lt;li>show session: &lt;code>tmux ls&lt;/code>&lt;/li>
+&lt;li>attach session with name: &lt;code>tmux a -t name&lt;/code>&lt;/li>
+&lt;li>detach from session: &lt;code>ctrl+b&lt;/code> then &lt;code>d&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="panes">Panes&lt;/h3>
+&lt;ul>
+&lt;li>split pane horizontally: &lt;code>ctrl+b&lt;/code> then &lt;code>%&lt;/code>&lt;/li>
+&lt;li>split pane vertically: &lt;code>ctrl+b&lt;/code> then &lt;code>&amp;quot;&lt;/code>&lt;/li>
+&lt;li>cloes current pane: &lt;code>ctrl+b&lt;/code> then &lt;code>x&lt;/code>&lt;/li>
+&lt;li>swap panes: &lt;code>ctrl+b&lt;/code> then &lt;code>o&lt;/code>&lt;/li>
+&lt;li>swan and rotate panes: &lt;code>ctrl+b&lt;/code> then &lt;code>ctrl+o&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="window">Window&lt;/h3>
+&lt;ul>
+&lt;li>Create current window: &lt;code>ctrl+b&lt;/code> then &lt;code>c&lt;/code>&lt;/li>
+&lt;li>Close current window: &lt;code>ctrl+b&lt;/code> then &lt;code>&amp;amp;&lt;/code>&lt;/li>
+&lt;li>Rename current window: &lt;code>ctrl+b&lt;/code> then &lt;code>,&lt;/code>&lt;/li>
+&lt;li>Next window: &lt;code>ctrl+b&lt;/code> then &lt;code>p&lt;/code>&lt;/li>
+&lt;li>Previous window: &lt;code>ctrl+b&lt;/code> then &lt;code>n&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="view-in-tmux">View in tmux&lt;/h3>
+&lt;p>&lt;code>ctrl+b&lt;/code> then &lt;code>[&lt;/code>&lt;/p></description><content>&lt;h3 id="session">Session&lt;/h3>
 &lt;ul>
 &lt;li>new session: &lt;code>tmux new -s name&lt;/code>&lt;/li>
 &lt;li>show session: &lt;code>tmux ls&lt;/code>&lt;/li>
@@ -2157,7 +2726,16 @@ ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
 &lt;li>&lt;code>Wait()&lt;/code> increases the waiter and try to acquire the semaphore.&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img alt="wait group case" src="https://jinying-che.github.io/images/wait_group_case.png">&lt;/p>
-&lt;h3 id="syncpool">sync.Pool&lt;/h3></content></item><item><title>HHKB</title><link>https://jinying-che.github.io/posts/hhkb/</link><pubDate>Thu, 24 Jun 2021 21:20:23 +0800</pubDate><guid>https://jinying-che.github.io/posts/hhkb/</guid><description>CheatSheet BS and Delete Win mode: Fn+Control+w Mac mode: Fn+Control+m</description><content>&lt;h4 id="cheatsheet">CheatSheet&lt;/h4>
+&lt;h3 id="syncpool">sync.Pool&lt;/h3></content></item><item><title>HHKB</title><link>https://jinying-che.github.io/posts/hhkb/</link><pubDate>Thu, 24 Jun 2021 21:20:23 +0800</pubDate><guid>https://jinying-che.github.io/posts/hhkb/</guid><description>&lt;h4 id="cheatsheet">CheatSheet&lt;/h4>
+&lt;ul>
+&lt;li>BS and Delete
+&lt;ul>
+&lt;li>Win mode: &lt;code>Fn+Control+w&lt;/code>&lt;/li>
+&lt;li>Mac mode: &lt;code>Fn+Control+m&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img alt="KKHB CheatSheet" src="https://jinying-che.github.io/images/hhkb.png">&lt;/p></description><content>&lt;h4 id="cheatsheet">CheatSheet&lt;/h4>
 &lt;ul>
 &lt;li>BS and Delete
 &lt;ul>
@@ -2353,8 +2931,8 @@ $ sudo reboot
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=OxiY4yf6GGg">https://www.youtube.com/watch?v=OxiY4yf6GGg&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=Mad4kQ5835Y">https://www.youtube.com/watch?v=Mad4kQ5835Y&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://www.youtube.com/watch?v=1z0ULvg_pW8">https://www.youtube.com/watch?v=1z0ULvg_pW8&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Algorithm: How I leetcode</title><link>https://jinying-che.github.io/posts/algorithm/leetcode/</link><pubDate>Sat, 13 Feb 2021 16:31:28 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/leetcode/</guid><description>When do you play with leetcode? Personally, I open it only before the algorithm interview.
-It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.</description><content>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
+&lt;/ul></content></item><item><title>Algorithm: How I leetcode</title><link>https://jinying-che.github.io/posts/algorithm/leetcode/</link><pubDate>Sat, 13 Feb 2021 16:31:28 +0800</pubDate><guid>https://jinying-che.github.io/posts/algorithm/leetcode/</guid><description>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
+&lt;p>It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.&lt;/p></description><content>&lt;p>When do you play with &lt;a href="https://leetcode.com/">leetcode&lt;/a>? Personally, I open it only before the algorithm interview.&lt;/p>
 &lt;p>It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview but also really useful in the production, which also make you write the effective code in the daily work. Leetcode helps interview a lot indeed, I sometimes can see some guys who get the Google offer by leetcode, moreover, I believe more algorithm we learned, better engineer we can be.&lt;/p>
 &lt;p>This post is showing how I leetcode, it&amp;rsquo;s only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.&lt;/p>
 &lt;p>The general steps to resovle a problem:&lt;/p>
@@ -2453,9 +3031,30 @@ It&amp;rsquo;s wrong actually, the algorithm is not only used in the interview b
 &lt;ul>
 &lt;li>&lt;a href="https://leetcode.com/problems/lru-cache/">146. LRU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lru-cache/solutions/4113594/python-146-lru-cache/">discussion&lt;/a>]&lt;/li>
 &lt;li>&lt;a href="https://leetcode.com/problems/lfu-cache/">460. LFU Cache&lt;/a> &amp;ndash; [&lt;a href="https://leetcode.com/problems/lfu-cache/discuss/1086255/Golang460two-ways-to-resolve-LFU-Cache">discussion&lt;/a>]&lt;/li>
-&lt;/ul></content></item><item><title>TCP</title><link>https://jinying-che.github.io/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/tcp/</guid><description>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official RFC 793 as the only true source. Here&amp;rsquo;s a summary of RFC 793.
-TCP Header TCP Header Format
-0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Source Port | Destination Port | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Sequence Number | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Acknowledgment Number | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Data | |U|A|P|R|S|F| | | Offset| Reserved |R|C|S|S|Y|I| Window | | | |G|K|H|T|N|N| | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Checksum | Urgent Pointer | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | Options | Padding | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | data | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ TCP State Machine Be noted that 11 TCP Connection States Diagram indicating state to state transformation not cliet to server communication.</description><content>&lt;p>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a> as the only true source. Here&amp;rsquo;s a summary of &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>.&lt;/p>
+&lt;/ul></content></item><item><title>TCP</title><link>https://jinying-che.github.io/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/tcp/</guid><description>&lt;p>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a> as the only true source. Here&amp;rsquo;s a summary of &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>.&lt;/p>
+&lt;h3 id="tcp-header">TCP Header&lt;/h3>
+&lt;p>&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">TCP Header Format&lt;/a>&lt;/p>
+&lt;pre tabindex="0">&lt;code> 0 1 2 3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Source Port | Destination Port |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Sequence Number |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Acknowledgment Number |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Data | |U|A|P|R|S|F| |
+| Offset| Reserved |R|C|S|S|Y|I| Window |
+| | |G|K|H|T|N|N| |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Checksum | Urgent Pointer |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Options | Padding |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| data |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/code>&lt;/pre>&lt;h3 id="tcp-state-machine">TCP State Machine&lt;/h3>
+&lt;p>Be noted that 11 &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-17">TCP Connection States Diagram&lt;/a> indicating state to state transformation not cliet to server communication.&lt;/p></description><content>&lt;p>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a> as the only true source. Here&amp;rsquo;s a summary of &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>.&lt;/p>
 &lt;h3 id="tcp-header">TCP Header&lt;/h3>
 &lt;p>&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">TCP Header Format&lt;/a>&lt;/p>
 &lt;pre tabindex="0">&lt;code> 0 1 2 3
@@ -2527,54 +3126,54 @@ V x V snd FIN V
 &lt;/code>&lt;/pre>&lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th>Head&lt;/th>
-&lt;th>Meaning&lt;/th>
+&lt;th style="text-align: left">Head&lt;/th>
+&lt;th style="text-align: left">Meaning&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>LISTEN&lt;/td>
-&lt;td>represents waiting for a connection request from any remote TCP and port&lt;/td>
+&lt;td style="text-align: left">LISTEN&lt;/td>
+&lt;td style="text-align: left">represents waiting for a connection request from any remote TCP and port&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>SYN-SENT&lt;/td>
-&lt;td>represents waiting for a matching connection request after having sent a connection request&lt;/td>
+&lt;td style="text-align: left">SYN-SENT&lt;/td>
+&lt;td style="text-align: left">represents waiting for a matching connection request after having sent a connection request&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>SYN-RECEIVED&lt;/td>
-&lt;td>represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request&lt;/td>
+&lt;td style="text-align: left">SYN-RECEIVED&lt;/td>
+&lt;td style="text-align: left">represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>ESTABLISHED&lt;/td>
-&lt;td>represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection&lt;/td>
+&lt;td style="text-align: left">ESTABLISHED&lt;/td>
+&lt;td style="text-align: left">represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>FIN-WAIT-1&lt;/td>
-&lt;td>represents waiting for a connection termination request from the remote TCP, or an acknowledgment of the connection termination request previously sent&lt;/td>
+&lt;td style="text-align: left">FIN-WAIT-1&lt;/td>
+&lt;td style="text-align: left">represents waiting for a connection termination request from the remote TCP, or an acknowledgment of the connection termination request previously sent&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>FIN-WAIT-2&lt;/td>
-&lt;td>represents waiting for a connection termination request from the &lt;em>remote&lt;/em> TCP&lt;/td>
+&lt;td style="text-align: left">FIN-WAIT-2&lt;/td>
+&lt;td style="text-align: left">represents waiting for a connection termination request from the &lt;em>remote&lt;/em> TCP&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>CLOSE-WAIT&lt;/td>
-&lt;td>represents waiting for a connection termination request from the &lt;em>local&lt;/em> user&lt;/td>
+&lt;td style="text-align: left">CLOSE-WAIT&lt;/td>
+&lt;td style="text-align: left">represents waiting for a connection termination request from the &lt;em>local&lt;/em> user&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>CLOSING&lt;/td>
-&lt;td>represents waiting for a connection termination request acknowledgment from the remote TCP&lt;/td>
+&lt;td style="text-align: left">CLOSING&lt;/td>
+&lt;td style="text-align: left">represents waiting for a connection termination request acknowledgment from the remote TCP&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>LAST-ACK&lt;/td>
-&lt;td>represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP (which includes an acknowledgment of its connection termination request)&lt;/td>
+&lt;td style="text-align: left">LAST-ACK&lt;/td>
+&lt;td style="text-align: left">represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP (which includes an acknowledgment of its connection termination request)&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>TIME-WAIT&lt;/td>
-&lt;td>represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request&lt;/td>
+&lt;td style="text-align: left">TIME-WAIT&lt;/td>
+&lt;td style="text-align: left">represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>CLOSED&lt;/td>
-&lt;td>represents no connection state at all&lt;/td>
+&lt;td style="text-align: left">CLOSED&lt;/td>
+&lt;td style="text-align: left">represents no connection state at all&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -2622,9 +3221,16 @@ V x V snd FIN V
 &lt;li>&lt;strong>-R&lt;/strong> means &lt;strong>--recurse&lt;/strong>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></content></item><item><title>How to profile Golang Program</title><link>https://jinying-che.github.io/posts/go/diagnostics/</link><pubDate>Mon, 30 Nov 2020 08:35:51 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/diagnostics/</guid><description>First of all, this document is in progress and will keep updated.
-Diagnostic by the http call is usually a convinient way in pratice. What we need to do is only two steps before starting the program:
-import _ &amp;quot;net/http/pprof&amp;quot; http.ListenAndServe(&amp;quot;the address that defined in advance&amp;quot;, better use privaty ServerMux instead of the default one) Profile The port 6060 is an example that defined for the http listening. The default time is 30s that go pprof will collect the samples which used to profile without the specificatoin.</description><content>&lt;p>First of all, this document is in progress and will keep updated.&lt;/p>
+&lt;/ul></content></item><item><title>How to profile Golang Program</title><link>https://jinying-che.github.io/posts/go/diagnostics/</link><pubDate>Mon, 30 Nov 2020 08:35:51 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/diagnostics/</guid><description>&lt;p>First of all, this document is in progress and will keep updated.&lt;/p>
+&lt;p>Diagnostic by the http call is usually a convinient way in pratice. What we need to do is only two steps before starting the program:&lt;/p>
+&lt;blockquote>
+&lt;ul>
+&lt;li>&lt;code>import _ &amp;quot;net/http/pprof&amp;quot;&lt;/code>&lt;/li>
+&lt;li>&lt;code>http.ListenAndServe(&amp;quot;the address that defined in advance&amp;quot;, better use privaty ServerMux instead of the default one)&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;h2 id="profile">Profile&lt;/h2>
+&lt;p>The port 6060 is an example that defined for the http listening. The default time is 30s that go pprof will collect the samples which used to profile without the specificatoin.(I have not find the way to specify btw)&lt;/p></description><content>&lt;p>First of all, this document is in progress and will keep updated.&lt;/p>
 &lt;p>Diagnostic by the http call is usually a convinient way in pratice. What we need to do is only two steps before starting the program:&lt;/p>
 &lt;blockquote>
 &lt;ul>
@@ -2679,7 +3285,7 @@ import _ &amp;quot;net/http/pprof&amp;quot; http.ListenAndServe(&amp;quot;the ad
 &lt;li>&lt;a href="https://golang.org/doc/diagnostics.html">https://golang.org/doc/diagnostics.html&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://golang.org/pkg/runtime/pprof/">https://golang.org/pkg/runtime/pprof/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/">https://jvns.ca/blog/2017/09/24/profiling-go-with-pprof/&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>How does golang implement the Rate Limiter</title><link>https://jinying-che.github.io/posts/go/ratelimiter/</link><pubDate>Fri, 20 Nov 2020 12:04:09 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/ratelimiter/</guid><description>Core concept burst: the size of the bucket which is possible more than the limit token: refer to https://en.wikipedia.org/wiki/Token_bucket limit: the number of tokens that is obtained per second Core function // reserveN is a helper method for AllowN, ReserveN, and WaitN. // maxFutureReserve specifies the maximum reservation wait duration allowed. // reserveN returns Reservation, not *Reservation, to avoid allocation in AllowN and WaitN. func (lim *Limiter) reserveN(now time.Time, n int, maxFutureReserve time.</description><content>&lt;h2 id="core-concept">Core concept&lt;/h2>
+&lt;/ul></content></item><item><title>How does golang implement the Rate Limiter</title><link>https://jinying-che.github.io/posts/go/ratelimiter/</link><pubDate>Fri, 20 Nov 2020 12:04:09 +0800</pubDate><guid>https://jinying-che.github.io/posts/go/ratelimiter/</guid><description>&lt;h2 id="core-concept">Core concept&lt;/h2>
 &lt;ul>
 &lt;li>&lt;strong>burst&lt;/strong>: the size of the bucket which is possible more than the limit&lt;/li>
 &lt;li>&lt;strong>token&lt;/strong>: refer to &lt;a href="https://en.wikipedia.org/wiki/Token_bucket">https://en.wikipedia.org/wiki/Token_bucket&lt;/a>&lt;/li>
@@ -2739,11 +3345,116 @@ import _ &amp;quot;net/http/pprof&amp;quot; http.ListenAndServe(&amp;quot;the ad
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">mu&lt;/span>.&lt;span style="color:#a6e22e">Unlock&lt;/span>()
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">r&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>Data Structure redis配置 redis初始并不设置所用内存大小，默认会使用全部物理内存，但有maxmemory选项可以配置。
-# In short... if you have slaves attached it is suggested that you set a lower # limit for maxmemory so that there is some free RAM on the system for slave # output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;). # # maxmemory &amp;lt;bytes&amp;gt; Redis 命令 ###zrem
-这个命令的返回值很特别：
-zset中存在的元素被删除，则返回1 zset中不存在的元素、不存在的zset的key，返回0 key存在，但不是zset类型，报错 ##LUA
-碎片率 出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用 解决办法：数据对齐，安全重启（高可用/主从切换）。 数据结构 列表（list） 压缩列表 每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content） 双向循环链表 会有单独的list的对象，来记录链表的头、尾、长度等信息 字典（hash） 压缩列表</description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></description><content>&lt;h2 id="core-concept">Core concept&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>burst&lt;/strong>: the size of the bucket which is possible more than the limit&lt;/li>
+&lt;li>&lt;strong>token&lt;/strong>: refer to &lt;a href="https://en.wikipedia.org/wiki/Token_bucket">https://en.wikipedia.org/wiki/Token_bucket&lt;/a>&lt;/li>
+&lt;li>&lt;strong>limit&lt;/strong>: the number of tokens that is obtained per second&lt;/li>
+&lt;/ul>
+&lt;h2 id="core-function">Core function&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// reserveN is a helper method for AllowN, ReserveN, and WaitN.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// maxFutureReserve specifies the maximum reservation wait duration allowed.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// reserveN returns Reservation, not *Reservation, to avoid allocation in AllowN and WaitN.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">func&lt;/span> (&lt;span style="color:#a6e22e">lim&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">Limiter&lt;/span>) &lt;span style="color:#a6e22e">reserveN&lt;/span>(&lt;span style="color:#a6e22e">now&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Time&lt;/span>, &lt;span style="color:#a6e22e">n&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>, &lt;span style="color:#a6e22e">maxFutureReserve&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>) &lt;span style="color:#a6e22e">Reservation&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">mu&lt;/span>.&lt;span style="color:#a6e22e">Lock&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">limit&lt;/span> &lt;span style="color:#f92672">==&lt;/span> &lt;span style="color:#a6e22e">Inf&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">mu&lt;/span>.&lt;span style="color:#a6e22e">Unlock&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">Reservation&lt;/span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ok&lt;/span>: &lt;span style="color:#66d9ef">true&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>: &lt;span style="color:#a6e22e">lim&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">tokens&lt;/span>: &lt;span style="color:#a6e22e">n&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">timeToAct&lt;/span>: &lt;span style="color:#a6e22e">now&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">now&lt;/span>, &lt;span style="color:#a6e22e">last&lt;/span>, &lt;span style="color:#a6e22e">tokens&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">advance&lt;/span>(&lt;span style="color:#a6e22e">now&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Calculate the remaining number of tokens resulting from the request.
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">tokens&lt;/span> &lt;span style="color:#f92672">-=&lt;/span> float64(&lt;span style="color:#a6e22e">n&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Calculate the wait duration
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">var&lt;/span> &lt;span style="color:#a6e22e">waitDuration&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">tokens&lt;/span> &amp;lt; &lt;span style="color:#ae81ff">0&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">waitDuration&lt;/span> = &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">limit&lt;/span>.&lt;span style="color:#a6e22e">durationFromTokens&lt;/span>(&lt;span style="color:#f92672">-&lt;/span>&lt;span style="color:#a6e22e">tokens&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Decide result
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">ok&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">n&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">burst&lt;/span> &lt;span style="color:#f92672">&amp;amp;&amp;amp;&lt;/span> &lt;span style="color:#a6e22e">waitDuration&lt;/span> &lt;span style="color:#f92672">&amp;lt;=&lt;/span> &lt;span style="color:#a6e22e">maxFutureReserve&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Prepare reservation
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">r&lt;/span> &lt;span style="color:#f92672">:=&lt;/span> &lt;span style="color:#a6e22e">Reservation&lt;/span>{
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ok&lt;/span>: &lt;span style="color:#a6e22e">ok&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>: &lt;span style="color:#a6e22e">lim&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">limit&lt;/span>: &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">limit&lt;/span>,
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">ok&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">r&lt;/span>.&lt;span style="color:#a6e22e">tokens&lt;/span> = &lt;span style="color:#a6e22e">n&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">r&lt;/span>.&lt;span style="color:#a6e22e">timeToAct&lt;/span> = &lt;span style="color:#a6e22e">now&lt;/span>.&lt;span style="color:#a6e22e">Add&lt;/span>(&lt;span style="color:#a6e22e">waitDuration&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Update state
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#66d9ef">if&lt;/span> &lt;span style="color:#a6e22e">ok&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">last&lt;/span> = &lt;span style="color:#a6e22e">now&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">tokens&lt;/span> = &lt;span style="color:#a6e22e">tokens&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">lastEvent&lt;/span> = &lt;span style="color:#a6e22e">r&lt;/span>.&lt;span style="color:#a6e22e">timeToAct&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> } &lt;span style="color:#66d9ef">else&lt;/span> {
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">last&lt;/span> = &lt;span style="color:#a6e22e">last&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">lim&lt;/span>.&lt;span style="color:#a6e22e">mu&lt;/span>.&lt;span style="color:#a6e22e">Unlock&lt;/span>()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#66d9ef">return&lt;/span> &lt;span style="color:#a6e22e">r&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>&lt;h2 id="data-structure">Data Structure&lt;/h2>
+&lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
+&lt;h2 id="redis配置">redis配置&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>redis初始并不设置所用内存大小，默认会使用全部物理内存，但有&lt;code>maxmemory&lt;/code>选项可以配置。&lt;/p>
+&lt;pre tabindex="0">&lt;code># In short... if you have slaves attached it is suggested that you set a lower
+# limit for maxmemory so that there is some free RAM on the system for slave
+# output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;).
+#
+# maxmemory &amp;lt;bytes&amp;gt;
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;/ol>
+&lt;h2 id="redis-命令">Redis 命令&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>###zrem&lt;/p>
+&lt;p>这个命令的返回值很特别：&lt;/p>
+&lt;ol>
+&lt;li>zset中存在的元素被删除，则返回1&lt;/li>
+&lt;li>zset中不存在的元素、不存在的zset的key，返回0&lt;/li>
+&lt;li>key存在，但不是zset类型，报错&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;p>##LUA&lt;/p>
+&lt;h2 id="碎片率">碎片率&lt;/h2>
+&lt;blockquote>
+&lt;pre>&lt;code>出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用
+解决办法：数据对齐，安全重启（高可用/主从切换）。
+&lt;/code>&lt;/pre>
+&lt;/blockquote>
+&lt;h2 id="数据结构">数据结构&lt;/h2>
+&lt;h4 id="列表list">列表（list）&lt;/h4>
+&lt;ul>
+&lt;li>压缩列表
+&lt;ul>
+&lt;li>每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>双向循环链表
+&lt;ul>
+&lt;li>会有单独的&lt;strong>list&lt;/strong>的对象，来记录链表的&lt;strong>头、尾、长度&lt;/strong>等信息&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="字典hash">字典（hash）&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;p>压缩列表&lt;/p></description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
 &lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
 &lt;h2 id="redis配置">redis配置&lt;/h2>
 &lt;ol>
@@ -2845,9 +3556,13 @@ zset中存在的元素被删除，则返回1 zset中不存在的元素、不存�
 &lt;h2 id="referrence">Referrence&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://blog.bytebytego.com/p/why-is-redis-so-fast">https://blog.bytebytego.com/p/why-is-redis-so-fast&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>HTTPS</title><link>https://jinying-che.github.io/posts/network/https/</link><pubDate>Mon, 10 Jun 2019 11:19:47 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/https/</guid><description>TL;DR HTTPS = HTTP Over TLS, when we talk about HTTPS, we actually talk about the TLS more specifically.
-Handshake The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.
-Handshake TLS 1.2 Basically it&amp;rsquo;s a 3-Way TCP handshake + 4 Way TLS handshake.</description><content>&lt;h2 id="tldr">TL;DR&lt;/h2>
+&lt;/ul></content></item><item><title>HTTPS</title><link>https://jinying-che.github.io/posts/network/https/</link><pubDate>Mon, 10 Jun 2019 11:19:47 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/https/</guid><description>&lt;h2 id="tldr">TL;DR&lt;/h2>
+&lt;p>&lt;strong>HTTPS = HTTP Over TLS&lt;/strong>, when we talk about HTTPS, we actually talk about the TLS more specifically.&lt;/p>
+&lt;h2 id="handshake">Handshake&lt;/h2>
+&lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
+&lt;h4 id="handshake-tls-12">Handshake TLS 1.2&lt;/h4>
+&lt;p>Basically it&amp;rsquo;s a &lt;em>3-Way TCP handshake&lt;/em> + &lt;em>4 Way TLS handshake&lt;/em>.
+&lt;img alt="https handshake" src="https://jinying-che.github.io/images/https_handshake.png">&lt;/p></description><content>&lt;h2 id="tldr">TL;DR&lt;/h2>
 &lt;p>&lt;strong>HTTPS = HTTP Over TLS&lt;/strong>, when we talk about HTTPS, we actually talk about the TLS more specifically.&lt;/p>
 &lt;h2 id="handshake">Handshake&lt;/h2>
 &lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
@@ -2907,9 +3622,12 @@ Basically there&amp;rsquo;re two way for key exchange, the key point is how to g
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc5246">RFC5246: TLS1.2&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446: TLS1.3&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc2818">RFC2818: HTTPS&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>This post is based on MySQL InnoDB Storage Engine.
-Type 1. Cluster Index Each InnoDB table has a special index called the clustered index that stores row data. Typically, the clustered index is synonymous with the primary key.
-2. Secondery Index In InnoDB, each record in a secondary index contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.</description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
+&lt;/ul></content></item><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
+&lt;h2 id="type">Type&lt;/h2>
+&lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
+&lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>
+&lt;h4 id="2-secondery-index">2. Secondery Index&lt;/h4>
+&lt;p>In InnoDB, each record in a &lt;strong>secondary index&lt;/strong> contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p></description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
 &lt;h2 id="type">Type&lt;/h2>
 &lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
 &lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>
@@ -2942,20 +3660,81 @@ Type 1. Cluster Index Each InnoDB table has a special index called the clustered
 &lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html">https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;/li>
-&lt;/ul></content></item><item><title>HTTP</title><link>https://jinying-che.github.io/posts/network/http/</link><pubDate>Wed, 10 Oct 2018 11:19:45 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/http/</guid><description> HTTP位于网络的应用层，使用TCP/IP协议进行传输
-TCP连接 HTTP/1.0：通过非标准字段Connection: keep-alive保持TCP连接 HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理 HTTP/2： HTTP/0.9 客户端请求，服务器回复完毕，TCP连接即关闭 只有一个命令：GET 服务器只能回应HTML格式的字符串 HTTP/1.0 加入POST、HEAD命令 协议分为头部和数据部，头部字段如：Content-Type、Content-Encoding等 为了保持TCP的复用，引入头部字段：Connection: keep-alive HTTP/1.1 TCP默认为持久连接，由客户端和服务端主动关闭
-引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）
-服务端可以区分多个请求的基础：Content-Length字段，即知道每个请求的长度 在1.0版中，Content-Length字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。 引入流模式
-对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。
-因此，1.1版规定可以不使用Content-Length字段，而使用&amp;ldquo;分块传输编码&amp;rdquo;（chunked transfer encoding）。只要请求或回应的头信息有Transfer-Encoding字段，就表明回应将由数量未定的数据块组成。
-《HTTP 协议入门》 阮一峰
-当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。
-《HTTP概述》 MDN
-服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&amp;ldquo;队头堵塞&amp;rdquo;（Head-of-line blocking）。
-HTTP/2.0 2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。
-这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。
-头部和数据部都是二进制，统称为“帧” 全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题） 实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID 客户端和服务器都可以发送信号（RST_STREAM帧），取消这个数据流 头信息压缩 服务器未经允许，主动推送数据到客户端 Reference:
-《HTTP 协议入门》 阮一峰 《HTTP概述》 MDN</description><content>&lt;blockquote>
+&lt;/ul></content></item><item><title>HTTP</title><link>https://jinying-che.github.io/posts/network/http/</link><pubDate>Wed, 10 Oct 2018 11:19:45 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/http/</guid><description>&lt;blockquote>
+&lt;p>HTTP位于网络的应用层，使用TCP/IP协议进行传输&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>TCP连接
+&lt;ul>
+&lt;li>HTTP/1.0：通过非标准字段&lt;code>Connection: keep-alive&lt;/code>保持TCP连接&lt;/li>
+&lt;li>HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理&lt;/li>
+&lt;li>HTTP/2：&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="http09">HTTP/0.9&lt;/h2>
+&lt;ul>
+&lt;li>客户端请求，服务器回复完毕，TCP连接即关闭&lt;/li>
+&lt;li>只有一个命令：&lt;code>GET&lt;/code>&lt;/li>
+&lt;li>服务器只能回应HTML格式的字符串&lt;/li>
+&lt;/ul>
+&lt;h2 id="http10">HTTP/1.0&lt;/h2>
+&lt;ul>
+&lt;li>加入&lt;code>POST&lt;/code>、&lt;code>HEAD&lt;/code>命令&lt;/li>
+&lt;li>协议分为头部和数据部，头部字段如：&lt;code>Content-Type&lt;/code>、&lt;code>Content-Encoding&lt;/code>等&lt;/li>
+&lt;li>为了保持TCP的复用，引入头部字段：&lt;code>Connection: keep-alive&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h2 id="http11">HTTP/1.1&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>TCP默认为持久连接，由客户端和服务端主动关闭&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）&lt;/p>
+&lt;ul>
+&lt;li>服务端可以区分多个请求的基础：&lt;code>Content-Length&lt;/code>字段，即知道每个请求的长度&lt;/li>
+&lt;li>在1.0版中，&lt;code>Content-Length&lt;/code>字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>引入流模式&lt;/p>
+&lt;blockquote>
+&lt;p>对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。&lt;/p>
+&lt;p>因此，1.1版规定可以不使用&lt;code>Content-Length&lt;/code>字段，而使用&lt;a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81">&amp;ldquo;分块传输编码&amp;rdquo;&lt;/a>（chunked transfer encoding）。只要请求或回应的头信息有&lt;code>Transfer-Encoding&lt;/code>字段，就表明回应将由数量未定的数据块组成。&lt;/p>
+&lt;p>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。&lt;/p>
+&lt;p>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;/li>
+&lt;li>
+&lt;p>服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&lt;a href="https://zh.wikipedia.org/wiki/%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E">&amp;ldquo;队头堵塞&amp;rdquo;&lt;/a>（Head-of-line blocking）。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="http20">HTTP/2.0&lt;/h2>
+&lt;blockquote>
+&lt;p>2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。&lt;/p>
+&lt;p>这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>头部和数据部都是二进制，统称为“帧”&lt;/li>
+&lt;li>全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题）
+&lt;ul>
+&lt;li>实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID&lt;/li>
+&lt;li>客户端和服务器都可以发送信号（&lt;code>RST_STREAM&lt;/code>帧），取消这个数据流&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>头信息压缩&lt;/li>
+&lt;li>服务器未经允许，主动推送数据到客户端&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Reference:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/blockquote></description><content>&lt;blockquote>
 &lt;p>HTTP位于网络的应用层，使用TCP/IP协议进行传输&lt;/p>
 &lt;/blockquote>
 &lt;ul>

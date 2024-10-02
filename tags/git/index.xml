@@ -1,7 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on</title><link>https://jinying-che.github.io/tags/git/</link><description>Recent content in Git on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 31 Jan 2023 16:14:39 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>Overall Everything about the changes rollback code changed without git add
-# `git add .` and `git checkout .` is a pair of inverse operations git checkout . or git reset --hard git add . done without git commit
-git reset + git chekcout . or git reset --hard git commit done
-# option 1: keep the changes in worksapce, rollback committed chagnes in local repo git reset head^ # option 2: rollback the changes in both workspace and local repo git reset --hard head^ git push done</description><content>&lt;h3 id="overall">Overall&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on</title><link>https://jinying-che.github.io/tags/git/</link><description>Recent content in Git on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 31 Jan 2023 16:14:39 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>&lt;h3 id="overall">Overall&lt;/h3>
+&lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
+&lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>code changed without &lt;code>git add&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># `git add .` and `git checkout .` is a pair of inverse operations&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git add .&lt;/code> done without &lt;code>git commit&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git reset + git chekcout .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git commit&lt;/code> done&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 1: keep the changes in worksapce, rollback committed chagnes in local repo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset head^
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 2: rollback the changes in both workspace and local repo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard head^
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git push&lt;/code> done&lt;/p></description><content>&lt;h3 id="overall">Overall&lt;/h3>
 &lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
 &lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
 &lt;ul>

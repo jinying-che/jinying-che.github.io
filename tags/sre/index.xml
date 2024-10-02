@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sre on</title><link>https://jinying-che.github.io/tags/sre/</link><description>Recent content in Sre on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 09 Sep 2023 16:58:58 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/sre/index.xml" rel="self" type="application/rss+xml"/><item><title>SLA vs SLO vs SLI</title><link>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</link><pubDate>Sat, 09 Sep 2023 16:58:58 +0800</pubDate><guid>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</guid><description>To dive into the terms throughly, it&amp;rsquo;s better to read Google SRE Book. This post is just a glance.
-TL;DR SLIs drive SLOs which inform SLAs. (From Google SRE Team)
-SLA: Service Level Agreements An SLA is an agreement between provider and client about measurable metrics like uptime, responsiveness, and responsibilities.
-SRE doesn’t typically get involved in constructing SLAs, because SLAs are closely tied to business and product decisions.
-e.g. Service credit if 95th percentile homepage SLI succeeds less than 99.</description><content>&lt;p>To dive into the terms throughly, it&amp;rsquo;s better to read &lt;a href="https://sre.google/sre-book/service-level-objectives/">Google SRE Book&lt;/a>. This post is just a glance.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sre on</title><link>https://jinying-che.github.io/tags/sre/</link><description>Recent content in Sre on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 09 Sep 2023 16:58:58 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/sre/index.xml" rel="self" type="application/rss+xml"/><item><title>SLA vs SLO vs SLI</title><link>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</link><pubDate>Sat, 09 Sep 2023 16:58:58 +0800</pubDate><guid>https://jinying-che.github.io/posts/sla_vs_slo_vs_sli/</guid><description>&lt;p>To dive into the terms throughly, it&amp;rsquo;s better to read &lt;a href="https://sre.google/sre-book/service-level-objectives/">Google SRE Book&lt;/a>. This post is just a glance.&lt;/p>
+&lt;h2 id="tldr">TL;DR&lt;/h2>
+&lt;p>SLIs drive SLOs which inform SLAs. (From Google SRE Team)&lt;/p>
+&lt;h2 id="sla-service-level-agreements">SLA: Service Level Agreements&lt;/h2>
+&lt;p>An SLA is an agreement between provider and client about measurable metrics like uptime, responsiveness, and responsibilities.&lt;/p>
+&lt;blockquote>
+&lt;p>SRE doesn’t typically get involved in constructing SLAs, because SLAs are closely tied to business and product decisions.&lt;/p>
+&lt;/blockquote>
+&lt;p>e.g. &lt;em>Service credit if 95th percentile homepage SLI succeeds less than 99.5% over tailing year&lt;/em>&lt;/p></description><content>&lt;p>To dive into the terms throughly, it&amp;rsquo;s better to read &lt;a href="https://sre.google/sre-book/service-level-objectives/">Google SRE Book&lt;/a>. This post is just a glance.&lt;/p>
 &lt;h2 id="tldr">TL;DR&lt;/h2>
 &lt;p>SLIs drive SLOs which inform SLAs. (From Google SRE Team)&lt;/p>
 &lt;h2 id="sla-service-level-agreements">SLA: Service Level Agreements&lt;/h2>

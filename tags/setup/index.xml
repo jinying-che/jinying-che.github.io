@@ -1,4 +1,72 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Setup on</title><link>https://jinying-che.github.io/tags/setup/</link><description>Recent content in Setup on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 01 Jul 2023 23:26:50 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/setup/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>1. Mac Setting Turn on three finger drag for your Mac trackpad Increase the cursor moving speed: System Preferences -&amp;gt; Keyboard -&amp;gt; Increase Key Repeat Rate switch the ctrl and caps lock key: https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac 2. Shell Install iterm2 theme: one dark font: source code pro Install Homebrew Install ZSH: brew install zsh Install oh-my-zsh Generating a new SSH key and adding it to the ssh-agent After ssh setup and add to the https://github.</description><content>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Setup on</title><link>https://jinying-che.github.io/tags/setup/</link><description>Recent content in Setup on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 01 Jul 2023 23:26:50 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/setup/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
+&lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>
+&lt;li>switch the &lt;code>ctrl&lt;/code> and &lt;code>caps lock&lt;/code> key: &lt;a href="https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac">https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="2-shell">2. Shell&lt;/h2>
+&lt;ul>
+&lt;li>Install &lt;a href="https://iterm2.com/">iterm2&lt;/a>
+&lt;ul>
+&lt;li>theme: &lt;a href="https://github.com/one-dark/iterm-one-dark-theme">one dark&lt;/a>&lt;/li>
+&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Install &lt;a href="https://brew.sh/">Homebrew&lt;/a>&lt;/li>
+&lt;li>Install ZSH: &lt;code>brew install zsh&lt;/code>&lt;/li>
+&lt;li>Install &lt;a href="https://ohmyz.sh/#install">oh-my-zsh&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent&lt;/a>&lt;/li>
+&lt;li>After &lt;strong>ssh&lt;/strong> setup and add to the &lt;a href="https://github.com/">https://github.com/&lt;/a>, it&amp;rsquo;s able to &lt;code>git clone&lt;/code> resource for iterm2 now:
+&lt;ul>
+&lt;li>theme: &lt;a href="https://github.com/projekt0n/github-nvim-theme">github-nvim-theme&lt;/a>&lt;/li>
+&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>
+&lt;ul>
+&lt;li>To install new fonts on mac: Open &lt;code>Font Book&lt;/code> App -&amp;gt; Open File -&amp;gt; Add Fonts To Current User -&amp;gt; Choose the downlaoded font files&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Init &lt;a href="https://github.com/jinying-che/config">.gitconfig&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="21-zsh">2.1 Zsh&lt;/h3>
+&lt;ul>
+&lt;li>configuration (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc">.zshrc&lt;/a>)&lt;/li>
+&lt;li>setting:
+&lt;ul>
+&lt;li>move the cursor by words:&lt;/li>
+&lt;/ul>
+&lt;pre tabindex="0">&lt;code>1. Go to iTerm2 (in the menu bar) &amp;gt; Settings... &amp;gt; Profiles &amp;gt; Keys (not Preferences... &amp;gt; Keys)
+2. On current versions (3.14+) you then switch to the Key Mappings tab
+3. Press Presets... dropdown button.
+4. Select Natural Text Editing
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;li>plugins:
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/wting/autojump">autojump&lt;/a>: &lt;code>brew install autojump&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting&lt;/code>&lt;/li>
+&lt;li>&lt;a href="https://github.com/junegunn/fzf#using-homebrew">fzf&lt;/a>
+&lt;ul>
+&lt;li>&lt;code>brew install fzf&lt;/code>&lt;/li>
+&lt;li>&lt;code>$(brew --prefix)/opt/fzf/install&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="3-vim">3. vim&lt;/h2>
+&lt;ul>
+&lt;li>vim (&lt;a href="https://github.com/jinying-che/config/blob/master/.vimrc">.vimrc&lt;/a>):
+&lt;ul>
+&lt;li>install nvim: &lt;code>brew install neovim&lt;/code>&lt;/li>
+&lt;li>init nvim: &lt;a href="https://neovim.io/doc/user/nvim.html#nvim-from-vim">https://neovim.io/doc/user/nvim.html#nvim-from-vim&lt;/a>&lt;/li>
+&lt;li>install &lt;a href="https://github.com/junegunn/vim-plug">vim-plug&lt;/a>, copy &lt;code>.vimrc&lt;/code> and &lt;code>:PlugInstall&lt;/code> to install plugins&lt;/li>
+&lt;li>install &lt;a href="https://github.com/neoclide/coc.nvim">coc.nvim&lt;/a> (&lt;code>brew install node&lt;/code> first)&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="31-cocnvimhttpsgithubcomneoclidecocnvim">3.1 &lt;a href="https://github.com/neoclide/coc.nvim/">coc.nvim&lt;/a>&lt;/h3>
+&lt;p>I would say coc.nvim is VS Code in neo vim, as well as the function is also expanded by plugins. Here&amp;rsquo;s the basic plugins we used in daily development.&lt;/p></description><content>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
 &lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>

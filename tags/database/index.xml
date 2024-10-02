@@ -1,8 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Database on</title><link>https://jinying-che.github.io/tags/database/</link><description>Recent content in Database on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Sep 2019 17:37:10 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>Data Structure redis配置 redis初始并不设置所用内存大小，默认会使用全部物理内存，但有maxmemory选项可以配置。
-# In short... if you have slaves attached it is suggested that you set a lower # limit for maxmemory so that there is some free RAM on the system for slave # output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;). # # maxmemory &amp;lt;bytes&amp;gt; Redis 命令 ###zrem
-这个命令的返回值很特别：
-zset中存在的元素被删除，则返回1 zset中不存在的元素、不存在的zset的key，返回0 key存在，但不是zset类型，报错 ##LUA
-碎片率 出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用 解决办法：数据对齐，安全重启（高可用/主从切换）。 数据结构 列表（list） 压缩列表 每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content） 双向循环链表 会有单独的list的对象，来记录链表的头、尾、长度等信息 字典（hash） 压缩列表</description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Database on</title><link>https://jinying-che.github.io/tags/database/</link><description>Recent content in Database on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Sep 2019 17:37:10 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>&lt;h2 id="data-structure">Data Structure&lt;/h2>
+&lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
+&lt;h2 id="redis配置">redis配置&lt;/h2>
+&lt;ol>
+&lt;li>
+&lt;p>redis初始并不设置所用内存大小，默认会使用全部物理内存，但有&lt;code>maxmemory&lt;/code>选项可以配置。&lt;/p>
+&lt;pre tabindex="0">&lt;code># In short... if you have slaves attached it is suggested that you set a lower
+# limit for maxmemory so that there is some free RAM on the system for slave
+# output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;).
+#
+# maxmemory &amp;lt;bytes&amp;gt;
+&lt;/code>&lt;/pre>&lt;/li>
+&lt;/ol>
+&lt;h2 id="redis-命令">Redis 命令&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>###zrem&lt;/p>
+&lt;p>这个命令的返回值很特别：&lt;/p>
+&lt;ol>
+&lt;li>zset中存在的元素被删除，则返回1&lt;/li>
+&lt;li>zset中不存在的元素、不存在的zset的key，返回0&lt;/li>
+&lt;li>key存在，但不是zset类型，报错&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;p>##LUA&lt;/p>
+&lt;h2 id="碎片率">碎片率&lt;/h2>
+&lt;blockquote>
+&lt;pre>&lt;code>出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用
+解决办法：数据对齐，安全重启（高可用/主从切换）。
+&lt;/code>&lt;/pre>
+&lt;/blockquote>
+&lt;h2 id="数据结构">数据结构&lt;/h2>
+&lt;h4 id="列表list">列表（list）&lt;/h4>
+&lt;ul>
+&lt;li>压缩列表
+&lt;ul>
+&lt;li>每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content）&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>双向循环链表
+&lt;ul>
+&lt;li>会有单独的&lt;strong>list&lt;/strong>的对象，来记录链表的&lt;strong>头、尾、长度&lt;/strong>等信息&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="字典hash">字典（hash）&lt;/h4>
+&lt;ul>
+&lt;li>
+&lt;p>压缩列表&lt;/p></description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
 &lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
 &lt;h2 id="redis配置">redis配置&lt;/h2>
 &lt;ol>
@@ -104,9 +149,12 @@ zset中存在的元素被删除，则返回1 zset中不存在的元素、不存�
 &lt;h2 id="referrence">Referrence&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://blog.bytebytego.com/p/why-is-redis-so-fast">https://blog.bytebytego.com/p/why-is-redis-so-fast&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>This post is based on MySQL InnoDB Storage Engine.
-Type 1. Cluster Index Each InnoDB table has a special index called the clustered index that stores row data. Typically, the clustered index is synonymous with the primary key.
-2. Secondery Index In InnoDB, each record in a secondary index contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.</description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
+&lt;/ul></content></item><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
+&lt;h2 id="type">Type&lt;/h2>
+&lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
+&lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>
+&lt;h4 id="2-secondery-index">2. Secondery Index&lt;/h4>
+&lt;p>In InnoDB, each record in a &lt;strong>secondary index&lt;/strong> contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p></description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
 &lt;h2 id="type">Type&lt;/h2>
 &lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
 &lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Monitor on</title><link>https://jinying-che.github.io/tags/monitor/</link><description>Recent content in Monitor on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 29 May 2024 08:54:49 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/monitor/index.xml" rel="self" type="application/rss+xml"/><item><title>alertmanager</title><link>https://jinying-che.github.io/posts/alertmanager/</link><pubDate>Wed, 29 May 2024 08:54:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/alertmanager/</guid><description>Architecture Design 1. No dedicated status (e.g. firing or resolved) differentiate the alert by EndAt timestamp
-2. group_wait vs group_interval vs repeat_interval Source Code Entrance api: api/v2/api.go dispatch: dispatch/dispatch.go</description><content>&lt;h3 id="architecture">Architecture&lt;/h3>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Monitor on</title><link>https://jinying-che.github.io/tags/monitor/</link><description>Recent content in Monitor on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 29 May 2024 08:54:49 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/monitor/index.xml" rel="self" type="application/rss+xml"/><item><title>alertmanager</title><link>https://jinying-che.github.io/posts/alertmanager/</link><pubDate>Wed, 29 May 2024 08:54:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/alertmanager/</guid><description>&lt;h3 id="architecture">Architecture&lt;/h3>
 &lt;p>&lt;img alt="arch" src="https://jinying-che.github.io/images/alertmanager.png">&lt;/p>
 &lt;h3 id="design">Design&lt;/h3>
 &lt;h5 id="1-no-dedicated-status-eg-firing-or-resolved">1. No dedicated status (e.g. firing or resolved)&lt;/h5>
@@ -13,8 +12,91 @@
 &lt;ul>
 &lt;li>api: &lt;code>api/v2/api.go&lt;/code>&lt;/li>
 &lt;li>dispatch: &lt;code>dispatch/dispatch.go&lt;/code>&lt;/li>
-&lt;/ul></content></item><item><title>Victorial Metrics</title><link>https://jinying-che.github.io/posts/victorial_metrics/</link><pubDate>Tue, 13 Feb 2024 07:37:29 +0800</pubDate><guid>https://jinying-che.github.io/posts/victorial_metrics/</guid><description>Quick Start Victoria Metrics
-An easy way to run VictoriaMetrics locally is to build from the source code as there&amp;rsquo;re lots of vm binaries like vmselect, vmstorage, vminsert, etc. to download, and all of them are maintained in the same repository, and Makefile is quite straightforward. git clone git@github.com:VictoriaMetrics/VictoriaMetrics.git make victoria-metrics mv /bin/victoria-metrics /usr/bin Run VictoriaMetrics With Systemd [Unit] Description=&amp;#34;Victoria Metrics Single&amp;#34; Documentation=https://https://docs.victoriametrics.com/ After=network.target [Service] Type=simple ExecStart=/usr/bin/victoria-metrics-prod \ -storageDataPath=/data/vm \ -httpListenAddr=:8428 \ -promscrape.</description><content>&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;/ul></description><content>&lt;h3 id="architecture">Architecture&lt;/h3>
+&lt;p>&lt;img alt="arch" src="https://jinying-che.github.io/images/alertmanager.png">&lt;/p>
+&lt;h3 id="design">Design&lt;/h3>
+&lt;h5 id="1-no-dedicated-status-eg-firing-or-resolved">1. No dedicated status (e.g. firing or resolved)&lt;/h5>
+&lt;p>differentiate the alert by &lt;code>EndAt&lt;/code> timestamp&lt;/p>
+&lt;h5 id="2-group_wait-vs-group_interval-vs-repeat_interval">2. group_wait vs group_interval vs repeat_interval&lt;/h5>
+&lt;p>&lt;img alt="group" src="https://jinying-che.github.io/images/am_group.png">&lt;/p>
+&lt;h3 id="source-code">Source Code&lt;/h3>
+&lt;ol>
+&lt;li>&lt;strong>Entrance&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>api: &lt;code>api/v2/api.go&lt;/code>&lt;/li>
+&lt;li>dispatch: &lt;code>dispatch/dispatch.go&lt;/code>&lt;/li>
+&lt;/ul></content></item><item><title>Victorial Metrics</title><link>https://jinying-che.github.io/posts/victorial_metrics/</link><pubDate>Tue, 13 Feb 2024 07:37:29 +0800</pubDate><guid>https://jinying-che.github.io/posts/victorial_metrics/</guid><description>&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;p>&lt;strong>Victoria Metrics&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>An easy way to run VictoriaMetrics locally is to build from the &lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/#how-to-build-from-sources">source code&lt;/a> as there&amp;rsquo;re lots of vm binaries like vmselect, vmstorage, vminsert, etc. to download, and all of them are maintained in the same &lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics">repository&lt;/a>, and &lt;code>Makefile&lt;/code> is quite straightforward.&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git clone git@github.com:VictoriaMetrics/VictoriaMetrics.git
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>make victoria-metrics
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mv /bin/victoria-metrics /usr/bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Run VictoriaMetrics With Systemd&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Unit&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Description&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;Victoria Metrics Single&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Documentation&lt;span style="color:#f92672">=&lt;/span>https://https://docs.victoriametrics.com/
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>After&lt;span style="color:#f92672">=&lt;/span>network.target
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Service&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Type&lt;span style="color:#f92672">=&lt;/span>simple
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStart&lt;span style="color:#f92672">=&lt;/span>/usr/bin/victoria-metrics-prod &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -storageDataPath&lt;span style="color:#f92672">=&lt;/span>/data/vm &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -httpListenAddr&lt;span style="color:#f92672">=&lt;/span>:8428 &lt;span style="color:#ae81ff">\
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">&lt;/span> -promscrape.config&lt;span style="color:#f92672">=&lt;/span>/etc/prometheus/scrape.yml
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStop&lt;span style="color:#f92672">=&lt;/span>/bin/kill -s SIGTERM $MAINPID
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Restart&lt;span style="color:#f92672">=&lt;/span>on-failure
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SuccessExitStatus&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>LimitNOFILE&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">65536&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>StandardOutput&lt;span style="color:#f92672">=&lt;/span>/var/log/vm/out.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>StandardError&lt;span style="color:#f92672">=&lt;/span>/var/log/vm/err.log
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SyslogIdentifier&lt;span style="color:#f92672">=&lt;/span>prometheus
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Install&lt;span style="color:#f92672">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>WantedBy&lt;span style="color:#f92672">=&lt;/span>multi-user.target
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="storage">Storage&lt;/h2>
+&lt;h3 id="on-disk-layout">On Disk Layout&lt;/h3>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>./data
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── big
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   ├── 17A6101707C91B08
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── index.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── metadata.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── metaindex.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   ├── timestamps.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   │   └── values.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 2024_02
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── ...
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   └── snapshots
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 20240109092239-179E85E399D5EFDA
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   │   └── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   └── 20240111104529-179E85E399D5EFDB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│   └── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── flock.lock
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└── small
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ├── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   ├── 17A6101707CC58EF
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── index.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── metadata.json
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── metaindex.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   ├── timestamps.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> │   │   └── values.bin
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    └── snapshots
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    ├── 20240109092239-179E85E399D5EFDA
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    │   ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    │   └── 2024_01
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    └── 20240111104529-179E85E399D5EFDB
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    ├── 2023_12
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    └── 2024_01
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>For details, see &lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/#storage">doc&lt;/a>&lt;/p></description><content>&lt;h2 id="quick-start">Quick Start&lt;/h2>
 &lt;p>&lt;strong>Victoria Metrics&lt;/strong>&lt;/p>
 &lt;ul>
 &lt;li>An easy way to run VictoriaMetrics locally is to build from the &lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/#how-to-build-from-sources">source code&lt;/a> as there&amp;rsquo;re lots of vm binaries like vmselect, vmstorage, vminsert, etc. to download, and all of them are maintained in the same &lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics">repository&lt;/a>, and &lt;code>Makefile&lt;/code> is quite straightforward.&lt;/li>
@@ -92,9 +174,66 @@ TBD&lt;/p>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/">https://docs.victoriametrics.com/single-server-victoriametrics/&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics/issues/3268">https://github.com/VictoriaMetrics/VictoriaMetrics/issues/3268&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>Architecture Quick Start Data Model Every time series is uniquely identified by its metric name and optional key-value pairs called labels.
-Metric Name Metric Label The change of any labels value, including adding or removing labels, will create a new time series. Metric Type Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary
-Counter: a metric value that can only increase or reset # use a counter to represent the number of requests served, tasks completed, or errors - http_requests_total{handler=&amp;#39;/get_user_id&amp;#39;, method=&amp;#39;GET&amp;#39;, status=&amp;#39;200&amp;#39;} - errors_total{type=&amp;#39;runtime&amp;#39;, severity=&amp;#39;critical&amp;#39;} Gauge: a number which can either go up or down # used for measured values like temperatures or current memory usage - memory_usage_bytes{process_name=&amp;#39;web_server&amp;#39;, instance=&amp;#39;10.</description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;/ul></content></item><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
+&lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
+&lt;h2 id="quick-start">Quick Start&lt;/h2>
+&lt;h2 id="data-model">Data Model&lt;/h2>
+&lt;p>Every time series is uniquely identified by its &lt;strong>metric name&lt;/strong> and optional key-value pairs called &lt;strong>labels&lt;/strong>.&lt;/p>
+&lt;ul>
+&lt;li>Metric Name&lt;/li>
+&lt;li>Metric Label
+&lt;ul>
+&lt;li>The change of any labels value, including adding or removing labels, will create a new time series.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="metric-type">Metric Type&lt;/h4>
+&lt;p>Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary&lt;/p>
+&lt;ul>
+&lt;li>Counter: a metric value that can only increase or reset
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># use a counter to represent the number of requests served, tasks completed, or errors&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- http_requests_total&lt;span style="color:#f92672">{&lt;/span>handler&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/get_user_id&amp;#39;&lt;/span>, method&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;GET&amp;#39;&lt;/span>, status&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;200&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- errors_total&lt;span style="color:#f92672">{&lt;/span>type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;runtime&amp;#39;&lt;/span>, severity&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;critical&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Gauge: a number which can either go up or down
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># used for measured values like temperatures or current memory usage&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- memory_usage_bytes&lt;span style="color:#f92672">{&lt;/span>process_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;web_server&amp;#39;&lt;/span>, instance&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;10.0.0.1:8080&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- queue_size&lt;span style="color:#f92672">{&lt;/span>queue_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;low_priority&amp;#39;&lt;/span>, worker_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;background&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Histogram: used for any calculated value which is counted based on bucket values,
+&lt;ul>
+&lt;li>&lt;strong>bucket&lt;/strong> value determines the ordinate value (y coordinate of a standard two-dimensional graph)&lt;/li>
+&lt;li>&lt;strong>cumulative&lt;/strong> counters for the observation buckets, exposed as &lt;!-- raw HTML omitted -->_bucket{le=&amp;quot;&amp;lt;&lt;strong>upper&lt;/strong> inclusive bound&amp;gt;&amp;quot;}&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># usually things like request durations or response sizes&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># le=&amp;#34;0.3&amp;#34; means less or equal to 0.3&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_sum 134420.14452212452
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.05&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 11326.0
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.1&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.284831e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.15&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285367e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.25&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285592e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285613e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;+Inf&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285619e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_count 2.285619e+06
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># cumulative means that the count for le=”0.5” bucket also includes the count for le=”0.25” bucket.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consider the following hypothetical distribution of observations for 200 observations.&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌─────────────┬──────────────────────┬──────────────────┐
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Bucket Size │ Cumulative Frequency │ Upper Bound │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Count │ Percentile │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├─────────────┼──────────────────────┼──────────────────┤
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 50ms │ &lt;span style="color:#ae81ff">20&lt;/span> │ p10 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 100ms │ &lt;span style="color:#ae81ff">70&lt;/span> │ p35 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 250ms │ &lt;span style="color:#ae81ff">120&lt;/span> │ p60 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 500ms │ &lt;span style="color:#ae81ff">150&lt;/span> │ p75 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 1000ms │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ INF │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└─────────────┴──────────────────────┴──────────────────┘
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)&lt;/li>
+&lt;/ul>
+&lt;h2 id="storage">Storage&lt;/h2>
+&lt;p>&lt;img alt="workflow" src="https://jinying-che.github.io/images/tsdb_write.png">&lt;/p></description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
 &lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
 &lt;h2 id="quick-start">Quick Start&lt;/h2>
 &lt;h2 id="data-model">Data Model&lt;/h2>
@@ -200,10 +339,15 @@ Counter: a metric value that can only increase or reset # use a counter to repre
 &lt;p>Range vector literals work like instant vector literals, except that they select a range of samples back from the current instant&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>http_requests_total&lt;span style="color:#f92672">{&lt;/span>job&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;prometheus&amp;#34;&lt;/span>&lt;span style="color:#f92672">}[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Offset Modifier&lt;/strong>&lt;/p>
-&lt;p>The offset modifier allows changing the time offset for individual &lt;strong>instant&lt;/strong> and **range vectors in a query.&lt;/p>
+&lt;p>The offset modifier allows changing the time offset for individual &lt;strong>instant&lt;/strong> and &lt;strong>range&lt;/strong> vectors in a query.&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># returns the 5-minute rate that http_requests_total had a week ago&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rate&lt;span style="color:#f92672">(&lt;/span>http_requests_total&lt;span style="color:#f92672">[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span> offset 1w&lt;span style="color:#f92672">)&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="functions">Functions&lt;/h4>
+&lt;p>There are some common functions in PromQL which are used in most popular queries and scenarios.&lt;/p>
+&lt;h5 id="1-rate--irate">1. rate() &amp;amp;&amp;amp; irate()&lt;/h5>
+&lt;p>&lt;a href="https://jinying-che.github.io/posts/rate_vs_irate/">see details&lt;/a>&lt;/p>
+&lt;h6 id="2-histogram_quantile">2. histogram_quantile()&lt;/h6>
+&lt;p>How P99 is calculated?&lt;/p>
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/&lt;/a>&lt;/li>

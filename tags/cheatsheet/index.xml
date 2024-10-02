@@ -1,8 +1,20 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cheatsheet on</title><link>https://jinying-che.github.io/tags/cheatsheet/</link><description>Recent content in Cheatsheet on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 08 Jun 2023 15:41:00 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell Cheatsheet</title><link>https://jinying-che.github.io/posts/shell_cheatsheet/</link><pubDate>Thu, 08 Jun 2023 15:41:00 +0800</pubDate><guid>https://jinying-che.github.io/posts/shell_cheatsheet/</guid><description>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.
-fzf + zsh Add the fzf plugin for zsh, the terminal is fully enhanced!
-- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting) + plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting fzf) Try some comands to see the fzf integartion, e.g.
-cd ** + TAB(key) Ctrl + r &amp;hellip; Reference:
-https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh mycli pager By default, mycli shows the sql result in a new window (press q to quit and all results gone), but it would be annoyed when result needs to be kept in the current window, the behavior is controlled by Pager Configuraton.</description><content>&lt;p>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cheatsheet on</title><link>https://jinying-che.github.io/tags/cheatsheet/</link><description>Recent content in Cheatsheet on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 08 Jun 2023 15:41:00 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/cheatsheet/index.xml" rel="self" type="application/rss+xml"/><item><title>Shell Cheatsheet</title><link>https://jinying-che.github.io/posts/shell_cheatsheet/</link><pubDate>Thu, 08 Jun 2023 15:41:00 +0800</pubDate><guid>https://jinying-che.github.io/posts/shell_cheatsheet/</guid><description>&lt;p>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.&lt;/p>
+&lt;h3 id="fzfhttpsgithubcomjunegunnfzf--zsh">&lt;a href="https://github.com/junegunn/fzf">fzf&lt;/a> + zsh&lt;/h3>
+&lt;p>Add the fzf plugin for zsh, the terminal is fully enhanced!&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-diff" data-lang="diff">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)
+&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">&lt;/span>&lt;span style="color:#a6e22e">+ plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting fzf)
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Try some comands to see the fzf integartion, e.g.&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>cd **&lt;/code> + &lt;code>TAB(key)&lt;/code>&lt;/li>
+&lt;li>&lt;code>Ctrl&lt;/code> + &lt;code>r&lt;/code>&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;p>Reference:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh">https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h3 id="myclihttpsgithubcomdbclimycli-pager">&lt;a href="https://github.com/dbcli/mycli">mycli&lt;/a> pager&lt;/h3>
+&lt;p>By default, &lt;code>mycli&lt;/code> shows the sql result in a new window (press &lt;code>q&lt;/code> to quit and all results gone), but it would be annoyed when result needs to be kept in the current window, the behavior is controlled by &lt;strong>Pager Configuraton&lt;/strong>.&lt;/p></description><content>&lt;p>Some skills of daily commands, they are useful but not worth creating a particular cheatsheet, so I put them here generally.&lt;/p>
 &lt;h3 id="fzfhttpsgithubcomjunegunnfzf--zsh">&lt;a href="https://github.com/junegunn/fzf">fzf&lt;/a> + zsh&lt;/h3>
 &lt;p>Add the fzf plugin for zsh, the terminal is fully enhanced!&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-diff" data-lang="diff">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">- plugins=(git autojump zsh-autosuggestions zsh-syntax-highlighting)
@@ -361,10 +373,32 @@ NETMASK=255.255.255.0
 &lt;/li>
 &lt;/ul>
 &lt;h2 id="find">find&lt;/h2>
-&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>Overall Everything about the changes rollback code changed without git add
-# `git add .` and `git checkout .` is a pair of inverse operations git checkout . or git reset --hard git add . done without git commit
-git reset + git chekcout . or git reset --hard git commit done
-# option 1: keep the changes in worksapce, rollback committed chagnes in local repo git reset head^ # option 2: rollback the changes in both workspace and local repo git reset --hard head^ git push done</description><content>&lt;h3 id="overall">Overall&lt;/h3>
+&lt;p>&lt;code>find * -name filename&lt;/code>&lt;/p></content></item><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>&lt;h3 id="overall">Overall&lt;/h3>
+&lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
+&lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
+&lt;ul>
+&lt;li>
+&lt;p>code changed without &lt;code>git add&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># `git add .` and `git checkout .` is a pair of inverse operations&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git add .&lt;/code> done without &lt;code>git commit&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git reset + git chekcout .
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git commit&lt;/code> done&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 1: keep the changes in worksapce, rollback committed chagnes in local repo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset head^
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 2: rollback the changes in both workspace and local repo&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard head^
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>&lt;code>git push&lt;/code> done&lt;/p></description><content>&lt;h3 id="overall">Overall&lt;/h3>
 &lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
 &lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
 &lt;ul>
@@ -442,8 +476,31 @@ git reset + git chekcout . or git reset --hard git commit done
 &lt;h2 id="reference">Reference&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://www.fengerzh.com/git-reset/">https://www.fengerzh.com/git-reset/&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Python Cheatsheet</title><link>https://jinying-che.github.io/posts/python/python_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 11:40:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/python/python_cheatsheet/</guid><description>Pass By Reference Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)
-def main(): n = 9001 print(f&amp;#34;[main] before n: {hex(id(n))} # same&amp;#34;) increment(n) print(f&amp;#34;[main] after n: {hex(id(n))} # same&amp;#34;) def increment(x): print(f&amp;#34;[func] before x: {hex(id(x))} # same&amp;#34;) x += 1 print(f&amp;#34;[func] after x: {hex(id(x))} # address altered after the assignment&amp;#34;) main() # output [main] before n: 0x11035a0b0 # same [func] before x: 0x11035a0b0 # same [func] after x: 0x11035a190 # address altered after the assignment [main] after n: 0x11035a0b0 # same Mutability, an object is mutable if its structure can be changed in place rather than requiring reassignment.</description><content>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
+&lt;/ul></content></item><item><title>Python Cheatsheet</title><link>https://jinying-che.github.io/posts/python/python_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 11:40:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/python/python_cheatsheet/</guid><description>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
+&lt;ol>
+&lt;li>
+&lt;p>Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)&lt;/p>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">9001&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] before n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> increment(n)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] after n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">increment&lt;/span>(x):
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] before x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] after x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # address altered after the assignment&amp;#34;&lt;/span>)
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] before n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] before x: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] after x: &lt;span style="color:#ae81ff">0x11035a190&lt;/span> &lt;span style="color:#75715e"># address altered after the assignment&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] after n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
+&lt;li>
+&lt;p>Mutability, an object is &lt;strong>mutable&lt;/strong> if its structure can be changed in place rather than requiring reassignment.&lt;/p></description><content>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
 &lt;ol>
 &lt;li>
 &lt;p>Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)&lt;/p>
@@ -519,7 +576,31 @@ def main(): n = 9001 print(f&amp;#34;[main] before n: {hex(id(n))} # same&amp;#3
 &lt;ul>
 &lt;li>&lt;a href="https://realpython.com/python-pass-by-reference/#toc">Pass by Reference in Python: Background and Best Practices&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://docs.python.org/3/faq/programming.html#how-do-i-write-a-function-with-output-parameters-call-by-reference">How do I write a function with output parameters (call by reference)?&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Vim Cheat Sheet</title><link>https://jinying-che.github.io/posts/vim/</link><pubDate>Sat, 10 Jul 2021 11:20:07 +0800</pubDate><guid>https://jinying-che.github.io/posts/vim/</guid><description>Basic Usage delete inside parentheses (which can be replaced with any symbol) di( di&amp;quot; di' &amp;hellip; Split Horizontal: ctrl + w + s Vertical: ctrl + w + v Replace a word with yanked text yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;). Move the cursor to another word (say &amp;#34;second&amp;#34;). ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode) Move the cursor to another word (say &amp;#34;third&amp;#34;).</description><content>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
+&lt;/ul></content></item><item><title>Vim Cheat Sheet</title><link>https://jinying-che.github.io/posts/vim/</link><pubDate>Sat, 10 Jul 2021 11:20:07 +0800</pubDate><guid>https://jinying-che.github.io/posts/vim/</guid><description>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
+&lt;ul>
+&lt;li>delete inside parentheses (which can be replaced with any symbol)
+&lt;ul>
+&lt;li>&lt;code>di(&lt;/code>&lt;/li>
+&lt;li>&lt;code>di&amp;quot;&lt;/code>&lt;/li>
+&lt;li>&lt;code>di'&lt;/code>&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h3 id="split">Split&lt;/h3>
+&lt;ul>
+&lt;li>Horizontal: &lt;code>ctrl + w + s&lt;/code>&lt;/li>
+&lt;li>Vertical: &lt;code>ctrl + w + v&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h3 id="replace-a-word-with-yanked-text">Replace a word with yanked text&lt;/h3>
+&lt;pre tabindex="0">&lt;code>yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;).
+Move the cursor to another word (say &amp;#34;second&amp;#34;).
+ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode)
+Move the cursor to another word (say &amp;#34;third&amp;#34;).
+. Repeat the operation (change word and replace it with &amp;#34;first&amp;#34;).
+Move the cursor to another word and press . to repeat the change.
+ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
+&lt;/code>&lt;/pre></description><content>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
 &lt;ul>
 &lt;li>delete inside parentheses (which can be replaced with any symbol)
 &lt;ul>
