@@ -88,11 +88,18 @@ Prometheus supports four types of metrics, which are - Counter - Gauge - Histogr
     └── checkpoint.00000001
         └── 00000000
 ```
-- `blocks`: ingested samples are grouped into blocks of two hours, e.g. *01BKGV7JBM69T2G1BGBGM6KB12* is a block
-- `chunks`: all the time series samples for that window of time
+see [detals](https://prometheus.io/docs/prometheus/latest/storage/#on-disk-layout), simple put:
+- `blocks`: ingested samples are grouped into blocks of 2 hours, e.g. *01BKGV7JBM69T2G1BGBGM6KB12* is a block
+- `chunks`: 
+    - it's a directory that contains the time series data for that window of time (up to 2 hours)
+    - The samples in the chunks directory are grouped together into one or more segment files of up to 512MB each by default
 - `tombstones`: marked deletion records (instead of deleting the data immediately from the chunk segments)
 - `index`: **inverted index** which indexes metric names and labels to time series in the chunks directory
 - `meta.json`: block info
+- `wal`(write-ahead log):
+    - The current block for incoming samples is kept in memory and is not fully persisted. It is secured against crashes by a write-ahead log (WAL) that can be replayed when the Prometheus server restarts.
+    - files are stored in the wal directory in 128MB segments, which are significantly larger than regular block files (not yet been compacted)
+    - minimum of 3 write-ahead log files. High-traffic servers may retain more than 3 WAL files in order to keep at least 2 hours of raw data.
 
 ## PromQL
 #### Time series Selectors

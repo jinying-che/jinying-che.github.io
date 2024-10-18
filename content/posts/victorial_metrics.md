@@ -1,7 +1,7 @@
 ---
 title: "Victorial Metrics"
 date: "2024-02-13T07:37:29+08:00"
-tags: ["monitor", "Victoria Metrics"]
+tags: ["monitor", "victoria metrics"]
 description: "Victorial Metrics"
 ---
 
@@ -82,11 +82,29 @@ WantedBy=multi-user.target
 
 ```
 For details, see [doc](https://docs.victoriametrics.com/single-server-victoriametrics/#storage)
+- small:
+- big:
+- flock.lock:
 
-### Writing Data Flow
+for each part:
+- index.bin:
+- metadata.json:
+- metaindex.bin:
+- timestamps.bin:
+- values.bin:
+
+snapshot:
+
+### Write Flow
+
+Ingested Data -> create reverted index(two type of index)  -> Buffer -> In-memory Parts -> Disk (flush into disk periodically) -> Merge in the background -> Disk
+
+When index created?
 
 VM vs Prometheus (Disk)
 TBD
+
+### Read Flow
 
 ## Referrence
 - https://docs.victoriametrics.com/single-server-victoriametrics/
