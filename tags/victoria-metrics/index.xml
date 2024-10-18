@@ -139,9 +139,26 @@
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    ├── 2023_12
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>    └── 2024_01
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>For details, see &lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/#storage">doc&lt;/a>&lt;/p>
-&lt;h3 id="writing-data-flow">Writing Data Flow&lt;/h3>
+&lt;ul>
+&lt;li>small:&lt;/li>
+&lt;li>big:&lt;/li>
+&lt;li>flock.lock:&lt;/li>
+&lt;/ul>
+&lt;p>for each part:&lt;/p>
+&lt;ul>
+&lt;li>index.bin:&lt;/li>
+&lt;li>metadata.json:&lt;/li>
+&lt;li>metaindex.bin:&lt;/li>
+&lt;li>timestamps.bin:&lt;/li>
+&lt;li>values.bin:&lt;/li>
+&lt;/ul>
+&lt;p>snapshot:&lt;/p>
+&lt;h3 id="write-flow">Write Flow&lt;/h3>
+&lt;p>Ingested Data -&amp;gt; create reverted index(two type of index) -&amp;gt; Buffer -&amp;gt; In-memory Parts -&amp;gt; Disk (flush into disk periodically) -&amp;gt; Merge in the background -&amp;gt; Disk&lt;/p>
+&lt;p>When index created?&lt;/p>
 &lt;p>VM vs Prometheus (Disk)
 TBD&lt;/p>
+&lt;h3 id="read-flow">Read Flow&lt;/h3>
 &lt;h2 id="referrence">Referrence&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://docs.victoriametrics.com/single-server-victoriametrics/">https://docs.victoriametrics.com/single-server-victoriametrics/&lt;/a>&lt;/li>

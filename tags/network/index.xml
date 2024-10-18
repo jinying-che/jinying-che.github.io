@@ -218,30 +218,30 @@
 &lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">Record&lt;/th>
-&lt;th style="text-align: left">Function&lt;/th>
+&lt;th>Record&lt;/th>
+&lt;th>Function&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">A&lt;/td>
-&lt;td style="text-align: left">Address record: Returns a 32-bit IPv4 address&lt;/td>
+&lt;td>A&lt;/td>
+&lt;td>Address record: Returns a 32-bit IPv4 address&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">AAAA&lt;/td>
-&lt;td style="text-align: left">IPv6 address record: Returns a 128-bit IPv6 address&lt;/td>
+&lt;td>AAAA&lt;/td>
+&lt;td>IPv6 address record: Returns a 128-bit IPv6 address&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">NS&lt;/td>
-&lt;td style="text-align: left">Name server record: Delegates a DNS zone to use the given authoritative name servers&lt;/td>
+&lt;td>NS&lt;/td>
+&lt;td>Name server record: Delegates a DNS zone to use the given authoritative name servers&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">CNAME&lt;/td>
-&lt;td style="text-align: left">Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name&lt;/td>
+&lt;td>CNAME&lt;/td>
+&lt;td>Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">TXT&lt;/td>
-&lt;td style="text-align: left">arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification&lt;/td>
+&lt;td>TXT&lt;/td>
+&lt;td>arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
@@ -447,54 +447,54 @@ V x V snd FIN V
 &lt;/code>&lt;/pre>&lt;table>
 &lt;thead>
 &lt;tr>
-&lt;th style="text-align: left">Head&lt;/th>
-&lt;th style="text-align: left">Meaning&lt;/th>
+&lt;th>Head&lt;/th>
+&lt;th>Meaning&lt;/th>
 &lt;/tr>
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td style="text-align: left">LISTEN&lt;/td>
-&lt;td style="text-align: left">represents waiting for a connection request from any remote TCP and port&lt;/td>
+&lt;td>LISTEN&lt;/td>
+&lt;td>represents waiting for a connection request from any remote TCP and port&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">SYN-SENT&lt;/td>
-&lt;td style="text-align: left">represents waiting for a matching connection request after having sent a connection request&lt;/td>
+&lt;td>SYN-SENT&lt;/td>
+&lt;td>represents waiting for a matching connection request after having sent a connection request&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">SYN-RECEIVED&lt;/td>
-&lt;td style="text-align: left">represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request&lt;/td>
+&lt;td>SYN-RECEIVED&lt;/td>
+&lt;td>represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">ESTABLISHED&lt;/td>
-&lt;td style="text-align: left">represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection&lt;/td>
+&lt;td>ESTABLISHED&lt;/td>
+&lt;td>represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">FIN-WAIT-1&lt;/td>
-&lt;td style="text-align: left">represents waiting for a connection termination request from the remote TCP, or an acknowledgment of the connection termination request previously sent&lt;/td>
+&lt;td>FIN-WAIT-1&lt;/td>
+&lt;td>represents waiting for a connection termination request from the remote TCP, or an acknowledgment of the connection termination request previously sent&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">FIN-WAIT-2&lt;/td>
-&lt;td style="text-align: left">represents waiting for a connection termination request from the &lt;em>remote&lt;/em> TCP&lt;/td>
+&lt;td>FIN-WAIT-2&lt;/td>
+&lt;td>represents waiting for a connection termination request from the &lt;em>remote&lt;/em> TCP&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">CLOSE-WAIT&lt;/td>
-&lt;td style="text-align: left">represents waiting for a connection termination request from the &lt;em>local&lt;/em> user&lt;/td>
+&lt;td>CLOSE-WAIT&lt;/td>
+&lt;td>represents waiting for a connection termination request from the &lt;em>local&lt;/em> user&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">CLOSING&lt;/td>
-&lt;td style="text-align: left">represents waiting for a connection termination request acknowledgment from the remote TCP&lt;/td>
+&lt;td>CLOSING&lt;/td>
+&lt;td>represents waiting for a connection termination request acknowledgment from the remote TCP&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">LAST-ACK&lt;/td>
-&lt;td style="text-align: left">represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP (which includes an acknowledgment of its connection termination request)&lt;/td>
+&lt;td>LAST-ACK&lt;/td>
+&lt;td>represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP (which includes an acknowledgment of its connection termination request)&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">TIME-WAIT&lt;/td>
-&lt;td style="text-align: left">represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request&lt;/td>
+&lt;td>TIME-WAIT&lt;/td>
+&lt;td>represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td style="text-align: left">CLOSED&lt;/td>
-&lt;td style="text-align: left">represents no connection state at all&lt;/td>
+&lt;td>CLOSED&lt;/td>
+&lt;td>represents no connection state at all&lt;/td>
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
