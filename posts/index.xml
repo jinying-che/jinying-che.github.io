@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 02 Oct 2024 09:52:53 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>rate vs irate</title><link>https://jinying-che.github.io/posts/rate_vs_irate/</link><pubDate>Wed, 02 Oct 2024 09:52:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/rate_vs_irate/</guid><description>&lt;p>&lt;img alt="rate_vs_irate" src="https://jinying-che.github.io/images/rate_vs_irate.png">&lt;/p>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on</title><link>https://jinying-che.github.io/posts/</link><description>Recent content in Posts on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 22 Nov 2024 08:00:37 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>vps setup</title><link>https://jinying-che.github.io/posts/vps_setup/</link><pubDate>Fri, 22 Nov 2024 08:00:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/vps_setup/</guid><description>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
+&lt;ol>
+&lt;li>systemd&lt;/li>
+&lt;li>go&lt;/li>
+&lt;li>ifconfig
+&lt;ul>
+&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description><content>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
+&lt;ol>
+&lt;li>systemd&lt;/li>
+&lt;li>go&lt;/li>
+&lt;li>ifconfig
+&lt;ul>
+&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></content></item><item><title>rate vs irate</title><link>https://jinying-che.github.io/posts/rate_vs_irate/</link><pubDate>Wed, 02 Oct 2024 09:52:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/rate_vs_irate/</guid><description>&lt;p>&lt;img alt="rate_vs_irate" src="https://jinying-che.github.io/images/rate_vs_irate.png">&lt;/p>
 &lt;p>&lt;code>rate&lt;/code> and &lt;code>irate&lt;/code> are based on the &lt;strong>counter&lt;/strong> type metrics.&lt;/p>
 &lt;p>&lt;code>rate(v range-vector)&lt;/code> calculates the per-second average rate of increase of the time series in the &lt;strong>range vector&lt;/strong>, for example, &lt;code>rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code>&lt;/p>
 &lt;ol>
@@ -1854,9 +1872,15 @@ In the absence of a &lt;strong>partition&lt;/strong>, both availability and cons
 &lt;ul>
 &lt;li>&lt;a href="https://www.mycli.net/pager">https://www.mycli.net/pager&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="linuxunix-os-version">linux/unix os version&lt;/h3>
+&lt;h3 id="linuxunix-info">linux/unix info&lt;/h3>
+&lt;h4 id="os-version">os version&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>- cat /etc/os-release
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- lsb_release -a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="hardware-info">hardware info&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hardware listener&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo lshw
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># for summary&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo lshw -short
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="批量删除进程">批量删除进程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>ps aux | grep redis | grep -v grep | awk &lt;span style="color:#e6db74">&amp;#39;{print $2}&amp;#39;&lt;/span> | xargs kill -9
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&lt;code>awk '{print $2}' &lt;/code>是打印所有进程的&lt;strong>pid&lt;/strong>&lt;/p>

@@ -38,9 +38,15 @@
 &lt;ul>
 &lt;li>&lt;a href="https://www.mycli.net/pager">https://www.mycli.net/pager&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h3 id="linuxunix-os-version">linux/unix os version&lt;/h3>
+&lt;h3 id="linuxunix-info">linux/unix info&lt;/h3>
+&lt;h4 id="os-version">os version&lt;/h4>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>- cat /etc/os-release
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- lsb_release -a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="hardware-info">hardware info&lt;/h4>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hardware listener&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo lshw
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># for summary&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo lshw -short
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="批量删除进程">批量删除进程&lt;/h3>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>ps aux | grep redis | grep -v grep | awk &lt;span style="color:#e6db74">&amp;#39;{print $2}&amp;#39;&lt;/span> | xargs kill -9
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>其中&lt;code>awk '{print $2}' &lt;/code>是打印所有进程的&lt;strong>pid&lt;/strong>&lt;/p>

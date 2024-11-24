@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Setup on</title><link>https://jinying-che.github.io/tags/setup/</link><description>Recent content in Setup on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 01 Jul 2023 23:26:50 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/setup/index.xml" rel="self" type="application/rss+xml"/><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Setup on</title><link>https://jinying-che.github.io/tags/setup/</link><description>Recent content in Setup on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 22 Nov 2024 08:00:37 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/setup/index.xml" rel="self" type="application/rss+xml"/><item><title>vps setup</title><link>https://jinying-che.github.io/posts/vps_setup/</link><pubDate>Fri, 22 Nov 2024 08:00:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/vps_setup/</guid><description>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
+&lt;ol>
+&lt;li>systemd&lt;/li>
+&lt;li>go&lt;/li>
+&lt;li>ifconfig
+&lt;ul>
+&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></description><content>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
+&lt;ol>
+&lt;li>systemd&lt;/li>
+&lt;li>go&lt;/li>
+&lt;li>ifconfig
+&lt;ul>
+&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol></content></item><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
 &lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>
