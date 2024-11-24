@@ -35,10 +35,19 @@ Reference:
 - https://www.mycli.net/pager
 
 
-### linux/unix os version
+### linux/unix info
+#### os version
 ```sh
 - cat /etc/os-release
 - lsb_release -a
+```
+
+#### hardware info
+```sh
+# hardware listener
+sudo lshw 
+# for summary
+sudo lshw -short
 ```
 
 ### 批量删除进程
@@ -421,6 +430,3 @@ watch命令默认每隔2秒执行后面参数给出的命令，也可手动指�
 ## find
 
 `find * -name filename`
-
-
-

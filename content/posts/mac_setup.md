@@ -1,7 +1,7 @@
 ---
 title: "Mac Setup"
 date: "2023-07-01T23:26:50+08:00"
-tags: ["setup", "mac"]
+tags: ["setup"]
 description: "the check list for mac setup"
 ---
 
