@@ -18,3 +18,4 @@ differentiate the alert by `EndAt` timestamp
 1. **Entrance**
 - api: `api/v2/api.go`
 - dispatch: `dispatch/dispatch.go`
+- silence label parse: `cli/silence_add.go:func (c *silenceAddCmd) add`

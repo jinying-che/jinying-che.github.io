@@ -7,7 +7,9 @@ tags = [
 ]
 +++
 
-### Basic Usage
+## Usage
+
+### Basic
 - delete inside parentheses (which can be replaced with any symbol)
   - `di(`
   - `di"` 
@@ -29,3 +31,15 @@ ciw Ctrl-R 0 Esc  Change "second", replacing it with "first". (Ctrl-R: paste `0`
       
 ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
 ```
+
+## Plugin
+1. lsp: https://github.com/neoclide/coc.nvim
+2. fuzzy finder: https://github.com/junegunn/fzf.vim 
+3. status tabline: https://github.com/vim-airline/vim-airline
+4. git: https://github.com/tpope/vim-fugitive
+5. theme: https://github.com/projekt0n/github-nvim-theme
+6. outline: https://github.com/preservim/tagbar
+7. tree: https://github.com/preservim/nerdtree
+8. syntax: https://github.com/nvim-treesitter/nvim-treesitter
+
+
