@@ -16,6 +16,7 @@ mv /bin/victoria-metrics /usr/bin
 ```
 
 - Run VictoriaMetrics With Systemd
+see [details](https://docs.victoriametrics.com/quick-start/#starting-vm-single-from-a-binary)
 ```bash
 [Unit]
 Description="Victoria Metrics Single"
