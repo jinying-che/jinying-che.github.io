@@ -24,6 +24,7 @@ date: 2021-07-10T11:18:14+08:00
 - Rename current window: `ctrl+b` then `,`
 - Next window: `ctrl+b` then `p`
 - Previous window: `ctrl+b` then `n`
+- Lisgt all windows: `ctrl+b` then `w`
 
 ### View in tmux
 `ctrl+b` then `[`
