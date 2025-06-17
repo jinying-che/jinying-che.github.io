@@ -18,6 +18,18 @@ Here is my [blog](https://jinying-che.github.io/)
 	- action 1: hugo build and generate the `/public` and push it to `gh-pages` branch
 	- actoin 2: pages build and deployment from `gh-pages` branch
 
+## How to deploy the website to vps manually 
+```bash
+# 1. build and send the `/public` folder to vps
+hugo && rsync -avz --delete public/ ubuntu@aws:~/www/
+
+# 2. copy to nginx root folder
+sudo cp -r www/* /usr/share/nginx/html
+
+# 3. restart nginx (assume nginx is installed and configured)
+sudo systemctl restart nginx
+```
+
 ## Hugo 
 - init hugo project: 
   ```
