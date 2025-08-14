@@ -20,13 +20,13 @@ Here is my [blog](https://jinying-che.github.io/)
 
 ## How to deploy the website to vps manually 
 ```bash
-# 1. build and send the `/public` folder to vps
+# 1. local: build and send the `/public` folder to vps
 hugo && rsync -avz --delete public/ ubuntu@aws:~/www/
 
-# 2. copy to nginx root folder
+# 2. vps: copy to nginx root folder in vps
 sudo cp -r www/* /usr/share/nginx/html
 
-# 3. restart nginx (assume nginx is installed and configured)
+# 3. vps: restart nginx (assume nginx is installed and configured)
 sudo systemctl restart nginx
 ```
 

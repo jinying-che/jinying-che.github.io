@@ -6,8 +6,13 @@ description: "a brief introduction to vmalert"
 draft: true
 ---
 
-## General Flow
-in cron job: loading rule files -> group -> start -> execute -> remote write | notify -> loop 
+## Alerting Rule
+in cron job: loading rule files -> group -> start -> execute -> query -> remote write | notify -> loop 
+
+1. reload rule files
+2. 
+
+## Recording Rule
 
 ## Source Code
 https://github.com/VictoriaMetrics/VictoriaMetrics
@@ -16,3 +21,4 @@ https://github.com/VictoriaMetrics/VictoriaMetrics
 basically check 2 parts:
 1. how `Group` is built
 2. how `Group` is executed
+

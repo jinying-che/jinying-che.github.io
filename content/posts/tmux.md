@@ -10,6 +10,7 @@ date: 2021-07-10T11:18:14+08:00
 - show session: `tmux ls`
 - attach session with name: `tmux a -t name`
 - detach from session: `ctrl+b` then `d`
+- rename session: `ctrl+b` then `$`
 
 ### Panes
 - split pane horizontally: `ctrl+b` then `%`
