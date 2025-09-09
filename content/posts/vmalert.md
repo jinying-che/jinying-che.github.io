@@ -6,11 +6,19 @@ description: "a brief introduction to vmalert"
 draft: true
 ---
 
+## General
+### Reload rule files
+
 ## Alerting Rule
 in cron job: loading rule files -> group -> start -> execute -> query -> remote write | notify -> loop 
 
-1. reload rule files
-2. 
+### Alert Status
+### Alert Query
+### Notification
+1. EndAt 
+
+2. resend delay
+
 
 ## Recording Rule
 

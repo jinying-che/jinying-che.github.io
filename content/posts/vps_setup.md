@@ -9,14 +9,16 @@ Welcome to play the personal linux server, here's the setup list that all you ne
 
 ## Admin
 1. systemd 
-2. ifconfig
+2. ifconfig (for network config)
     - `sudo apt install net-tools`
+3. sysstat (for iostat etc.)
+    - `sudo apt install sysstat`
 
 
 ## Dev
 - zsh
 - on my zsh
-    - refer to: https://jinying-che.github.io/posts/mac_setup/#21-zsh
+    - theme: https://starship.rs/
 - gcc
 - go
 - make
