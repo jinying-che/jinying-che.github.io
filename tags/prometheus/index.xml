@@ -1,225 +1,69 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prometheus on</title><link>https://jinying-che.github.io/tags/prometheus/</link><description>Recent content in Prometheus on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 02 Oct 2024 09:52:53 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>rate vs irate</title><link>https://jinying-che.github.io/posts/rate_vs_irate/</link><pubDate>Wed, 02 Oct 2024 09:52:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/rate_vs_irate/</guid><description>&lt;p>&lt;img alt="rate_vs_irate" src="https://jinying-che.github.io/images/rate_vs_irate.png">&lt;/p>
-&lt;p>&lt;code>rate&lt;/code> and &lt;code>irate&lt;/code> are based on the &lt;strong>counter&lt;/strong> type metrics.&lt;/p>
-&lt;p>&lt;code>rate(v range-vector)&lt;/code> calculates the per-second average rate of increase of the time series in the &lt;strong>range vector&lt;/strong>, for example, &lt;code>rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code>&lt;/p>
-&lt;ol>
-&lt;li>It&amp;rsquo;s a rate: &lt;code>total(now) - total(now - 1m) / 60s&lt;/code>&lt;/li>
-&lt;li>It&amp;rsquo;s an average rate: over 1m&lt;/li>
-&lt;li>Average is calculated over the time range, that&amp;rsquo;s why range vector is required.&lt;/li>
-&lt;li>It provides a &lt;strong>smoother&lt;/strong> trend.&lt;/li>
-&lt;/ol>
-&lt;p>&lt;code>irate(v range-vector)&lt;/code> calculates the per-second instant rate of increase of the time series in the range vector.&lt;/p></description><content>&lt;p>&lt;img alt="rate_vs_irate" src="https://jinying-che.github.io/images/rate_vs_irate.png">&lt;/p>
-&lt;p>&lt;code>rate&lt;/code> and &lt;code>irate&lt;/code> are based on the &lt;strong>counter&lt;/strong> type metrics.&lt;/p>
-&lt;p>&lt;code>rate(v range-vector)&lt;/code> calculates the per-second average rate of increase of the time series in the &lt;strong>range vector&lt;/strong>, for example, &lt;code>rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code>&lt;/p>
-&lt;ol>
-&lt;li>It&amp;rsquo;s a rate: &lt;code>total(now) - total(now - 1m) / 60s&lt;/code>&lt;/li>
-&lt;li>It&amp;rsquo;s an average rate: over 1m&lt;/li>
-&lt;li>Average is calculated over the time range, that&amp;rsquo;s why range vector is required.&lt;/li>
-&lt;li>It provides a &lt;strong>smoother&lt;/strong> trend.&lt;/li>
-&lt;/ol>
-&lt;p>&lt;code>irate(v range-vector)&lt;/code> calculates the per-second instant rate of increase of the time series in the range vector.&lt;/p>
-&lt;ol>
-&lt;li>similar to &lt;code>rate&lt;/code>, but it&amp;rsquo;s an &lt;strong>sensitive&lt;/strong> rate as it&amp;rsquo;s based on &lt;strong>the last two data points&lt;/strong>.&lt;/li>
-&lt;li>why calculate last two points still needs [1m] range? it&amp;rsquo;s for looking back when the data point is missed&lt;/li>
-&lt;/ol>
-&lt;h2 id="reference">Reference:&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://www.robustperception.io/how-does-a-prometheus-counter-work/">https://www.robustperception.io/how-does-a-prometheus-counter-work/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/functions/">https://prometheus.io/docs/prometheus/latest/querying/functions/&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Prometheus Overview</title><link>https://jinying-che.github.io/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://jinying-che.github.io/posts/prometheus/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
-&lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
-&lt;h2 id="quick-start">Quick Start&lt;/h2>
-&lt;h2 id="data-model">Data Model&lt;/h2>
-&lt;p>Every time series is uniquely identified by its &lt;strong>metric name&lt;/strong> and optional key-value pairs called &lt;strong>labels&lt;/strong>.&lt;/p>
-&lt;ul>
-&lt;li>Metric Name&lt;/li>
-&lt;li>Metric Label
-&lt;ul>
-&lt;li>The change of any labels value, including adding or removing labels, will create a new time series.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h4 id="metric-type">Metric Type&lt;/h4>
-&lt;p>Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary&lt;/p>
-&lt;ul>
-&lt;li>Counter: a metric value that can only increase or reset
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># use a counter to represent the number of requests served, tasks completed, or errors&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- http_requests_total&lt;span style="color:#f92672">{&lt;/span>handler&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/get_user_id&amp;#39;&lt;/span>, method&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;GET&amp;#39;&lt;/span>, status&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;200&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- errors_total&lt;span style="color:#f92672">{&lt;/span>type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;runtime&amp;#39;&lt;/span>, severity&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;critical&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>Gauge: a number which can either go up or down
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># used for measured values like temperatures or current memory usage&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- memory_usage_bytes&lt;span style="color:#f92672">{&lt;/span>process_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;web_server&amp;#39;&lt;/span>, instance&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;10.0.0.1:8080&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- queue_size&lt;span style="color:#f92672">{&lt;/span>queue_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;low_priority&amp;#39;&lt;/span>, worker_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;background&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>Histogram: used for any calculated value which is counted based on bucket values,
-&lt;ul>
-&lt;li>&lt;strong>bucket&lt;/strong> value determines the ordinate value (y coordinate of a standard two-dimensional graph)&lt;/li>
-&lt;li>&lt;strong>cumulative&lt;/strong> counters for the observation buckets, exposed as &lt;!-- raw HTML omitted -->_bucket{le=&amp;quot;&amp;lt;&lt;strong>upper&lt;/strong> inclusive bound&amp;gt;&amp;quot;}&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># usually things like request durations or response sizes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># le=&amp;#34;0.3&amp;#34; means less or equal to 0.3&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_sum 134420.14452212452
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.05&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 11326.0
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.1&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.284831e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.15&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285367e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.25&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285592e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285613e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;+Inf&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285619e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_count 2.285619e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># cumulative means that the count for le=”0.5” bucket also includes the count for le=”0.25” bucket.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consider the following hypothetical distribution of observations for 200 observations.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌─────────────┬──────────────────────┬──────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Bucket Size │ Cumulative Frequency │ Upper Bound │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Count │ Percentile │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├─────────────┼──────────────────────┼──────────────────┤
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 50ms │ &lt;span style="color:#ae81ff">20&lt;/span> │ p10 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 100ms │ &lt;span style="color:#ae81ff">70&lt;/span> │ p35 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 250ms │ &lt;span style="color:#ae81ff">120&lt;/span> │ p60 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 500ms │ &lt;span style="color:#ae81ff">150&lt;/span> │ p75 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 1000ms │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ INF │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└─────────────┴──────────────────────┴──────────────────┘
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)&lt;/li>
-&lt;/ul>
-&lt;h2 id="storage">Storage&lt;/h2>
-&lt;p>&lt;img alt="workflow" src="https://jinying-che.github.io/images/tsdb_write.png">&lt;/p></description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
-&lt;p>&lt;img alt="Architecture" src="https://jinying-che.github.io/images/prometheus.png">&lt;/p>
-&lt;h2 id="quick-start">Quick Start&lt;/h2>
-&lt;h2 id="data-model">Data Model&lt;/h2>
-&lt;p>Every time series is uniquely identified by its &lt;strong>metric name&lt;/strong> and optional key-value pairs called &lt;strong>labels&lt;/strong>.&lt;/p>
-&lt;ul>
-&lt;li>Metric Name&lt;/li>
-&lt;li>Metric Label
-&lt;ul>
-&lt;li>The change of any labels value, including adding or removing labels, will create a new time series.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h4 id="metric-type">Metric Type&lt;/h4>
-&lt;p>Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary&lt;/p>
-&lt;ul>
-&lt;li>Counter: a metric value that can only increase or reset
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># use a counter to represent the number of requests served, tasks completed, or errors&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- http_requests_total&lt;span style="color:#f92672">{&lt;/span>handler&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;/get_user_id&amp;#39;&lt;/span>, method&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;GET&amp;#39;&lt;/span>, status&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;200&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- errors_total&lt;span style="color:#f92672">{&lt;/span>type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;runtime&amp;#39;&lt;/span>, severity&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;critical&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>Gauge: a number which can either go up or down
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># used for measured values like temperatures or current memory usage&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- memory_usage_bytes&lt;span style="color:#f92672">{&lt;/span>process_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;web_server&amp;#39;&lt;/span>, instance&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;10.0.0.1:8080&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- queue_size&lt;span style="color:#f92672">{&lt;/span>queue_name&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;low_priority&amp;#39;&lt;/span>, worker_type&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#39;background&amp;#39;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>Histogram: used for any calculated value which is counted based on bucket values,
-&lt;ul>
-&lt;li>&lt;strong>bucket&lt;/strong> value determines the ordinate value (y coordinate of a standard two-dimensional graph)&lt;/li>
-&lt;li>&lt;strong>cumulative&lt;/strong> counters for the observation buckets, exposed as &lt;!-- raw HTML omitted -->_bucket{le=&amp;quot;&amp;lt;&lt;strong>upper&lt;/strong> inclusive bound&amp;gt;&amp;quot;}&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># usually things like request durations or response sizes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># le=&amp;#34;0.3&amp;#34; means less or equal to 0.3&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_sum 134420.14452212452
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.05&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 11326.0
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.1&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.284831e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.15&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285367e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;0.25&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285592e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;1.0&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285613e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_second_bucket&lt;span style="color:#f92672">{&lt;/span>le&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;+Inf&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span> 2.285619e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_latency_count 2.285619e+06
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># cumulative means that the count for le=”0.5” bucket also includes the count for le=”0.25” bucket.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Consider the following hypothetical distribution of observations for 200 observations.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>┌─────────────┬──────────────────────┬──────────────────┐
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ Bucket Size │ Cumulative Frequency │ Upper Bound │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ Count │ Percentile │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├─────────────┼──────────────────────┼──────────────────┤
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 50ms │ &lt;span style="color:#ae81ff">20&lt;/span> │ p10 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 100ms │ &lt;span style="color:#ae81ff">70&lt;/span> │ p35 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 250ms │ &lt;span style="color:#ae81ff">120&lt;/span> │ p60 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 500ms │ &lt;span style="color:#ae81ff">150&lt;/span> │ p75 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ 1000ms │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ INF │ &lt;span style="color:#ae81ff">200&lt;/span> │ p100 │
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└─────────────┴──────────────────────┴──────────────────┘
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)&lt;/li>
-&lt;/ul>
-&lt;h2 id="storage">Storage&lt;/h2>
-&lt;p>&lt;img alt="workflow" src="https://jinying-che.github.io/images/tsdb_write.png">&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>./data
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── 01BKGV7JBM69T2G1BGBGM6KB12
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └── meta.json
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── 01BKGTZQ1SYQJTR4PB43C8PD98
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ├── chunks
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ └── 000001
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ├── tombstones
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ├── index
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └── meta.json
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── 01BKGTZQ1HHWHV8FBJXW1Y3W0K
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └── meta.json
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── 01BKGV7JC0RY8A6MACW02A2PJD
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ├── chunks
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ │ └── 000001
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ├── tombstones
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ ├── index
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └── meta.json
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>├── chunks_head
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>│ └── 000001
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>└── wal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ├── 000000002
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └── checkpoint.00000001
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> └── 00000000
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>see &lt;a href="https://prometheus.io/docs/prometheus/latest/storage/#on-disk-layout">detals&lt;/a>, simple put:&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>blocks&lt;/code>: ingested samples are grouped into blocks of 2 hours, e.g. &lt;em>01BKGV7JBM69T2G1BGBGM6KB12&lt;/em> is a block&lt;/li>
-&lt;li>&lt;code>chunks&lt;/code>:
-&lt;ul>
-&lt;li>it&amp;rsquo;s a directory that contains the time series data for that window of time (up to 2 hours)&lt;/li>
-&lt;li>The samples in the chunks directory are grouped together into one or more segment files of up to 512MB each by default&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>&lt;code>tombstones&lt;/code>: marked deletion records (instead of deleting the data immediately from the chunk segments)&lt;/li>
-&lt;li>&lt;code>index&lt;/code>: &lt;strong>inverted index&lt;/strong> which indexes metric names and labels to time series in the chunks directory&lt;/li>
-&lt;li>&lt;code>meta.json&lt;/code>: block info&lt;/li>
-&lt;li>&lt;code>wal&lt;/code>(write-ahead log):
-&lt;ul>
-&lt;li>The current block for incoming samples is kept in memory and is not fully persisted. It is secured against crashes by a write-ahead log (WAL) that can be replayed when the Prometheus server restarts.&lt;/li>
-&lt;li>files are stored in the wal directory in 128MB segments, which are significantly larger than regular block files (not yet been compacted)&lt;/li>
-&lt;li>minimum of 3 write-ahead log files. High-traffic servers may retain more than 3 WAL files in order to keep at least 2 hours of raw data.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="promql">PromQL&lt;/h2>
-&lt;h4 id="time-series-selectors">Time series Selectors&lt;/h4>
-&lt;p>&lt;strong>Instant Vector&lt;/strong>&lt;/p>
-&lt;p>Instant vector selectors allow the selection of a set of time series and a single sample value for each at a given timestamp (instant)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># only metric name&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_requests_total
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># with labels&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_requests_total&lt;span style="color:#f92672">{&lt;/span>job&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;prometheus&amp;#34;&lt;/span>,group&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;canary&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># with regex&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>http_requests_total&lt;span style="color:#f92672">{&lt;/span>environment&lt;span style="color:#f92672">=&lt;/span>~&lt;span style="color:#e6db74">&amp;#34;staging|testing|development&amp;#34;&lt;/span>,method!&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;GET&amp;#34;&lt;/span>&lt;span style="color:#f92672">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Range Vector Selectors&lt;/strong>&lt;/p>
-&lt;p>Range vector literals work like instant vector literals, except that they select a range of samples back from the current instant&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>http_requests_total&lt;span style="color:#f92672">{&lt;/span>job&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#e6db74">&amp;#34;prometheus&amp;#34;&lt;/span>&lt;span style="color:#f92672">}[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Offset Modifier&lt;/strong>&lt;/p>
-&lt;p>The offset modifier allows changing the time offset for individual &lt;strong>instant&lt;/strong> and &lt;strong>range&lt;/strong> vectors in a query.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># returns the 5-minute rate that http_requests_total had a week ago&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>rate&lt;span style="color:#f92672">(&lt;/span>http_requests_total&lt;span style="color:#f92672">[&lt;/span>5m&lt;span style="color:#f92672">]&lt;/span> offset 1w&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="functions">Functions&lt;/h4>
-&lt;p>There are some common functions in PromQL which are used in most popular queries and scenarios.&lt;/p>
-&lt;h5 id="1-rate--irate">1. rate() &amp;amp;&amp;amp; irate()&lt;/h5>
-&lt;p>&lt;a href="https://jinying-che.github.io/posts/rate_vs_irate/">see details&lt;/a>&lt;/p>
-&lt;h6 id="2-histogram_quantile">2. histogram_quantile()&lt;/h6>
-&lt;p>How P99 is calculated?&lt;/p>
-&lt;h2 id="reference">Reference&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://prometheus.io/docs/introduction/overview/">https://prometheus.io/docs/introduction/overview/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://prometheus.io/docs/prometheus/latest/querying/basics/">https://prometheus.io/docs/prometheus/latest/querying/basics/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://promlabs.com/blog/2023/08/31/high-availability-for-prometheus-and-alertmanager-an-overview/">https://promlabs.com/blog/2023/08/31/high-availability-for-prometheus-and-alertmanager-an-overview/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.google.com/presentation/d/1TMvzwdaS8Vw9MtscI9ehDyiMngII8iB_Z5D4QW4U4ho/edit?pli=1#slide=id.gae9988762_0_0">PromCon 2016 - The Prometheus TSDB Slides&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://zhenghe-md.github.io/blog/2020/02/27/The-Evolution-of-Prometheus-Storage-Layer/">The Evolution of Prometheus Storage Layer&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://ganeshvernekar.com/blog/prometheus-tsdb-the-head-block/">Prometheus TSDB&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://web.archive.org/web/20210803115658/https://fabxc.org/tsdb">Writing a Time Series Database from Scratch&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://news.ycombinator.com/item?id=27730854">Write a time-series database engine from scratch (hancker news)&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Prometheus on</title><link>https://chejinying.com/tech/tags/prometheus/</link><description>Recent content in Prometheus on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 02 Oct 2024 09:52:53 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/prometheus/index.xml" rel="self" type="application/rss+xml"/><item><title>rate vs irate</title><link>https://chejinying.com/tech/posts/rate_vs_irate/</link><pubDate>Wed, 02 Oct 2024 09:52:53 +0800</pubDate><guid>https://chejinying.com/tech/posts/rate_vs_irate/</guid><description>&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/rate_vs_irate.png" alt="rate_vs_irate"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rate&lt;/code&gt; and &lt;code&gt;irate&lt;/code&gt; are based on the &lt;strong&gt;counter&lt;/strong&gt; type metrics.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;rate(v range-vector)&lt;/code&gt; calculates the per-second average rate of increase of the time series in the &lt;strong&gt;range vector&lt;/strong&gt;, for example, &lt;code&gt;rate(http_request_total{method=&amp;quot;post&amp;quot;}[1m])&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;It&amp;rsquo;s a rate: &lt;code&gt;total(now) - total(now - 1m) / 60s&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;It&amp;rsquo;s an average rate: over 1m&lt;/li&gt;
+&lt;li&gt;Average is calculated over the time range, that&amp;rsquo;s why range vector is required.&lt;/li&gt;
+&lt;li&gt;It provides a &lt;strong&gt;smoother&lt;/strong&gt; trend.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;code&gt;irate(v range-vector)&lt;/code&gt; calculates the per-second instant rate of increase of the time series in the range vector.&lt;/p&gt;</description></item><item><title>Prometheus Overview</title><link>https://chejinying.com/tech/posts/prometheus/</link><pubDate>Sun, 31 Dec 2023 09:41:04 +0800</pubDate><guid>https://chejinying.com/tech/posts/prometheus/</guid><description>&lt;h2 id="architecture"&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/prometheus.png" alt="Architecture"&gt;&lt;/p&gt;
+&lt;h2 id="quick-start"&gt;Quick Start&lt;/h2&gt;
+&lt;h2 id="data-model"&gt;Data Model&lt;/h2&gt;
+&lt;p&gt;Every time series is uniquely identified by its &lt;strong&gt;metric name&lt;/strong&gt; and optional key-value pairs called &lt;strong&gt;labels&lt;/strong&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Metric Name&lt;/li&gt;
+&lt;li&gt;Metric Label
+&lt;ul&gt;
+&lt;li&gt;The change of any labels value, including adding or removing labels, will create a new time series.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="metric-type"&gt;Metric Type&lt;/h4&gt;
+&lt;p&gt;Prometheus supports four types of metrics, which are - Counter - Gauge - Histogram - Summary&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Counter: a metric value that can only increase or reset
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# use a counter to represent the number of requests served, tasks completed, or errors&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- http_requests_total&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;handler&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;/get_user_id&amp;#39;&lt;/span&gt;, &lt;span class="nv"&gt;method&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;GET&amp;#39;&lt;/span&gt;, &lt;span class="nv"&gt;status&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;200&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- errors_total&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;runtime&amp;#39;&lt;/span&gt;, &lt;span class="nv"&gt;severity&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;critical&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Gauge: a number which can either go up or down
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# used for measured values like temperatures or current memory usage&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- memory_usage_bytes&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;process_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;web_server&amp;#39;&lt;/span&gt;, &lt;span class="nv"&gt;instance&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;10.0.0.1:8080&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- queue_size&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;queue_name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;low_priority&amp;#39;&lt;/span&gt;, &lt;span class="nv"&gt;worker_type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;background&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Histogram: used for any calculated value which is counted based on bucket values,
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;bucket&lt;/strong&gt; value determines the ordinate value (y coordinate of a standard two-dimensional graph)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;cumulative&lt;/strong&gt; counters for the observation buckets, exposed as &lt;!-- raw HTML omitted --&gt;_bucket{le=&amp;quot;&amp;lt;&lt;strong&gt;upper&lt;/strong&gt; inclusive bound&amp;gt;&amp;quot;}&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# usually things like request durations or response sizes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# le=&amp;#34;0.3&amp;#34; means less or equal to 0.3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_sum 134420.14452212452
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_second_bucket&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;le&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;0.05&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt; 11326.0
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_second_bucket&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;le&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;0.1&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt; 2.284831e+06
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_second_bucket&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;le&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;0.15&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt; 2.285367e+06
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_second_bucket&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;le&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;0.25&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt; 2.285592e+06
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_second_bucket&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;le&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;1.0&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt; 2.285613e+06
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_second_bucket&lt;span class="o"&gt;{&lt;/span&gt;&lt;span class="nv"&gt;le&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;+Inf&amp;#34;&lt;/span&gt;&lt;span class="o"&gt;}&lt;/span&gt; 2.285619e+06
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;http_latency_count 2.285619e+06
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# cumulative means that the count for le=”0.5” bucket also includes the count for le=”0.25” bucket.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Consider the following hypothetical distribution of observations for 200 observations.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;┌─────────────┬──────────────────────┬──────────────────┐
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ Bucket Size │ Cumulative Frequency │ Upper Bound │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ │ Count │ Percentile │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;├─────────────┼──────────────────────┼──────────────────┤
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ 50ms │ &lt;span class="m"&gt;20&lt;/span&gt; │ p10 │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ 100ms │ &lt;span class="m"&gt;70&lt;/span&gt; │ p35 │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ 250ms │ &lt;span class="m"&gt;120&lt;/span&gt; │ p60 │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ 500ms │ &lt;span class="m"&gt;150&lt;/span&gt; │ p75 │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ 1000ms │ &lt;span class="m"&gt;200&lt;/span&gt; │ p100 │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;│ INF │ &lt;span class="m"&gt;200&lt;/span&gt; │ p100 │
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;└─────────────┴──────────────────────┴──────────────────┘
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Summary: measure events and are an alternative to histograms. They are cheaper but lose more data (it is highly recommended to use histograms over summaries whenever possible.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="storage"&gt;Storage&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/tsdb_write.png" alt="workflow"&gt;&lt;/p&gt;</description></item></channel></rss>

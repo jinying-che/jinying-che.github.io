@@ -1,61 +1,27 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tmux on</title><link>https://jinying-che.github.io/tags/tmux/</link><description>Recent content in Tmux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 10 Jul 2021 11:18:14 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/tmux/index.xml" rel="self" type="application/rss+xml"/><item><title>Tmux Cheat Sheet</title><link>https://jinying-che.github.io/posts/tmux/</link><pubDate>Sat, 10 Jul 2021 11:18:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/tmux/</guid><description>&lt;h3 id="session">Session&lt;/h3>
-&lt;ul>
-&lt;li>new session: &lt;code>tmux new -s name&lt;/code>&lt;/li>
-&lt;li>show session: &lt;code>tmux ls&lt;/code>&lt;/li>
-&lt;li>attach session with name: &lt;code>tmux a -t name&lt;/code>&lt;/li>
-&lt;li>detach from session: &lt;code>ctrl+b&lt;/code> then &lt;code>d&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="panes">Panes&lt;/h3>
-&lt;ul>
-&lt;li>split pane horizontally: &lt;code>ctrl+b&lt;/code> then &lt;code>%&lt;/code>&lt;/li>
-&lt;li>split pane vertically: &lt;code>ctrl+b&lt;/code> then &lt;code>&amp;quot;&lt;/code>&lt;/li>
-&lt;li>cloes current pane: &lt;code>ctrl+b&lt;/code> then &lt;code>x&lt;/code>&lt;/li>
-&lt;li>swap panes: &lt;code>ctrl+b&lt;/code> then &lt;code>o&lt;/code>&lt;/li>
-&lt;li>swan and rotate panes: &lt;code>ctrl+b&lt;/code> then &lt;code>ctrl+o&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="window">Window&lt;/h3>
-&lt;ul>
-&lt;li>Create current window: &lt;code>ctrl+b&lt;/code> then &lt;code>c&lt;/code>&lt;/li>
-&lt;li>Close current window: &lt;code>ctrl+b&lt;/code> then &lt;code>&amp;amp;&lt;/code>&lt;/li>
-&lt;li>Rename current window: &lt;code>ctrl+b&lt;/code> then &lt;code>,&lt;/code>&lt;/li>
-&lt;li>Next window: &lt;code>ctrl+b&lt;/code> then &lt;code>p&lt;/code>&lt;/li>
-&lt;li>Previous window: &lt;code>ctrl+b&lt;/code> then &lt;code>n&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="view-in-tmux">View in tmux&lt;/h3>
-&lt;p>&lt;code>ctrl+b&lt;/code> then &lt;code>[&lt;/code>&lt;/p></description><content>&lt;h3 id="session">Session&lt;/h3>
-&lt;ul>
-&lt;li>new session: &lt;code>tmux new -s name&lt;/code>&lt;/li>
-&lt;li>show session: &lt;code>tmux ls&lt;/code>&lt;/li>
-&lt;li>attach session with name: &lt;code>tmux a -t name&lt;/code>&lt;/li>
-&lt;li>detach from session: &lt;code>ctrl+b&lt;/code> then &lt;code>d&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="panes">Panes&lt;/h3>
-&lt;ul>
-&lt;li>split pane horizontally: &lt;code>ctrl+b&lt;/code> then &lt;code>%&lt;/code>&lt;/li>
-&lt;li>split pane vertically: &lt;code>ctrl+b&lt;/code> then &lt;code>&amp;quot;&lt;/code>&lt;/li>
-&lt;li>cloes current pane: &lt;code>ctrl+b&lt;/code> then &lt;code>x&lt;/code>&lt;/li>
-&lt;li>swap panes: &lt;code>ctrl+b&lt;/code> then &lt;code>o&lt;/code>&lt;/li>
-&lt;li>swan and rotate panes: &lt;code>ctrl+b&lt;/code> then &lt;code>ctrl+o&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="window">Window&lt;/h3>
-&lt;ul>
-&lt;li>Create current window: &lt;code>ctrl+b&lt;/code> then &lt;code>c&lt;/code>&lt;/li>
-&lt;li>Close current window: &lt;code>ctrl+b&lt;/code> then &lt;code>&amp;amp;&lt;/code>&lt;/li>
-&lt;li>Rename current window: &lt;code>ctrl+b&lt;/code> then &lt;code>,&lt;/code>&lt;/li>
-&lt;li>Next window: &lt;code>ctrl+b&lt;/code> then &lt;code>p&lt;/code>&lt;/li>
-&lt;li>Previous window: &lt;code>ctrl+b&lt;/code> then &lt;code>n&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="view-in-tmux">View in tmux&lt;/h3>
-&lt;p>&lt;code>ctrl+b&lt;/code> then &lt;code>[&lt;/code>&lt;/p>
-&lt;h3 id="plugin">Plugin&lt;/h3>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/tmux-plugins/tmux-resurrect">tmux-resurrect&lt;/a> Restore tmux environment after system restart.&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>The better way to use tmux is to customize in your way, feel free to refer my &lt;a href="https://github.com/jinying-che/config/blob/master/.tmux.conf">tmux config&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;hr>
-&lt;h2 id="reference">Reference&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://tmuxcheatsheet.com/">https://tmuxcheatsheet.com/&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Tmux on</title><link>https://chejinying.com/tech/tags/tmux/</link><description>Recent content in Tmux on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 10 Jul 2021 11:18:14 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/tmux/index.xml" rel="self" type="application/rss+xml"/><item><title>Tmux Cheat Sheet</title><link>https://chejinying.com/tech/posts/tmux/</link><pubDate>Sat, 10 Jul 2021 11:18:14 +0800</pubDate><guid>https://chejinying.com/tech/posts/tmux/</guid><description>&lt;h3 id="session"&gt;Session&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;new session: &lt;code&gt;tmux new -s name&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;show session: &lt;code&gt;tmux ls&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;attach session with name: &lt;code&gt;tmux a -t name&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;detach from session: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;d&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;rename session: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;$&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="panes"&gt;Panes&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;split pane horizontally: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;%&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;split pane vertically: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;cloes current pane: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;x&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;swap panes: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;o&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;swan and rotate panes: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;ctrl+o&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="window"&gt;Window&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Create current window: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Close current window: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;&amp;amp;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Rename current window: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;,&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Next window: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;p&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Previous window: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;n&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Lisgt all windows: &lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;w&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="view-in-tmux"&gt;View in tmux&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;ctrl+b&lt;/code&gt; then &lt;code&gt;[&lt;/code&gt;&lt;/p&gt;</description></item></channel></rss>

@@ -1,49 +1,37 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vim on</title><link>https://jinying-che.github.io/tags/vim/</link><description>Recent content in Vim on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 10 Jul 2021 11:20:07 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/vim/index.xml" rel="self" type="application/rss+xml"/><item><title>Vim Cheat Sheet</title><link>https://jinying-che.github.io/posts/vim/</link><pubDate>Sat, 10 Jul 2021 11:20:07 +0800</pubDate><guid>https://jinying-che.github.io/posts/vim/</guid><description>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
-&lt;ul>
-&lt;li>delete inside parentheses (which can be replaced with any symbol)
-&lt;ul>
-&lt;li>&lt;code>di(&lt;/code>&lt;/li>
-&lt;li>&lt;code>di&amp;quot;&lt;/code>&lt;/li>
-&lt;li>&lt;code>di'&lt;/code>&lt;/li>
-&lt;li>&amp;hellip;&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="split">Split&lt;/h3>
-&lt;ul>
-&lt;li>Horizontal: &lt;code>ctrl + w + s&lt;/code>&lt;/li>
-&lt;li>Vertical: &lt;code>ctrl + w + v&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="replace-a-word-with-yanked-text">Replace a word with yanked text&lt;/h3>
-&lt;pre tabindex="0">&lt;code>yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;).
-Move the cursor to another word (say &amp;#34;second&amp;#34;).
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vim on</title><link>https://chejinying.com/tech/tags/vim/</link><description>Recent content in Vim on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 10 Jul 2021 11:20:07 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/vim/index.xml" rel="self" type="application/rss+xml"/><item><title>Vim Cheat Sheet</title><link>https://chejinying.com/tech/posts/vim/</link><pubDate>Sat, 10 Jul 2021 11:20:07 +0800</pubDate><guid>https://chejinying.com/tech/posts/vim/</guid><description>&lt;h2 id="usage"&gt;Usage&lt;/h2&gt;
+&lt;h3 id="basic"&gt;Basic&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;delete inside parentheses (which can be replaced with any symbol)
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;di(&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;di&amp;quot;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;di'&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="split"&gt;Split&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Horizontal: &lt;code&gt;ctrl + w + s&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Vertical: &lt;code&gt;ctrl + w + v&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="replace-a-word-with-yanked-text"&gt;Replace a word with yanked text&lt;/h3&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;).
+ Move the cursor to another word (say &amp;#34;second&amp;#34;).
 ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode)
-Move the cursor to another word (say &amp;#34;third&amp;#34;).
+ Move the cursor to another word (say &amp;#34;third&amp;#34;).
 . Repeat the operation (change word and replace it with &amp;#34;first&amp;#34;).
-Move the cursor to another word and press . to repeat the change.
+ Move the cursor to another word and press . to repeat the change.
+ 
 ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
-&lt;/code>&lt;/pre></description><content>&lt;h3 id="basic-usage">Basic Usage&lt;/h3>
-&lt;ul>
-&lt;li>delete inside parentheses (which can be replaced with any symbol)
-&lt;ul>
-&lt;li>&lt;code>di(&lt;/code>&lt;/li>
-&lt;li>&lt;code>di&amp;quot;&lt;/code>&lt;/li>
-&lt;li>&lt;code>di'&lt;/code>&lt;/li>
-&lt;li>&amp;hellip;&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="split">Split&lt;/h3>
-&lt;ul>
-&lt;li>Horizontal: &lt;code>ctrl + w + s&lt;/code>&lt;/li>
-&lt;li>Vertical: &lt;code>ctrl + w + v&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h3 id="replace-a-word-with-yanked-text">Replace a word with yanked text&lt;/h3>
-&lt;pre tabindex="0">&lt;code>yiw Yank inner word (copy word under cursor, say &amp;#34;first&amp;#34;).
-Move the cursor to another word (say &amp;#34;second&amp;#34;).
-ciw Ctrl-R 0 Esc Change &amp;#34;second&amp;#34;, replacing it with &amp;#34;first&amp;#34;. (Ctrl-R: paste `0` register in insert mode)
-Move the cursor to another word (say &amp;#34;third&amp;#34;).
-. Repeat the operation (change word and replace it with &amp;#34;first&amp;#34;).
-Move the cursor to another word and press . to repeat the change.
-ref: https://vim.fandom.com/wiki/Replace_a_word_with_yanked_text
-&lt;/code>&lt;/pre></content></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id="plugin"&gt;Plugin&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;lsp: &lt;a href="https://github.com/neoclide/coc.nvim"&gt;https://github.com/neoclide/coc.nvim&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;fuzzy finder: &lt;a href="https://github.com/junegunn/fzf.vim"&gt;https://github.com/junegunn/fzf.vim&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;status tabline: &lt;a href="https://github.com/vim-airline/vim-airline"&gt;https://github.com/vim-airline/vim-airline&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;git: &lt;a href="https://github.com/tpope/vim-fugitive"&gt;https://github.com/tpope/vim-fugitive&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;theme: &lt;a href="https://github.com/projekt0n/github-nvim-theme"&gt;https://github.com/projekt0n/github-nvim-theme&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;outline: &lt;a href="https://github.com/preservim/tagbar"&gt;https://github.com/preservim/tagbar&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;tree: &lt;a href="https://github.com/preservim/nerdtree"&gt;https://github.com/preservim/nerdtree&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;syntax: &lt;a href="https://github.com/nvim-treesitter/nvim-treesitter"&gt;https://github.com/nvim-treesitter/nvim-treesitter&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</description></item></channel></rss>

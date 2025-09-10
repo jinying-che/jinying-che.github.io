@@ -1,101 +1,25 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on</title><link>https://jinying-che.github.io/tags/python/</link><description>Recent content in Python on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 31 Jan 2023 11:40:49 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python Cheatsheet</title><link>https://jinying-che.github.io/posts/python/python_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 11:40:49 +0800</pubDate><guid>https://jinying-che.github.io/posts/python/python_cheatsheet/</guid><description>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
-&lt;ol>
-&lt;li>
-&lt;p>Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">9001&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] before n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> increment(n)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] after n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">increment&lt;/span>(x):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] before x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] after x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # address altered after the assignment&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] before n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] before x: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] after x: &lt;span style="color:#ae81ff">0x11035a190&lt;/span> &lt;span style="color:#75715e"># address altered after the assignment&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] after n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>Mutability, an object is &lt;strong>mutable&lt;/strong> if its structure can be changed in place rather than requiring reassignment.&lt;/p></description><content>&lt;h3 id="pass-by-reference">Pass By Reference&lt;/h3>
-&lt;ol>
-&lt;li>
-&lt;p>Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">main&lt;/span>():
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">9001&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] before n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> increment(n)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[main] after n: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(n))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">increment&lt;/span>(x):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] before x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # same&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> x &lt;span style="color:#f92672">+=&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> print(&lt;span style="color:#e6db74">f&lt;/span>&lt;span style="color:#e6db74">&amp;#34;[func] after x: &lt;/span>&lt;span style="color:#e6db74">{&lt;/span>hex(id(x))&lt;span style="color:#e6db74">}&lt;/span>&lt;span style="color:#e6db74"> # address altered after the assignment&amp;#34;&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>main()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] before n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] before x: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[func] after x: &lt;span style="color:#ae81ff">0x11035a190&lt;/span> &lt;span style="color:#75715e"># address altered after the assignment&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[main] after n: &lt;span style="color:#ae81ff">0x11035a0b0&lt;/span> &lt;span style="color:#75715e"># same&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>Mutability, an object is &lt;strong>mutable&lt;/strong> if its structure can be changed in place rather than requiring reassignment.&lt;/p>
-&lt;blockquote>
-&lt;p>If you pass a mutable object into a method, the method gets a reference to that same object and you can mutate it to your heart&amp;rsquo;s delight, but if you rebind the reference in the method, the outer scope will know nothing about it, and after you&amp;rsquo;re done, the outer reference will still point at the original object.&lt;/p>
-&lt;/blockquote>
-&lt;p>The followings are the mutable objects in Python:&lt;/p>
-&lt;ul>
-&lt;li>Dictionary
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Dictionaries are mapping types.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mt &lt;span style="color:#f92672">=&lt;/span> {&lt;span style="color:#e6db74">&amp;#34;n&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">4&lt;/span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Define a function to operate on a key:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">square&lt;/span>(num_dict):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> num_dict[&lt;span style="color:#e6db74">&amp;#34;n&amp;#34;&lt;/span>] &lt;span style="color:#f92672">*=&lt;/span> num_dict[&lt;span style="color:#e6db74">&amp;#34;n&amp;#34;&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>square(mt)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>mt
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output: 16&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>List
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Lists are both subscriptable and mutable.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sm &lt;span style="color:#f92672">=&lt;/span> [&lt;span style="color:#ae81ff">4&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Define a function to operate on an index:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">square&lt;/span>(num_list):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> num_list[&lt;span style="color:#ae81ff">0&lt;/span>] &lt;span style="color:#f92672">*=&lt;/span> num_list[&lt;span style="color:#ae81ff">0&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>square(sm)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sm
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output: [16]&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>Object Attributes
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-python" data-lang="python">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># For the purpose of this example, let&amp;#39;s use SimpleNamespace.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">from&lt;/span> types &lt;span style="color:#f92672">import&lt;/span> SimpleNamespace
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># SimpleNamespace allows us to set arbitrary attributes.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># It is an explicit, handy replacement for &amp;#34;class X: pass&amp;#34;.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ns &lt;span style="color:#f92672">=&lt;/span> SimpleNamespace()
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Define a function to operate on an object&amp;#39;s attribute.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#66d9ef">def&lt;/span> &lt;span style="color:#a6e22e">square&lt;/span>(instance):
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> instance&lt;span style="color:#f92672">.&lt;/span>n &lt;span style="color:#f92672">*=&lt;/span> instance&lt;span style="color:#f92672">.&lt;/span>n
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ns&lt;span style="color:#f92672">.&lt;/span>n &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">4&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>square(ns)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ns&lt;span style="color:#f92672">.&lt;/span>n
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output: 16&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;h3 id="reference">Reference&lt;/h3>
-&lt;ul>
-&lt;li>&lt;a href="https://realpython.com/python-pass-by-reference/#toc">Pass by Reference in Python: Background and Best Practices&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.python.org/3/faq/programming.html#how-do-i-write-a-function-with-output-parameters-call-by-reference">How do I write a function with output parameters (call by reference)?&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Python on</title><link>https://chejinying.com/tech/tags/python/</link><description>Recent content in Python on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 31 Jan 2023 11:40:49 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>Python Cheatsheet</title><link>https://chejinying.com/tech/posts/python/python_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 11:40:49 +0800</pubDate><guid>https://chejinying.com/tech/posts/python/python_cheatsheet/</guid><description>&lt;h3 id="pass-by-reference"&gt;Pass By Reference&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Python passes arguments neither by reference nor by value, but by assignment. The parameter passed in is actually a reference to an object (but the reference is passed by value)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-python" data-lang="python"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;n&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;9001&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;[main] before n: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; # same&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;increment&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;[main] after n: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; # same&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;increment&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;[func] before x: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; # same&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sa"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;[func] after x: &lt;/span&gt;&lt;span class="si"&gt;{&lt;/span&gt;&lt;span class="nb"&gt;hex&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;id&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; # address altered after the assignment&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# output&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;before&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;0x11035a0b0&lt;/span&gt; &lt;span class="c1"&gt;# same&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;before&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;0x11035a0b0&lt;/span&gt; &lt;span class="c1"&gt;# same&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;func&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;after&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;0x11035a190&lt;/span&gt; &lt;span class="c1"&gt;# address altered after the assignment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;main&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;after&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mh"&gt;0x11035a0b0&lt;/span&gt; &lt;span class="c1"&gt;# same&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Mutability, an object is &lt;strong&gt;mutable&lt;/strong&gt; if its structure can be changed in place rather than requiring reassignment.&lt;/p&gt;</description></item></channel></rss>

@@ -1,190 +1,55 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Database on</title><link>https://jinying-che.github.io/tags/database/</link><description>Recent content in Database on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 16 Sep 2019 17:37:10 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis</title><link>https://jinying-che.github.io/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/redis/</guid><description>&lt;h2 id="data-structure">Data Structure&lt;/h2>
-&lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
-&lt;h2 id="redis配置">redis配置&lt;/h2>
-&lt;ol>
-&lt;li>
-&lt;p>redis初始并不设置所用内存大小，默认会使用全部物理内存，但有&lt;code>maxmemory&lt;/code>选项可以配置。&lt;/p>
-&lt;pre tabindex="0">&lt;code># In short... if you have slaves attached it is suggested that you set a lower
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Database on</title><link>https://chejinying.com/tech/tags/database/</link><description>Recent content in Database on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 16 Sep 2019 17:37:10 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/database/index.xml" rel="self" type="application/rss+xml"/><item><title>Redis</title><link>https://chejinying.com/tech/posts/db/redis/</link><pubDate>Mon, 16 Sep 2019 17:37:10 +0800</pubDate><guid>https://chejinying.com/tech/posts/db/redis/</guid><description>&lt;h2 id="data-structure"&gt;Data Structure&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/redis_data_structure.png" alt="redis data structure"&gt;&lt;/p&gt;
+&lt;h2 id="redis配置"&gt;redis配置&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;redis初始并不设置所用内存大小，默认会使用全部物理内存，但有&lt;code&gt;maxmemory&lt;/code&gt;选项可以配置。&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;# In short... if you have slaves attached it is suggested that you set a lower
 # limit for maxmemory so that there is some free RAM on the system for slave
 # output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;).
 #
 # maxmemory &amp;lt;bytes&amp;gt;
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;/ol>
-&lt;h2 id="redis-命令">Redis 命令&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>###zrem&lt;/p>
-&lt;p>这个命令的返回值很特别：&lt;/p>
-&lt;ol>
-&lt;li>zset中存在的元素被删除，则返回1&lt;/li>
-&lt;li>zset中不存在的元素、不存在的zset的key，返回0&lt;/li>
-&lt;li>key存在，但不是zset类型，报错&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ul>
-&lt;p>##LUA&lt;/p>
-&lt;h2 id="碎片率">碎片率&lt;/h2>
-&lt;blockquote>
-&lt;pre>&lt;code>出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="redis-命令"&gt;Redis 命令&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;###zrem&lt;/p&gt;
+&lt;p&gt;这个命令的返回值很特别：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;zset中存在的元素被删除，则返回1&lt;/li&gt;
+&lt;li&gt;zset中不存在的元素、不存在的zset的key，返回0&lt;/li&gt;
+&lt;li&gt;key存在，但不是zset类型，报错&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;##LUA&lt;/p&gt;
+&lt;h2 id="碎片率"&gt;碎片率&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;pre&gt;&lt;code&gt;出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用 
+
 解决办法：数据对齐，安全重启（高可用/主从切换）。
-&lt;/code>&lt;/pre>
-&lt;/blockquote>
-&lt;h2 id="数据结构">数据结构&lt;/h2>
-&lt;h4 id="列表list">列表（list）&lt;/h4>
-&lt;ul>
-&lt;li>压缩列表
-&lt;ul>
-&lt;li>每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content）&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>双向循环链表
-&lt;ul>
-&lt;li>会有单独的&lt;strong>list&lt;/strong>的对象，来记录链表的&lt;strong>头、尾、长度&lt;/strong>等信息&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h4 id="字典hash">字典（hash）&lt;/h4>
-&lt;ul>
-&lt;li>
-&lt;p>压缩列表&lt;/p></description><content>&lt;h2 id="data-structure">Data Structure&lt;/h2>
-&lt;p>&lt;img alt="redis data structure" src="https://jinying-che.github.io/images/redis_data_structure.png">&lt;/p>
-&lt;h2 id="redis配置">redis配置&lt;/h2>
-&lt;ol>
-&lt;li>
-&lt;p>redis初始并不设置所用内存大小，默认会使用全部物理内存，但有&lt;code>maxmemory&lt;/code>选项可以配置。&lt;/p>
-&lt;pre tabindex="0">&lt;code># In short... if you have slaves attached it is suggested that you set a lower
-# limit for maxmemory so that there is some free RAM on the system for slave
-# output buffers (but this is not needed if the policy is &amp;#39;noeviction&amp;#39;).
-#
-# maxmemory &amp;lt;bytes&amp;gt;
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;/ol>
-&lt;h2 id="redis-命令">Redis 命令&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>###zrem&lt;/p>
-&lt;p>这个命令的返回值很特别：&lt;/p>
-&lt;ol>
-&lt;li>zset中存在的元素被删除，则返回1&lt;/li>
-&lt;li>zset中不存在的元素、不存在的zset的key，返回0&lt;/li>
-&lt;li>key存在，但不是zset类型，报错&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;/ul>
-&lt;p>##LUA&lt;/p>
-&lt;h2 id="碎片率">碎片率&lt;/h2>
-&lt;blockquote>
-&lt;pre>&lt;code>出现高内存碎片问题的情况：大量的更新操作，比如append、setrange；大量的过期键删除，释放的空间无法得到有效利用
-解决办法：数据对齐，安全重启（高可用/主从切换）。
-&lt;/code>&lt;/pre>
-&lt;/blockquote>
-&lt;h2 id="数据结构">数据结构&lt;/h2>
-&lt;h4 id="列表list">列表（list）&lt;/h4>
-&lt;ul>
-&lt;li>压缩列表
-&lt;ul>
-&lt;li>每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content）&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>双向循环链表
-&lt;ul>
-&lt;li>会有单独的&lt;strong>list&lt;/strong>的对象，来记录链表的&lt;strong>头、尾、长度&lt;/strong>等信息&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h4 id="字典hash">字典（hash）&lt;/h4>
-&lt;ul>
-&lt;li>
-&lt;p>压缩列表&lt;/p>
-&lt;ul>
-&lt;li>将健值对依次放入压缩列表，查询复杂度为0(n)，需要遍历&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>散列表&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>解决冲突：&lt;strong>通过链表法解决，每个数据节点都有&lt;/strong>next&lt;/strong>指针，冲突的节点会从头部插入&lt;/p>
-&lt;p>&lt;strong>rehash期间:&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>字典的删除、查找、更新，会在两个哈希表上进行，插入操作只会在新表上进行&lt;/li>
-&lt;li>渐进式rehash会维护一个游标（rehashidx），每次有请求时，会按顺序进行rehash，直到将旧的hash表重新映射到新的hash表&lt;/li>
-&lt;li>负载因子：在进行&lt;strong>BGSAVE&lt;/strong>或者&lt;strong>BGREWRITEAOF&lt;/strong>，会fork子进程来后台处理，大多数操作系统都是通过写时复制的策略，即子进程在读操作时，会共享而不复制父进程的内存，只有在写时，才会复制，所以在此期间会尽量控制写操作，减少内存的复制，因此负载因子会升高&lt;/li>
-&lt;/ul>
-&lt;/blockquote>
-&lt;/li>
-&lt;/ul>
-&lt;p>####集合 (set)&lt;/p>
-&lt;ul>
-&lt;li>有序数组&lt;/li>
-&lt;li>散列表&lt;/li>
-&lt;/ul>
-&lt;h4 id="有序集合-sorted-set">有序集合 (sorted set)&lt;/h4>
-&lt;ul>
-&lt;li>压缩列表&lt;/li>
-&lt;li>同时使用跳跃表和字典
-&lt;ul>
-&lt;li>查询一组数据(zrange)利用跳跃表&lt;/li>
-&lt;li>查询单个数据用字典&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="事务">事务&lt;/h2>
-&lt;ul>
-&lt;li>redis的事务，是通过客户端的事务状态、服务端的队列，简单封装redis命令实现的&lt;/li>
-&lt;li>事务中的命令要不就全部执行，或者都不执行
-&lt;ul>
-&lt;li>当入队的命令出错时，事务取消，都不执行&lt;/li>
-&lt;li>当部分命令失败时，继续执行
-&lt;ul>
-&lt;li>redis不提供回滚机制&lt;/li>
-&lt;li>部分出错的命令结果会返回给客户端，客户端会根据错误情况进行处理，保证业务逻辑正确&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="rdb">RDB&lt;/h2>
-&lt;h2 id="aof">AOF&lt;/h2>
-&lt;h2 id="referrence">Referrence&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://blog.bytebytego.com/p/why-is-redis-so-fast">https://blog.bytebytego.com/p/why-is-redis-so-fast&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
-&lt;h2 id="type">Type&lt;/h2>
-&lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
-&lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>
-&lt;h4 id="2-secondery-index">2. Secondery Index&lt;/h4>
-&lt;p>In InnoDB, each record in a &lt;strong>secondary index&lt;/strong> contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p></description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
-&lt;h2 id="type">Type&lt;/h2>
-&lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
-&lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>
-&lt;h4 id="2-secondery-index">2. Secondery Index&lt;/h4>
-&lt;p>In InnoDB, each record in a &lt;strong>secondary index&lt;/strong> contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p>
-&lt;p>Typical Quering Flow: select with index &amp;ndash;&amp;gt; secondary index -&amp;gt; primary index -&amp;gt; data row&lt;/p>
-&lt;h2 id="data-structure">Data Structure&lt;/h2>
-&lt;p>The index data is organized in &lt;strong>B+ Tree&lt;/strong> which is common data structure widely used in the relation databases. B+ Tree is upgrading from B Tree, it eliminates the drawback B-tree used for indexing by storing data pointers only at the leaf nodes of the tree.&lt;/p>
-&lt;h3 id="b-tree-vs-b-tree">B+ Tree vs B Tree&lt;/h3>
-&lt;p>&lt;img alt="b tree vs b+ tree" src="https://jinying-che.github.io/images/btree.svg">&lt;/p>
-&lt;h5 id="similarity">Similarity&lt;/h5>
-&lt;ol>
-&lt;li>Both B Tree and B+ Tree are balanced tree. (Efficiency for quering, lower the tree height, less the disk access)&lt;/li>
-&lt;li>All leaf nodes are at the same level.&lt;/li>
-&lt;/ol>
-&lt;h5 id="difference">Difference&lt;/h5>
-&lt;ol>
-&lt;li>&lt;strong>B Tree&lt;/strong> stores the data pointer (pointing to the cluster index) in all nodes, whereas, &lt;strong>B+ Tree&lt;/strong> only stores in leaf nodes. (less space cost means internal node is able to store more index, hence tree is lower and more efficient)&lt;/li>
-&lt;li>All leaf nodes of &lt;strong>B+ Tree&lt;/strong> are linked together in a linked list. This makes &lt;strong>range queries&lt;/strong> efficient.&lt;/li>
-&lt;li>In a &lt;strong>B+ Tree&lt;/strong>, every key appears twice, once in the internal nodes and once in the leaf nodes, whereas, in a &lt;strong>B Tree&lt;/strong>, it&amp;rsquo;s once.&lt;/li>
-&lt;/ol>
-&lt;h2 id="leftmost-prefix-index">Leftmost Prefix Index&lt;/h2>
-&lt;p>If the table has a multiple-column index, any leftmost prefix of the index can be used by the optimizer to look up rows.&lt;/p>
-&lt;h2 id="referrence">Referrence&lt;/h2>
-&lt;ul>
-&lt;li>MySQL 8.0 Reference Manual:
-&lt;ul>
-&lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-indexes.html">https://dev.mysql.com/doc/refman/8.0/en/mysql-indexes.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html">https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html">https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul></content></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;/blockquote&gt;
+&lt;h2 id="数据结构"&gt;数据结构&lt;/h2&gt;
+&lt;h4 id="列表list"&gt;列表（list）&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;压缩列表
+&lt;ul&gt;
+&lt;li&gt;每个数据节点会记录：前一个节点的长度（previous_entry_length）、编码（encoding）、节点的值（content）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;双向循环链表
+&lt;ul&gt;
+&lt;li&gt;会有单独的&lt;strong&gt;list&lt;/strong&gt;的对象，来记录链表的&lt;strong&gt;头、尾、长度&lt;/strong&gt;等信息&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id="字典hash"&gt;字典（hash）&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;压缩列表&lt;/p&gt;</description></item><item><title>MySQL Index</title><link>https://chejinying.com/tech/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://chejinying.com/tech/posts/db/mysql_index/</guid><description>&lt;p&gt;This post is based on MySQL &lt;strong&gt;InnoDB&lt;/strong&gt; Storage Engine.&lt;/p&gt;
+&lt;h2 id="type"&gt;Type&lt;/h2&gt;
+&lt;h4 id="1-cluster-index"&gt;1. Cluster Index&lt;/h4&gt;
+&lt;p&gt;Each InnoDB table has a special index called the &lt;strong&gt;clustered index&lt;/strong&gt; that stores row data. Typically, the clustered index is synonymous with the &lt;strong&gt;primary key&lt;/strong&gt;.&lt;/p&gt;
+&lt;h4 id="2-secondery-index"&gt;2. Secondery Index&lt;/h4&gt;
+&lt;p&gt;In InnoDB, each record in a &lt;strong&gt;secondary index&lt;/strong&gt; contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p&gt;</description></item></channel></rss>

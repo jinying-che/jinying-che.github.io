@@ -1,701 +1,99 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on</title><link>https://jinying-che.github.io/tags/linux/</link><description>Recent content in Linux on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 22 Nov 2024 08:00:37 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>vps setup</title><link>https://jinying-che.github.io/posts/vps_setup/</link><pubDate>Fri, 22 Nov 2024 08:00:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/vps_setup/</guid><description>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
-&lt;h2 id="admin">Admin&lt;/h2>
-&lt;ol>
-&lt;li>systemd&lt;/li>
-&lt;li>ifconfig
-&lt;ul>
-&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="dev">Dev&lt;/h2>
-&lt;ul>
-&lt;li>zsh&lt;/li>
-&lt;li>on my zsh
-&lt;ul>
-&lt;li>refer to: &lt;a href="https://jinying-che.github.io/posts/mac_setup/#21-zsh">https://jinying-che.github.io/posts/mac_setup/#21-zsh&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>gcc&lt;/li>
-&lt;li>go&lt;/li>
-&lt;li>make
-&lt;ul>
-&lt;li>&lt;code>sudo apt install make&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul></description><content>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
-&lt;h2 id="admin">Admin&lt;/h2>
-&lt;ol>
-&lt;li>systemd&lt;/li>
-&lt;li>ifconfig
-&lt;ul>
-&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="dev">Dev&lt;/h2>
-&lt;ul>
-&lt;li>zsh&lt;/li>
-&lt;li>on my zsh
-&lt;ul>
-&lt;li>refer to: &lt;a href="https://jinying-che.github.io/posts/mac_setup/#21-zsh">https://jinying-che.github.io/posts/mac_setup/#21-zsh&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>gcc&lt;/li>
-&lt;li>go&lt;/li>
-&lt;li>make
-&lt;ul>
-&lt;li>&lt;code>sudo apt install make&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul></content></item><item><title>systemd</title><link>https://jinying-che.github.io/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/systemd/</guid><description>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
-&lt;ol>
-&lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
-&lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
-&lt;/ol>
-&lt;h2 id="where-is-the-config-file">Where is the config file?&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>systemd-analyze unit-paths
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/etc/systemd/system
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="unit-file">Unit File&lt;/h2>
-&lt;p>A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p></description><content>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
-&lt;ol>
-&lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
-&lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
-&lt;/ol>
-&lt;h2 id="where-is-the-config-file">Where is the config file?&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>systemd-analyze unit-paths
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/etc/systemd/system
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="unit-file">Unit File&lt;/h2>
-&lt;p>A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p>
-&lt;p>e.g. sshd service unit file, &lt;code>cat /lib/systemd/system/sshd.service&lt;/code>:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Unit&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Description&lt;span style="color:#f92672">=&lt;/span>OpenBSD Secure Shell server
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Documentation&lt;span style="color:#f92672">=&lt;/span>man:sshd&lt;span style="color:#f92672">(&lt;/span>8&lt;span style="color:#f92672">)&lt;/span> man:sshd_config&lt;span style="color:#f92672">(&lt;/span>5&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>After&lt;span style="color:#f92672">=&lt;/span>network.target auditd.service
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ConditionPathExists&lt;span style="color:#f92672">=&lt;/span>!/etc/ssh/sshd_not_to_be_run
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Service&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>EnvironmentFile&lt;span style="color:#f92672">=&lt;/span>-/etc/default/ssh
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStartPre&lt;span style="color:#f92672">=&lt;/span>/usr/sbin/sshd -t
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStart&lt;span style="color:#f92672">=&lt;/span>/usr/sbin/sshd -D $SSHD_OPTS
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecReload&lt;span style="color:#f92672">=&lt;/span>/usr/sbin/sshd -t
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecReload&lt;span style="color:#f92672">=&lt;/span>/bin/kill -HUP $MAINPID
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>KillMode&lt;span style="color:#f92672">=&lt;/span>process
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Restart&lt;span style="color:#f92672">=&lt;/span>on-failure
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RestartPreventExitStatus&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">255&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Type&lt;span style="color:#f92672">=&lt;/span>notify
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RuntimeDirectory&lt;span style="color:#f92672">=&lt;/span>sshd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RuntimeDirectoryMode&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0755&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Install&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>WantedBy&lt;span style="color:#f92672">=&lt;/span>multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Alias&lt;span style="color:#f92672">=&lt;/span>sshd.service
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>WantedBy=multi-user.target&lt;/code> means the service will be started when the system enters multi-user mode. (equal to runlevel 2 in SysV init system)&lt;/p>
-&lt;p>&lt;strong>Target&lt;/strong> A unit configuration file whose name ends in &amp;ldquo;.target&amp;rdquo; encodes information about a target unit of systemd. Target units are used to group units and to set synchronization points for ordering dependencies with other unit files.&lt;/p>
-&lt;p>Target units provide a more flexible replacement for SysV runlevels in the classic SysV init system.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">15&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel0.target -&amp;gt; poweroff.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">13&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel1.target -&amp;gt; rescue.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">17&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel2.target -&amp;gt; multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">17&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel3.target -&amp;gt; multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">17&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel4.target -&amp;gt; multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">16&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel5.target -&amp;gt; graphical.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">13&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel6.target -&amp;gt; reboot.target
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>e.g. multi-user.target&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cat lib/systemd/system/multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Unit&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Description&lt;span style="color:#f92672">=&lt;/span>Multi-User System
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Documentation&lt;span style="color:#f92672">=&lt;/span>man:systemd.special&lt;span style="color:#f92672">(&lt;/span>7&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Requires&lt;span style="color:#f92672">=&lt;/span>basic.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Conflicts&lt;span style="color:#f92672">=&lt;/span>rescue.service rescue.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>After&lt;span style="color:#f92672">=&lt;/span>basic.target rescue.service rescue.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>AllowIsolate&lt;span style="color:#f92672">=&lt;/span>yes
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="references">References&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://systemd.io/">https://systemd.io/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://en.wikipedia.org/wiki/Systemd">https://en.wikipedia.org/wiki/Systemd&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.baeldung.com/linux/systemd-target-multi-user">https://www.baeldung.com/linux/systemd-target-multi-user&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>CPU</title><link>https://jinying-che.github.io/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://jinying-che.github.io/posts/cpu/</guid><description>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
-&lt;p>TBD&lt;/p>
-&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
-&lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
-&lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
-&lt;h4 id="1-top">1. top&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>top - 17:18:53 up &lt;span style="color:#ae81ff">50&lt;/span> days, 16:06, &lt;span style="color:#ae81ff">7&lt;/span> users, load average: 0.00, 0.00, 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Tasks: &lt;span style="color:#ae81ff">127&lt;/span> total, &lt;span style="color:#ae81ff">1&lt;/span> running, &lt;span style="color:#ae81ff">126&lt;/span> sleeping, &lt;span style="color:#ae81ff">0&lt;/span> stopped, &lt;span style="color:#ae81ff">0&lt;/span> zombie
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 2400.0 total, 2282.0 free, 118.0 used. 622.7 avail Mem
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">782513&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">17312&lt;/span> &lt;span style="color:#ae81ff">11036&lt;/span> &lt;span style="color:#ae81ff">8652&lt;/span> S 0.3 1.1 0:00.04 sshd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167728&lt;/span> &lt;span style="color:#ae81ff">9424&lt;/span> &lt;span style="color:#ae81ff">6504&lt;/span> S 0.0 1.0 3:05.88 systemd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.66 kthreadd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man top to get top details, simple put:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># load average : the average number of processes that are either in a runnable or uninterruptable state for the past 1, 5, and 15 minutes. &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g. `load average = 1.5` in 6 cpu system means 1/4 cpu is under laod, 3/4 cpu is idle&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># us, user : time running un-niced user processes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># sy, system : time running kernel processes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ni, nice : time running niced user processes (process priority, a negative nice value means higher priority, whereas a positive nice value means lower priority)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># id, idle : time spent in the kernel idle handler&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># wa, IO-wait : time waiting for I/O completion&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hi : time spent servicing hardware interrupts&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># si : time spent servicing software interrupts&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># st : time stolen from this vm by the hypervisor&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PR: The scheduling priority of the task (real priority of a process as seen by the kernel)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NI: The nice value of the task (a priority hint for the kernel)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># VIRT: The total amount of virtual memory used by the task (physical memory + swap)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># RES: A subset of the virtual address space (VIRT) representing the non-swapped physical memory (only physical memory)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># SHR: A subset of resident memory (RES) that may be used by other processes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S: Process Status, the status of the task which can be one of:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># D = uninterruptible sleep&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># I = idle&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># R = running&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S = sleeping&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># T = stopped by job control signal&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># t = stopped by debugger during trace&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Z = zombie&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-vmstat">2. vmstat&lt;/h4>
-&lt;p>vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity&lt;/p></description><content>&lt;h2 id="process-vs-thread">Process vs Thread&lt;/h2>
-&lt;p>TBD&lt;/p>
-&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
-&lt;p>&lt;img alt="overview" src="https://jinying-che.github.io/images/cpu_tools.png">&lt;/p>
-&lt;h4 id="0-procstat">0 /proc/stat&lt;/h4>
-&lt;h4 id="1-top">1. top&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ top
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>top - 17:18:53 up &lt;span style="color:#ae81ff">50&lt;/span> days, 16:06, &lt;span style="color:#ae81ff">7&lt;/span> users, load average: 0.00, 0.00, 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Tasks: &lt;span style="color:#ae81ff">127&lt;/span> total, &lt;span style="color:#ae81ff">1&lt;/span> running, &lt;span style="color:#ae81ff">126&lt;/span> sleeping, &lt;span style="color:#ae81ff">0&lt;/span> stopped, &lt;span style="color:#ae81ff">0&lt;/span> zombie
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 2400.0 total, 2282.0 free, 118.0 used. 622.7 avail Mem
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">782513&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">17312&lt;/span> &lt;span style="color:#ae81ff">11036&lt;/span> &lt;span style="color:#ae81ff">8652&lt;/span> S 0.3 1.1 0:00.04 sshd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167728&lt;/span> &lt;span style="color:#ae81ff">9424&lt;/span> &lt;span style="color:#ae81ff">6504&lt;/span> S 0.0 1.0 3:05.88 systemd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.66 kthreadd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man top to get top details, simple put:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># load average : the average number of processes that are either in a runnable or uninterruptable state for the past 1, 5, and 15 minutes. &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># e.g. `load average = 1.5` in 6 cpu system means 1/4 cpu is under laod, 3/4 cpu is idle&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># us, user : time running un-niced user processes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># sy, system : time running kernel processes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ni, nice : time running niced user processes (process priority, a negative nice value means higher priority, whereas a positive nice value means lower priority)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># id, idle : time spent in the kernel idle handler&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># wa, IO-wait : time waiting for I/O completion&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># hi : time spent servicing hardware interrupts&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># si : time spent servicing software interrupts&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># st : time stolen from this vm by the hypervisor&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PR: The scheduling priority of the task (real priority of a process as seen by the kernel)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NI: The nice value of the task (a priority hint for the kernel)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># VIRT: The total amount of virtual memory used by the task (physical memory + swap)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># RES: A subset of the virtual address space (VIRT) representing the non-swapped physical memory (only physical memory)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># SHR: A subset of resident memory (RES) that may be used by other processes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S: Process Status, the status of the task which can be one of:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># D = uninterruptible sleep&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># I = idle&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># R = running&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># S = sleeping&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># T = stopped by job control signal&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># t = stopped by debugger during trace&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Z = zombie&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-vmstat">2. vmstat&lt;/h4>
-&lt;p>vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity&lt;/p>
-&lt;p>refer to &lt;a href="https://jinying-che.github.io/posts/memory/#3-vmstat">details&lt;/a>&lt;/p>
-&lt;h4 id="3-pidstat-process-level">3. pidstat (process level)&lt;/h4>
-&lt;p>&lt;code>pidstat&lt;/code> report statistics (cpu, memory, disk, stack) for Linux tasks (process), by defaut is cpu utilization without params.&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>-d&lt;/code> Report I/O statistics&lt;/li>
-&lt;li>&lt;code>-R&lt;/code> Report realtime priority and scheduling policy information.&lt;/li>
-&lt;li>&lt;code>-r&lt;/code> Report page faults and memory utilization.&lt;/li>
-&lt;li>&lt;code>-s&lt;/code> Report stack utilization.&lt;/li>
-&lt;li>&lt;code>-u&lt;/code> Report CPU utilization&lt;/li>
-&lt;li>&lt;code>-v&lt;/code> Report values of some kernel tables.&lt;/li>
-&lt;li>&lt;code>-w&lt;/code> Report task switching activity&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display 2 reports of CPU statistics for every active task in the system per second intervals.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:13 PM UID PID %usr %system %guest %wait %CPU CPU Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:14 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">798270&lt;/span> 0.00 1.00 0.00 0.00 1.00 &lt;span style="color:#ae81ff">0&lt;/span> pidstat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:31:14 PM UID PID %usr %system %guest %wait %CPU CPU Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: UID PID %usr %system %guest %wait %CPU CPU Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">798270&lt;/span> 0.00 0.50 0.00 0.00 0.50 - pidstat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -p Select tasks (processes) for which statistics are to be reported &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat -p &lt;span style="color:#ae81ff">655152&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">3&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:38:56 PM UID PID %usr %system %guest %wait %CPU CPU Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:38:58 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:39:00 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>05:39:02 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> node_exporter
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">655152&lt;/span> 0.00 0.00 0.00 0.00 0.00 - node_exporter
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man pidstat for details, simple put&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># PID The identification number of the task being monitored.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %usr Percentage of CPU used by the task while executing at the user level (application)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %system Percentage of CPU used by the task while executing at the system level (kernel).&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %guest Percentage of CPU spent by the task in virtual machine (running a virtual processor)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %wait Percentage of CPU spent by the task while waiting to run.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %CPU Total percentage of CPU time used by the task. &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># CPU Processor number to which the task is attached.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Command The command name of the task.&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="4-mpstat-cpu-level">4. mpstat (cpu level)&lt;/h4>
-&lt;p>mpstat - Report &lt;strong>processors&lt;/strong> related statistics.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display 2 reports of statistics for all processors at 1 second intervals.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ mpstat -P ALL &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:14 PM CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM all 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 99.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM &lt;span style="color:#ae81ff">0&lt;/span> 1.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 99.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:15 PM CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:16 PM all 1.02 0.00 1.02 0.00 0.00 0.00 0.00 0.00 0.00 97.96
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:43:16 PM &lt;span style="color:#ae81ff">0&lt;/span> 1.02 0.00 1.02 0.00 0.00 0.00 0.00 0.00 0.00 97.96
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: CPU %usr %nice %sys %iowait %irq %soft %steal %guest %gnice %idle
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: all 1.01 0.00 0.51 0.00 0.00 0.00 0.00 0.00 0.00 98.48
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Average: &lt;span style="color:#ae81ff">0&lt;/span> 1.01 0.00 0.51 0.00 0.00 0.00 0.00 0.00 0.00 98.48
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man mpstat for details, simple put&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %usr Show the percentage of CPU utilization that occurred while executing at the user level (application).&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %nice Show the percentage of CPU utilization that occurred while executing at the user level with nice priority.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %sys Show the percentage of CPU utilization that occurred while executing at the system level (kernel). Note that this does not include time spent servicing hardware and software interrupts.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %iowait Show the percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %irq Show the percentage of time spent by the CPU or CPUs to service hardware interrupts.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %soft Show the percentage of time spent by the CPU or CPUs to service software interrupts.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %steal Show the percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %guest Show the percentage of time spent by the CPU or CPUs to run a virtual processor.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %gnice Show the percentage of time spent by the CPU or CPUs to run a niced guest.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># %idle Show the percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="5-perf">5. perf&lt;/h4>
-&lt;p>Performance analysis tools for Linux (TBD after the actual usage)&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># install perf in linux (with root)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ apt-get install linux-tools-common linux-tools-generic linux-tools-&lt;span style="color:#e6db74">`&lt;/span>uname -r&lt;span style="color:#e6db74">`&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Samples: 22K of event &lt;span style="color:#e6db74">&amp;#39;cycles&amp;#39;&lt;/span>, &lt;span style="color:#ae81ff">4000&lt;/span> Hz, Event count &lt;span style="color:#f92672">(&lt;/span>approx.&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">1228941005&lt;/span> lost: 0/0 drop: 0/734
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Overhead Shared Object Symbol
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 14.88% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> __symbols__insert
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 9.56% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rb_next
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.74% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rust_demangle_callback
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.53% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> output_resort
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.44% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> dso__find_symbol
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.23% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> rb_insert_color
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 1.04% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> clear_page_rep
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.89% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> hist_entry__sort
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.88% perf &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> hpp__sort_overhead
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.88% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> asm_sysvec_apic_timer_interrupt
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.82% libslang.so.2.3.2 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> SLsmg_write_chars
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.66% libc.so.6 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> cfree
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.63% libc.so.6 &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> 0x00000000000a1747
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.60% sshd &lt;span style="color:#f92672">[&lt;/span>.&lt;span style="color:#f92672">]&lt;/span> 0x000000000006228c
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> 0.57% &lt;span style="color:#f92672">[&lt;/span>kernel&lt;span style="color:#f92672">]&lt;/span> &lt;span style="color:#f92672">[&lt;/span>k&lt;span style="color:#f92672">]&lt;/span> memcpy_toio
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -g Enables call-graph (stack chain/backtrace) recording&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ perf top -g -p &lt;span style="color:#ae81ff">655152&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-strace">6. strace&lt;/h4>
-&lt;p>strace - trace system calls and signals, refer to &lt;a href="https://jinying-che.github.io/posts/file_system/#5-strace">details&lt;/a>&lt;/p></content></item><item><title>File System</title><link>https://jinying-che.github.io/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://jinying-che.github.io/posts/file_system/</guid><description>&lt;h2 id="architecture">Architecture&lt;/h2>
-&lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
-&lt;h2 id="vfs">VFS&lt;/h2>
-&lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
-&lt;p>A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p></description><content>&lt;h2 id="architecture">Architecture&lt;/h2>
-&lt;p>&lt;img alt="file system" src="https://jinying-che.github.io/images/linux_file_system.svg">&lt;/p>
-&lt;h2 id="vfs">VFS&lt;/h2>
-&lt;p>The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p>
-&lt;p>A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p>
-&lt;h4 id="superblock">Superblock&lt;/h4>
-&lt;p>The superblock records various information about the enclosing filesystem, such as block counts, inode counts, supported features, maintenance information, and more.&lt;/p>
-&lt;p>Show the super block info in Linux:&lt;/p>
-&lt;blockquote>
-&lt;p>all examples in this post are from my vps (OS: Ubuntu 22.04.2 LTS)&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>$ df -h
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem Size Used Avail Use% Mounted on
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 1.3M 95M 2% /run
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/vda1 24G 12G 11G 52% /
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 479M &lt;span style="color:#ae81ff">0&lt;/span> 479M 0% /dev/shm
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 5.0M &lt;span style="color:#ae81ff">0&lt;/span> 5.0M 0% /run/lock
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 4.0K 96M 1% /run/user/0
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ dumpe2fs /dev/vda1
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>dumpe2fs 1.46.5 &lt;span style="color:#f92672">(&lt;/span>30-Dec-2021&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem volume name: &amp;lt;none&amp;gt;
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Last mounted on: /
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem UUID: cc673143-6902-4174-990e-8cba0304cb7a
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem magic number: 0xEF53
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem revision &lt;span style="color:#75715e">#: 1 (dynamic)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem features: has_journal ext_attr resize_inode dir_index filetype needs_recovery extent 64bit flex_bg sparse_super large_file huge_file dir_nlink extra_isize metadata_csum
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem flags: signed_directory_hash
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Default mount options: user_xattr acl discard
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem state: clean
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Errors behavior: Continue
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem OS type: Linux
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inode count: &lt;span style="color:#ae81ff">6537600&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Block count: &lt;span style="color:#ae81ff">6553339&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Reserved block count: &lt;span style="color:#ae81ff">327666&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Free blocks: &lt;span style="color:#ae81ff">3333553&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Free inodes: &lt;span style="color:#ae81ff">6325191&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>First block: &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Block size: &lt;span style="color:#ae81ff">4096&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Fragment size: &lt;span style="color:#ae81ff">4096&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/b9ddbb0cde2adcedda26045cc58f31316a492215/include/linux/fs.h#L1188">super_block c source code&lt;/a>&lt;/p>
-&lt;h4 id="directory-entry-dentry">Directory Entry (Dentry)&lt;/h4>
-&lt;ol>
-&lt;li>Dentry is used by VFS to represent information about the &lt;strong>directories and files&lt;/strong> inside the &lt;strong>memory&lt;/strong>&lt;/li>
-&lt;li>Dentries live in RAM and are never saved to disc: they exist only for performance. (RAM cannot save all dentries -&amp;gt; LFU cache)&lt;/li>
-&lt;li>An individual dentry usually has a pointer to an inode&lt;/li>
-&lt;li>It&amp;rsquo;s a fast look-up mechanism to translate a pathname (filename) into a specific &lt;strong>dentry&lt;/strong> then &lt;strong>inode&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/b9ddbb0cde2adcedda26045cc58f31316a492215/include/linux/dcache.h#L82">dentry c source code&lt;/a>&lt;/p>
-&lt;h4 id="index-node">Index Node&lt;/h4>
-&lt;ol>
-&lt;li>Index node(Inode) is a data structure that stores ownership, permissions, file size, and other metadata-related terms.&lt;/li>
-&lt;li>They live either on the disc (for block device filesystems) or in the memory (for pseudo filesystems). Inodes that live on the disc are copied into the memory when required and changes to the inode are written back to disc.&lt;/li>
-&lt;li>Every file and directory on Linux is represented by a unique inode number used by the system to identify it on the file system.&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># ls&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -i, --inode&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># print the index number of each file&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls -i workspace/main.go
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">1067025&lt;/span> workspace/main.go
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ ls -i workspace
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">1067025&lt;/span> main.go
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># stat - display file or file system status&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ stat workspace/main.go
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> File: workspace/main.go
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Size: &lt;span style="color:#ae81ff">72&lt;/span> Blocks: &lt;span style="color:#ae81ff">8&lt;/span> IO Block: &lt;span style="color:#ae81ff">4096&lt;/span> regular file
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device: fc01h/64513d Inode: &lt;span style="color:#ae81ff">1067025&lt;/span> Links: &lt;span style="color:#ae81ff">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: &lt;span style="color:#f92672">(&lt;/span>0644/-rw-r--r--&lt;span style="color:#f92672">)&lt;/span> Uid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span> Gid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: 2023-10-09 22:12:30.884848072 +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Modify: 2023-06-11 22:44:14.194331022 +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Change: 2023-06-11 22:44:14.194331022 +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Birth: 2023-06-11 22:44:14.194331022 +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ stat workspace
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> File: workspace
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Size: &lt;span style="color:#ae81ff">4096&lt;/span> Blocks: &lt;span style="color:#ae81ff">8&lt;/span> IO Block: &lt;span style="color:#ae81ff">4096&lt;/span> directory
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device: fc01h/64513d Inode: &lt;span style="color:#ae81ff">1066674&lt;/span> Links: &lt;span style="color:#ae81ff">2&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: &lt;span style="color:#f92672">(&lt;/span>0755/drwxr-xr-x&lt;span style="color:#f92672">)&lt;/span> Uid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span> Gid: &lt;span style="color:#f92672">(&lt;/span> 0/ root&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Access: 2023-10-09 22:12:33.196939026 +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Modify: 2023-10-09 22:12:32.612916118 +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Change: 2023-10-09 22:12:32.612916118 +0800
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> Birth: 2023-06-11 22:43:01.453639583 +0800
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/94f6f0550c625fab1f373bb86a6669b45e9748b3/include/linux/fs.h#L639">inode c source code&lt;/a>&lt;/p>
-&lt;h4 id="file">File&lt;/h4>
-&lt;ol>
-&lt;li>The file object is the in-memory representation of an open file.&lt;/li>
-&lt;li>The file object is initialized with a pointer to the dentry and a set of file operation member functions which are taken from the inode data.&lt;/li>
-&lt;li>The file structure is placed into the file descriptor table for the process.&lt;/li>
-&lt;li>Reading, writing and closing files are done by using the userspace &lt;strong>file descriptor&lt;/strong> to grab the appropriate file structure.&lt;/li>
-&lt;/ol>
-&lt;p>&lt;code>Source Code&lt;/code>: &lt;a href="https://github.com/torvalds/linux/blob/b9ddbb0cde2adcedda26045cc58f31316a492215/include/linux/fs.h#L992">file c source code&lt;/a>&lt;/p>
-&lt;h2 id="what-happens-when-reading-a-file-in-linux">What happens when reading a file in Linux?&lt;/h2>
-&lt;p>TBD Diagram to elaborate on the concepts above&lt;/p>
-&lt;h2 id="block-layer">Block Layer&lt;/h2>
-&lt;p>TBD&lt;/p>
-&lt;h2 id="troubleshooting">Troubleshooting&lt;/h2>
-&lt;h4 id="1-df--du">1. df &amp;amp; du&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># df displays the amount of disk space available on the file system containing each file name argument&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ df -h
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Filesystem Size Used Avail Use% Mounted on
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 1.3M 95M 2% /run
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/dev/vda1 24G 12G 11G 52% /
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 479M &lt;span style="color:#ae81ff">0&lt;/span> 479M 0% /dev/shm
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 5.0M &lt;span style="color:#ae81ff">0&lt;/span> 5.0M 0% /run/lock
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>tmpfs 96M 4.0K 96M 1% /run/user/0
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># du Summarize disk usage of the set of FILEs, recursively for directories.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>/usr &amp;gt; du -h --max-depth&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#75715e"># display the usage of first depth in a human readable format &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>4.0K ./lib32
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>32M ./sbin
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>465M ./src
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>4.0K ./lib64
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>439M ./share
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># display the usage of this depth and sort the output in a human readable format&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ du -hs * | sort -rh | head -10
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>5.0G usr
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>3.9G var
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2.4G swapfile
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>1.1G snap
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="2-iostat-device-level">2. iostat (device level)&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Display a continuous device report of extended statistics at two second intervals.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># take note of the following statistics: &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - %util: percentage of elapsed time during which I/O requests were issued to the device &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - r/s, w/s: read/write requests per second for the device&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - rKB/s, rWB/s: the number of sectors (kilobytes, megabytes) read/write for the device per second&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># - r_await, w_await: the average time (in milliseconds) for read/write requests issued to the device to be served. This includes the time spent by the requests in queue and the time spent servicing them.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ iostat -x -d &lt;span style="color:#ae81ff">2&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device r/s rkB/s rrqm/s %rrqm r_await rareq-sz w/s wkB/s wrqm/s %wrqm w_await wareq-sz d/s dkB/s drqm/s %drqm d_await dareq-sz f/s f_await aqu-sz %util
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop0 0.00 0.02 0.00 0.00 0.29 47.11 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop1 0.00 0.00 0.00 0.00 0.14 34.80 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sr0 0.00 0.00 0.00 0.00 0.00 0.12 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vda 0.24 6.06 0.09 28.32 0.37 25.79 2.18 15.93 0.48 17.94 0.38 7.32 0.01 8.63 0.00 0.00 2.14 1258.27 0.20 0.14 0.00 0.10
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Device r/s rkB/s rrqm/s %rrqm r_await rareq-sz w/s wkB/s wrqm/s %wrqm w_await wareq-sz d/s dkB/s drqm/s %drqm d_await dareq-sz f/s f_await aqu-sz %util
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop0 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>loop1 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sr0 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>vda 0.00 0.00 0.00 0.00 0.00 0.00 1.00 30.00 6.50 86.67 0.50 30.00 0.50 2.00 0.00 0.00 2.00 4.00 1.00 0.00 0.00 0.20
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="3-pidstat-process-level">3. pidstat (process level)&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># pidstat - Report statistics for Linux tasks.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -d report I/O statistics per second &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat -d &lt;span style="color:#ae81ff">1&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:01 PM UID PID kB_rd/s kB_wr/s kB_ccwr/s iodelay Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:01 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 16.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:01 PM UID PID kB_rd/s kB_wr/s kB_ccwr/s iodelay Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:02 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 36.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:02 PM UID PID kB_rd/s kB_wr/s kB_ccwr/s iodelay Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:03 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 32.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:03 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">825&lt;/span> 0.00 4.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> sshd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ pidstat -d -p &lt;span style="color:#ae81ff">387&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#75715e"># report I/O statistics for process 387 per second &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:24 PM UID PID kB_rd/s kB_wr/s kB_ccwr/s iodelay Command
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:25 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 16.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:26 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:27 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 32.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>11:11:28 PM &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">387&lt;/span> 0.00 0.00 0.00 &lt;span style="color:#ae81ff">0&lt;/span> systemd-journal
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="4-iotop">4. iotop&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># iotop - simple top-like I/O monitor&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># NOTE: not handy as kernal config may need to update (at least the CONFIG_TASK_DELAY_ACCT, CONFIG_TASK_IO_ACCOUNTING, CON-FIG_TASKSTATS and CONFIG_VM_EVENT_COUNTERS options need to be enabled in your Linux kernel build configuration.)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ iotop
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Total DISK READ : 0.00 B/s | Total DISK WRITE : 7.85 K/s
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Actual DISK READ: 0.00 B/s | Actual DISK WRITE: 0.00 B/s
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> TID PRIO USER DISK READ DISK WRITE SWAPIN IO&amp;gt; COMMAND
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#ae81ff">15055&lt;/span> be/3 root 0.00 B/s 7.85 K/s 0.00 % 0.00 % systemd-journald
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="5-strace">5. strace&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># strace - trace system calls and signals&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># process 654373 is a prometheus node exporter, through the strace (system calls), it&amp;#39;s able to roughly understand how does node exporter work &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ strace -p &lt;span style="color:#ae81ff">654373&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>newfstatat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc&amp;#34;&lt;/span>, &lt;span style="color:#f92672">{&lt;/span>st_mode&lt;span style="color:#f92672">=&lt;/span>S_IFDIR|0555, st_size&lt;span style="color:#f92672">=&lt;/span>0, ...&lt;span style="color:#f92672">}&lt;/span>, 0&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>statfs&lt;span style="color:#f92672">(&lt;/span>&lt;span style="color:#e6db74">&amp;#34;/proc&amp;#34;&lt;/span>, &lt;span style="color:#f92672">{&lt;/span>f_type&lt;span style="color:#f92672">=&lt;/span>PROC_SUPER_MAGIC, f_bsize&lt;span style="color:#f92672">=&lt;/span>4096, f_blocks&lt;span style="color:#f92672">=&lt;/span>0, f_bfree&lt;span style="color:#f92672">=&lt;/span>0, f_bavail&lt;span style="color:#f92672">=&lt;/span>0, f_files&lt;span style="color:#f92672">=&lt;/span>0, f_ffree&lt;span style="color:#f92672">=&lt;/span>0, f_fsid&lt;span style="color:#f92672">={&lt;/span>val&lt;span style="color:#f92672">=[&lt;/span>0, 0&lt;span style="color:#f92672">]}&lt;/span>, f_namelen&lt;span style="color:#f92672">=&lt;/span>255, f_frsize&lt;span style="color:#f92672">=&lt;/span>4096, f_flags&lt;span style="color:#f92672">=&lt;/span>ST_VALID|ST_NOSUID|ST_NODEV|ST_NOEXEC|ST_RELATIME&lt;span style="color:#f92672">})&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>newfstatat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc/655152&amp;#34;&lt;/span>, &lt;span style="color:#f92672">{&lt;/span>st_mode&lt;span style="color:#f92672">=&lt;/span>S_IFDIR|0555, st_size&lt;span style="color:#f92672">=&lt;/span>0, ...&lt;span style="color:#f92672">}&lt;/span>, 0&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>openat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc/655152/stat&amp;#34;&lt;/span>, O_RDONLY|O_CLOEXEC&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">8&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_GETFL&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> 0x8000 &lt;span style="color:#f92672">(&lt;/span>flags O_RDONLY|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_SETFL, O_RDONLY|O_NONBLOCK|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>epoll_ctl&lt;span style="color:#f92672">(&lt;/span>4, EPOLL_CTL_ADD, 8, &lt;span style="color:#f92672">{&lt;/span>events&lt;span style="color:#f92672">=&lt;/span>EPOLLIN|EPOLLOUT|EPOLLRDHUP|EPOLLET, data&lt;span style="color:#f92672">={&lt;/span>u32&lt;span style="color:#f92672">=&lt;/span>1268860600, u64&lt;span style="color:#f92672">=&lt;/span>139673605326520&lt;span style="color:#f92672">}})&lt;/span> &lt;span style="color:#f92672">=&lt;/span> -1 EPERM &lt;span style="color:#f92672">(&lt;/span>Operation not permitted&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_GETFL&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> 0x8800 &lt;span style="color:#f92672">(&lt;/span>flags O_RDONLY|O_NONBLOCK|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_SETFL, O_RDONLY|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>read&lt;span style="color:#f92672">(&lt;/span>8, &lt;span style="color:#e6db74">&amp;#34;655152 (node_exporter) R 655107 &amp;#34;&lt;/span>..., 512&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">308&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>read&lt;span style="color:#f92672">(&lt;/span>8, &lt;span style="color:#e6db74">&amp;#34;&amp;#34;&lt;/span>, 204&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>close&lt;span style="color:#f92672">(&lt;/span>8&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>openat&lt;span style="color:#f92672">(&lt;/span>AT_FDCWD, &lt;span style="color:#e6db74">&amp;#34;/proc/stat&amp;#34;&lt;/span>, O_RDONLY|O_CLOEXEC&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">8&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_GETFL&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> 0x8000 &lt;span style="color:#f92672">(&lt;/span>flags O_RDONLY|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>fcntl&lt;span style="color:#f92672">(&lt;/span>8, F_SETFL, O_RDONLY|O_NONBLOCK|O_LARGEFILE&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>epoll_ctl&lt;span style="color:#f92672">(&lt;/span>4, EPOLL_CTL_ADD, 8, &lt;span style="color:#f92672">{&lt;/span>events&lt;span style="color:#f92672">=&lt;/span>EPOLLIN|EPOLLOUT|EPOLLRDHUP|EPOLLET, data&lt;span style="color:#f92672">={&lt;/span>u32&lt;span style="color:#f92672">=&lt;/span>1268860600, u64&lt;span style="color:#f92672">=&lt;/span>139673605326520&lt;span style="color:#f92672">}})&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>read&lt;span style="color:#f92672">(&lt;/span>8, &lt;span style="color:#e6db74">&amp;#34;cpu 773459 68488 441098 3776333&amp;#34;&lt;/span>..., 512&lt;span style="color:#f92672">)&lt;/span> &lt;span style="color:#f92672">=&lt;/span> &lt;span style="color:#ae81ff">512&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="6-lsof">6. lsof&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># lsof - lists on its standard output file information about files opened by processes&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># An open file may be a regular file, a directory, a block special file, a character special file, an executing text reference, a library, a stream or a network file (Internet socket, NFS file or UNIX domain socket.)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># man lsof for more details &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ lsof -p &lt;span style="color:#ae81ff">654373&lt;/span> &lt;span style="color:#75715e"># list all files opened by node exporter&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root cwd DIR 252,1 &lt;span style="color:#ae81ff">4096&lt;/span> &lt;span style="color:#ae81ff">1046028&lt;/span> /root/workspace/node_exporter-1.6.1.linux-amd64
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root rtd DIR 252,1 &lt;span style="color:#ae81ff">4096&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> /
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root txt REG 252,1 &lt;span style="color:#ae81ff">20025119&lt;/span> &lt;span style="color:#ae81ff">1046289&lt;/span> /root/workspace/node_exporter-1.6.1.linux-amd64/node_exporter
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 0u CHR 136,5 0t0 &lt;span style="color:#ae81ff">8&lt;/span> /dev/pts/5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 1u CHR 136,5 0t0 &lt;span style="color:#ae81ff">8&lt;/span> /dev/pts/5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 2u CHR 136,5 0t0 &lt;span style="color:#ae81ff">8&lt;/span> /dev/pts/5
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 3u IPv6 &lt;span style="color:#ae81ff">10182875&lt;/span> 0t0 TCP *:9100 &lt;span style="color:#f92672">(&lt;/span>LISTEN&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 4u a_inode 0,14 &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">12477&lt;/span> &lt;span style="color:#f92672">[&lt;/span>eventpoll&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 5r FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>node_expo &lt;span style="color:#ae81ff">655152&lt;/span> root 6w FIFO 0,13 0t0 &lt;span style="color:#ae81ff">10182871&lt;/span> pipe
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="linux-storage-stack">Linux Storage Stack&lt;/h2>
-&lt;p>&lt;img alt="linux storage stack" src="https://jinying-che.github.io/images/Linux-storage-stack-diagram_v6.2/linux_storage_stack.svg">
-&lt;a href="https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram">https://www.thomas-krenn.com/en/wiki/Linux_Storage_Stack_Diagram&lt;/a>&lt;/p>
-&lt;h2 id="reference">Reference&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://developer.ibm.com/tutorials/l-linux-filesystem/">https://developer.ibm.com/tutorials/l-linux-filesystem/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/ext4/globals.html?highlight=file+system+super+block">super block &amp;ndash; kernel doc&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.kernel.org/doc/html/latest/filesystems/vfs.html?highlight=inode">vfs overview &amp;ndash; kernel doc&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://itslinuxfoss.com/what-is-superblock-inode-dentry-and-file/#:~:text=The%20superblock%20is%20the%20data,of%20bytes%20in%20different%20forms.">What is a Superblock, Dentry, Inode and a File?&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Memory</title><link>https://jinying-che.github.io/posts/memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/memory/</guid><description>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
-&lt;ol>
-&lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
-&lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
-&lt;li>The physical memory is only allocated to process when memory is firstly accessed. (e.g. &lt;code>mmap()&lt;/code> and &lt;code>brk()&lt;/code> in C just allocate the virtual memory first, hence you can see &lt;code>VIRT&lt;/code> in &lt;code>top&lt;/code> command is usually much higher than &lt;code>RES&lt;/code>)&lt;/li>
-&lt;li>Virtual maps to physical memory and disk (swap)&lt;/li>
-&lt;li>Virtual memory for one process includes both user space and kernel space.&lt;/li>
-&lt;/ol>
-&lt;p>&lt;img alt="virtual memory" src="https://jinying-che.github.io/images/virtual_memory.png">&lt;/p></description><content>&lt;h2 id="virtual-memory">Virtual Memory&lt;/h2>
-&lt;ol>
-&lt;li>Virtual memory is an abstraction for memory management by operation system&lt;/li>
-&lt;li>Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li>
-&lt;li>The physical memory is only allocated to process when memory is firstly accessed. (e.g. &lt;code>mmap()&lt;/code> and &lt;code>brk()&lt;/code> in C just allocate the virtual memory first, hence you can see &lt;code>VIRT&lt;/code> in &lt;code>top&lt;/code> command is usually much higher than &lt;code>RES&lt;/code>)&lt;/li>
-&lt;li>Virtual maps to physical memory and disk (swap)&lt;/li>
-&lt;li>Virtual memory for one process includes both user space and kernel space.&lt;/li>
-&lt;/ol>
-&lt;p>&lt;img alt="virtual memory" src="https://jinying-che.github.io/images/virtual_memory.png">&lt;/p>
-&lt;h2 id="buffer-vs-cache">Buffer vs Cache&lt;/h2>
-&lt;ul>
-&lt;li>Buffer: the memory used for the disk (both read and write)&lt;/li>
-&lt;li>Cache: the memory used for the file (both read and write)&lt;/li>
-&lt;/ul>
-&lt;pre tabindex="0">&lt;code>Common Mistake: Buffer is for write only, whereas Cache is for read only --&amp;gt; WRONG!
-&lt;/code>&lt;/pre>&lt;h2 id="reclaim-memory">Reclaim Memory&lt;/h2>
-&lt;p>Operation system will try to reclaim the memory when the resource is lack:&lt;/p>
-&lt;ol>
-&lt;li>LRU（Least Recently Used）&lt;/li>
-&lt;li>Swap the less used memory to disk&lt;/li>
-&lt;li>OOM (Out of Memory): kill the process who takes up lots of memory&lt;/li>
-&lt;/ol>
-&lt;h2 id="allocating-kernel-memory-tbd">Allocating kernel memory (TBD)&lt;/h2>
-&lt;h4 id="buddy-system">Buddy System&lt;/h4>
-&lt;p>The buddy system is a memory allocation algorithm that works by dividing memory into blocks of a fixed size, with each block being a power of two in size.&lt;/p>
-&lt;p>&lt;strong>Drawback&lt;/strong>: The main drawback in buddy system is internal fragmentation as larger block of memory is acquired then required. For example if a 36 kb request is made then it can only be satisfied by 64 kb segment and remaining memory is wasted.&lt;/p>
-&lt;h4 id="slab-system">Slab System&lt;/h4>
-&lt;p>The slab system is a memory allocation algorithm that is designed specifically for kernel memory. It works by dividing memory into fixed-size caches or slabs, each of which contains a set of objects of the same type&lt;/p>
-&lt;h2 id="troubleshooting">TroubleShooting&lt;/h2>
-&lt;h4 id="1-tophtop">1. top/htop&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># top, press M (order by memory)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ top
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>%Cpu&lt;span style="color:#f92672">(&lt;/span>s&lt;span style="color:#f92672">)&lt;/span>: 0.7 us, 0.7 sy, 0.0 ni, 98.7 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Mem : 35.8/957.5 &lt;span style="color:#f92672">[||||||||||||||||||||||||||||||||||||&lt;/span> &lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MiB Swap: 4.1/2400.0 &lt;span style="color:#f92672">[||||&lt;/span> &lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">428&lt;/span> root rt &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">289312&lt;/span> &lt;span style="color:#ae81ff">27100&lt;/span> &lt;span style="color:#ae81ff">9072&lt;/span> S 0.3 2.8 4:20.42 multipathd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">745&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">1209328&lt;/span> &lt;span style="color:#ae81ff">7900&lt;/span> &lt;span style="color:#ae81ff">1832&lt;/span> S 0.3 0.8 15:47.03 containerd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">359212&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">15424&lt;/span> &lt;span style="color:#ae81ff">9208&lt;/span> &lt;span style="color:#ae81ff">7600&lt;/span> S 0.3 0.9 0:00.01 sshd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">1&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">167692&lt;/span> &lt;span style="color:#ae81ff">8560&lt;/span> &lt;span style="color:#ae81ff">5560&lt;/span> S 0.0 0.9 1:30.35 systemd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">2&lt;/span> root &lt;span style="color:#ae81ff">20&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> S 0.0 0.0 0:00.37 kthreadd
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run &lt;code>man top&lt;/code>:&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>VIRT&lt;/code>: The total amount of virtual memory used by the task. It includes all code, data and shared libraries plus pages that have been swapped out and pages that have been mapped but not used.&lt;/li>
-&lt;li>&lt;code>RES&lt;/code>: A subset of the virtual address space (VIRT) representing the non-swapped &lt;strong>physical memory&lt;/strong> a task is currently using.&lt;/li>
-&lt;li>&lt;code>SHR&lt;/code>: A subset of resident memory (RES) that may be used by other processes.&lt;/li>
-&lt;li>&lt;code>%MEM&lt;/code>: A task&amp;rsquo;s currently resident share of available physical memory.&lt;/li>
-&lt;/ul>
-&lt;h4 id="2-free">2. free&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># free displays the total amount of free and used physical and swap memory in the system, as well as the buffers and caches used by the kernel. The information is gathered by parsing /proc/meminfo&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ free
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> total used free shared buff/cache available
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Mem: &lt;span style="color:#ae81ff">980508&lt;/span> &lt;span style="color:#ae81ff">183624&lt;/span> &lt;span style="color:#ae81ff">74136&lt;/span> &lt;span style="color:#ae81ff">348&lt;/span> &lt;span style="color:#ae81ff">722748&lt;/span> &lt;span style="color:#ae81ff">631876&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Swap: &lt;span style="color:#ae81ff">2457596&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">2355648&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run &lt;code>man free&lt;/code>:&lt;/p>
-&lt;ul>
-&lt;li>&lt;code>total&lt;/code>: Total installed memory (MemTotal and SwapTotal in /proc/meminfo)&lt;/li>
-&lt;li>&lt;code>used&lt;/code>: Used memory (calculated as total - free - buffers - cache)&lt;/li>
-&lt;li>&lt;code>free&lt;/code>: Unused memory (MemFree and SwapFree in /proc/meminfo)&lt;/li>
-&lt;li>&lt;code>shared&lt;/code>: Memory used (mostly) by tmpfs (Shmem in /proc/meminfo)&lt;/li>
-&lt;li>&lt;code>buffers&lt;/code>: Memory used by kernel buffers (Buffers in /proc/meminfo)&lt;/li>
-&lt;li>&lt;code>cache&lt;/code>: Memory used by the page cache and slabs (Cached and SReclaimable in /proc/meminfo)&lt;/li>
-&lt;li>&lt;code>buff/cache&lt;/code>: Sum of buffers and cache&lt;/li>
-&lt;li>&lt;code>available&lt;/code>: Estimation of how much memory is available for starting new applications, without swapping.&lt;/li>
-&lt;/ul>
-&lt;h4 id="3-vmstat">3. vmstat&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># usage: vmstat [options] [delay [count]]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ vmstat -t &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">5&lt;/span> &lt;span style="color:#75715e"># report virtual memory statistics per 2 second, total 5 &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu----- -----timestamp-----
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> r b swpd free buff cache si so bi bo in cs us sy id wa st UTC
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85464&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">6&lt;/span> &lt;span style="color:#ae81ff">14&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:49
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">226&lt;/span> &lt;span style="color:#ae81ff">50&lt;/span> &lt;span style="color:#ae81ff">85&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:51
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">4&lt;/span> &lt;span style="color:#ae81ff">60&lt;/span> &lt;span style="color:#ae81ff">104&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">99&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:53
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">41&lt;/span> &lt;span style="color:#ae81ff">62&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">100&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:55
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">101948&lt;/span> &lt;span style="color:#ae81ff">72904&lt;/span> &lt;span style="color:#ae81ff">85472&lt;/span> &lt;span style="color:#ae81ff">641460&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">12&lt;/span> &lt;span style="color:#ae81ff">39&lt;/span> &lt;span style="color:#ae81ff">76&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">99&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> 2023-09-28 14:41:57
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Run &lt;code>man vmstat&lt;/code>:&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>Memory&lt;/p>
-&lt;ul>
-&lt;li>These are affected by the &amp;ndash;unit option.&lt;/li>
-&lt;li>swpd: the amount of swap memory used.&lt;/li>
-&lt;li>free: the amount of idle memory.&lt;/li>
-&lt;li>buff: the amount of memory used as buffers.&lt;/li>
-&lt;li>cache: the amount of memory used as cache.&lt;/li>
-&lt;li>inact: the amount of inactive memory. (-a option)&lt;/li>
-&lt;li>active: the amount of active memory. (-a option)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>Swap&lt;/p>
-&lt;ul>
-&lt;li>These are affected by the &amp;ndash;unit option.&lt;/li>
-&lt;li>si: Amount of memory swapped in from disk (/s).&lt;/li>
-&lt;li>so: Amount of memory swapped to disk (/s).&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>IO&lt;/p>
-&lt;ul>
-&lt;li>bi: Blocks received from a block device (blocks/s).&lt;/li>
-&lt;li>bo: Blocks sent to a block device (blocks/s).&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>System&lt;/p>
-&lt;ul>
-&lt;li>in: The number of interrupts per second, including the clock.&lt;/li>
-&lt;li>cs: The number of context switches per second.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>CPU&lt;/p>
-&lt;ul>
-&lt;li>These are percentages of total CPU time.&lt;/li>
-&lt;li>us: Time spent running non-kernel code. (user time, including nice time)&lt;/li>
-&lt;li>sy: Time spent running kernel code. (system time)&lt;/li>
-&lt;li>id: Time spent idle. Prior to Linux 2.5.41, this includes IO-wait time.&lt;/li>
-&lt;li>wa: Time spent waiting for IO. Prior to Linux 2.5.41, included in idle.&lt;/li>
-&lt;li>st: Time stolen from a virtual machine. Prior to Linux 2.6.11, unknown.&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h4 id="4-procmeminfo">4. /proc/meminfo&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># This file reports statistics about memory usage on the system.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /proc/meminfo
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># show the first several rows only&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MemTotal: &lt;span style="color:#ae81ff">980508&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MemFree: &lt;span style="color:#ae81ff">74136&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>MemAvailable: &lt;span style="color:#ae81ff">634416&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Buffers: &lt;span style="color:#ae81ff">85092&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Cached: &lt;span style="color:#ae81ff">571860&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SwapCached: &lt;span style="color:#ae81ff">9556&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Active: &lt;span style="color:#ae81ff">408724&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inactive: &lt;span style="color:#ae81ff">305408&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Active&lt;span style="color:#f92672">(&lt;/span>anon&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">21352&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inactive&lt;span style="color:#f92672">(&lt;/span>anon&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">45240&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Active&lt;span style="color:#f92672">(&lt;/span>file&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">387372&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Inactive&lt;span style="color:#f92672">(&lt;/span>file&lt;span style="color:#f92672">)&lt;/span>: &lt;span style="color:#ae81ff">260168&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Unevictable: &lt;span style="color:#ae81ff">27620&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Mlocked: &lt;span style="color:#ae81ff">27620&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>SwapTotal: &lt;span style="color:#ae81ff">2457596&lt;/span> kB
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="5-memleak">5. memleak&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># memleak - Print a summary of outstanding allocations and their call stacks to detect memory leaks. Uses Linux eBPF/bcc.&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># Install: https://github.com/iovisor/bcc/blob/master/INSTALL.md#installing-bcc&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ /usr/sbin/memleak-bpfcc -p &lt;span style="color:#66d9ef">$(&lt;/span>pidof systemd&lt;span style="color:#66d9ef">)&lt;/span> &lt;span style="color:#75715e"># systemd no memory leak&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Attaching to pid 212971, Ctrl+C to quit.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>04:34:51&lt;span style="color:#f92672">]&lt;/span> Top &lt;span style="color:#ae81ff">10&lt;/span> stacks with outstanding allocations:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>04:34:56&lt;span style="color:#f92672">]&lt;/span> Top &lt;span style="color:#ae81ff">10&lt;/span> stacks with outstanding allocations:
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>04:35:01&lt;span style="color:#f92672">]&lt;/span> Top &lt;span style="color:#ae81ff">10&lt;/span> stacks with outstanding allocations:
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="reference">Reference&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://www.geeksforgeeks.org/operating-system-allocating-kernel-memory-buddy-system-slab-system/">https://www.geeksforgeeks.org/operating-system-allocating-kernel-memory-buddy-system-slab-system/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.kernel.org/doc/html/next/admin-guide/mm/concepts.html">https://www.kernel.org/doc/html/next/admin-guide/mm/concepts.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/iovisor/bcc">BPF Compiler Collection&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux on</title><link>https://chejinying.com/tech/tags/linux/</link><description>Recent content in Linux on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 22 Nov 2024 08:00:37 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>vps setup</title><link>https://chejinying.com/tech/posts/vps_setup/</link><pubDate>Fri, 22 Nov 2024 08:00:37 +0800</pubDate><guid>https://chejinying.com/tech/posts/vps_setup/</guid><description>&lt;p&gt;Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p&gt;
+&lt;h2 id="admin"&gt;Admin&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;systemd&lt;/li&gt;
+&lt;li&gt;ifconfig (for network config)
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo apt install net-tools&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;sysstat (for iostat etc.)
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo apt install sysstat&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="dev"&gt;Dev&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;zsh&lt;/li&gt;
+&lt;li&gt;on my zsh
+&lt;ul&gt;
+&lt;li&gt;theme: &lt;a href="https://starship.rs/"&gt;https://starship.rs/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;gcc&lt;/li&gt;
+&lt;li&gt;go&lt;/li&gt;
+&lt;li&gt;make
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo apt install make&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>systemd</title><link>https://chejinying.com/tech/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://chejinying.com/tech/posts/systemd/</guid><description>&lt;h2 id="what-is-systemd"&gt;what is systemd?&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;systemd is a suite of basic building blocks for a Linux system.&lt;/li&gt;
+&lt;li&gt;It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="where-is-the-config-file"&gt;Where is the config file?&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemd-analyze unit-paths
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;/etc/systemd/system
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="unit-file"&gt;Unit File&lt;/h2&gt;
+&lt;p&gt;A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p&gt;</description></item><item><title>CPU</title><link>https://chejinying.com/tech/posts/cpu/</link><pubDate>Mon, 16 Oct 2023 22:54:48 +0800</pubDate><guid>https://chejinying.com/tech/posts/cpu/</guid><description>&lt;h2 id="process-vs-thread"&gt;Process vs Thread&lt;/h2&gt;
+&lt;p&gt;TBD&lt;/p&gt;
+&lt;h2 id="troubleshooting"&gt;Troubleshooting&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/cpu_tools.png" alt="overview"&gt;&lt;/p&gt;
+&lt;h4 id="0-procstat"&gt;0 /proc/stat&lt;/h4&gt;
+&lt;h4 id="1-top"&gt;1. top&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;$ top
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;top - 17:18:53 up &lt;span class="m"&gt;50&lt;/span&gt; days, 16:06, &lt;span class="m"&gt;7&lt;/span&gt; users, load average: 0.00, 0.00, 0.00
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Tasks: &lt;span class="m"&gt;127&lt;/span&gt; total, &lt;span class="m"&gt;1&lt;/span&gt; running, &lt;span class="m"&gt;126&lt;/span&gt; sleeping, &lt;span class="m"&gt;0&lt;/span&gt; stopped, &lt;span class="m"&gt;0&lt;/span&gt; zombie
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;%Cpu&lt;span class="o"&gt;(&lt;/span&gt;s&lt;span class="o"&gt;)&lt;/span&gt;: 0.0 us, 0.0 sy, 0.0 ni,100.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;MiB Mem : 957.5 total, 122.6 free, 162.0 used, 673.0 buff/cache
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;MiB Swap: 2400.0 total, 2282.0 free, 118.0 used. 622.7 avail Mem
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; PID USER PR NI VIRT RES SHR S %CPU %MEM TIME+ COMMAND
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="m"&gt;782513&lt;/span&gt; root &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;17312&lt;/span&gt; &lt;span class="m"&gt;11036&lt;/span&gt; &lt;span class="m"&gt;8652&lt;/span&gt; S 0.3 1.1 0:00.04 sshd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="m"&gt;1&lt;/span&gt; root &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;167728&lt;/span&gt; &lt;span class="m"&gt;9424&lt;/span&gt; &lt;span class="m"&gt;6504&lt;/span&gt; S 0.0 1.0 3:05.88 systemd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="m"&gt;2&lt;/span&gt; root &lt;span class="m"&gt;20&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="m"&gt;0&lt;/span&gt; S 0.0 0.0 0:00.66 kthreadd
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# man top to get top details, simple put:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# load average : the average number of processes that are either in a runnable or uninterruptable state for the past 1, 5, and 15 minutes. &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# e.g. `load average = 1.5` in 6 cpu system means 1/4 cpu is under laod, 3/4 cpu is idle&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# us, user : time running un-niced user processes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# sy, system : time running kernel processes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# ni, nice : time running niced user processes (process priority, a negative nice value means higher priority, whereas a positive nice value means lower priority)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# id, idle : time spent in the kernel idle handler&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# wa, IO-wait : time waiting for I/O completion&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# hi : time spent servicing hardware interrupts&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# si : time spent servicing software interrupts&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# st : time stolen from this vm by the hypervisor&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# PR: The scheduling priority of the task (real priority of a process as seen by the kernel)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# NI: The nice value of the task (a priority hint for the kernel)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# VIRT: The total amount of virtual memory used by the task (physical memory + swap)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# RES: A subset of the virtual address space (VIRT) representing the non-swapped physical memory (only physical memory)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# SHR: A subset of resident memory (RES) that may be used by other processes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# S: Process Status, the status of the task which can be one of:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# D = uninterruptible sleep&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# I = idle&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# R = running&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# S = sleeping&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# T = stopped by job control signal&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# t = stopped by debugger during trace&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Z = zombie&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id="2-vmstat"&gt;2. vmstat&lt;/h4&gt;
+&lt;p&gt;vmstat reports information about processes, memory, paging, block IO, traps, disks and cpu activity&lt;/p&gt;</description></item><item><title>File System</title><link>https://chejinying.com/tech/posts/file_system/</link><pubDate>Sat, 30 Sep 2023 15:25:41 +0800</pubDate><guid>https://chejinying.com/tech/posts/file_system/</guid><description>&lt;h2 id="architecture"&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/linux_file_system.svg" alt="file system"&gt;&lt;/p&gt;
+&lt;h2 id="vfs"&gt;VFS&lt;/h2&gt;
+&lt;p&gt;The Virtual File System (also known as the Virtual Filesystem Switch) is the software layer in the kernel that provides the filesystem interface to userspace programs via system call. It also provides an abstraction within the kernel which allows different filesystem implementations to coexist.&lt;/p&gt;
+&lt;p&gt;A VFS specifies an interface (or a &amp;ldquo;contract&amp;rdquo;) between the kernel and a concrete file system. Therefore, it is easy to add support for new file system types to the kernel simply by fulfilling the contract.&lt;/p&gt;</description></item><item><title>Memory</title><link>https://chejinying.com/tech/posts/memory/</link><pubDate>Thu, 28 Sep 2023 16:10:39 +0800</pubDate><guid>https://chejinying.com/tech/posts/memory/</guid><description>&lt;h2 id="virtual-memory"&gt;Virtual Memory&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;Virtual memory is an abstraction for memory management by operation system&lt;/li&gt;
+&lt;li&gt;Each process operates the virtual memory (virtual address), which is mapped to physical memory by memory management unit (MMU) in CPU&lt;/li&gt;
+&lt;li&gt;The physical memory is only allocated to process when memory is firstly accessed. (e.g. &lt;code&gt;mmap()&lt;/code&gt; and &lt;code&gt;brk()&lt;/code&gt; in C just allocate the virtual memory first, hence you can see &lt;code&gt;VIRT&lt;/code&gt; in &lt;code&gt;top&lt;/code&gt; command is usually much higher than &lt;code&gt;RES&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;Virtual maps to physical memory and disk (swap)&lt;/li&gt;
+&lt;li&gt;Virtual memory for one process includes both user space and kernel space.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/virtual_memory.png" alt="virtual memory"&gt;&lt;/p&gt;</description></item></channel></rss>

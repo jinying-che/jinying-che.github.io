@@ -1,70 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Systemd on</title><link>https://jinying-che.github.io/tags/systemd/</link><description>Recent content in Systemd on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 03 Jul 2024 08:19:14 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/systemd/index.xml" rel="self" type="application/rss+xml"/><item><title>systemd</title><link>https://jinying-che.github.io/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://jinying-che.github.io/posts/systemd/</guid><description>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
-&lt;ol>
-&lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
-&lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
-&lt;/ol>
-&lt;h2 id="where-is-the-config-file">Where is the config file?&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>systemd-analyze unit-paths
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/etc/systemd/system
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="unit-file">Unit File&lt;/h2>
-&lt;p>A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p></description><content>&lt;h2 id="what-is-systemd">what is systemd?&lt;/h2>
-&lt;ol>
-&lt;li>systemd is a suite of basic building blocks for a Linux system.&lt;/li>
-&lt;li>It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li>
-&lt;/ol>
-&lt;h2 id="where-is-the-config-file">Where is the config file?&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>systemd-analyze unit-paths
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>/etc/systemd/system
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="unit-file">Unit File&lt;/h2>
-&lt;p>A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p>
-&lt;p>e.g. sshd service unit file, &lt;code>cat /lib/systemd/system/sshd.service&lt;/code>:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Unit&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Description&lt;span style="color:#f92672">=&lt;/span>OpenBSD Secure Shell server
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Documentation&lt;span style="color:#f92672">=&lt;/span>man:sshd&lt;span style="color:#f92672">(&lt;/span>8&lt;span style="color:#f92672">)&lt;/span> man:sshd_config&lt;span style="color:#f92672">(&lt;/span>5&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>After&lt;span style="color:#f92672">=&lt;/span>network.target auditd.service
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ConditionPathExists&lt;span style="color:#f92672">=&lt;/span>!/etc/ssh/sshd_not_to_be_run
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Service&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>EnvironmentFile&lt;span style="color:#f92672">=&lt;/span>-/etc/default/ssh
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStartPre&lt;span style="color:#f92672">=&lt;/span>/usr/sbin/sshd -t
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecStart&lt;span style="color:#f92672">=&lt;/span>/usr/sbin/sshd -D $SSHD_OPTS
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecReload&lt;span style="color:#f92672">=&lt;/span>/usr/sbin/sshd -t
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ExecReload&lt;span style="color:#f92672">=&lt;/span>/bin/kill -HUP $MAINPID
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>KillMode&lt;span style="color:#f92672">=&lt;/span>process
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Restart&lt;span style="color:#f92672">=&lt;/span>on-failure
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RestartPreventExitStatus&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">255&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Type&lt;span style="color:#f92672">=&lt;/span>notify
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RuntimeDirectory&lt;span style="color:#f92672">=&lt;/span>sshd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>RuntimeDirectoryMode&lt;span style="color:#f92672">=&lt;/span>&lt;span style="color:#ae81ff">0755&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Install&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>WantedBy&lt;span style="color:#f92672">=&lt;/span>multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Alias&lt;span style="color:#f92672">=&lt;/span>sshd.service
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;code>WantedBy=multi-user.target&lt;/code> means the service will be started when the system enters multi-user mode. (equal to runlevel 2 in SysV init system)&lt;/p>
-&lt;p>&lt;strong>Target&lt;/strong> A unit configuration file whose name ends in &amp;ldquo;.target&amp;rdquo; encodes information about a target unit of systemd. Target units are used to group units and to set synchronization points for ordering dependencies with other unit files.&lt;/p>
-&lt;p>Target units provide a more flexible replacement for SysV runlevels in the classic SysV init system.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">15&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel0.target -&amp;gt; poweroff.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">13&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel1.target -&amp;gt; rescue.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">17&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel2.target -&amp;gt; multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">17&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel3.target -&amp;gt; multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">17&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel4.target -&amp;gt; multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">16&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel5.target -&amp;gt; graphical.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>lrwxrwxrwx &lt;span style="color:#ae81ff">1&lt;/span> root root &lt;span style="color:#ae81ff">13&lt;/span> Nov &lt;span style="color:#ae81ff">22&lt;/span> &lt;span style="color:#ae81ff">2023&lt;/span> runlevel6.target -&amp;gt; reboot.target
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>e.g. multi-user.target&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cat lib/systemd/system/multi-user.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>Unit&lt;span style="color:#f92672">]&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Description&lt;span style="color:#f92672">=&lt;/span>Multi-User System
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Documentation&lt;span style="color:#f92672">=&lt;/span>man:systemd.special&lt;span style="color:#f92672">(&lt;/span>7&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Requires&lt;span style="color:#f92672">=&lt;/span>basic.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>Conflicts&lt;span style="color:#f92672">=&lt;/span>rescue.service rescue.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>After&lt;span style="color:#f92672">=&lt;/span>basic.target rescue.service rescue.target
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>AllowIsolate&lt;span style="color:#f92672">=&lt;/span>yes
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="references">References&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://systemd.io/">https://systemd.io/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://en.wikipedia.org/wiki/Systemd">https://en.wikipedia.org/wiki/Systemd&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.baeldung.com/linux/systemd-target-multi-user">https://www.baeldung.com/linux/systemd-target-multi-user&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Systemd on</title><link>https://chejinying.com/tech/tags/systemd/</link><description>Recent content in Systemd on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 03 Jul 2024 08:19:14 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/systemd/index.xml" rel="self" type="application/rss+xml"/><item><title>systemd</title><link>https://chejinying.com/tech/posts/systemd/</link><pubDate>Wed, 03 Jul 2024 08:19:14 +0800</pubDate><guid>https://chejinying.com/tech/posts/systemd/</guid><description>&lt;h2 id="what-is-systemd"&gt;what is systemd?&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;systemd is a suite of basic building blocks for a Linux system.&lt;/li&gt;
+&lt;li&gt;It provides a system and service manager that runs as PID 1 and starts the rest of the system.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="where-is-the-config-file"&gt;Where is the config file?&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;systemd-analyze unit-paths
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The systemd manager scans many directories to load unit files, for user-defined units:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;/etc/systemd/system
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id="unit-file"&gt;Unit File&lt;/h2&gt;
+&lt;p&gt;A unit file is a plain text ini-style file that encodes information about a service, a socket, a device, a mount point, an automount point, a swap file or partition, a start-up target, a watched file system path, a timer controlled and supervised by systemd(1), a resource management slice or a group of externally created processes.&lt;/p&gt;</description></item></channel></rss>

@@ -1,223 +1,99 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Setup on</title><link>https://jinying-che.github.io/tags/setup/</link><description>Recent content in Setup on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 22 Nov 2024 08:00:37 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/setup/index.xml" rel="self" type="application/rss+xml"/><item><title>vps setup</title><link>https://jinying-che.github.io/posts/vps_setup/</link><pubDate>Fri, 22 Nov 2024 08:00:37 +0800</pubDate><guid>https://jinying-che.github.io/posts/vps_setup/</guid><description>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
-&lt;h2 id="admin">Admin&lt;/h2>
-&lt;ol>
-&lt;li>systemd&lt;/li>
-&lt;li>ifconfig
-&lt;ul>
-&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="dev">Dev&lt;/h2>
-&lt;ul>
-&lt;li>zsh&lt;/li>
-&lt;li>on my zsh
-&lt;ul>
-&lt;li>refer to: &lt;a href="https://jinying-che.github.io/posts/mac_setup/#21-zsh">https://jinying-che.github.io/posts/mac_setup/#21-zsh&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>gcc&lt;/li>
-&lt;li>go&lt;/li>
-&lt;li>make
-&lt;ul>
-&lt;li>&lt;code>sudo apt install make&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul></description><content>&lt;p>Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p>
-&lt;h2 id="admin">Admin&lt;/h2>
-&lt;ol>
-&lt;li>systemd&lt;/li>
-&lt;li>ifconfig
-&lt;ul>
-&lt;li>&lt;code>sudo apt install net-tools&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="dev">Dev&lt;/h2>
-&lt;ul>
-&lt;li>zsh&lt;/li>
-&lt;li>on my zsh
-&lt;ul>
-&lt;li>refer to: &lt;a href="https://jinying-che.github.io/posts/mac_setup/#21-zsh">https://jinying-che.github.io/posts/mac_setup/#21-zsh&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>gcc&lt;/li>
-&lt;li>go&lt;/li>
-&lt;li>make
-&lt;ul>
-&lt;li>&lt;code>sudo apt install make&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul></content></item><item><title>Mac Setup</title><link>https://jinying-che.github.io/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://jinying-che.github.io/posts/mac_setup/</guid><description>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
-&lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>
-&lt;li>switch the &lt;code>ctrl&lt;/code> and &lt;code>caps lock&lt;/code> key: &lt;a href="https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac">https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="2-shell">2. Shell&lt;/h2>
-&lt;ul>
-&lt;li>Install &lt;a href="https://iterm2.com/">iterm2&lt;/a>
-&lt;ul>
-&lt;li>theme: &lt;a href="https://github.com/one-dark/iterm-one-dark-theme">one dark&lt;/a>&lt;/li>
-&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Install &lt;a href="https://brew.sh/">Homebrew&lt;/a>&lt;/li>
-&lt;li>Install ZSH: &lt;code>brew install zsh&lt;/code>&lt;/li>
-&lt;li>Install &lt;a href="https://ohmyz.sh/#install">oh-my-zsh&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent&lt;/a>&lt;/li>
-&lt;li>After &lt;strong>ssh&lt;/strong> setup and add to the &lt;a href="https://github.com/">https://github.com/&lt;/a>, it&amp;rsquo;s able to &lt;code>git clone&lt;/code> resource for iterm2 now:
-&lt;ul>
-&lt;li>theme: &lt;a href="https://github.com/projekt0n/github-nvim-theme">github-nvim-theme&lt;/a>&lt;/li>
-&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>
-&lt;ul>
-&lt;li>To install new fonts on mac: Open &lt;code>Font Book&lt;/code> App -&amp;gt; Open File -&amp;gt; Add Fonts To Current User -&amp;gt; Choose the downlaoded font files&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Init &lt;a href="https://github.com/jinying-che/config">.gitconfig&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h3 id="21-zsh">2.1 Zsh&lt;/h3>
-&lt;ul>
-&lt;li>configuration (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc">.zshrc&lt;/a>)&lt;/li>
-&lt;li>setting:
-&lt;ul>
-&lt;li>move the cursor by words:&lt;/li>
-&lt;/ul>
-&lt;pre tabindex="0">&lt;code>1. Go to iTerm2 (in the menu bar) &amp;gt; Settings... &amp;gt; Profiles &amp;gt; Keys (not Preferences... &amp;gt; Keys)
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Setup on</title><link>https://chejinying.com/tech/tags/setup/</link><description>Recent content in Setup on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 22 Nov 2024 08:00:37 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/setup/index.xml" rel="self" type="application/rss+xml"/><item><title>vps setup</title><link>https://chejinying.com/tech/posts/vps_setup/</link><pubDate>Fri, 22 Nov 2024 08:00:37 +0800</pubDate><guid>https://chejinying.com/tech/posts/vps_setup/</guid><description>&lt;p&gt;Welcome to play the personal linux server, here&amp;rsquo;s the setup list that all you need.&lt;/p&gt;
+&lt;h2 id="admin"&gt;Admin&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;systemd&lt;/li&gt;
+&lt;li&gt;ifconfig (for network config)
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo apt install net-tools&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;sysstat (for iostat etc.)
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo apt install sysstat&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="dev"&gt;Dev&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;zsh&lt;/li&gt;
+&lt;li&gt;on my zsh
+&lt;ul&gt;
+&lt;li&gt;theme: &lt;a href="https://starship.rs/"&gt;https://starship.rs/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;gcc&lt;/li&gt;
+&lt;li&gt;go&lt;/li&gt;
+&lt;li&gt;make
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sudo apt install make&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>Mac Setup</title><link>https://chejinying.com/tech/posts/mac_setup/</link><pubDate>Sat, 01 Jul 2023 23:26:50 +0800</pubDate><guid>https://chejinying.com/tech/posts/mac_setup/</guid><description>&lt;h2 id="1-mac-setting"&gt;1. Mac Setting&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://support.apple.com/en-sg/HT204609"&gt;Turn on three finger drag for your Mac trackpad&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Increase the cursor moving speed: &lt;code&gt;System Preferences&lt;/code&gt; -&amp;gt; &lt;code&gt;Keyboard&lt;/code&gt; -&amp;gt; &lt;code&gt;Increase Key Repeat Rate&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;switch the &lt;code&gt;ctrl&lt;/code&gt; and &lt;code&gt;caps lock&lt;/code&gt; key: &lt;a href="https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac"&gt;https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="2-shell"&gt;2. Shell&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Install &lt;a href="https://iterm2.com/"&gt;iterm2&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;theme: &lt;a href="https://github.com/one-dark/iterm-one-dark-theme"&gt;one dark&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;font: &lt;a href="https://github.com/adobe-fonts/source-code-pro"&gt;source code pro&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Install &lt;a href="https://brew.sh/"&gt;Homebrew&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Install ZSH: &lt;code&gt;brew install zsh&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Install &lt;a href="https://ohmyz.sh/#install"&gt;oh-my-zsh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent"&gt;Generating a new SSH key and adding it to the ssh-agent&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;After &lt;strong&gt;ssh&lt;/strong&gt; setup and add to the &lt;a href="https://github.com/"&gt;https://github.com/&lt;/a&gt;, it&amp;rsquo;s able to &lt;code&gt;git clone&lt;/code&gt; resource for iterm2 now:
+&lt;ul&gt;
+&lt;li&gt;theme: &lt;a href="https://github.com/projekt0n/github-nvim-theme"&gt;github-nvim-theme&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;font: &lt;a href="https://github.com/adobe-fonts/source-code-pro"&gt;source code pro&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;To install new fonts on mac: Open &lt;code&gt;Font Book&lt;/code&gt; App -&amp;gt; Open File -&amp;gt; Add Fonts To Current User -&amp;gt; Choose the downlaoded font files&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Init &lt;a href="https://github.com/jinying-che/config"&gt;.gitconfig&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="21-zsh"&gt;2.1 Zsh&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;configuration (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc"&gt;.zshrc&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;setting:
+&lt;ul&gt;
+&lt;li&gt;move the cursor by words:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt;1. Go to iTerm2 (in the menu bar) &amp;gt; Settings... &amp;gt; Profiles &amp;gt; Keys (not Preferences... &amp;gt; Keys)
 2. On current versions (3.14+) you then switch to the Key Mappings tab
 3. Press Presets... dropdown button.
 4. Select Natural Text Editing
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>plugins:
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/wting/autojump">autojump&lt;/a>: &lt;code>brew install autojump&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/junegunn/fzf#using-homebrew">fzf&lt;/a>
-&lt;ul>
-&lt;li>&lt;code>brew install fzf&lt;/code>&lt;/li>
-&lt;li>&lt;code>$(brew --prefix)/opt/fzf/install&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="3-vim">3. vim&lt;/h2>
-&lt;ul>
-&lt;li>vim (&lt;a href="https://github.com/jinying-che/config/blob/master/.vimrc">.vimrc&lt;/a>):
-&lt;ul>
-&lt;li>install nvim: &lt;code>brew install neovim&lt;/code>&lt;/li>
-&lt;li>init nvim: &lt;a href="https://neovim.io/doc/user/nvim.html#nvim-from-vim">https://neovim.io/doc/user/nvim.html#nvim-from-vim&lt;/a>&lt;/li>
-&lt;li>install &lt;a href="https://github.com/junegunn/vim-plug">vim-plug&lt;/a>, copy &lt;code>.vimrc&lt;/code> and &lt;code>:PlugInstall&lt;/code> to install plugins&lt;/li>
-&lt;li>install &lt;a href="https://github.com/neoclide/coc.nvim">coc.nvim&lt;/a> (&lt;code>brew install node&lt;/code> first)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="31-cocnvimhttpsgithubcomneoclidecocnvim">3.1 &lt;a href="https://github.com/neoclide/coc.nvim/">coc.nvim&lt;/a>&lt;/h3>
-&lt;p>I would say coc.nvim is VS Code in neo vim, as well as the function is also expanded by plugins. Here&amp;rsquo;s the basic plugins we used in daily development.&lt;/p></description><content>&lt;h2 id="1-mac-setting">1. Mac Setting&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://support.apple.com/en-sg/HT204609">Turn on three finger drag for your Mac trackpad&lt;/a>&lt;/li>
-&lt;li>Increase the cursor moving speed: &lt;code>System Preferences&lt;/code> -&amp;gt; &lt;code>Keyboard&lt;/code> -&amp;gt; &lt;code>Increase Key Repeat Rate&lt;/code>&lt;/li>
-&lt;li>switch the &lt;code>ctrl&lt;/code> and &lt;code>caps lock&lt;/code> key: &lt;a href="https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac">https://support.apple.com/en-sg/guide/mac-help/mchlp1011/mac&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="2-shell">2. Shell&lt;/h2>
-&lt;ul>
-&lt;li>Install &lt;a href="https://iterm2.com/">iterm2&lt;/a>
-&lt;ul>
-&lt;li>theme: &lt;a href="https://github.com/one-dark/iterm-one-dark-theme">one dark&lt;/a>&lt;/li>
-&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Install &lt;a href="https://brew.sh/">Homebrew&lt;/a>&lt;/li>
-&lt;li>Install ZSH: &lt;code>brew install zsh&lt;/code>&lt;/li>
-&lt;li>Install &lt;a href="https://ohmyz.sh/#install">oh-my-zsh&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent">Generating a new SSH key and adding it to the ssh-agent&lt;/a>&lt;/li>
-&lt;li>After &lt;strong>ssh&lt;/strong> setup and add to the &lt;a href="https://github.com/">https://github.com/&lt;/a>, it&amp;rsquo;s able to &lt;code>git clone&lt;/code> resource for iterm2 now:
-&lt;ul>
-&lt;li>theme: &lt;a href="https://github.com/projekt0n/github-nvim-theme">github-nvim-theme&lt;/a>&lt;/li>
-&lt;li>font: &lt;a href="https://github.com/adobe-fonts/source-code-pro">source code pro&lt;/a>
-&lt;ul>
-&lt;li>To install new fonts on mac: Open &lt;code>Font Book&lt;/code> App -&amp;gt; Open File -&amp;gt; Add Fonts To Current User -&amp;gt; Choose the downlaoded font files&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Init &lt;a href="https://github.com/jinying-che/config">.gitconfig&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h3 id="21-zsh">2.1 Zsh&lt;/h3>
-&lt;ul>
-&lt;li>configuration (&lt;a href="https://github.com/jinying-che/config/blob/master/.zshrc">.zshrc&lt;/a>)&lt;/li>
-&lt;li>setting:
-&lt;ul>
-&lt;li>move the cursor by words:&lt;/li>
-&lt;/ul>
-&lt;pre tabindex="0">&lt;code>1. Go to iTerm2 (in the menu bar) &amp;gt; Settings... &amp;gt; Profiles &amp;gt; Keys (not Preferences... &amp;gt; Keys)
-2. On current versions (3.14+) you then switch to the Key Mappings tab
-3. Press Presets... dropdown button.
-4. Select Natural Text Editing
-&lt;/code>&lt;/pre>&lt;/li>
-&lt;li>plugins:
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/wting/autojump">autojump&lt;/a>: &lt;code>brew install autojump&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/zsh-users/zsh-autosuggestions">zsh-autosuggestions&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/zsh-users/zsh-syntax-highlighting">zsh-syntax-highlighting&lt;/a>: &lt;code>git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/junegunn/fzf#using-homebrew">fzf&lt;/a>
-&lt;ul>
-&lt;li>&lt;code>brew install fzf&lt;/code>&lt;/li>
-&lt;li>&lt;code>$(brew --prefix)/opt/fzf/install&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="3-vim">3. vim&lt;/h2>
-&lt;ul>
-&lt;li>vim (&lt;a href="https://github.com/jinying-che/config/blob/master/.vimrc">.vimrc&lt;/a>):
-&lt;ul>
-&lt;li>install nvim: &lt;code>brew install neovim&lt;/code>&lt;/li>
-&lt;li>init nvim: &lt;a href="https://neovim.io/doc/user/nvim.html#nvim-from-vim">https://neovim.io/doc/user/nvim.html#nvim-from-vim&lt;/a>&lt;/li>
-&lt;li>install &lt;a href="https://github.com/junegunn/vim-plug">vim-plug&lt;/a>, copy &lt;code>.vimrc&lt;/code> and &lt;code>:PlugInstall&lt;/code> to install plugins&lt;/li>
-&lt;li>install &lt;a href="https://github.com/neoclide/coc.nvim">coc.nvim&lt;/a> (&lt;code>brew install node&lt;/code> first)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="31-cocnvimhttpsgithubcomneoclidecocnvim">3.1 &lt;a href="https://github.com/neoclide/coc.nvim/">coc.nvim&lt;/a>&lt;/h3>
-&lt;p>I would say coc.nvim is VS Code in neo vim, as well as the function is also expanded by plugins. Here&amp;rsquo;s the basic plugins we used in daily development.&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/neoclide/coc-lists">coc-lists&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/josa42/coc-go">coc-go&lt;/a> (for golang developer)&lt;/li>
-&lt;li>&lt;a href="https://github.com/fannheyward/coc-pyright">coc-pyright&lt;/a> (for python developer)&lt;/li>
-&lt;/ul>
-&lt;h2 id="tmux">tmux&lt;/h2>
-&lt;ul>
-&lt;li>&lt;code>brew install tmux&lt;/code>&lt;/li>
-&lt;li>install tmux plugin manager: &lt;a href="https://github.com/tmux-plugins/tpm">https://github.com/tmux-plugins/tpm&lt;/a>&lt;/li>
-&lt;li>copy &lt;a href="https://github.com/jinying-che/config/blob/master/.tmux.conf">config&lt;/a> to &lt;code>~/.tmux.conf&lt;/code>&lt;/li>
-&lt;li>&lt;code>tmux source ~/.tmux.conf&lt;/code> (type this in terminal if tmux is already running)&lt;/li>
-&lt;li>theme: &lt;a href="https://github.com/catppuccin/tmux">https://github.com/catppuccin/tmux&lt;/a>
-&lt;ul>
-&lt;li>intall by tpm (included in the config above)&lt;/li>
-&lt;li>patch font via &lt;a href="https://github.com/catppuccin/tmux#installation">https://github.com/catppuccin/tmux#installation&lt;/a> (for font installation refer to shell section 2)&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="4-tool">4. Tool&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/sharkdp/fd">fd&lt;/a> is a simple, fast and user-friendly alternative to &lt;code>find&lt;/code>: &lt;code>brew install fd&lt;/code>&lt;/li>
-&lt;li>Personal Script: &lt;code>git clone https://github.com/jinying-che/Geript&lt;/code>, add into &lt;strong>system path&lt;/strong> in &lt;code>.zshrc&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/gohugoio/hugo">Hugo&lt;/a> is one of the most popular open-source static site generators.: &lt;code>brew install hugo&lt;/code>&lt;/li>
-&lt;li>GitHub Readme Instant Preview: &lt;code>brew install grip&lt;/code>&lt;/li>
-&lt;li>&lt;a href="https://github.com/tldr-pages/tldr">tlrd&lt;/a>: collection of community-maintained help pages for command-line tools, that aims to be a simpler, more approachable complement to traditional man pages.&lt;/li>
-&lt;/ul>
-&lt;h2 id="5-development">5. Development&lt;/h2>
-&lt;h3 id="51-golang">5.1 golang&lt;/h3>
-&lt;ul>
-&lt;li>Install &lt;code>golang&lt;/code>: &lt;a href="https://go.dev/doc/install">https://go.dev/doc/install&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h3 id="52-python">5.2 python&lt;/h3>
-&lt;ul>
-&lt;li>Install python: &lt;code>brew install python3&lt;/code>&lt;/li>
-&lt;li>Install ipython: &lt;code>pip install &amp;quot;ipython[all]&amp;quot;&lt;/code>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;li&gt;plugins:
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/wting/autojump"&gt;autojump&lt;/a&gt;: &lt;code&gt;brew install autojump&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/zsh-users/zsh-autosuggestions"&gt;zsh-autosuggestions&lt;/a&gt;: &lt;code&gt;git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/zsh-users/zsh-syntax-highlighting"&gt;zsh-syntax-highlighting&lt;/a&gt;: &lt;code&gt;git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/junegunn/fzf#using-homebrew"&gt;fzf&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;brew install fzf&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;$(brew --prefix)/opt/fzf/install&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="3-vim"&gt;3. vim&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;vim (&lt;a href="https://github.com/jinying-che/config/blob/master/.vimrc"&gt;.vimrc&lt;/a&gt;):
+&lt;ul&gt;
+&lt;li&gt;install nvim: &lt;code&gt;brew install neovim&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;init nvim: &lt;a href="https://neovim.io/doc/user/nvim.html#nvim-from-vim"&gt;https://neovim.io/doc/user/nvim.html#nvim-from-vim&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;install &lt;a href="https://github.com/junegunn/vim-plug"&gt;vim-plug&lt;/a&gt;, copy &lt;code&gt;.vimrc&lt;/code&gt; and &lt;code&gt;:PlugInstall&lt;/code&gt; to install plugins&lt;/li&gt;
+&lt;li&gt;install &lt;a href="https://github.com/neoclide/coc.nvim"&gt;coc.nvim&lt;/a&gt; (&lt;code&gt;brew install node&lt;/code&gt; first)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="31-cocnvim"&gt;3.1 &lt;a href="https://github.com/neoclide/coc.nvim/"&gt;coc.nvim&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;I would say coc.nvim is VS Code in neo vim, as well as the function is also expanded by plugins. Here&amp;rsquo;s the basic plugins we used in daily development.&lt;/p&gt;</description></item></channel></rss>

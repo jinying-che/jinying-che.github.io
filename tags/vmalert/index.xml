@@ -1,253 +1,29 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vmalert on</title><link>https://jinying-che.github.io/tags/vmalert/</link><description>Recent content in Vmalert on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 16:19:22 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/vmalert/index.xml" rel="self" type="application/rss+xml"/><item><title>alerting rule: grafana vs vmalert</title><link>https://jinying-che.github.io/posts/alerting_rule/</link><pubDate>Sun, 24 Nov 2024 16:19:22 +0800</pubDate><guid>https://jinying-che.github.io/posts/alerting_rule/</guid><description>&lt;p>Let&amp;rsquo;s try to understand how alerting rule is implemented in two open source projects: &lt;strong>grafana&lt;/strong> and &lt;strong>vmalert&lt;/strong>.&lt;/p>
-&lt;h1 id="version">Version&lt;/h1>
-&lt;p>use the latest version of the according source code:&lt;/p>
-&lt;ul>
-&lt;li>grafana &lt;a href="https://github.com/grafana/grafana/tree/v11.3.1">v11.3.1&lt;/a>&lt;/li>
-&lt;li>vmalert &lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics/tree/v1.106.1">v1.106.1&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h1 id="flow">Flow&lt;/h1>
-&lt;h3 id="grafana">grafana&lt;/h3>
-&lt;p>&lt;img alt="grafana alert" src="https://jinying-che.github.io/images/grafana_alert.png">&lt;/p>
-&lt;ul>
-&lt;li>Scheduler -&amp;gt; fetch alerting rules -&amp;gt; start &lt;em>goroutine&lt;/em> for each alerting rule
-&lt;ul>
-&lt;li>&lt;code>pkg/services/ngalert/schedule/schedule.go:280&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Scheduler -&amp;gt; send evaluation event(when internal elapsed) -&amp;gt; goroutine -&amp;gt; evaluation
-&lt;ul>
-&lt;li>&lt;code>pkg/services/ngalert/schedule/alert_rule.go:242&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Schedduler -&amp;gt; stop the goroutine (alerting rule delted) according to the heartbeat
-&lt;ul>
-&lt;li>&lt;code>pkg/services/ngalert/schedule/alert_rule.go:355&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="vmalert">vmalert&lt;/h3>
-&lt;p>&lt;img alt="vmalert" src="https://jinying-che.github.io/images/vmalert.png">&lt;/p></description><content>&lt;p>Let&amp;rsquo;s try to understand how alerting rule is implemented in two open source projects: &lt;strong>grafana&lt;/strong> and &lt;strong>vmalert&lt;/strong>.&lt;/p>
-&lt;h1 id="version">Version&lt;/h1>
-&lt;p>use the latest version of the according source code:&lt;/p>
-&lt;ul>
-&lt;li>grafana &lt;a href="https://github.com/grafana/grafana/tree/v11.3.1">v11.3.1&lt;/a>&lt;/li>
-&lt;li>vmalert &lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics/tree/v1.106.1">v1.106.1&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h1 id="flow">Flow&lt;/h1>
-&lt;h3 id="grafana">grafana&lt;/h3>
-&lt;p>&lt;img alt="grafana alert" src="https://jinying-che.github.io/images/grafana_alert.png">&lt;/p>
-&lt;ul>
-&lt;li>Scheduler -&amp;gt; fetch alerting rules -&amp;gt; start &lt;em>goroutine&lt;/em> for each alerting rule
-&lt;ul>
-&lt;li>&lt;code>pkg/services/ngalert/schedule/schedule.go:280&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Scheduler -&amp;gt; send evaluation event(when internal elapsed) -&amp;gt; goroutine -&amp;gt; evaluation
-&lt;ul>
-&lt;li>&lt;code>pkg/services/ngalert/schedule/alert_rule.go:242&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Schedduler -&amp;gt; stop the goroutine (alerting rule delted) according to the heartbeat
-&lt;ul>
-&lt;li>&lt;code>pkg/services/ngalert/schedule/alert_rule.go:355&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h3 id="vmalert">vmalert&lt;/h3>
-&lt;p>&lt;img alt="vmalert" src="https://jinying-che.github.io/images/vmalert.png">&lt;/p>
-&lt;ul>
-&lt;li>configReload (cron job by configCheckInterval) -&amp;gt; loading alerting rule files -&amp;gt; &lt;code>[]config.Group&lt;/code>&lt;/li>
-&lt;li>&lt;code>[]config.Group&lt;/code> -&amp;gt; diff -&amp;gt; manager -&amp;gt; &lt;strong>start&lt;/strong> the new &lt;code>rule.Group&lt;/code> and &lt;strong>delete&lt;/strong> the old &lt;code>rule.Group&lt;/code>&lt;/li>
-&lt;li>start &lt;code>rule.Group&lt;/code> per &lt;em>goroutine&lt;/em> -&amp;gt; executor -&amp;gt; execConcurrently (&lt;code>[]rule.Rule&lt;/code>) -&amp;gt; rule.exec() per &lt;em>goroutine&lt;/em>&lt;/li>
-&lt;/ul>
-&lt;h1 id="evaluation">Evaluation&lt;/h1>
-&lt;h3 id="grafana-1">grafana&lt;/h3>
-&lt;blockquote>
-&lt;p>code entrance: &lt;code>pkg/services/ngalert/schedule/alert_rule.go:327&lt;/code>&lt;/p>
-&lt;/blockquote>
-&lt;p>evalCh -&amp;gt; event -&amp;gt; alertRule -&amp;gt; evaluate:&lt;/p>
-&lt;ul>
-&lt;li>eval.EvaluatorFactory -&amp;gt; create -&amp;gt; ConditionEvaluator (&lt;code>BuildPipeline -&amp;gt; buildDependencyGraph -&amp;gt; buildExecutionOrder -&amp;gt; []Node&lt;/code>)&lt;/li>
-&lt;li>ConditionEvaluator -&amp;gt; Evaluate
-&lt;ul>
-&lt;li>expressionExecutor -&amp;gt; ExecutePipeline (DataPipeline []Node)
-&lt;ul>
-&lt;li>DataPipeline -&amp;gt; excute -&amp;gt; for loop []Node -&amp;gt; backend.QueryDataResponse&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>backend.QueryDataResponse -&amp;gt; EvaluateAlert -&amp;gt; Results&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>Results -&amp;gt; stateManager.ProcessEvalResults&lt;/li>
-&lt;/ul>
-&lt;h3 id="vmalert-1">vmalert&lt;/h3>
-&lt;blockquote>
-&lt;p>code entrance: &lt;code>app/vmalert/rule/group.go:311&lt;/code>&lt;/p>
-&lt;/blockquote>
-&lt;p>rule.Group -&amp;gt; exec(rule.Rule) concurrently:&lt;/p>
-&lt;ul>
-&lt;li>executor instant query (for now) -&amp;gt; response (label set of Metric that needs alerting)
-&lt;ul>
-&lt;li>response -&amp;gt; update AlertingRule.alerts&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>alerts -&amp;gt; executor.Notifier&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Querier interface wraps Query and QueryRange methods
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Querier&lt;/span> &lt;span style="color:#66d9ef">interface&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Query is used for the rule evaluation
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">Query&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">query&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>, &lt;span style="color:#a6e22e">ts&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Time&lt;/span>) (&lt;span style="color:#a6e22e">Result&lt;/span>, &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">http&lt;/span>.&lt;span style="color:#a6e22e">Request&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// QueryRange is used for rule replay
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">QueryRange&lt;/span>(&lt;span style="color:#a6e22e">ctx&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">Context&lt;/span>, &lt;span style="color:#a6e22e">query&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>, &lt;span style="color:#a6e22e">from&lt;/span>, &lt;span style="color:#a6e22e">to&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Time&lt;/span>) (&lt;span style="color:#a6e22e">Result&lt;/span>, &lt;span style="color:#66d9ef">error&lt;/span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="data-structure">Data Structure&lt;/h1>
-&lt;h3 id="grafana-2">grafana&lt;/h3>
-&lt;p>alert rule&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// pkg/services/ngalert/models/alert_rule.go:247
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// AlertRule is the model for alert rules in unified alerting.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">AlertRule&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ID&lt;/span> &lt;span style="color:#66d9ef">int64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">OrgID&lt;/span> &lt;span style="color:#66d9ef">int64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Title&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Condition&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Data&lt;/span> []&lt;span style="color:#a6e22e">AlertQuery&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Updated&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Time&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">IntervalSeconds&lt;/span> &lt;span style="color:#66d9ef">int64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Version&lt;/span> &lt;span style="color:#66d9ef">int64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">UID&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">NamespaceUID&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">DashboardUID&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">PanelID&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#66d9ef">int64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">RuleGroup&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">RuleGroupIndex&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Record&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">Record&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">NoDataState&lt;/span> &lt;span style="color:#a6e22e">NoDataState&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">ExecErrState&lt;/span> &lt;span style="color:#a6e22e">ExecutionErrorState&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// ideally this field should have been apimodels.ApiDuration
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// but this is currently not possible because of circular dependencies
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">For&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Annotations&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Labels&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">IsPaused&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">NotificationSettings&lt;/span> []&lt;span style="color:#a6e22e">NotificationSettings&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Metadata&lt;/span> &lt;span style="color:#a6e22e">AlertRuleMetadata&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// AlertQuery represents a single query associated with an alert definition.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">AlertQuery&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// RefID is the unique identifier of the query, set by the frontend call.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">RefID&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;refId&amp;#34;`&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// QueryType is an optional identifier for the type of query.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// It can be used to distinguish different types of queries.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">QueryType&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;queryType&amp;#34;`&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// RelativeTimeRange is the relative Start and End of the query as sent by the frontend.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">RelativeTimeRange&lt;/span> &lt;span style="color:#a6e22e">RelativeTimeRange&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;relativeTimeRange&amp;#34;`&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// Grafana data source unique identifier; it should be &amp;#39;__expr__&amp;#39; for a Server Side Expression operation.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">DatasourceUID&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;datasourceUid&amp;#34;`&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// JSON is the raw JSON query and includes the above properties as well as custom properties.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">Model&lt;/span> &lt;span style="color:#a6e22e">json&lt;/span>.&lt;span style="color:#a6e22e">RawMessage&lt;/span> &lt;span style="color:#e6db74">`json:&amp;#34;model&amp;#34;`&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">modelProps&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#a6e22e">any&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Node&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// pkg/expr/graph.go
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">const&lt;/span> (
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeCMDNode is a NodeType for expression commands.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeCMDNode&lt;/span> &lt;span style="color:#a6e22e">NodeType&lt;/span> = &lt;span style="color:#66d9ef">iota&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeDatasourceNode is a NodeType for datasource queries.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeDatasourceNode&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeMLNode is a NodeType for Machine Learning queries.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeMLNode&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// pkg/expr/nodes.go
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">const&lt;/span> (
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeUnknown is the CMDType for an unrecognized expression type.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeUnknown&lt;/span> &lt;span style="color:#a6e22e">CommandType&lt;/span> = &lt;span style="color:#66d9ef">iota&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeMath is the CMDType for a math expression.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeMath&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeReduce is the CMDType for a reduction expression.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeReduce&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeResample is the CMDType for a resampling expression.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeResample&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeClassicConditions is the CMDType for the classic condition operation.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeClassicConditions&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeThreshold is the CMDType for checking if a threshold has been crossed
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeThreshold&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// TypeSQL is the CMDType for running SQL expressions
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">TypeSQL&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>)
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="vmalert-2">vmalert&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-go" data-lang="go">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// app/vmalert/rule/alerting.go:24
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// AlertingRule is basic alert entity
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">AlertingRule&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Type&lt;/span> &lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">Type&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">RuleID&lt;/span> &lt;span style="color:#66d9ef">uint64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Name&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Expr&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">For&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">KeepFiringFor&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Labels&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Annotations&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">GroupID&lt;/span> &lt;span style="color:#66d9ef">uint64&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">GroupName&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">File&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">EvalInterval&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Debug&lt;/span> &lt;span style="color:#66d9ef">bool&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">q&lt;/span> &lt;span style="color:#a6e22e">datasource&lt;/span>.&lt;span style="color:#a6e22e">Querier&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">alertsMu&lt;/span> &lt;span style="color:#a6e22e">sync&lt;/span>.&lt;span style="color:#a6e22e">RWMutex&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// stores list of active alerts
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">alerts&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">uint64&lt;/span>]&lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">notifier&lt;/span>.&lt;span style="color:#a6e22e">Alert&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// state stores recent state changes
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// during evaluations
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">state&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">ruleState&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">metrics&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">alertingRuleMetrics&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// app/vmalert/rule/group.go:40
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">// Group is an entity for grouping rules
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span>&lt;span style="color:#66d9ef">type&lt;/span> &lt;span style="color:#a6e22e">Group&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">mu&lt;/span> &lt;span style="color:#a6e22e">sync&lt;/span>.&lt;span style="color:#a6e22e">RWMutex&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Name&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">File&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Rules&lt;/span> []&lt;span style="color:#a6e22e">Rule&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Type&lt;/span> &lt;span style="color:#a6e22e">config&lt;/span>.&lt;span style="color:#a6e22e">Type&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Interval&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">EvalOffset&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// EvalDelay will adjust timestamp for rule evaluation requests to compensate intentional query delay from datasource.
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// see https://github.com/VictoriaMetrics/VictoriaMetrics/issues/5155
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">EvalDelay&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Duration&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Limit&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Concurrency&lt;/span> &lt;span style="color:#66d9ef">int&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Checksum&lt;/span> &lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">LastEvaluation&lt;/span> &lt;span style="color:#a6e22e">time&lt;/span>.&lt;span style="color:#a6e22e">Time&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Labels&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Params&lt;/span> &lt;span style="color:#a6e22e">url&lt;/span>.&lt;span style="color:#a6e22e">Values&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">Headers&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">NotifierHeaders&lt;/span> &lt;span style="color:#66d9ef">map&lt;/span>[&lt;span style="color:#66d9ef">string&lt;/span>]&lt;span style="color:#66d9ef">string&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">doneCh&lt;/span> &lt;span style="color:#66d9ef">chan&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span>{}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">finishedCh&lt;/span> &lt;span style="color:#66d9ef">chan&lt;/span> &lt;span style="color:#66d9ef">struct&lt;/span>{}
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// channel accepts new Group obj
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// which supposed to update current group
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">updateCh&lt;/span> &lt;span style="color:#66d9ef">chan&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">Group&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// evalCancel stores the cancel fn for interrupting
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// rules evaluation. Used on groups update() and close().
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">evalCancel&lt;/span> &lt;span style="color:#a6e22e">context&lt;/span>.&lt;span style="color:#a6e22e">CancelFunc&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">metrics&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#a6e22e">groupMetrics&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e">// evalAlignment will make the timestamp of group query
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#75715e">// requests be aligned with interval
-&lt;/span>&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e">&lt;/span> &lt;span style="color:#a6e22e">evalAlignment&lt;/span> &lt;span style="color:#f92672">*&lt;/span>&lt;span style="color:#66d9ef">bool&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vmalert on</title><link>https://chejinying.com/tech/tags/vmalert/</link><description>Recent content in Vmalert on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 24 Nov 2024 16:19:22 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/vmalert/index.xml" rel="self" type="application/rss+xml"/><item><title>alerting rule: grafana vs vmalert</title><link>https://chejinying.com/tech/posts/alerting_rule_grafana_vs_vmalert/</link><pubDate>Sun, 24 Nov 2024 16:19:22 +0800</pubDate><guid>https://chejinying.com/tech/posts/alerting_rule_grafana_vs_vmalert/</guid><description>&lt;p&gt;Let&amp;rsquo;s try to understand how alerting rule is implemented in two open source projects: &lt;strong&gt;grafana&lt;/strong&gt; and &lt;strong&gt;vmalert&lt;/strong&gt;.&lt;/p&gt;
+&lt;h1 id="version"&gt;Version&lt;/h1&gt;
+&lt;p&gt;use the latest version of the according source code:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;grafana &lt;a href="https://github.com/grafana/grafana/tree/v11.3.1"&gt;v11.3.1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;vmalert &lt;a href="https://github.com/VictoriaMetrics/VictoriaMetrics/tree/v1.106.1"&gt;v1.106.1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id="flow"&gt;Flow&lt;/h1&gt;
+&lt;h3 id="grafana"&gt;grafana&lt;/h3&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/grafana_alert.png" alt="grafana alert"&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Scheduler -&amp;gt; fetch alerting rules -&amp;gt; start &lt;em&gt;goroutine&lt;/em&gt; for each alerting rule
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;pkg/services/ngalert/schedule/schedule.go:280&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Scheduler -&amp;gt; send evaluation event(when internal elapsed) -&amp;gt; goroutine -&amp;gt; evaluation
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;pkg/services/ngalert/schedule/alert_rule.go:242&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Schedduler -&amp;gt; stop the goroutine (alerting rule delted) according to the heartbeat
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;pkg/services/ngalert/schedule/alert_rule.go:355&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="vmalert"&gt;vmalert&lt;/h3&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/vmalert.png" alt="vmalert"&gt;&lt;/p&gt;</description></item></channel></rss>

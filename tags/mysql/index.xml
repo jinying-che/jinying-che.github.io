@@ -1,39 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mysql on</title><link>https://jinying-che.github.io/tags/mysql/</link><description>Recent content in Mysql on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 05 Jun 2019 11:48:53 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>MySQL Index</title><link>https://jinying-che.github.io/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://jinying-che.github.io/posts/db/mysql_index/</guid><description>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
-&lt;h2 id="type">Type&lt;/h2>
-&lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
-&lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>
-&lt;h4 id="2-secondery-index">2. Secondery Index&lt;/h4>
-&lt;p>In InnoDB, each record in a &lt;strong>secondary index&lt;/strong> contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p></description><content>&lt;p>This post is based on MySQL &lt;strong>InnoDB&lt;/strong> Storage Engine.&lt;/p>
-&lt;h2 id="type">Type&lt;/h2>
-&lt;h4 id="1-cluster-index">1. Cluster Index&lt;/h4>
-&lt;p>Each InnoDB table has a special index called the &lt;strong>clustered index&lt;/strong> that stores row data. Typically, the clustered index is synonymous with the &lt;strong>primary key&lt;/strong>.&lt;/p>
-&lt;h4 id="2-secondery-index">2. Secondery Index&lt;/h4>
-&lt;p>In InnoDB, each record in a &lt;strong>secondary index&lt;/strong> contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p>
-&lt;p>Typical Quering Flow: select with index &amp;ndash;&amp;gt; secondary index -&amp;gt; primary index -&amp;gt; data row&lt;/p>
-&lt;h2 id="data-structure">Data Structure&lt;/h2>
-&lt;p>The index data is organized in &lt;strong>B+ Tree&lt;/strong> which is common data structure widely used in the relation databases. B+ Tree is upgrading from B Tree, it eliminates the drawback B-tree used for indexing by storing data pointers only at the leaf nodes of the tree.&lt;/p>
-&lt;h3 id="b-tree-vs-b-tree">B+ Tree vs B Tree&lt;/h3>
-&lt;p>&lt;img alt="b tree vs b+ tree" src="https://jinying-che.github.io/images/btree.svg">&lt;/p>
-&lt;h5 id="similarity">Similarity&lt;/h5>
-&lt;ol>
-&lt;li>Both B Tree and B+ Tree are balanced tree. (Efficiency for quering, lower the tree height, less the disk access)&lt;/li>
-&lt;li>All leaf nodes are at the same level.&lt;/li>
-&lt;/ol>
-&lt;h5 id="difference">Difference&lt;/h5>
-&lt;ol>
-&lt;li>&lt;strong>B Tree&lt;/strong> stores the data pointer (pointing to the cluster index) in all nodes, whereas, &lt;strong>B+ Tree&lt;/strong> only stores in leaf nodes. (less space cost means internal node is able to store more index, hence tree is lower and more efficient)&lt;/li>
-&lt;li>All leaf nodes of &lt;strong>B+ Tree&lt;/strong> are linked together in a linked list. This makes &lt;strong>range queries&lt;/strong> efficient.&lt;/li>
-&lt;li>In a &lt;strong>B+ Tree&lt;/strong>, every key appears twice, once in the internal nodes and once in the leaf nodes, whereas, in a &lt;strong>B Tree&lt;/strong>, it&amp;rsquo;s once.&lt;/li>
-&lt;/ol>
-&lt;h2 id="leftmost-prefix-index">Leftmost Prefix Index&lt;/h2>
-&lt;p>If the table has a multiple-column index, any leftmost prefix of the index can be used by the optimizer to look up rows.&lt;/p>
-&lt;h2 id="referrence">Referrence&lt;/h2>
-&lt;ul>
-&lt;li>MySQL 8.0 Reference Manual:
-&lt;ul>
-&lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-indexes.html">https://dev.mysql.com/doc/refman/8.0/en/mysql-indexes.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html">https://dev.mysql.com/doc/refman/8.0/en/innodb-index-types.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html">https://dev.mysql.com/doc/refman/8.0/en/sorted-index-builds.html&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mysql on</title><link>https://chejinying.com/tech/tags/mysql/</link><description>Recent content in Mysql on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 05 Jun 2019 11:48:53 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/mysql/index.xml" rel="self" type="application/rss+xml"/><item><title>MySQL Index</title><link>https://chejinying.com/tech/posts/db/mysql_index/</link><pubDate>Wed, 05 Jun 2019 11:48:53 +0800</pubDate><guid>https://chejinying.com/tech/posts/db/mysql_index/</guid><description>&lt;p&gt;This post is based on MySQL &lt;strong&gt;InnoDB&lt;/strong&gt; Storage Engine.&lt;/p&gt;
+&lt;h2 id="type"&gt;Type&lt;/h2&gt;
+&lt;h4 id="1-cluster-index"&gt;1. Cluster Index&lt;/h4&gt;
+&lt;p&gt;Each InnoDB table has a special index called the &lt;strong&gt;clustered index&lt;/strong&gt; that stores row data. Typically, the clustered index is synonymous with the &lt;strong&gt;primary key&lt;/strong&gt;.&lt;/p&gt;
+&lt;h4 id="2-secondery-index"&gt;2. Secondery Index&lt;/h4&gt;
+&lt;p&gt;In InnoDB, each record in a &lt;strong&gt;secondary index&lt;/strong&gt; contains the primary key columns for the row, as well as the columns specified for the secondary index. InnoDB uses this primary key value to search for the row in the clustered index.&lt;/p&gt;</description></item></channel></rss>

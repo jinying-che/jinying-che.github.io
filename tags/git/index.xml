@@ -1,104 +1,26 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on</title><link>https://jinying-che.github.io/tags/git/</link><description>Recent content in Git on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Tue, 31 Jan 2023 16:14:39 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Cheatsheet</title><link>https://jinying-che.github.io/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://jinying-che.github.io/posts/git_cheatsheet/</guid><description>&lt;h3 id="overall">Overall&lt;/h3>
-&lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
-&lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
-&lt;ul>
-&lt;li>
-&lt;p>code changed without &lt;code>git add&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># `git add .` and `git checkout .` is a pair of inverse operations&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout .
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>git add .&lt;/code> done without &lt;code>git commit&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git reset + git chekcout .
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>git commit&lt;/code> done&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 1: keep the changes in worksapce, rollback committed chagnes in local repo&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset head^
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 2: rollback the changes in both workspace and local repo&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard head^
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>git push&lt;/code> done&lt;/p></description><content>&lt;h3 id="overall">Overall&lt;/h3>
-&lt;p>&lt;img alt="git architecture" src="https://jinying-che.github.io/images/git.svg">&lt;/p>
-&lt;h3 id="everything-about-the-changes-rollback">Everything about the changes rollback&lt;/h3>
-&lt;ul>
-&lt;li>
-&lt;p>code changed without &lt;code>git add&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># `git add .` and `git checkout .` is a pair of inverse operations&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git checkout .
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>git add .&lt;/code> done without &lt;code>git commit&lt;/code>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git reset + git chekcout .
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>or
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>git commit&lt;/code> done&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 1: keep the changes in worksapce, rollback committed chagnes in local repo&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset head^
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># option 2: rollback the changes in both workspace and local repo&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard head^
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>
-&lt;p>&lt;code>git push&lt;/code> done&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># overwrite remote via the local&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git reset --hard HEAD^
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git push -f
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;/ul>
-&lt;h3 id="how-can-i-see-the-changes-in-a-git-commithttpsstackoverflowcomquestions17563726how-can-i-see-the-changes-in-a-git-commit">&lt;a href="https://stackoverflow.com/questions/17563726/how-can-i-see-the-changes-in-a-git-commit">How can I see the changes in a git commit&lt;/a>?&lt;/h3>
-&lt;p>&lt;code>git diff COMMIT~ COMMIT&lt;/code> or &lt;code>git show COMMIT&lt;/code>&lt;/p>
-&lt;h3 id="how-to-include-config-directives-from-another-source">How to include config directives from another source?&lt;/h3>
-&lt;p>setup a &lt;code>.gitconfig&lt;/code>, &lt;code>.gitconfig-garena&lt;/code>, and &lt;code>.gitconfig-github&lt;/code> at $HOME as follows, all the projects under the folder will be configured recursively:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-toml" data-lang="toml">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># .gitconfig&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">includeIf&lt;/span> &lt;span style="color:#e6db74">&amp;#34;gitdir:~/workspace/garena.com/&amp;#34;&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">path&lt;/span> = &lt;span style="color:#960050;background-color:#1e0010">~/&lt;/span>.&lt;span style="color:#a6e22e">gitconfig-garena&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">includeIf&lt;/span> &lt;span style="color:#e6db74">&amp;#34;gitdir:~/workspace/github.com/&amp;#34;&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">path&lt;/span> = &lt;span style="color:#960050;background-color:#1e0010">~/&lt;/span>.&lt;span style="color:#a6e22e">gitconfig-github&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># .gitconfig-garena&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">user&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">name&lt;/span> = &lt;span style="color:#a6e22e">Jinying&lt;/span> &lt;span style="color:#a6e22e">Che&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">email&lt;/span> = &lt;span style="color:#a6e22e">jinying&lt;/span>.&lt;span style="color:#a6e22e">che&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">@&lt;/span>&lt;span style="color:#a6e22e">shopee&lt;/span>.&lt;span style="color:#a6e22e">com&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># .gitconfig-github&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>[&lt;span style="color:#a6e22e">user&lt;/span>]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">name&lt;/span> = &lt;span style="color:#a6e22e">Jinying&lt;/span> &lt;span style="color:#a6e22e">Che&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#a6e22e">email&lt;/span> = &lt;span style="color:#a6e22e">chejinying&lt;/span>&lt;span style="color:#960050;background-color:#1e0010">@&lt;/span>&lt;span style="color:#a6e22e">me&lt;/span>.&lt;span style="color:#a6e22e">com&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="keep-the-local-changes-delete-the-remote-changes">Keep the local changes, delete the remote changes&lt;/h3>
-&lt;p>delete the local cache, push to the remote&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>1. git rm —cache -r directory
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2. git commit -m &lt;span style="color:#e6db74">&amp;#34;del&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>3. git pushf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="git-merge-the-update-from-the-forked-project">Git merge the update from the forked project&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>1. git remote add upstream url
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2. git fetch upstream
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>3. git merge upsteam/master
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#75715e"># NOTE check the remote brach status:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> git remote -v
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="git-merge-the-file-from-the-other-branch">Git merge the file from the other branch&lt;/h3>
-&lt;p>exactly, it&amp;rsquo;s &lt;code>checkout&lt;/code>, pls be reminded that this command will overwrite the local file without merging process&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>git checkout branch_name filename
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="overwrite-the-local-via-the-remote">Overwrite the local via the remote&lt;/h3>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>1. git fetch --all
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>2. git reset --hard origin/master
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="squash-commits">Squash commits&lt;/h3>
-&lt;ol>
-&lt;li>&lt;code>git rebase -i commit-version&lt;/code> (which is earlist one that squash beginning from)&lt;/li>
-&lt;li>change &lt;code>pick&lt;/code> to &lt;code>s&lt;/code>(squash) manually by edting the file, leave the first &lt;code>pick&lt;/code>, then &lt;code>:wq&lt;/code>(for vim)&lt;/li>
-&lt;li>Edit the commit message, leave the msg for the final commiting, then&lt;code>:wq&lt;/code>(for vim)&lt;/li>
-&lt;/ol>
-&lt;h2 id="reference">Reference&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://www.fengerzh.com/git-reset/">https://www.fengerzh.com/git-reset/&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Git on</title><link>https://chejinying.com/tech/tags/git/</link><description>Recent content in Git on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Tue, 31 Jan 2023 16:14:39 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/git/index.xml" rel="self" type="application/rss+xml"/><item><title>Git Cheatsheet</title><link>https://chejinying.com/tech/posts/git_cheatsheet/</link><pubDate>Tue, 31 Jan 2023 16:14:39 +0800</pubDate><guid>https://chejinying.com/tech/posts/git_cheatsheet/</guid><description>&lt;h3 id="overall"&gt;Overall&lt;/h3&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/git.svg" alt="git architecture"&gt;&lt;/p&gt;
+&lt;h3 id="everything-about-the-changes-rollback"&gt;Everything about the changes rollback&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;code changed without &lt;code&gt;git add&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# `git add .` and `git checkout .` is a pair of inverse operations&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git checkout . 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;or 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git reset --hard
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;git add .&lt;/code&gt; done without &lt;code&gt;git commit&lt;/code&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git reset + git chekcout . 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;or 
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git reset --hard 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;git commit&lt;/code&gt; done&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# option 1: keep the changes in worksapce, rollback committed chagnes in local repo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git reset head^
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# option 2: rollback the changes in both workspace and local repo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git reset --hard head^
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;git push&lt;/code&gt; done&lt;/p&gt;</description></item></channel></rss>

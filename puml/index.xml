@@ -1,31 +1,16 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pumls on</title><link>https://jinying-che.github.io/puml/</link><description>Recent content in Pumls on</description><generator>Hugo -- gohugo.io</generator><language>en</language><atom:link href="https://jinying-che.github.io/puml/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://jinying-che.github.io/puml/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://jinying-che.github.io/puml/readme/</guid><description>&lt;h1 id="plantuml">PlantUML&lt;/h1>
-&lt;p>This folder stores all the PlantUML files dedicated for the blogs&lt;/p>
-&lt;h3 id="how-to-make-plantuml">How to make PlantUML?&lt;/h3>
-&lt;p>check &lt;a href="https://plantuml.com/">https://plantuml.com/&lt;/a>&lt;/p>
-&lt;h3 id="how-to-make-plantuml-in-vim">How to make PlantUML in vim?&lt;/h3>
-&lt;p>check &lt;a href="https://jekhokie.github.io/linux/vim/plantuml/2020/07/25/plantuml-using-vim.html">plantuml using vim&lt;/a>&lt;/p>
-&lt;h4 id="tldr">TL;DR&lt;/h4>
-&lt;ol>
-&lt;li>Edit PlantUML in vim&lt;/li>
-&lt;li>&lt;code>:PlantumlOpen&lt;/code> to preview the uml in brower&lt;/li>
-&lt;li>Run &lt;code>:PlantumlSave static/images/git.svg&lt;/code> to export the uml to svg (or any other supported file type: &lt;em>png, svg, eps, pdf, vdx, xmi, scxml, html, txt, utxt, latex&lt;/em>)&lt;/li>
-&lt;/ol>
-&lt;h3 id="reference">Reference&lt;/h3>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/weirongxu/plantuml-previewer.vim">https://github.com/weirongxu/plantuml-previewer.vim&lt;/a>&lt;/li>
-&lt;/ul></description><content>&lt;h1 id="plantuml">PlantUML&lt;/h1>
-&lt;p>This folder stores all the PlantUML files dedicated for the blogs&lt;/p>
-&lt;h3 id="how-to-make-plantuml">How to make PlantUML?&lt;/h3>
-&lt;p>check &lt;a href="https://plantuml.com/">https://plantuml.com/&lt;/a>&lt;/p>
-&lt;h3 id="how-to-make-plantuml-in-vim">How to make PlantUML in vim?&lt;/h3>
-&lt;p>check &lt;a href="https://jekhokie.github.io/linux/vim/plantuml/2020/07/25/plantuml-using-vim.html">plantuml using vim&lt;/a>&lt;/p>
-&lt;h4 id="tldr">TL;DR&lt;/h4>
-&lt;ol>
-&lt;li>Edit PlantUML in vim&lt;/li>
-&lt;li>&lt;code>:PlantumlOpen&lt;/code> to preview the uml in brower&lt;/li>
-&lt;li>Run &lt;code>:PlantumlSave static/images/git.svg&lt;/code> to export the uml to svg (or any other supported file type: &lt;em>png, svg, eps, pdf, vdx, xmi, scxml, html, txt, utxt, latex&lt;/em>)&lt;/li>
-&lt;/ol>
-&lt;h3 id="reference">Reference&lt;/h3>
-&lt;ul>
-&lt;li>&lt;a href="https://github.com/weirongxu/plantuml-previewer.vim">https://github.com/weirongxu/plantuml-previewer.vim&lt;/a>&lt;/li>
-&lt;/ul></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pumls on</title><link>https://chejinying.com/tech/puml/</link><description>Recent content in Pumls on</description><generator>Hugo</generator><language>en</language><atom:link href="https://chejinying.com/tech/puml/index.xml" rel="self" type="application/rss+xml"/><item><title/><link>https://chejinying.com/tech/puml/readme/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://chejinying.com/tech/puml/readme/</guid><description>&lt;h1 id="plantuml"&gt;PlantUML&lt;/h1&gt;
+&lt;p&gt;This folder stores all the PlantUML files dedicated for the blogs&lt;/p&gt;
+&lt;h3 id="how-to-make-plantuml"&gt;How to make PlantUML?&lt;/h3&gt;
+&lt;p&gt;check &lt;a href="https://plantuml.com/"&gt;https://plantuml.com/&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="how-to-make-plantuml-in-vim"&gt;How to make PlantUML in vim?&lt;/h3&gt;
+&lt;p&gt;check &lt;a href="https://jekhokie.github.io/linux/vim/plantuml/2020/07/25/plantuml-using-vim.html"&gt;plantuml using vim&lt;/a&gt;&lt;/p&gt;
+&lt;h4 id="tldr"&gt;TL;DR&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;Edit PlantUML in vim&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;:PlantumlOpen&lt;/code&gt; to preview the uml in brower&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;:PlantumlSave static/images/git.svg&lt;/code&gt; to export the uml to svg (or any other supported file type: &lt;em&gt;png, svg, eps, pdf, vdx, xmi, scxml, html, txt, utxt, latex&lt;/em&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="reference"&gt;Reference&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="https://github.com/weirongxu/plantuml-previewer.vim"&gt;https://github.com/weirongxu/plantuml-previewer.vim&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>

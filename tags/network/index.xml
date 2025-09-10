@@ -1,730 +1,168 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Network on</title><link>https://jinying-che.github.io/tags/network/</link><description>Recent content in Network on</description><generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sun, 19 May 2024 11:10:54 +0800</lastBuildDate><atom:link href="https://jinying-che.github.io/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>v2ray setup</title><link>https://jinying-che.github.io/posts/v2ray/</link><pubDate>Sun, 19 May 2024 11:10:54 +0800</pubDate><guid>https://jinying-che.github.io/posts/v2ray/</guid><description>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
-&lt;h3 id="install">Install&lt;/h3>
-&lt;h4 id="server">Server&lt;/h4>
-&lt;p>The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray">official way&lt;/a> is to install with a script, which setups the systemd config as well.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># run with root privilege&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash &amp;lt;&lt;span style="color:#f92672">(&lt;/span>curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/bin/v2ray
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geoip.dat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geosite.dat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/etc/v2ray/config.json
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/access.log
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/error.log
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray.service
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray@.service
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client">Client&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># macos &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>brew install v2ray
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run">Run&lt;/h3>
-&lt;h4 id="server-1">Server&lt;/h4>
-&lt;p>For v2ray server, we use &lt;a href="https://systemd.io/">systemd&lt;/a> to manage the v2ray process in &lt;code>/usr/local/etc/v2ray/config.json&lt;/code> which is empty after installation. We modify the config based on the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#server">Novice Guide&lt;/a>:&lt;/p></description><content>&lt;p>&lt;a href="https://github.com/v2fly/v2ray-core">V2Ray&lt;/a> is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p>
-&lt;h3 id="install">Install&lt;/h3>
-&lt;h4 id="server">Server&lt;/h4>
-&lt;p>The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray">official way&lt;/a> is to install with a script, which setups the systemd config as well.&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># run with root privilege&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>bash &amp;lt;&lt;span style="color:#f92672">(&lt;/span>curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh&lt;span style="color:#f92672">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># output&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/bin/v2ray
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geoip.dat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/share/v2ray/geosite.dat
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /usr/local/etc/v2ray/config.json
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/access.log
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /var/log/v2ray/error.log
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray.service
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>installed: /etc/systemd/system/v2ray@.service
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client">Client&lt;/h4>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># macos &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>brew install v2ray
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h3 id="run">Run&lt;/h3>
-&lt;h4 id="server-1">Server&lt;/h4>
-&lt;p>For v2ray server, we use &lt;a href="https://systemd.io/">systemd&lt;/a> to manage the v2ray process in &lt;code>/usr/local/etc/v2ray/config.json&lt;/code> which is empty after installation. We modify the config based on the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#server">Novice Guide&lt;/a>:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-json" data-lang="json">&lt;span style="display:flex;">&lt;span>{
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;log&amp;#34;&lt;/span>: {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;loglevel&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;warning&amp;#34;&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;access&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/access.log&amp;#34;&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;error&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;/var/log/v2ray/error.log&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> },
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;inbounds&amp;#34;&lt;/span>: [
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;port&amp;#34;&lt;/span>: &lt;span style="color:#ae81ff">10086&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;vmess&amp;#34;&lt;/span>,
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;settings&amp;#34;&lt;/span>: {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;clients&amp;#34;&lt;/span>: [
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;id&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;b831381d-6324-4d53-ad4f-8cda48b30811&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ],
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;outbounds&amp;#34;&lt;/span>: [
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> {
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> &lt;span style="color:#f92672">&amp;#34;protocol&amp;#34;&lt;/span>: &lt;span style="color:#e6db74">&amp;#34;freedom&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> }
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span> ]
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>}
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>run service via &lt;code>systemctl&lt;/code>:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>systemctl enable v2ray.service
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl start v2ray.service
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check status&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>systemctl status v2ray.service
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># check tcp port under LISTEN&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ss -tlp
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h4 id="client-1">Client&lt;/h4>
-&lt;p>follow the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#client">Novice Guide&lt;/a> to setup the config and run: &lt;code>v2ray -c path/to/config.json&lt;/code>&lt;/p>
-&lt;blockquote>
-&lt;p>NOTE: To successfully connect, you need to make sure that the id and port are consistent with the client in the server configuration.&lt;/p>
-&lt;/blockquote>
-&lt;p>After setup the local proxy &lt;code>127.0.0.1:1081&lt;/code>, in order to route brower traffic to the v2ray tunnel, &lt;a href="https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif">Proxy SwitchyOmega&lt;/a> is quite helpful.&lt;/p>
-&lt;h3 id="reference">Reference&lt;/h3>
-&lt;ul>
-&lt;li>quick start: &lt;a href="https://www.v2fly.org/en_US/guide/install.html">https://www.v2fly.org/en_US/guide/install.html&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>DNS</title><link>https://jinying-che.github.io/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/dns/</guid><description>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
-&lt;p>DNS is not very complex but super useful.&lt;/p>
-&lt;h2 id="how-does-dns-work">How does DNS work?&lt;/h2>
-&lt;p>&lt;img alt="dns architecutre" src="https://jinying-che.github.io/images/dns_architecture.svg">&lt;/p>
-&lt;p>&lt;img alt="dns flow" src="https://jinying-che.github.io/images/dns_flow.png">&lt;/p>
-&lt;p>The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>Brower cache and OS cache&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>DNS Resolver&lt;/strong>: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought. DNS resolvers are classified by a variety of query methods, such as &lt;strong>recursive&lt;/strong>, &lt;strong>non-recursive&lt;/strong>, and &lt;strong>iterative&lt;/strong>. A resolution process may use a combination of these methods.&lt;/li>
-&lt;li>&lt;strong>Root Nameserver&lt;/strong>: the first step in translating (resolving) human readable host names into IP addresses. It stores the IP addresses of TLD, There are &lt;strong>13&lt;/strong> logical Root Nameserver globally, e.g.
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>- l.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- m.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- a.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- b.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- c.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- d.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- e.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- f.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- g.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- h.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- i.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- j.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- k.root-servers.net.
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>&lt;strong>TLD Nameserver&lt;/strong> (Top Level Domain Server): It stores the IP addresses of authoritative name servers, e.g.
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>- .com
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .org
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .edu
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .net
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .us
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .cn
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- ...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>&lt;strong>Authoritative Nameserver&lt;/strong>: it provides the actual anwser for the dns request.&lt;/li>
-&lt;/ol>
-&lt;h3 id="example">Example&lt;/h3>
-&lt;p>Let&amp;rsquo;s try to trace the dns request for &lt;code>jinying-che.github.io&lt;/code> from my local laptop:&lt;/p></description><content>&lt;p>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">Domain Name System (DNS)&lt;/a> is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p>
-&lt;p>DNS is not very complex but super useful.&lt;/p>
-&lt;h2 id="how-does-dns-work">How does DNS work?&lt;/h2>
-&lt;p>&lt;img alt="dns architecutre" src="https://jinying-che.github.io/images/dns_architecture.svg">&lt;/p>
-&lt;p>&lt;img alt="dns flow" src="https://jinying-che.github.io/images/dns_flow.png">&lt;/p>
-&lt;p>The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>Brower cache and OS cache&lt;/strong>&lt;/li>
-&lt;li>&lt;strong>DNS Resolver&lt;/strong>: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought. DNS resolvers are classified by a variety of query methods, such as &lt;strong>recursive&lt;/strong>, &lt;strong>non-recursive&lt;/strong>, and &lt;strong>iterative&lt;/strong>. A resolution process may use a combination of these methods.&lt;/li>
-&lt;li>&lt;strong>Root Nameserver&lt;/strong>: the first step in translating (resolving) human readable host names into IP addresses. It stores the IP addresses of TLD, There are &lt;strong>13&lt;/strong> logical Root Nameserver globally, e.g.
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>- l.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- m.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- a.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- b.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- c.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- d.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- e.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- f.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- g.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- h.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- i.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- j.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- k.root-servers.net.
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>&lt;strong>TLD Nameserver&lt;/strong> (Top Level Domain Server): It stores the IP addresses of authoritative name servers, e.g.
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-txt" data-lang="txt">&lt;span style="display:flex;">&lt;span>- .com
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .org
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .edu
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .net
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .us
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- .cn
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>- ...
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;/li>
-&lt;li>&lt;strong>Authoritative Nameserver&lt;/strong>: it provides the actual anwser for the dns request.&lt;/li>
-&lt;/ol>
-&lt;h3 id="example">Example&lt;/h3>
-&lt;p>Let&amp;rsquo;s try to trace the dns request for &lt;code>jinying-che.github.io&lt;/code> from my local laptop:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>➜ ~ dig +trace jinying-che.github.io
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>; &amp;lt;&amp;lt;&amp;gt;&amp;gt; DiG 9.10.6 &amp;lt;&amp;lt;&amp;gt;&amp;gt; +trace jinying-che.github.io
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>;; global options: +cmd
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS l.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS m.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS a.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS b.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS c.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS d.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS e.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS f.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS g.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS h.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS i.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS j.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN NS k.root-servers.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>. &lt;span style="color:#ae81ff">467805&lt;/span> IN RRSIG NS &lt;span style="color:#ae81ff">8&lt;/span> &lt;span style="color:#ae81ff">0&lt;/span> &lt;span style="color:#ae81ff">518400&lt;/span> &lt;span style="color:#ae81ff">20231002140000&lt;/span> &lt;span style="color:#ae81ff">20230919130000&lt;/span> &lt;span style="color:#ae81ff">11019&lt;/span> . hSoNzesJLtJnf9gXYqG4SMrn8R78uNEqUgc1xcFKglavg16gnPrvQnuP sLb74PkmHE+uqQ1ZPs31X6XrA8E/yhlF8r4kPQAaEiMhkLXsZ1QPLgfj wHFWsFcVmWZTKJIQO/6H7P6ht0jhX0pLVRVRTZtIPH0uYqz6w9Z8vWuw Haaqm+48d5+cuyn2iNNqxO8omlQLALwaALu6/7hZPQfgkH6+XBPvSagj 6FOV+zun2hwKNCwrJ7elYQCfL7xi0UbjAOt+OOJYJfF9vfJq9qYnt8/O IBrfdRHtsryH/Fmk/wUPhgNEMYLwgz4n1z+a25A7q5ofocId5lsDYAUJ YxLSNA&lt;span style="color:#f92672">==&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>;; Received &lt;span style="color:#ae81ff">1097&lt;/span> bytes from 192.168.0.1#53&lt;span style="color:#f92672">(&lt;/span>192.168.0.1&lt;span style="color:#f92672">)&lt;/span> in &lt;span style="color:#ae81ff">11&lt;/span> ms
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>io. &lt;span style="color:#ae81ff">172800&lt;/span> IN NS a2.nic.io.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>io. &lt;span style="color:#ae81ff">172800&lt;/span> IN NS c0.nic.io.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>io. &lt;span style="color:#ae81ff">172800&lt;/span> IN NS a0.nic.io.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>io. &lt;span style="color:#ae81ff">172800&lt;/span> IN NS b0.nic.io.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>io. &lt;span style="color:#ae81ff">86400&lt;/span> IN DS &lt;span style="color:#ae81ff">57355&lt;/span> &lt;span style="color:#ae81ff">8&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> 95A57C3BAB7849DBCDDF7C72ADA71A88146B141110318CA5BE672057 E865C3E2
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>io. &lt;span style="color:#ae81ff">86400&lt;/span> IN RRSIG DS &lt;span style="color:#ae81ff">8&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">86400&lt;/span> &lt;span style="color:#ae81ff">20231003050000&lt;/span> &lt;span style="color:#ae81ff">20230920040000&lt;/span> &lt;span style="color:#ae81ff">11019&lt;/span> . TnYR1fL2pnUlBTTsJleHjjmxjLs96HwMJOtcHvTzwK31ZBoT+sp76dHq bsQfFgX7FqyTjIzF+z/W7dK1wKnO1ONvhbeWCTZO8SAIMaJU4ZyPAAMo D+xM7YpRHrAYES2wi+cX20kDDKUXauhxiesHqywSMdNK6XugyLluSaz1 J5c2Y0S2r7pZwEPV5v6w9TjzNQOfcfu0NLQx1i7JAbuLExGc7/7pjqxY XB2LH9FtyzgfAkm0ovTu5BRzbUxO/lSURlGIPsI05aFVz6HEhnl04Ujb dmir+S3ffOahHgxjD2al8yIx/FS67ZCi+va2pA6lHdHsktrNnTn2tGZt aUJrzg&lt;span style="color:#f92672">==&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>;; Received &lt;span style="color:#ae81ff">637&lt;/span> bytes from 192.112.36.4#53&lt;span style="color:#f92672">(&lt;/span>g.root-servers.net&lt;span style="color:#f92672">)&lt;/span> in &lt;span style="color:#ae81ff">85&lt;/span> ms
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN NS dns2.p05.nsone.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN NS ns-1622.awsdns-10.co.uk.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN NS dns3.p05.nsone.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN NS dns1.p05.nsone.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN NS ns-692.awsdns-22.net.
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>0d790076pp5pfktg2hrthj5bj6ckckcb.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN NSEC3 &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> 332539EE7F95C32A 0D7N522D3BFMA1LA01BUIOBUK6MROGMU NS SOA RRSIG DNSKEY NSEC3PARAM
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>0d790076pp5pfktg2hrthj5bj6ckckcb.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN RRSIG NSEC3 &lt;span style="color:#ae81ff">8&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">3600&lt;/span> &lt;span style="color:#ae81ff">20231011082044&lt;/span> &lt;span style="color:#ae81ff">20230920072044&lt;/span> &lt;span style="color:#ae81ff">32553&lt;/span> io. hg8Fr2R0FnIfikGso1mx3B66B9QtVVcMoOL108Ahw5D7TUTo/AL+vpP9 AFEa5GMnkenQqbWsp5/xgEuhJxeMbbzF88roBy6hnSoLq21qysLpIQuC Q+TprenA+f7dKiza7RLTTPnv6qN1b50Z/VSsowMK6Fw353h2WLOUAg0G 2I4&lt;span style="color:#f92672">=&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>0jehpe7obc68rhh4ntet0u9o44qmosmo.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN NSEC3 &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">1&lt;/span> &lt;span style="color:#ae81ff">10&lt;/span> 332539EE7F95C32A 0JES1F5OD9SG1E4CCRGBS865PMBUV4PC NS DS RRSIG
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>0jehpe7obc68rhh4ntet0u9o44qmosmo.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN RRSIG NSEC3 &lt;span style="color:#ae81ff">8&lt;/span> &lt;span style="color:#ae81ff">2&lt;/span> &lt;span style="color:#ae81ff">3600&lt;/span> &lt;span style="color:#ae81ff">20231008005435&lt;/span> &lt;span style="color:#ae81ff">20230916235435&lt;/span> &lt;span style="color:#ae81ff">32553&lt;/span> io. b6iUJ3A5Govhm/HVZIU7ygw7l8tHsUnDFCZaR50HDmYtbmi/g83PASgw 4IgNm42FI2u8oX3HZ2ce8gBK48ts/1bbSCxthUqO2KrSlou+Okh7z+J1 TAeRsC8FkkA/RHu+ymFM1g0BB2cv23Rnftwtl9jsD4JoDKSzhVcKiOx9 WIA&lt;span style="color:#f92672">=&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>;; Received &lt;span style="color:#ae81ff">687&lt;/span> bytes from 65.22.160.17#53&lt;span style="color:#f92672">(&lt;/span>a0.nic.io&lt;span style="color:#f92672">)&lt;/span> in &lt;span style="color:#ae81ff">7&lt;/span> ms
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>jinying-che.github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN A 185.199.108.153
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>jinying-che.github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN A 185.199.109.153
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>jinying-che.github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN A 185.199.110.153
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>jinying-che.github.io. &lt;span style="color:#ae81ff">3600&lt;/span> IN A 185.199.111.153
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>;; Received &lt;span style="color:#ae81ff">114&lt;/span> bytes from 198.51.44.5#53&lt;span style="color:#f92672">(&lt;/span>dns1.p05.nsone.net&lt;span style="color:#f92672">)&lt;/span> in &lt;span style="color:#ae81ff">168&lt;/span> ms
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ol>
-&lt;li>Get NS Record: 13 Root Nameservers from &lt;code>192.168.0.1&lt;/code>(DNS Resolver) which is configured by &lt;code>/etc/resolv.conf&lt;/code>&lt;/li>
-&lt;li>Get NS Record: TLD (Top Level Domain) from one of Root Nameserve &lt;code>g.root-servers.net&lt;/code>&lt;/li>
-&lt;li>Get NS Record: Authoritative Nameserver from one of TLD &lt;code>a0.nic.io&lt;/code>&lt;/li>
-&lt;li>Get A Record: Actual ip address from one of Authoritative Nameserver &lt;code>dns1.p05.nsone.net&lt;/code>&lt;/li>
-&lt;/ol>
-&lt;p>&lt;strong>TXT Record&lt;/strong>:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># example&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>host.widgets.com. IN TXT &lt;span style="color:#e6db74">&amp;#34;printer=lpr5&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sam.widgets.com. IN TXT &lt;span style="color:#e6db74">&amp;#34;favorite drink=orange juice&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="dns-record">DNS Record&lt;/h2>
-&lt;p>There&amp;rsquo;re a lot of &lt;a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">DNS Record types&lt;/a>, the follows are the common record from the client perspective:&lt;/p>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Record&lt;/th>
-&lt;th>Function&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>A&lt;/td>
-&lt;td>Address record: Returns a 32-bit IPv4 address&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>AAAA&lt;/td>
-&lt;td>IPv6 address record: Returns a 128-bit IPv6 address&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>NS&lt;/td>
-&lt;td>Name server record: Delegates a DNS zone to use the given authoritative name servers&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>CNAME&lt;/td>
-&lt;td>Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>TXT&lt;/td>
-&lt;td>arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;h2 id="configuration">Configuration&lt;/h2>
-&lt;p>There&amp;rsquo;re two way to query the ip address by domain, typically whenever a system needs to resolve a name, it first checks the &lt;code>/etc/hosts&lt;/code> file. If no entry matched, it sends a query to the configured DNS server (by &lt;code>/etc/resolv.conf&lt;/code>).&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-shell" data-lang="shell">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># /etc/resolv.conf defines the namesever address&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /etc/resolv.conf
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>nameserver 114.114.114.114
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># /etc/hosts defines the domain and ip address pair directly&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>$ cat /etc/hosts
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>127.0.0.1 localhost
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># The order in which (/etc/hosts and /etc/resolv.conf) file is checked &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># is defined in the /etc/nsswitch.conf file&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cat /etc/nsswitch.conf | grep host
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>hosts: files dns
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="protocol">Protocol&lt;/h2>
-&lt;p>DNS originally used the &lt;code>UDP&lt;/code> as transport over IP. Reliability, security, and privacy concerns spawned the use of the &lt;code>TCP&lt;/code> as well as numerous other protocol developments.&lt;/p>
-&lt;h2 id="referrence">Referrence&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://www.cloudflare.com/learning/dns/what-is-dns/">https://www.cloudflare.com/learning/dns/what-is-dns/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System">https://en.wikipedia.org/wiki/Domain_Name_System&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://blog.bytebytego.com/p/how-does-the-domain-name-system-dns">https://blog.bytebytego.com/p/how-does-the-domain-name-system-dns&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://draveness.me/dns-coredns/">https://draveness.me/dns-coredns/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://draveness.me/whys-the-design-dns-udp-tcp/">https://draveness.me/whys-the-design-dns-udp-tcp/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://time.geekbang.org/column/article/81850">https://time.geekbang.org/column/article/81850&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc1035">RFC 1035&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://en.wikipedia.org/wiki/List_of_DNS_record_types">DNS Record Names&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.computernetworkingnotes.com/linux-tutorials/the-etc-hosts-etc-resolv-conf-and-etc-nsswitch-conf-files.html">/etc/hosts vs /etc/resolv.conf vs etc/nsswitch.conf&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Iptables</title><link>https://jinying-che.github.io/posts/network/iptables/</link><pubDate>Thu, 26 Jan 2023 16:22:21 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/iptables/</guid><description>&lt;p>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/">Netfilter&lt;/a> modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p>
-&lt;h2 id="in-a-nutshell">In a nutshell:&lt;/h2>
-&lt;ul>
-&lt;li>Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
-&lt;img alt="package flow through iptables" src="https://jinying-che.github.io/images/iptable.png">&lt;/li>
-&lt;/ul>
-&lt;h2 id="tables">Tables&lt;/h2>
-&lt;p>There are five tables, the &lt;em>Priority&lt;/em> is: &lt;strong>filter, nat, mangle, raw, security&lt;/strong>&lt;/p></description><content>&lt;p>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/">Netfilter&lt;/a> modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p>
-&lt;h2 id="in-a-nutshell">In a nutshell:&lt;/h2>
-&lt;ul>
-&lt;li>Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
-&lt;img alt="package flow through iptables" src="https://jinying-che.github.io/images/iptable.png">&lt;/li>
-&lt;/ul>
-&lt;h2 id="tables">Tables&lt;/h2>
-&lt;p>There are five tables, the &lt;em>Priority&lt;/em> is: &lt;strong>filter, nat, mangle, raw, security&lt;/strong>&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;a href="https://www.thegeekstuff.com/2011/01/iptables-fundamentals/">https://www.thegeekstuff.com/2011/01/iptables-fundamentals/&lt;/a>
-&lt;a href="https://linux.die.net/man/8/iptables">https://linux.die.net/man/8/iptables&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># show filter table by default&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>iptables -L -v -n
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># which is equal to &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>iptables -t filter -L -v -n
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="chains">Chains&lt;/h2>
-&lt;p>There are five predefined chains (mapping to the five available Netfilter hooks), though a table may not have all chains.&lt;/p>
-&lt;ul>
-&lt;li>PREROUTING: Packets will enter this chain before a routing decision is made.&lt;/li>
-&lt;li>INPUT: Packet is going to be locally delivered. It does not have anything to do with processes having an opened socket; local delivery is controlled by the &amp;ldquo;local-delivery&amp;rdquo; routing table: ip route show table local.&lt;/li>
-&lt;li>FORWARD: All packets that have been routed and were not for local delivery will traverse this chain.&lt;/li>
-&lt;li>OUTPUT: Packets sent from the machine itself will be visiting this chain.&lt;/li>
-&lt;li>POSTROUTING: Routing decision has been made. Packets enter this chain just before handing them off to the hardware.&lt;/li>
-&lt;/ul>
-&lt;p>The system administrator can create as many other chains as desired.&lt;/p>
-&lt;h2 id="rules">Rules&lt;/h2>
-&lt;ul>
-&lt;li>ACCEPT – Firewall will accept the packet.&lt;/li>
-&lt;li>DROP – Firewall will drop the packet.&lt;/li>
-&lt;li>QUEUE – Firewall will pass the packet to the userspace.&lt;/li>
-&lt;li>RETURN – Firewall will stop executing the next set of rules in the current chain for this packet. The control will be returned to the calling chain.&lt;/li>
-&lt;/ul>
-&lt;h2 id="cheat-sheet">Cheat Sheet&lt;/h2>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-sh" data-lang="sh">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># drop ip packet:&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># modify the filter table, insert the rule DROP into the INPUT chain at the specific number (1 by default)&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># -A means append the rule at the end of the chain&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo iptables -I INPUT -s 10.129.106.98 -j DROP
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#75715e"># delele drop ip packet &lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo iptables -D INPUT -s 10.129.106.98 -j DROP
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="reference">Reference&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://www.netfilter.org/documentation/HOWTO/netfilter-hacking-HOWTO-3.html">https://www.netfilter.org/documentation/HOWTO/netfilter-hacking-HOWTO-3.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://lartc.org/">Linux Advanced Routing &amp;amp; Traffic Control How To&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://docs.docker.com/network/iptables/">https://docs.docker.com/network/iptables/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.linode.com/docs/guides/control-network-traffic-with-iptables/">https://www.linode.com/docs/guides/control-network-traffic-with-iptables/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.cyberciti.biz/faq/linux-iptables-drop/">https://www.cyberciti.biz/faq/linux-iptables-drop/&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>Container Networking</title><link>https://jinying-che.github.io/posts/network/container_networking/</link><pubDate>Thu, 26 Aug 2021 10:27:13 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/container_networking/</guid><description>&lt;h1 id="before">Before&lt;/h1>
-&lt;hr>
-&lt;h3 id="veth">VETH&lt;/h3>
-&lt;p>The veth devices are virtual Ethernet devices. They can act as tunnels between network namespaces to create a bridge to a physical network device in another namespace, but can also be used as standalone network devices.&lt;/p>
-&lt;p>veth device pairs are useful for combining the network facilities of the kernel together in interesting ways. A particularly interesting use case is to place one end of a veth pair in one network namespace and the other end in another network namespace, thus allowing communication between network namespaces.&lt;/p></description><content>&lt;h1 id="before">Before&lt;/h1>
-&lt;hr>
-&lt;h3 id="veth">VETH&lt;/h3>
-&lt;p>The veth devices are virtual Ethernet devices. They can act as tunnels between network namespaces to create a bridge to a physical network device in another namespace, but can also be used as standalone network devices.&lt;/p>
-&lt;p>veth device pairs are useful for combining the network facilities of the kernel together in interesting ways. A particularly interesting use case is to place one end of a veth pair in one network namespace and the other end in another network namespace, thus allowing communication between network namespaces.&lt;/p>
-&lt;h3 id="bridge">Bridge&lt;/h3>
-&lt;p>A Linux bridge behaves like a network switch. It forwards packets between interfaces that are connected to it.&lt;/p>
-&lt;p>It&amp;rsquo;s usually used for forwarding packets on routers, on gateways, or between VMs and network namespaces on a host.
-It also supports STP, VLAN filter, and multicast snooping.&lt;/p>
-&lt;h3 id="iptables">Iptables&lt;/h3>
-&lt;p>iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/">Netfilter&lt;/a> modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p>
-&lt;p>For details, pls refer to another &lt;a href="https://jinying-che.github.io/posts/network/iptables/">blog&lt;/a>&lt;/p>
-&lt;h1 id="bridge-networking">Bridge Networking&lt;/h1>
-&lt;h1 id="calico-networking">Calico Networking&lt;/h1>
-&lt;h2 id="reference">Reference:&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://man7.org/linux/man-pages/man4/veth.4.html">https://man7.org/linux/man-pages/man4/veth.4.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking">https://developers.redhat.com/blog/2018/10/22/introduction-to-linux-interfaces-for-virtual-networking&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://github.com/mz1999/blog/blob/master/docs/docker-network-bridge.md">https://github.com/mz1999/blog/blob/master/docs/docker-network-bridge.md&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://time.geekbang.org/column/article/64948?cid=100015201">https://time.geekbang.org/column/article/64948?cid=100015201&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://en.wikipedia.org/wiki/Iptables">https://en.wikipedia.org/wiki/Iptables&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>TCP</title><link>https://jinying-che.github.io/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/tcp/</guid><description>&lt;p>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a> as the only true source. Here&amp;rsquo;s a summary of &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>.&lt;/p>
-&lt;h3 id="tcp-header">TCP Header&lt;/h3>
-&lt;p>&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">TCP Header Format&lt;/a>&lt;/p>
-&lt;pre tabindex="0">&lt;code> 0 1 2 3
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Source Port | Destination Port |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Sequence Number |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Acknowledgment Number |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Data | |U|A|P|R|S|F| |
-| Offset| Reserved |R|C|S|S|Y|I| Window |
-| | |G|K|H|T|N|N| |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Checksum | Urgent Pointer |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Options | Padding |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| data |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-&lt;/code>&lt;/pre>&lt;h3 id="tcp-state-machine">TCP State Machine&lt;/h3>
-&lt;p>Be noted that 11 &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-17">TCP Connection States Diagram&lt;/a> indicating state to state transformation not cliet to server communication.&lt;/p></description><content>&lt;p>TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a> as the only true source. Here&amp;rsquo;s a summary of &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>.&lt;/p>
-&lt;h3 id="tcp-header">TCP Header&lt;/h3>
-&lt;p>&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">TCP Header Format&lt;/a>&lt;/p>
-&lt;pre tabindex="0">&lt;code> 0 1 2 3
-0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Source Port | Destination Port |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Sequence Number |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Acknowledgment Number |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Data | |U|A|P|R|S|F| |
-| Offset| Reserved |R|C|S|S|Y|I| Window |
-| | |G|K|H|T|N|N| |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Checksum | Urgent Pointer |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Options | Padding |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| data |
-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-&lt;/code>&lt;/pre>&lt;h3 id="tcp-state-machine">TCP State Machine&lt;/h3>
-&lt;p>Be noted that 11 &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-17">TCP Connection States Diagram&lt;/a> indicating state to state transformation not cliet to server communication.&lt;/p>
-&lt;pre tabindex="0">&lt;code>
-+---------+ ---------\ active OPEN
-| CLOSED | \ -----------
-+---------+&amp;lt;---------\ \ create TCB
-| ^ \ \ snd SYN
-passive OPEN | | CLOSE \ \
------------- | | ---------- \ \
-create TCB | | delete TCB \ \
-V | \ \
-+---------+ CLOSE | \
-| LISTEN | ---------- | |
-+---------+ delete TCB | |
-rcv SYN | | SEND | |
------------ | | ------- | V
-+---------+ snd SYN,ACK / \ snd SYN +---------+
-| |&amp;lt;----------------- ------------------&amp;gt;| |
-| SYN | rcv SYN | SYN |
-| RCVD |&amp;lt;-----------------------------------------------| SENT |
-| | snd ACK | |
-| |------------------ -------------------| |
-+---------+ rcv ACK of SYN \ / rcv SYN,ACK +---------+
-| -------------- | | -----------
-| x | | snd ACK
-| V V
-| CLOSE +---------+
-| ------- | ESTAB |
-| snd FIN +---------+
-| CLOSE | | rcv FIN
-V ------- | | -------
-+---------+ snd FIN / \ snd ACK +---------+
-| FIN |&amp;lt;----------------- ------------------&amp;gt;| CLOSE |
-| WAIT-1 |------------------ | WAIT |
-+---------+ rcv FIN \ +---------+
-| rcv ACK of FIN ------- | CLOSE |
-| -------------- snd ACK | ------- |
-V x V snd FIN V
-+---------+ +---------+ +---------+
-|FINWAIT-2| | CLOSING | | LAST-ACK|
-+---------+ +---------+ +---------+
-| rcv ACK of FIN | rcv ACK of FIN |
-| rcv FIN -------------- | Timeout=2MSL -------------- |
-| ------- x V ------------ x V
-\ snd ACK +---------+delete TCB +---------+
-------------------------&amp;gt;|TIME WAIT|------------------&amp;gt;| CLOSED |
-+---------+ +---------+
-&lt;/code>&lt;/pre>&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;th>Head&lt;/th>
-&lt;th>Meaning&lt;/th>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td>LISTEN&lt;/td>
-&lt;td>represents waiting for a connection request from any remote TCP and port&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>SYN-SENT&lt;/td>
-&lt;td>represents waiting for a matching connection request after having sent a connection request&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>SYN-RECEIVED&lt;/td>
-&lt;td>represents waiting for a confirming connection request acknowledgment after having both received and sent a connection request&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>ESTABLISHED&lt;/td>
-&lt;td>represents an open connection, data received can be delivered to the user. The normal state for the data transfer phase of the connection&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>FIN-WAIT-1&lt;/td>
-&lt;td>represents waiting for a connection termination request from the remote TCP, or an acknowledgment of the connection termination request previously sent&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>FIN-WAIT-2&lt;/td>
-&lt;td>represents waiting for a connection termination request from the &lt;em>remote&lt;/em> TCP&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>CLOSE-WAIT&lt;/td>
-&lt;td>represents waiting for a connection termination request from the &lt;em>local&lt;/em> user&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>CLOSING&lt;/td>
-&lt;td>represents waiting for a connection termination request acknowledgment from the remote TCP&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>LAST-ACK&lt;/td>
-&lt;td>represents waiting for an acknowledgment of the connection termination request previously sent to the remote TCP (which includes an acknowledgment of its connection termination request)&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>TIME-WAIT&lt;/td>
-&lt;td>represents waiting for enough time to pass to be sure the remote TCP received the acknowledgment of its connection termination request&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td>CLOSED&lt;/td>
-&lt;td>represents no connection state at all&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;p>Here may be a more readable diagram.
-&lt;img alt="tcp state Machine" src="https://jinying-che.github.io/images/tcpfsm.png">&lt;/p>
-&lt;h4 id="tcp-open-three-way-handshake">TCP Open: Three-Way Handshake&lt;/h4>
-&lt;p>&lt;img alt="tcp open" src="https://jinying-che.github.io/images/tcp_open.svg">&lt;/p>
-&lt;p>&lt;img alt="tcp open" src="https://jinying-che.github.io/images/tcp_open_bytebytego.png">&lt;/p>
-&lt;h4 id="tcp-close-four-way-handshake">TCP Close: Four-Way Handshake&lt;/h4>
-&lt;p>&lt;img alt="tcp close" src="https://jinying-che.github.io/images/tcp_close_bytebytego.png">&lt;/p>
-&lt;h3 id="reference">Reference&lt;/h3>
-&lt;ul>
-&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm">http://www.tcpipguide.com/free/t_TCPConnectionEstablishmentProcessTheThreeWayHandsh-3.htm&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm">http://www.tcpipguide.com/free/t_TCPConnectionTermination-2.htm&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16">RFC 793&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://draveness.me/whys-the-design-tcp-three-way-handshake/">https://draveness.me/whys-the-design-tcp-three-way-handshake/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://blog.bytebytego.com/p/everything-you-always-wanted-to-know">https://blog.bytebytego.com/p/everything-you-always-wanted-to-know&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.alibabacloud.com/blog/tcp-syn-queue-and-accept-queue-overflow-explained_599203">Alibaba: TCP SYN Queue and Accept Queue Overflow Explained&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>HTTPS</title><link>https://jinying-che.github.io/posts/network/https/</link><pubDate>Mon, 10 Jun 2019 11:19:47 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/https/</guid><description>&lt;h2 id="tldr">TL;DR&lt;/h2>
-&lt;p>&lt;strong>HTTPS = HTTP Over TLS&lt;/strong>, when we talk about HTTPS, we actually talk about the TLS more specifically.&lt;/p>
-&lt;h2 id="handshake">Handshake&lt;/h2>
-&lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
-&lt;h4 id="handshake-tls-12">Handshake TLS 1.2&lt;/h4>
-&lt;p>Basically it&amp;rsquo;s a &lt;em>3-Way TCP handshake&lt;/em> + &lt;em>4 Way TLS handshake&lt;/em>.
-&lt;img alt="https handshake" src="https://jinying-che.github.io/images/https_handshake.png">&lt;/p></description><content>&lt;h2 id="tldr">TL;DR&lt;/h2>
-&lt;p>&lt;strong>HTTPS = HTTP Over TLS&lt;/strong>, when we talk about HTTPS, we actually talk about the TLS more specifically.&lt;/p>
-&lt;h2 id="handshake">Handshake&lt;/h2>
-&lt;p>The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p>
-&lt;h4 id="handshake-tls-12">Handshake TLS 1.2&lt;/h4>
-&lt;p>Basically it&amp;rsquo;s a &lt;em>3-Way TCP handshake&lt;/em> + &lt;em>4 Way TLS handshake&lt;/em>.
-&lt;img alt="https handshake" src="https://jinying-che.github.io/images/https_handshake.png">&lt;/p>
-&lt;pre tabindex="0">&lt;code> Client Server
--------------------- TCP 3-Way Handshke -----------------
-SYNC
-SYNC + ACK
-ACK
--------------------- TLS 4-Way Handshake ---------------
-ClientHello --------&amp;gt;
-ServerHello
-Certificate*
-ServerKeyExchange*
-CertificateRequest*
-&amp;lt;-------- ServerHelloDone
-Certificate*
-ClientKeyExchange
-CertificateVerify*
-[ChangeCipherSpec]
-Finished --------&amp;gt;
-[ChangeCipherSpec]
-&amp;lt;-------- Finished
-Application Data &amp;lt;-------&amp;gt; Application Data
-&lt;/code>&lt;/pre>&lt;p>Understand the classic handshake in 4 general steps:&lt;/p>
-&lt;ol>
-&lt;li>TCP Handshake&lt;/li>
-&lt;li>Certificate Check (&lt;strong>TCP&lt;/strong>: client says hello, server says hello)&lt;/li>
-&lt;li>Key Exchange (&lt;strong>Asymmetric Encryption&lt;/strong>)
-Basically there&amp;rsquo;re two way for key exchange, the key point is how to generate the &lt;strong>premaster secret&lt;/strong> which is used to generate master secret which is used for data transmission eventually:
-&lt;ol>
-&lt;li>client generates the premaster secret key, encrypts by the public key, send to server (RSA algorithm)&lt;/li>
-&lt;li>client and server generate the same premaster secret seperately using client and server params (ECDHE algorithm )&lt;/li>
-&lt;/ol>
-&lt;/li>
-&lt;li>Data Transmission (&lt;strong>Symmetric Encryption&lt;/strong>)&lt;/li>
-&lt;/ol>
-&lt;h4 id="handshake-tls-13">Handshake TLS 1.3&lt;/h4>
-&lt;p>TBD&lt;/p>
-&lt;h2 id="man-in-the-middle-attacker">Man-In-The-Middle Attacker&lt;/h2>
-&lt;p>Assume there&amp;rsquo;s an attacker who can detect the info during the TLS handshake, trying to defend the attacker is a better way to understand the HTTPS design more throughly.&lt;/p>
-&lt;ol>
-&lt;li>Attacker is disguised as server? Use &lt;strong>Certificate Authority (CA)&lt;/strong> to validate the server&lt;/li>
-&lt;li>Attacker steal the transmission key (master secret)? Use &lt;strong>Asymmetric Encryption (one way encryption)&lt;/strong>, even if attacker get the public key, still he&amp;rsquo;s not able to know what client sends to server (e.g. premaster secret) as only the private key can decrypt&lt;/li>
-&lt;li>Attacker get the leaked private key? Use ECDHE algoritm to generate the premaster secret instead of passing from client to server.&lt;/li>
-&lt;/ol>
-&lt;h2 id="ssl-vs-tls">SSL vs TLS&lt;/h2>
-&lt;p>SSL(Secure Sockets Layer) was the original security protocol developed for HTTP. SSL was replaced by TLS(Transport Layer Security) some time ago. SSL handshakes are now called TLS handshakes, although the &amp;ldquo;SSL&amp;rdquo; name is still in wide use.&lt;/p>
-&lt;blockquote>
-&lt;p>SSL v3.1 = TLS v1.0&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="referrence">Referrence&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://blog.bytebytego.com/p/how-does-https-work-episode-6">https://blog.bytebytego.com/p/how-does-https-work-episode-6&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc5246">RFC5246: TLS1.2&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446: TLS1.3&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://datatracker.ietf.org/doc/html/rfc2818">RFC2818: HTTPS&lt;/a>&lt;/li>
-&lt;/ul></content></item><item><title>HTTP</title><link>https://jinying-che.github.io/posts/network/http/</link><pubDate>Wed, 10 Oct 2018 11:19:45 +0800</pubDate><guid>https://jinying-che.github.io/posts/network/http/</guid><description>&lt;blockquote>
-&lt;p>HTTP位于网络的应用层，使用TCP/IP协议进行传输&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>TCP连接
-&lt;ul>
-&lt;li>HTTP/1.0：通过非标准字段&lt;code>Connection: keep-alive&lt;/code>保持TCP连接&lt;/li>
-&lt;li>HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理&lt;/li>
-&lt;li>HTTP/2：&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="http09">HTTP/0.9&lt;/h2>
-&lt;ul>
-&lt;li>客户端请求，服务器回复完毕，TCP连接即关闭&lt;/li>
-&lt;li>只有一个命令：&lt;code>GET&lt;/code>&lt;/li>
-&lt;li>服务器只能回应HTML格式的字符串&lt;/li>
-&lt;/ul>
-&lt;h2 id="http10">HTTP/1.0&lt;/h2>
-&lt;ul>
-&lt;li>加入&lt;code>POST&lt;/code>、&lt;code>HEAD&lt;/code>命令&lt;/li>
-&lt;li>协议分为头部和数据部，头部字段如：&lt;code>Content-Type&lt;/code>、&lt;code>Content-Encoding&lt;/code>等&lt;/li>
-&lt;li>为了保持TCP的复用，引入头部字段：&lt;code>Connection: keep-alive&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h2 id="http11">HTTP/1.1&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>TCP默认为持久连接，由客户端和服务端主动关闭&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）&lt;/p>
-&lt;ul>
-&lt;li>服务端可以区分多个请求的基础：&lt;code>Content-Length&lt;/code>字段，即知道每个请求的长度&lt;/li>
-&lt;li>在1.0版中，&lt;code>Content-Length&lt;/code>字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>引入流模式&lt;/p>
-&lt;blockquote>
-&lt;p>对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。&lt;/p>
-&lt;p>因此，1.1版规定可以不使用&lt;code>Content-Length&lt;/code>字段，而使用&lt;a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81">&amp;ldquo;分块传输编码&amp;rdquo;&lt;/a>（chunked transfer encoding）。只要请求或回应的头信息有&lt;code>Transfer-Encoding&lt;/code>字段，就表明回应将由数量未定的数据块组成。&lt;/p>
-&lt;p>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;blockquote>
-&lt;p>当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。&lt;/p>
-&lt;p>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;li>
-&lt;p>服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&lt;a href="https://zh.wikipedia.org/wiki/%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E">&amp;ldquo;队头堵塞&amp;rdquo;&lt;/a>（Head-of-line blocking）。&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="http20">HTTP/2.0&lt;/h2>
-&lt;blockquote>
-&lt;p>2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。&lt;/p>
-&lt;p>这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>头部和数据部都是二进制，统称为“帧”&lt;/li>
-&lt;li>全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题）
-&lt;ul>
-&lt;li>实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID&lt;/li>
-&lt;li>客户端和服务器都可以发送信号（&lt;code>RST_STREAM&lt;/code>帧），取消这个数据流&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>头信息压缩&lt;/li>
-&lt;li>服务器未经允许，主动推送数据到客户端&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>Reference:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/blockquote></description><content>&lt;blockquote>
-&lt;p>HTTP位于网络的应用层，使用TCP/IP协议进行传输&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>TCP连接
-&lt;ul>
-&lt;li>HTTP/1.0：通过非标准字段&lt;code>Connection: keep-alive&lt;/code>保持TCP连接&lt;/li>
-&lt;li>HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理&lt;/li>
-&lt;li>HTTP/2：&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="http09">HTTP/0.9&lt;/h2>
-&lt;ul>
-&lt;li>客户端请求，服务器回复完毕，TCP连接即关闭&lt;/li>
-&lt;li>只有一个命令：&lt;code>GET&lt;/code>&lt;/li>
-&lt;li>服务器只能回应HTML格式的字符串&lt;/li>
-&lt;/ul>
-&lt;h2 id="http10">HTTP/1.0&lt;/h2>
-&lt;ul>
-&lt;li>加入&lt;code>POST&lt;/code>、&lt;code>HEAD&lt;/code>命令&lt;/li>
-&lt;li>协议分为头部和数据部，头部字段如：&lt;code>Content-Type&lt;/code>、&lt;code>Content-Encoding&lt;/code>等&lt;/li>
-&lt;li>为了保持TCP的复用，引入头部字段：&lt;code>Connection: keep-alive&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;h2 id="http11">HTTP/1.1&lt;/h2>
-&lt;ul>
-&lt;li>
-&lt;p>TCP默认为持久连接，由客户端和服务端主动关闭&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）&lt;/p>
-&lt;ul>
-&lt;li>服务端可以区分多个请求的基础：&lt;code>Content-Length&lt;/code>字段，即知道每个请求的长度&lt;/li>
-&lt;li>在1.0版中，&lt;code>Content-Length&lt;/code>字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>引入流模式&lt;/p>
-&lt;blockquote>
-&lt;p>对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。&lt;/p>
-&lt;p>因此，1.1版规定可以不使用&lt;code>Content-Length&lt;/code>字段，而使用&lt;a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81">&amp;ldquo;分块传输编码&amp;rdquo;&lt;/a>（chunked transfer encoding）。只要请求或回应的头信息有&lt;code>Transfer-Encoding&lt;/code>字段，就表明回应将由数量未定的数据块组成。&lt;/p>
-&lt;p>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;blockquote>
-&lt;p>当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。&lt;/p>
-&lt;p>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;/li>
-&lt;li>
-&lt;p>服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&lt;a href="https://zh.wikipedia.org/wiki/%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E">&amp;ldquo;队头堵塞&amp;rdquo;&lt;/a>（Head-of-line blocking）。&lt;/p>
-&lt;/li>
-&lt;/ul>
-&lt;h2 id="http20">HTTP/2.0&lt;/h2>
-&lt;blockquote>
-&lt;p>2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。&lt;/p>
-&lt;p>这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。&lt;/p>
-&lt;/blockquote>
-&lt;ul>
-&lt;li>头部和数据部都是二进制，统称为“帧”&lt;/li>
-&lt;li>全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题）
-&lt;ul>
-&lt;li>实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID&lt;/li>
-&lt;li>客户端和服务器都可以发送信号（&lt;code>RST_STREAM&lt;/code>帧），取消这个数据流&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>头信息压缩&lt;/li>
-&lt;li>服务器未经允许，主动推送数据到客户端&lt;/li>
-&lt;/ul>
-&lt;blockquote>
-&lt;p>Reference:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html">《HTTP 协议入门》 阮一峰&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview">《HTTP概述》 MDN&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;/blockquote></content></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Network on</title><link>https://chejinying.com/tech/tags/network/</link><description>Recent content in Network on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 19 May 2024 11:10:54 +0800</lastBuildDate><atom:link href="https://chejinying.com/tech/tags/network/index.xml" rel="self" type="application/rss+xml"/><item><title>v2ray setup</title><link>https://chejinying.com/tech/posts/v2ray/</link><pubDate>Sun, 19 May 2024 11:10:54 +0800</pubDate><guid>https://chejinying.com/tech/posts/v2ray/</guid><description>&lt;p&gt;&lt;a href="https://github.com/v2fly/v2ray-core"&gt;V2Ray&lt;/a&gt; is a tool under Project V. Project V is a project that includes a set of tools for building specific network environments, and V2Ray is the core one.&lt;/p&gt;
+&lt;h3 id="install"&gt;Install&lt;/h3&gt;
+&lt;h4 id="server"&gt;Server&lt;/h4&gt;
+&lt;p&gt;The v2ray server is usually hosted in a linux server, the &lt;a href="https://github.com/v2fly/fhs-install-v2ray"&gt;official way&lt;/a&gt; is to install with a script, which setups the systemd config as well.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# run with root privilege&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;bash &amp;lt;&lt;span class="o"&gt;(&lt;/span&gt;curl -L https://raw.githubusercontent.com/v2fly/fhs-install-v2ray/master/install-release.sh&lt;span class="o"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# output&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /usr/local/bin/v2ray
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /usr/local/share/v2ray/geoip.dat
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /usr/local/share/v2ray/geosite.dat
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /usr/local/etc/v2ray/config.json
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /var/log/v2ray/
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /var/log/v2ray/access.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /var/log/v2ray/error.log
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /etc/systemd/system/v2ray.service
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;installed: /etc/systemd/system/v2ray@.service
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id="client"&gt;Client&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-sh" data-lang="sh"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# macos &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install v2ray
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id="run"&gt;Run&lt;/h3&gt;
+&lt;h4 id="server-1"&gt;Server&lt;/h4&gt;
+&lt;p&gt;For v2ray server, we use &lt;a href="https://systemd.io/"&gt;systemd&lt;/a&gt; to manage the v2ray process in &lt;code&gt;/usr/local/etc/v2ray/config.json&lt;/code&gt; which is empty after installation. We modify the config based on the &lt;a href="https://www.v2fly.org/en_US/guide/start.html#server"&gt;Novice Guide&lt;/a&gt;:&lt;/p&gt;</description></item><item><title>DNS</title><link>https://chejinying.com/tech/posts/network/dns/</link><pubDate>Wed, 20 Sep 2023 11:47:31 +0800</pubDate><guid>https://chejinying.com/tech/posts/network/dns/</guid><description>&lt;p&gt;&lt;a href="https://en.wikipedia.org/wiki/Domain_Name_System"&gt;Domain Name System (DNS)&lt;/a&gt; is the phonebook of the Internet. It translates human-readable domain names (google.com) to machine-readable IP addresses (142.251.46.238).&lt;/p&gt;
+&lt;p&gt;DNS is not very complex but super useful.&lt;/p&gt;
+&lt;h2 id="how-does-dns-work"&gt;How does DNS work?&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/dns_architecture.svg" alt="dns architecutre"&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://chejinying.com/tech/images/dns_flow.png" alt="dns flow"&gt;&lt;/p&gt;
+&lt;p&gt;The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Brower cache and OS cache&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;DNS Resolver&lt;/strong&gt;: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought. DNS resolvers are classified by a variety of query methods, such as &lt;strong&gt;recursive&lt;/strong&gt;, &lt;strong&gt;non-recursive&lt;/strong&gt;, and &lt;strong&gt;iterative&lt;/strong&gt;. A resolution process may use a combination of these methods.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Root Nameserver&lt;/strong&gt;: the first step in translating (resolving) human readable host names into IP addresses. It stores the IP addresses of TLD, There are &lt;strong&gt;13&lt;/strong&gt; logical Root Nameserver globally, e.g.
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- l.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- m.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- a.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- b.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- c.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- d.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- e.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- f.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- g.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- h.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- i.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- j.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- k.root-servers.net.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;TLD Nameserver&lt;/strong&gt; (Top Level Domain Server): It stores the IP addresses of authoritative name servers, e.g.
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-txt" data-lang="txt"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- .com
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- .org
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- .edu
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- .net
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- .us
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- .cn
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;- ...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Authoritative Nameserver&lt;/strong&gt;: it provides the actual anwser for the dns request.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="example"&gt;Example&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s try to trace the dns request for &lt;code&gt;jinying-che.github.io&lt;/code&gt; from my local laptop:&lt;/p&gt;</description></item><item><title>Iptables</title><link>https://chejinying.com/tech/posts/network/iptables/</link><pubDate>Thu, 26 Jan 2023 16:22:21 +0800</pubDate><guid>https://chejinying.com/tech/posts/network/iptables/</guid><description>&lt;p&gt;iptables is a user-space utility program that allows a system administrator to configure the IP packet filter rules of the Linux kernel firewall, implemented as different &lt;a href="https://www.netfilter.org/"&gt;Netfilter&lt;/a&gt; modules. The filters are organized in different tables, which contain chains of rules for how to treat network traffic packets.&lt;/p&gt;
+&lt;h2 id="in-a-nutshell"&gt;In a nutshell:&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Relationship: Tables -&amp;gt; Chains -&amp;gt; Rules
+&lt;img src="https://chejinying.com/tech/images/iptable.png" alt="package flow through iptables"&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="tables"&gt;Tables&lt;/h2&gt;
+&lt;p&gt;There are five tables, the &lt;em&gt;Priority&lt;/em&gt; is: &lt;strong&gt;filter, nat, mangle, raw, security&lt;/strong&gt;&lt;/p&gt;</description></item><item><title>Container Networking</title><link>https://chejinying.com/tech/posts/network/container_networking/</link><pubDate>Thu, 26 Aug 2021 10:27:13 +0800</pubDate><guid>https://chejinying.com/tech/posts/network/container_networking/</guid><description>&lt;h1 id="before"&gt;Before&lt;/h1&gt;
+&lt;hr&gt;
+&lt;h3 id="veth"&gt;VETH&lt;/h3&gt;
+&lt;p&gt;The veth devices are virtual Ethernet devices. They can act as tunnels between network namespaces to create a bridge to a physical network device in another namespace, but can also be used as standalone network devices.&lt;/p&gt;
+&lt;p&gt;veth device pairs are useful for combining the network facilities of the kernel together in interesting ways. A particularly interesting use case is to place one end of a veth pair in one network namespace and the other end in another network namespace, thus allowing communication between network namespaces.&lt;/p&gt;</description></item><item><title>TCP</title><link>https://chejinying.com/tech/posts/network/tcp/</link><pubDate>Mon, 01 Feb 2021 23:25:26 +0800</pubDate><guid>https://chejinying.com/tech/posts/network/tcp/</guid><description>&lt;p&gt;TCP is really complex protocol and there&amp;rsquo;s a lot of tutorials online to learn TCP, however as time being, it&amp;rsquo;s probably being outdated, same as my post. Hence I would recommend the official &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16"&gt;RFC 793&lt;/a&gt; as the only true source. Here&amp;rsquo;s a summary of &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16"&gt;RFC 793&lt;/a&gt;.&lt;/p&gt;
+&lt;h3 id="tcp-header"&gt;TCP Header&lt;/h3&gt;
+&lt;p&gt;&lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-16"&gt;TCP Header Format&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex="0"&gt;&lt;code&gt; 0 1 2 3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Source Port | Destination Port |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Sequence Number |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Acknowledgment Number |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Data | |U|A|P|R|S|F| |
+ | Offset| Reserved |R|C|S|S|Y|I| Window |
+ | | |G|K|H|T|N|N| |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Checksum | Urgent Pointer |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Options | Padding |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | data |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id="tcp-state-machine"&gt;TCP State Machine&lt;/h3&gt;
+&lt;p&gt;Be noted that 11 &lt;a href="https://datatracker.ietf.org/doc/html/rfc793#autoid-17"&gt;TCP Connection States Diagram&lt;/a&gt; indicating state to state transformation not cliet to server communication.&lt;/p&gt;</description></item><item><title>HTTPS</title><link>https://chejinying.com/tech/posts/network/https/</link><pubDate>Mon, 10 Jun 2019 11:19:47 +0800</pubDate><guid>https://chejinying.com/tech/posts/network/https/</guid><description>&lt;h2 id="tldr"&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;HTTPS = HTTP Over TLS&lt;/strong&gt;, when we talk about HTTPS, we actually talk about the TLS more specifically.&lt;/p&gt;
+&lt;h2 id="handshake"&gt;Handshake&lt;/h2&gt;
+&lt;p&gt;The exact steps within a TLS handshake will vary depending upon the kind of key exchange algorithm used and the cipher suites supported by both sides. The RSA key exchange algorithm, while now considered not secure, was used in versions of TLS before 1.3.&lt;/p&gt;
+&lt;h4 id="handshake-tls-12"&gt;Handshake TLS 1.2&lt;/h4&gt;
+&lt;p&gt;Basically it&amp;rsquo;s a &lt;em&gt;3-Way TCP handshake&lt;/em&gt; + &lt;em&gt;4 Way TLS handshake&lt;/em&gt;.
+&lt;img src="https://chejinying.com/tech/images/https_handshake.png" alt="https handshake"&gt;&lt;/p&gt;</description></item><item><title>HTTP</title><link>https://chejinying.com/tech/posts/network/http/</link><pubDate>Wed, 10 Oct 2018 11:19:45 +0800</pubDate><guid>https://chejinying.com/tech/posts/network/http/</guid><description>&lt;blockquote&gt;
+&lt;p&gt;HTTP位于网络的应用层，使用TCP/IP协议进行传输&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP连接
+&lt;ul&gt;
+&lt;li&gt;HTTP/1.0：通过非标准字段&lt;code&gt;Connection: keep-alive&lt;/code&gt;保持TCP连接&lt;/li&gt;
+&lt;li&gt;HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理&lt;/li&gt;
+&lt;li&gt;HTTP/2：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="http09"&gt;HTTP/0.9&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;客户端请求，服务器回复完毕，TCP连接即关闭&lt;/li&gt;
+&lt;li&gt;只有一个命令：&lt;code&gt;GET&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;服务器只能回应HTML格式的字符串&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="http10"&gt;HTTP/1.0&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;加入&lt;code&gt;POST&lt;/code&gt;、&lt;code&gt;HEAD&lt;/code&gt;命令&lt;/li&gt;
+&lt;li&gt;协议分为头部和数据部，头部字段如：&lt;code&gt;Content-Type&lt;/code&gt;、&lt;code&gt;Content-Encoding&lt;/code&gt;等&lt;/li&gt;
+&lt;li&gt;为了保持TCP的复用，引入头部字段：&lt;code&gt;Connection: keep-alive&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="http11"&gt;HTTP/1.1&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;TCP默认为持久连接，由客户端和服务端主动关闭&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;服务端可以区分多个请求的基础：&lt;code&gt;Content-Length&lt;/code&gt;字段，即知道每个请求的长度&lt;/li&gt;
+&lt;li&gt;在1.0版中，&lt;code&gt;Content-Length&lt;/code&gt;字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;引入流模式&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用&amp;quot;流模式&amp;quot;（stream）取代&amp;quot;缓存模式&amp;quot;（buffer）。&lt;/p&gt;
+&lt;p&gt;因此，1.1版规定可以不使用&lt;code&gt;Content-Length&lt;/code&gt;字段，而使用&lt;a href="https://zh.wikipedia.org/wiki/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81"&gt;&amp;ldquo;分块传输编码&amp;rdquo;&lt;/a&gt;（chunked transfer encoding）。只要请求或回应的头信息有&lt;code&gt;Transfer-Encoding&lt;/code&gt;字段，就表明回应将由数量未定的数据块组成。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html"&gt;《HTTP 协议入门》 阮一峰&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview"&gt;《HTTP概述》 MDN&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即&lt;a href="https://zh.wikipedia.org/wiki/%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E"&gt;&amp;ldquo;队头堵塞&amp;rdquo;&lt;/a&gt;（Head-of-line blocking）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="http20"&gt;HTTP/2.0&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。&lt;/p&gt;
+&lt;p&gt;这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;头部和数据部都是二进制，统称为“帧”&lt;/li&gt;
+&lt;li&gt;全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题）
+&lt;ul&gt;
+&lt;li&gt;实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID&lt;/li&gt;
+&lt;li&gt;客户端和服务器都可以发送信号（&lt;code&gt;RST_STREAM&lt;/code&gt;帧），取消这个数据流&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;头信息压缩&lt;/li&gt;
+&lt;li&gt;服务器未经允许，主动推送数据到客户端&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Reference:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://www.ruanyifeng.com/blog/2016/08/http.html"&gt;《HTTP 协议入门》 阮一峰&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview"&gt;《HTTP概述》 MDN&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/blockquote&gt;</description></item></channel></rss>
