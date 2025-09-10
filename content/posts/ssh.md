@@ -1,12 +1,12 @@
 ---
-title: "SSH
+title: "SSH"
 date: "2025-09-09T22:42:19+08:00"
-tags: ["protocal"]
-description: "ssh overview"
+tags: ["protocol", "ssh"]
+description: "how to use ssh and how it works"
 draft: true
 ---
 
-## Admin (sshd server)
+## Server
 ### where is sshd config?
 ```sh
 # location 
@@ -33,7 +33,7 @@ sudo netstat -tnpa | grep sshd
 sudo who
 ```
 
-## Client (ssh client)
+## Client 
 > refer to [Generating a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
 ```sh
 # generate ssh key pair
