@@ -1,4 +1,6 @@
-baseurl = "https://chejinying.com/tech"
+title = "Jinying Tech Blog"
+baseurl = "https://chejinying.com/tech/"
+enableRobotsTXT = true
 canonifyURLs = true
 languageCode = "en-us"
 # Add it only if you keep the theme in the `themes` directory.
@@ -11,6 +13,8 @@ pagination.pagerSize = 5
   noClasses = false
 
 [params]
+  description = "A personal technical blog focusing on monitoring and containerization, also covering OS, network, algorithms, etc."
+
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
   contentTypeName = "posts"

@@ -3,6 +3,20 @@ To add an extended head section, please create
 `layouts/partials/extended_head.html` in your Hugo directory.
 -->
 
-{{ if or .Params.math .Site.Params.math }}
-{{ partial "math.html" . }}
-{{ end }}
+{{/* Canonical URL */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{/* Meta description */}}
+{{ $desc := cond (isset .Params "description") .Params.description .Site.Params.description }}
+{{ with $desc }}<meta name="description" content="{{ . }}">{{ end }}
+
+{{/* Open Graph */}}
+<meta property="og:title" content="{{ .Title }}"/>
+{{ with $desc }}<meta property="og:description" content="{{ . }}"/>{{ end }}
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}"/>
+<meta property="og:url" content="{{ .Permalink }}"/>
+
+{{/* Twitter */}}
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="{{ .Title }}"/>
+{{ with $desc }}<meta name="twitter:description" content="{{ . }}"/>{{ end }}
