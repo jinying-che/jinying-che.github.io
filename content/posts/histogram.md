@@ -15,6 +15,9 @@ That means only 1% of requests are slower than this threshold.
 > 
 > It highlights the “tail latency” — those rare, slow requests that the average hides but which can badly impact user experience.
 
+### Diagram
+![Histogram Quantile](/images/histogram_quantile.png)
+
 ## Calculation 
 Before diving into the calculation of histogram, what's histogram metric type? see details in [Metric Type](https://chejinying.com/tech/posts/prometheus/#metric-type)
 
@@ -33,9 +36,6 @@ Let's highlight 3 key points of histogram:
   - `10 bucket`: all requests with latency <= 10s (including those in `0.05 bucket`, `0.1 bucket`, `0.2 bucket`, and `1 bucket`)
 - histogram will return the max upper bound of the bucket if the quantile is greater than the max bucket
     - for example, if we have buckets `[0.05, 0.1, 0.2, 1, 10]`, and we query `histogram_quantile(0.99, ...)`, it will always return `10` because we only have 4 buckets and the max upper bound is `10`.
-
-### Diagram
-![Histogram Quantile](/images/histogram_quantile.png)
 
 ## Code
 > source code in prometheus: [BucketQuantile](https://github.com/prometheus/prometheus/blob/a3c7f72ad09d1ee04ee8c6769e85d31f225f76fa/promql/quantile.go#L107)

@@ -9,9 +9,10 @@ Welcome to play the personal linux server, here's the setup list that all you ne
 
 ## Admin
 1. systemd 
-2. ifconfig
+2. ifconfig (for network config)
     - `sudo apt install net-tools`
-
+3. sysstat (for iostat etc.)
+    - `sudo apt install sysstat`
 
 ## Dev
 - git: `sudo apt install git`
@@ -22,7 +23,7 @@ Welcome to play the personal linux server, here's the setup list that all you ne
     - git
     - fzf
     - autojump: `sudo apt install autojump`
-    - 
+    - theme: https://starship.rs/
 - gcc
 - go
 - make
