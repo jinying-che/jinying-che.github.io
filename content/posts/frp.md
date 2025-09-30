@@ -1,12 +1,9 @@
 ---
 title: "FRP User Guide: SSH Tunneling Through Public Server"
-date: "2025-01-27T08:10:42+08:00"
-tags: ["networking", "ssh", "tunneling", "frp", "infrastructure"]
+date: "2025-09-30T08:10:42+08:00"
+tags: ["network", "ssh", "frp"]
 description: "Complete guide to setting up SSH tunneling using FRP (Fast Reverse Proxy) to access local servers through a public IP server"
-draft: true
 ---
-
-# FRP User Guide: SSH Tunneling Through Public Server
 
 ## Introduction
 
@@ -20,110 +17,19 @@ FRP consists of two main components:
 
 ## How FRP Works for SSH Tunneling
 
-### Traditional SSH Access Problem
-```
-Internet → [Firewall/NAT] → Local Server (192.168.1.100:22)
-```
-When your local server is behind a NAT or firewall, it's not directly accessible from the internet.
+- Traditional SSH Access Problem
+  ```
+  Internet → [Firewall/NAT] → Local Server (192.168.1.100:22)
+  ```
+  When your local server is behind a NAT or firewall, it's not directly accessible from the internet.
 
-### FRP Solution
-```
-Internet → Public Server (frps) → Tunnel → Local Server (frpc) → Local SSH (192.168.1.100:22)
-```
-
-FRP creates a secure tunnel between your local server and the public server, allowing external connections to reach your local services.
-
-## Prerequisites
-
-- A server with public IP (AWS EC2, DigitalOcean, etc.)
-- Local server behind NAT/firewall
-- Basic understanding of SSH and networking
-
-## Installation
-
-### Download FRP
-```bash
-# Download the latest release from GitHub
-wget https://github.com/fatedier/frp/releases/download/v0.52.3/frp_0.52.3_linux_amd64.tar.gz
-tar -xzf frp_0.52.3_linux_amd64.tar.gz
-cd frp_0.52.3_linux_amd64
-```
-
-## Configuration
-
-### 1. Server Configuration (frps.ini)
-
-On your public server (AWS VPS), create `frps.ini`:
-
-```ini
-[common]
-# FRP server listening port
-bind_port = 7000
-
-# Dashboard (optional)
-dashboard_port = 7500
-dashboard_user = admin
-dashboard_pwd = your_password
-
-# Authentication token (recommended)
-token = your_secure_token_here
-
-# Logging
-log_file = /var/log/frps.log
-log_level = info
-log_max_days = 3
-```
-
-### 2. Client Configuration (frpc.ini)
-
-On your local server, create `frpc.ini`:
-
-```ini
-[common]
-# Public server address and port
-server_addr = your_public_server_ip
-server_port = 7000
-
-# Authentication token (must match server)
-token = your_secure_token_here
-
-# SSH tunnel configuration
-[ssh]
-type = tcp
-local_ip = 127.0.0.1
-local_port = 22
-remote_port = 6000
-
-# Optional: Custom domain (if you have one)
-# custom_domains = ssh.yourdomain.com
-```
-
-## Running FRP
-
-### Start the Server (frps)
-```bash
-# On your public server
-./frps -c frps.ini
-```
-
-### Start the Client (frpc)
-```bash
-# On your local server
-./frpc -c frpc.ini
-```
-
-## Connecting via SSH
-
-Once both services are running, you can connect to your local server through the public server:
-
-```bash
-# Connect to local server via public server
-ssh -p 6000 username@your_public_server_ip
-
-# Or if using custom domain
-ssh -p 6000 username@ssh.yourdomain.com
-```
-
+- FRP Solution
+  ```
+  Internet → Public Server (frps) → Tunnel → Local Server (frpc) → Local SSH (192.168.1.100:22)
+  ```
+  
+  FRP creates a secure tunnel between your local server and the public server, allowing external connections to reach your local services.
+  
 ## How SSH Tunneling Works with FRP
 
 ### Step-by-Step Process
@@ -145,168 +51,163 @@ Local Server (frpc)
 Local SSH Service
 ```
 
-## Advanced Configuration
-
-### Multiple SSH Services
-
-You can expose multiple SSH services by adding more `[ssh]` sections:
-
-```ini
-[ssh-server1]
-type = tcp
-local_ip = 127.0.0.1
-local_port = 22
-remote_port = 6000
-
-[ssh-server2]
-type = tcp
-local_ip = 192.168.1.100
-local_port = 22
-remote_port = 6001
-```
-
-### Security Enhancements
-
-#### 1. Enable Authentication Token
-```ini
-# In both frps.ini and frpc.ini
-token = your_very_secure_random_token
-```
-
-#### 2. Use Custom Domains
-```ini
-[ssh]
-type = tcp
-local_ip = 127.0.0.1
-local_port = 22
-remote_port = 6000
-custom_domains = ssh.yourdomain.com
-```
-
-#### 3. Enable TLS Encryption
-```ini
-[common]
-# In frps.ini
-tls_cert_file = /path/to/server.crt
-tls_key_file = /path/to/server.key
-
-# In frpc.ini
-tls_enable = true
-```
-
-## Running as System Service
-
-### Systemd Service for frps
-
-Create `/etc/systemd/system/frps.service`:
-
-```ini
-[Unit]
-Description=FRP Server
-After=network.target
-
-[Service]
-Type=simple
-User=frp
-ExecStart=/opt/frp/frps -c /opt/frp/frps.ini
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-```
-
-### Systemd Service for frpc
-
-Create `/etc/systemd/system/frpc.service`:
-
-```ini
-[Unit]
-Description=FRP Client
-After=network.target
-
-[Service]
-Type=simple
-User=frp
-ExecStart=/opt/frp/frpc -c /opt/frp/frpc.ini
-Restart=always
-RestartSec=5
-
-[Install]
-WantedBy=multi-user.target
-```
-
-Enable and start services:
-```bash
-sudo systemctl enable frps
-sudo systemctl start frps
-
-sudo systemctl enable frpc
-sudo systemctl start frpc
-```
-
-## Troubleshooting
-
-### Common Issues
-
-#### 1. Connection Refused
-- Check if frps is running on the public server
-- Verify firewall rules allow port 7000 and 6000
-- Ensure token matches between client and server
-
-#### 2. Authentication Failed
-- Verify the token is identical in both configurations
-- Check if the token contains special characters that need escaping
-
-#### 3. Port Already in Use
-- Change the `remote_port` in frpc.ini
-- Check what's using the port: `netstat -tulpn | grep :6000`
-
-### Debugging Commands
-
-```bash
-# Check FRP processes
-ps aux | grep frp
-
-# Check port usage
-netstat -tulpn | grep -E "(7000|6000)"
-
-# View logs
-tail -f /var/log/frps.log
-tail -f /var/log/frpc.log
-
-# Test connection
-telnet your_public_server_ip 6000
-```
-
-## Security Best Practices
-
-1. **Use Strong Authentication Tokens**: Generate random, long tokens
-2. **Enable TLS**: Encrypt tunnel communication
-3. **Firewall Rules**: Only open necessary ports
-4. **Regular Updates**: Keep FRP updated to latest version
-5. **Monitor Logs**: Regularly check logs for suspicious activity
-6. **SSH Key Authentication**: Use SSH keys instead of passwords
-7. **Fail2Ban**: Implement fail2ban for additional SSH protection
-
-## Performance Considerations
-
-- **Bandwidth**: FRP adds minimal overhead (~1-2%)
-- **Latency**: Expect slight increase due to additional hop
-- **Concurrent Connections**: FRP handles multiple connections efficiently
-- **Resource Usage**: Low CPU and memory footprint
-
-## Alternative Use Cases
-
-FRP can be used for more than just SSH:
-
+## SSH Tunneling Usage 
+Here is the SSH Tunneling Example, actually FRP can be used for more than just SSH:
 - **Web Services**: Expose local web applications
 - **Database Access**: Secure database connections
 - **File Sharing**: Access local file servers
 - **Development**: Share local development servers
 
-## Conclusion
+for more usage, pls see [details](https://gofrp.org/en/docs/examples/)
+### Prerequisites 
+```sh
+# Download FRP from the latest release page, get the binary and default config files
+wget https://github.com/fatedier/frp/releases/download/v0.65.0/frp_xxx.tar.gz
+tar -xzf frp_xxx.tar.gz
 
-FRP provides a robust solution for accessing local services through public servers. The SSH tunneling setup described in this guide offers a secure way to manage remote servers behind NAT/firewalls. With proper configuration and security measures, FRP can significantly improve your remote access capabilities.
+# Move the binaries and configuration files accordingly
+sudo mv frp_xxx/frps /usr/local/bin/
+sudo mv frp_xxx/frps.toml /etc/systmd/system/
 
-Remember to always prioritize security by using strong authentication, enabling encryption, and monitoring your connections regularly.
+sudo mv frp_xxx/frpc /usr/local/bin/
+sudo mv frp_xxx/frpc.toml /etc/systmd/system/
+```
+update the config files as below
+### Public Server With Static IP
+- frps.toml (on public server)
+  ```toml
+  # FRP server listening port
+  bindPort = 7000
+  
+  # Dashboard (optional)
+  webServer.addr = "0.0.0.0"
+  webServer.port = 7500
+  webServer.user = "admin"
+  webServer.password = "your_password"
+  
+  # Authentication token (recommended)
+  auth.token = "your_secure_token_here"
+  
+  # Logging
+  log.to = "/var/log/frps.log"
+  log.level = "info"
+  log.maxDays = 3
+  ```
+
+- systemd service file for frps (on public server)
+  ```ini
+  [Unit]
+  Description=FRP Server
+  After=network.target
+  
+  [Service]
+  Type=simple
+  User=frp
+  ExecStart=/usr/local/frps -c /etc/systemd/system/frps.toml
+  Restart=always
+  RestartSec=5
+  
+  [Install]
+  WantedBy=multi-user.target
+  ```
+
+### Private Server Behind NAT/Firewall
+- frpc.toml (on local server)
+  ```toml
+  # Public server address and port
+  serverAddr = "your_public_server_ip"
+  serverPort = 7000
+  
+  # Authentication token (must match server)
+  auth.token = "your_secure_token_here"
+  
+  # SSH tunnel configuration
+  [[proxies]]
+  name = "ssh"
+  type = "tcp"
+  localIP = "127.0.0.1"
+  localPort = 22
+  remotePort = 6000
+  ```
+
+- systemd service file for frpc (on local server)
+  ```ini
+  [Unit]
+  Description=FRP Client
+  After=network.target
+  
+  [Service]
+  Type=simple
+  User=frp
+  ExecStart=/usr/local/frpc -c /etc/systemd/system/frpc.toml
+  Restart=always
+  RestartSec=5
+  
+  [Install]
+  WantedBy=multi-user.target
+  ```
+
+## FRP's Design Philosophy
+
+### Client-Driven Configuration Model
+
+FRP follows a **client-driven configuration philosophy** where the client (frpc) tells the server (frps) what services it wants to expose and on which ports. This design choice has several important implications:
+
+#### Why `remotePort` is in frpc.toml, not frps.toml
+
+This is one of the most common points of confusion for new FRP users. Here's why:
+
+1. **Dynamic Service Registration**: Services are registered dynamically when clients connect, not pre-configured on the server
+2. **Multiple Client Support**: Different clients can request different ports without server pre-configuration
+3. **Client Control**: Each client controls what it exposes and on which ports
+4. **Server Simplicity**: The server only needs to know the control port (7000), not all service ports
+
+#### Port Separation Philosophy
+
+FRP clearly separates three types of ports:
+
+- **`serverPort` (7000)**: Communication between frps and frpc (control channel)
+- **`remotePort` (6000)**: External traffic to the exposed service (data channel)
+- **`localPort` (22)**: Local service on the client machine
+
+As stated in the official documentation:
+> "The `localPort` (listened on the client) and `remotePort` (exposed on the server) are used for traffic going in and out of the frp system, while the `serverPort` is used for communication between frps and frpc."
+
+#### Benefits of This Design
+
+1. **Flexibility**: Clients can expose multiple services on different ports
+2. **Simplicity**: Server configuration remains minimal
+3. **Scalability**: Easy to add new clients without server reconfiguration
+4. **Dynamic Allocation**: Ports are allocated when clients connect
+5. **Client Autonomy**: Each client manages its own service exposure
+
+#### Example: Multiple Services from One Client
+
+```toml
+# frpc.toml - One client exposing multiple services
+serverAddr = "x.x.x.x"
+serverPort = 7000
+
+[[proxies]]
+name = "ssh"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 22
+remotePort = 6000
+
+[[proxies]]
+name = "web"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 8080
+remotePort = 6001
+
+[[proxies]]
+name = "mysql"
+type = "tcp"
+localIP = "127.0.0.1"
+localPort = 3306
+remotePort = 6002
+```
+
+The server automatically handles all these port allocations when the client connects, without any server-side configuration changes.
