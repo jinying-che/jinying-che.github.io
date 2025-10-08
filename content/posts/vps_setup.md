@@ -14,12 +14,20 @@ Welcome to play the personal linux server, here's the setup list that all you ne
 3. sysstat (for iostat etc.)
     - `sudo apt install sysstat`
 
-
 ## Dev
-- zsh
-- on my zsh
+- git: `sudo apt install git`
+- zsh: `sudo apt install zsh`
+    - install oh-my-zsh: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+- on my zsh: `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+  - plugins:
+    - git
+    - fzf
+    - autojump: `sudo apt install autojump`
     - theme: https://starship.rs/
 - gcc
 - go
 - make
     - `sudo apt install make`
+
+## Reference
+- https://github.com/ohmyzsh/ohmyzsh
