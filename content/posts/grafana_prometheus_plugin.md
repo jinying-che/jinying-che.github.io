@@ -1,5 +1,5 @@
 ---
-title: "how grafana works with prometheus"
+title: "How grafana works with prometheus"
 date: "2025-10-08T15:11:02+08:00"
 tags: ["grafana", "prometheus"]
 description: "Dive into how Grafana integrates with Prometheus for data visualization and monitoring"
@@ -889,3 +889,7 @@ The key innovation is:
 - **Concurrent execution** of range and instant queries for Explore
 - **Efficient parsing** using jsoniter for high performance
 - **Flexible visualization** with frames marked by `preferredVisualisationType`
+
+## Reference
+- https://grafana.com/developers/dataplane/dataplane-dataframes
+- https://github.com/grafana/grafana
