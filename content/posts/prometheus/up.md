@@ -6,8 +6,6 @@ description: "A comprehensive guide to understanding the Prometheus up metric, i
 draft: false
 ---
 
-# Understanding the Prometheus `up` Metric
-
 ## Overview
 
 The `up` metric is one of the most fundamental metrics in Prometheus. It indicates whether a target (service, endpoint, or exporter) is currently accessible and responding to Prometheus scrapes.
