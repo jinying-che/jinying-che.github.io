@@ -1,7 +1,7 @@
 ---
 title: "Vmstorage Study Guide"
 date: "2025-09-17T18:16:43+08:00"
-tags: ["monitoring", "vm"]
+tags: ["monitor", "vm"]
 description: "how to study vmstorage implementation"
 draft: true
 ---

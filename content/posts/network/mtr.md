@@ -1,9 +1,8 @@
 ---
 title: "MTR (My Traceroute): Network Diagnostic Tool Deep Dive"
 date: "2025-10-07T14:49:57+08:00"
-tags: ["network", "diagnostics", "traceroute", "ping", "linux", "networking"]
+tags: ["network"]
 description: "Comprehensive guide to MTR (My Traceroute) - understanding its functionality, underlying protocols, system calls, and network implementation details"
-draft: false
 ---
 
 # MTR (My Traceroute): Network Diagnostic Tool Deep Dive
