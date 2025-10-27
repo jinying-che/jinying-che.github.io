@@ -3,7 +3,6 @@ title: "relabel_config vs metric_relabel_config"
 date: "2025-09-17T16:13:56+08:00"
 tags: ["monitor", "prometheus"]
 description: "Comprehensive guide to understanding and using Prometheus relabel_config and metric_relabel_config"
-draft: true
 ---
 
 # Prometheus Relabeling: Complete Guide
