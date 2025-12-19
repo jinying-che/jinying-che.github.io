@@ -1,7 +1,7 @@
 ---
 title: "vmalert overview"
 date: "2024-10-23T09:59:27+08:00"
-tags: ["monitor", "victoria metrics"]
+tags: ["monitor", "victoriametrics"]
 description: "a brief introduction to vmalert"
 draft: true
 ---

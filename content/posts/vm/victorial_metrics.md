@@ -1,7 +1,7 @@
 ---
 title: "Victorial Metrics"
 date: "2024-02-13T07:37:29+08:00"
-tags: ["monitor", "victoria metrics"]
+tags: ["monitor", "victoriametrics"]
 description: "Victorial Metrics"
 ---
 

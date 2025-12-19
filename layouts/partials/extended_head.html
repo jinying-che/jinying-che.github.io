@@ -20,3 +20,10 @@ To add an extended head section, please create
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="{{ .Title }}"/>
 {{ with $desc }}<meta name="twitter:description" content="{{ . }}"/>{{ end }}
+
+<style>
+  /* Prevent table first column from wrapping */
+  table td:first-child {
+    white-space: nowrap;
+  }
+</style>
