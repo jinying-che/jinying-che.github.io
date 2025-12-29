@@ -12,7 +12,7 @@ JSON Web Token (JWT) is an open standard ([RFC 7519](https://datatracker.ietf.or
 ## What is the JSON Web Token structure?
 ```
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4ifQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
-└─────────── Header ───────────┘└─────────── Payload ───────────────────────┘└─────────── Signature ─────────────────┘
+└─────────── Header ───────────────┘└───────────── Payload ───────────────────────┘└─────────── Signature ─────────────────┘
 ```
 In its compact form, JSON Web Tokens consist of three parts separated by dots (.), which are:
 - **Header**: (base64 encoded): Algorithm + token type
@@ -23,7 +23,7 @@ In its compact form, JSON Web Tokens consist of three parts separated by dots (.
     ```
     {"sub": "user123", "name": "John", "exp": 1735500000}
     ```
-- **Signature**: Created by signing base64(header) + "." + base64(payload) with a secret key (**which is a global private key for all clients**)
+- **Signature**: Created by signing base64(header) + "." + base64(payload) with a secret key (**which is a global private key in server applying for all clients**)
 
 ## How does JSON Web Token work?
 ```
