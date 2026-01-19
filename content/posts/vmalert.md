@@ -5,20 +5,18 @@ tags: ["monitor", "victoriametrics"]
 description: "a brief introduction to vmalert"
 draft: true
 ---
+## Architecture
+![vmalert](/images/vmalert.png)
 
 ## General
 ### Reload rule files
 
 ## Alerting Rule
-in cron job: loading rule files -> group -> start -> execute -> query -> remote write | notify -> loop 
+### Flow 
+in cron job: loading rule files -> group -> start -> execute -> query -> update alert -> remote write | notify -> loop 
 
-### Alert Status
-### Alert Query
-### Notification
-1. EndAt 
-
-2. resend delay
-
+### State Machine
+TBD: Graph
 
 ## Recording Rule
 
