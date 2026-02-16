@@ -6,127 +6,83 @@ description: "understand consistent hashing from scratch"
 draft: true
 ---
 
-## What is Consistent Hashing? (Key Points)
+## The Problem: `hash(key) % N`
 
-**Consistent Hashing** is a distributed hashing technique that minimizes data movement when nodes are added or removed from a distributed system. Here are the key points:
+Simple modular hashing routes keys via `node = hash(key) % N`. When a node dies and N changes (e.g., there's a cache cluster which has 3 nodes, `node 2` dies, total N: 3 → 2), **~(N-1)/N of all keys remap** to different nodes. 
 
-- **Hash Ring**: Maps both data and nodes to a circular hash space
-- **Minimal Rebalancing**: Only affects adjacent nodes when adding/removing nodes
-- **Load Distribution**: Evenly distributes data across available nodes
-- **Fault Tolerance**: Gracefully handles node failures
-- **Scalability**: Easy to add/remove nodes without major data redistribution
+In a cache cluster this causes massive cache misses → thundering herd to database → cascading failure.
 
-## Visualization Diagram
-TBD
+```text
+Key         N=3    N=2    Moved?
+user:1001   1      1      No
+user:1002   0      0      No
+user:1003   0      1      YES
+user:1004   1      0      YES
+user:1006   2      0      YES
+```
 
-## Detailed Explanation of Key Points
+## The Solution: Hash Ring
 
-### Hash Ring
+Instead of `hash % N`, we use a **hash ring** — a circular number line from `0` to `2^32 - 1` where the end wraps back to the start.
 
-The **hash ring** is the core concept of consistent hashing. It's a circular space where:
+**Setup**: hash each node's name (e.g., `hash("cache-1")`) to place it on the ring. To look up a key, hash the key and **walk clockwise** until you hit the first node — that node owns the key.
 
-- **Range**: Uses a finite hash space (e.g., 32-bit or 64-bit)
-- **Circular Nature**: The ring wraps around, so the largest hash value connects to the smallest
-- **Node Placement**: Each node is assigned one or more positions on the ring based on hash values
-- **Key Mapping**: Data keys are hashed and mapped to the ring, then assigned to the next node clockwise. Equivalently, pick the first node with position ≥ the key hash (ranges are (predecessor, node]).
+In the diagram below, `●` marks a node's position on the ring, and `K1/K2/K3` are data keys hashed onto the same ring:
 
-**Why a ring?** The circular nature ensures that every position on the ring has a "next" node, eliminating edge cases at the boundaries.
+```text
+            0 (= 2^32)
+            |
+     Node A ●
+            |  ← K1 is here, walk clockwise → hits Node A
+            |
+            ○ K2  ← walk clockwise → hits Node B
+            |
+     Node B ●
+            |
+            ○ K3  ← walk clockwise → hits Node C
+            |
+     Node C ●
+            |
+```
 
-### Minimal Rebalancing
+**Why this helps**: when Node C dies, only K3 (keys between Node B and Node C) needs to remap — it walks further clockwise and lands on Node A. K1 and K2 are completely untouched. On average **only 1/N keys move**, not (N-1)/N.
 
-When nodes are added or removed, only the **adjacent nodes** are affected:
+## Key Concepts
 
-- **Adding a Node**: Only keys that hash between the new node and its predecessor need to be moved
-- **Removing a Node**: Only keys that were assigned to the removed node need to be reassigned
-- **Efficiency**: In a system with N nodes, only 1/N of the data needs to be moved on average
+### Virtual Nodes (vnodes)
 
-**Example**: If we have nodes at positions 1000, 5000, 8000, and add a node at 3000:
-- Keys hashing to 1001-3000: Move from node at 1000 to new node at 3000
-- Keys hashing to 3001-4999: Remain on node at 5000
-- Other keys: Remain unchanged
+Few physical nodes on the ring → uneven arc lengths → skewed load. Fix: map each physical node to **100-200 virtual nodes** spread across the ring. More points → more uniform distribution. Also enables **weighted routing** (more vnodes = more traffic).
 
-### Load Distribution
+### Hash Function
 
-Consistent hashing provides **even load distribution** through:
+Needs to be **deterministic and uniform**, not necessarily cryptographic. Good choices: MurmurHash3, xxHash. MD5/SHA work but are slower than needed.
 
-- **Virtual Nodes**: Each physical node is represented by multiple virtual nodes on the ring
-- **Hash Function**: Use a fast, well-distributed hash (e.g., MurmurHash3, xxHash); cryptographic strength isn't required
-- **Placement**: Virtual node positions are determined by hashing (pseudo-random), which avoids clustering
+## In Practice: What Else You Need
 
-**Virtual Nodes Example**:
-- Physical Node A might have virtual nodes at positions: 1000, 4000, 7000
-- Physical Node B might have virtual nodes at positions: 2000, 5000, 8000
-- This spreads the load more evenly across physical nodes
+Consistent hashing alone only solves **key routing**. Production distributed systems pair it with:
 
-### Fault Tolerance
+- **Replication**: a single node owning a key is a single point of failure. Systems like Cassandra replicate each key to the next R-1 distinct physical nodes clockwise on the ring (e.g., R=3 means key stored on nodes A, B, C). This is built **on top of** the ring, not part of the hashing algorithm itself.
+- **[Cluster Membership](../distributed-system/cluster_membership.md)**: the ring assumes all nodes agree on who's in the cluster. In reality you need a protocol to detect joins/failures and propagate that view — e.g., gossip (Cassandra), static config, or a CP store (etcd/ZooKeeper).
 
-The system handles **node failures** gracefully:
+## Implementation
 
-- **Replication**: Each key is stored on multiple nodes (replicas)
-- **Automatic Failover**: When a node fails, its keys are automatically served by replicas
-- **Health Monitoring**: Failed nodes can be detected and removed from the ring
-- **Data Recovery**: When a node comes back online, it can recover data from replicas
+See [consistent_hashing.py](https://github.com/jinying-che/jinying-che.github.io/blob/main/consistent_hashing.py) for a complete Python implementation with virtual nodes and binary search lookup.
 
-**Replica Strategy**: With replication factor R (including the primary), store each key on the primary and the next R-1 distinct physical nodes clockwise (skip duplicates from virtual nodes).
+## Real-World Usage
 
-### Scalability
+| System | Role |
+|---|---|
+| DynamoDB / Cassandra | Partition data across storage nodes |
+| Memcached / Redis Cluster | Route cache keys to servers |
+| Nginx / HAProxy | Sticky load balancing |
 
-Consistent hashing enables **horizontal scaling**:
+## Trade-offs
 
-- **Add Nodes**: New nodes can be added without stopping the system
-- **Remove Nodes**: Nodes can be gracefully removed with minimal data movement
-- **Dynamic Scaling**: The system can automatically scale based on load
-- **No Central Coordinator (with membership)**: Ownership is computed locally from the ring, but cluster membership still requires a mechanism (e.g., static config, gossip, or a CP store)
-
-## Python Implementation
-
-Here's a complete, runnable implementation of consistent hashing:
-TBD link instead
-
-The implementation will demonstrate:
-1. Adding nodes to the hash ring
-2. Key distribution across nodes
-3. Load balancing with virtual nodes
-4. Adding a new node and showing minimal rebalancing
-5. Removing a node and showing automatic failover
-
-## Real-World Applications
-
-Consistent hashing is used in many distributed systems:
-
-- **Distributed Caches**: Memcached, Redis Cluster
-- **Load Balancers**: Nginx, HAProxy
-- **Distributed Databases**: Cassandra, DynamoDB
-- **CDNs**: Content delivery networks
-- **Microservices**: Service discovery and load balancing
-
-## Advantages and Disadvantages
-
-### Advantages:
-- **Minimal Data Movement**: Only 1/N of data moves when adding/removing nodes
-- **Load Balancing**: Even distribution of data across nodes
-- **Fault Tolerance**: Graceful handling of node failures
-- **Scalability**: Easy horizontal scaling
-- **No Single Point of Failure**: Decentralized design
-
-### Disadvantages:
-- **Non-Uniform Load**: Without virtual nodes, load can be uneven
-- **Complex Implementation**: More complex than simple modulo hashing
-- **Hash Collisions**: Rare but possible with poor hash functions
-- **Memory Overhead**: Virtual nodes require additional memory
-
-## Best Practices
-
-1. **Use Virtual Nodes**: Implement virtual nodes for better load distribution
-2. **Choose Good Hash Function**: Use cryptographic hash functions (MD5, SHA-1)
-3. **Implement Replication**: Store data on multiple nodes for fault tolerance
-4. **Monitor Load**: Continuously monitor load distribution across nodes
-5. **Handle Failures**: Implement proper failure detection and recovery
-6. **Test Thoroughly**: Test with various node addition/removal scenarios
-
-## Conclusion
-
-Consistent hashing is a powerful technique for building scalable, fault-tolerant distributed systems. By minimizing data movement during node changes and providing even load distribution, it enables systems to scale horizontally while maintaining high availability. The implementation provided above demonstrates all the key concepts and can be used as a foundation for building distributed systems.
+| Pros | Cons |
+|---|---|
+| Only 1/N keys move on topology change | More complex than `hash % N` |
+| Even load with vnodes | Memory overhead from vnodes |
+| Decentralized ownership computation | Requires separate membership protocol |
 
 ---
 
