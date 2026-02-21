@@ -3,7 +3,6 @@ title: "Consistent Hashing"
 date: "2025-10-13T09:39:24+08:00"
 tags: ["algorithm"]
 description: "understand consistent hashing from scratch"
-draft: true
 ---
 
 ## The Problem: `hash(key) % N`
