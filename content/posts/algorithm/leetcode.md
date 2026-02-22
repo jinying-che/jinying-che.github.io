@@ -11,12 +11,12 @@ It's wrong actually, the algorithm is not only used in the interview but also re
 
 This post is showing how I leetcode, it's only my personal approach, I usually try to understand the one algorithm completely, then try to search by tag and resolve the problems from easy to hard.
 
-The general steps to resovle a problem:
+The general steps to resolve problem:
 1. **Abstract the problem**: Most questions are from some scenario in the real world, try to abstract the problem, transfer the problem to the computer world.
-2. **Map to the data structure and algorithm**: Do a brainstorm, map the problem to any data structur and algorithm that you are familiar with. If lucky it's exactly matched, apply it. 
+2. **Map to the data structure and algorithm**: Do a brainstorm, map the problem to any data structure and algorithm that you are familiar with. If lucky it's exactly matched, apply it. 
     1. Don't try to use smartest solution first, it's probably time consuming, for example, maybe Brute Force at first then optimize it step by step.
-    2. No any clue? congratulations! you get space to grow, don't be too sad for the failure of one interview, the better future is waiting for you ahead.
-3. **Implemente the solution**: there's a gap between the idea and the code, no magic here, practice more to improve the code skills.
+    2. No any clue? congratulation! you get space to grow, don't be too sad for the failure of one interview, the better future is waiting for you ahead.
+3. **Implement the solution**: there's a gap between the idea and the code, no magic here, practice more to improve the code skills.
 4. verify with some test cases and edge cases
 
 Enjoy the Algorithm, let's leetcode with the popular algorithm list:

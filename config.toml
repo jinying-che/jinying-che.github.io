@@ -26,7 +26,7 @@ pagination.pagerSize = 5
   showLanguageSelector = false
 
   # set theme to full screen width
-  fullWidthTheme = false
+  fullWidthTheme = true 
 
   # center theme with default width
   centerTheme = true 
