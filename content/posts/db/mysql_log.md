@@ -1,19 +1,16 @@
 ---
-title: "Mysql Log"
+title: "MySQL Log"
 date: "2024-01-27T22:18:59+08:00"
-tags: ["", ""]
-description: ""
+tags: ["mysql"]
+description: "dive into mysql logs"
 draft: true
 ---
 
 When a update sql is excuted in InnoDB, there's are three kind of log involved.
 
-
 ## Redo Log
 1. The redo log is a disk-based data structure used during crash recovery to correct data written by incomplete transactions. 
 2. During normal operations, the redo log encodes requests to change table data that result from SQL statements or low-level API calls.
-
-
 
 The redo log is physically represented on disk by redo log files. 
 
