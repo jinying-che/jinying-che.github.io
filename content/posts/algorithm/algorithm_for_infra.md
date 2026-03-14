@@ -1,5 +1,5 @@
 ---
-title: "The Most Important Algorithm For Infrastructure"
+title: "Algorithm in Infrastructure"
 date: "2026-02-22T18:02:21+08:00"
 tags: ["algorithm", "infra"]
 description: "Are you wondering the most important and popular algorithm used in infrastructure systems, e.g. Kubernetes, Prometheus, etcd, Elasticsearch, VictoriaMetrics etc."
