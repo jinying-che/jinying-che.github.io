@@ -6,4 +6,31 @@ description: "the blog todo list"
 draft: true
 ---
 
-[vlog](./vm/vlog.md)
+## Fundamental
+- [vlog](./vm/vlog.md)
+- [mysql lock](./db/mysql_locking.md)
+- [lsm tree](./lsm_tree.md)
+- [llm overview](./llm/overview.md)
+- clickhouse
+- kubernetes
+
+## Algorithm
+- Bloom Filter
+
+## System Design
+- distribute stock system
+- hot item
+- alerting task/rule schedule system 
+- AIOps based on LLM
+- google auth (all the auth)
+- message system (like wechat or whatsapp)
+- raft
+
+## Language
+- Java
+
+## Network
+- websockets
+
+## explore
+- blockchain

@@ -1,5 +1,5 @@
 ---
-title: "How to monitor nginx?"
+title: "How to Monitor Nginx?"
 date: "2026-03-16T10:00:00+08:00"
 tags: ["nginx"]
 description: "The best practices to monitor nginx with VictoriaMetrics and Grafana"
