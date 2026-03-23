@@ -8,7 +8,7 @@ draft: true
 
 ## Fundamental
 - [vlog](./vm/vlog.md)
-- [mysql lock](./db/mysql_locking.md)
+- ~[mysql lock](./db/mysql_locking.md)~
 - [lsm tree](./lsm_tree.md)
 - [llm overview](./llm/overview.md)
 - clickhouse
@@ -18,8 +18,9 @@ draft: true
 - Bloom Filter
 
 ## System Design
-- distribute stock system
-- hot item
+- monitor and alerting system
+- ~distribute stock system~
+- ~hot item~
 - alerting task/rule schedule system 
 - AIOps based on LLM
 - google auth (all the auth)
@@ -27,7 +28,7 @@ draft: true
 - raft
 
 ## Language
-- Java
+- ~Java~
 
 ## Network
 - websockets
