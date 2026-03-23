@@ -71,11 +71,22 @@ curl http://localhost:8080/nginx_status
 
 The exporter translates the stub_status plaintext into Prometheus-format metrics at `:9113/metrics`.
 
+**Check OS architecture:**
+
+```bash
+uname -m
+# x86_64   → linux_amd64
+# aarch64  → linux_arm64
+# armv7l   → linux_armv7
+```
+
 **Download binary:**
 
 ```bash
-wget https://github.com/nginxinc/nginx-prometheus-exporter/releases/latest/download/nginx-prometheus-exporter_linux_amd64.tar.gz
-tar xzf nginx-prometheus-exporter_linux_amd64.tar.gz
+ARCH=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/;s/armv7l/armv7/')
+VER=$(curl -s https://api.github.com/repos/nginx/nginx-prometheus-exporter/releases/latest | grep -Po '"tag_name": "v\K[^"]+')
+wget "https://github.com/nginx/nginx-prometheus-exporter/releases/download/v${VER}/nginx-prometheus-exporter_${VER}_linux_${ARCH}.tar.gz"
+tar xzf nginx-prometheus-exporter_${VER}_linux_${ARCH}.tar.gz
 sudo install -m 755 nginx-prometheus-exporter /usr/local/bin/nginx-prometheus-exporter
 ```
 
@@ -165,7 +176,7 @@ Or open `http://localhost:8429/targets` in a browser — the nginx job should sh
 
 ## References
 
-- [nginx-prometheus-exporter](https://github.com/nginxinc/nginx-prometheus-exporter)
+- [nginx-prometheus-exporter](https://github.com/nginx/nginx-prometheus-exporter)
 - [ngx_http_stub_status_module](https://nginx.org/en/docs/http/ngx_http_stub_status_module.html)
 - [Grafana Dashboard 12708](https://grafana.com/grafana/dashboards/12708)
 - [VictoriaMetrics Cluster Setup](/posts/vm/vm_setup/)
