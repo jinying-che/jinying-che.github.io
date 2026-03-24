@@ -258,6 +258,76 @@ This is why databases **never** rely on the page cache alone for durability:
 
 `Source Code`: [page cache (filemap.c)](https://github.com/torvalds/linux/blob/master/mm/filemap.c)
 
+## Buffer vs Page Cache
+
+A disk stores two kinds of data: **file content** and **filesystem metadata** (the structural data that organizes and locates files). Linux caches them separately:
+
+```
+                    ┌──────────────────────────────────┐
+                    │           Disk (/dev/vda1)        │
+                    │                                  │
+                    │  ┌───────────┐  ┌─────────────┐  │
+                    │  │ Metadata  │  │File Content  │  │
+                    │  │ (the map) │  │(the treasure)│  │
+                    │  └─────┬─────┘  └──────┬──────┘  │
+                    └────────┼───────────────┼─────────┘
+                             │               │
+                         cached by       cached by
+                             │               │
+                             ▼               ▼
+                          Buffer        Page Cache
+```
+
+- **Buffer** caches filesystem **metadata** — the internal bookkeeping the kernel reads to locate files
+- **Page Cache** caches **file content** — the actual bytes you read and write
+
+#### What exactly is "metadata"?
+
+These are the VFS objects covered above — the stuff you never see as a user but the kernel accesses constantly:
+
+| VFS Object | What's cached in Buffer | When is it accessed |
+|---|---|---|
+| **Superblock** | Block size, inode table location, free block bitmap | `mount`, `df`, creating files |
+| **Inode** | Size, permissions, extent tree (file offset → disk block#) | `stat`, `ls -l`, every `read()`/`write()` |
+| **Directory data block** | `(filename → inode#)` table | `ls`, `cd`, any path lookup |
+
+#### A concrete example: `cat /home/user/file.txt`
+
+```
+ ① lookup inode of "/"            → Buffer  (superblock, inode table)
+ ② lookup "home" in "/"           → Buffer  (directory data block)
+ ③ lookup "user" in "home"        → Buffer  (directory data block)
+ ④ lookup "file.txt" in "user"    → Buffer  (directory block + inode)
+ ⑤ inode extent tree → blocks [1024, 1025, 1026]
+ ⑥ read blocks 1024-1026          → Page Cache (file content)
+     │
+     ▼
+ copy_to_user() → terminal shows the content
+```
+
+Steps ①-⑤ are all **buffer** work (navigating the filesystem structure). Only step ⑥ is **page cache** work (the file content you actually see). For a small file, the kernel does more metadata I/O than content I/O — it's just invisible to you.
+
+#### Verify with `free`
+
+```shell
+# clear caches
+$ echo 3 > /proc/sys/vm/drop_caches && free
+              total      used      free    buff/cache   available
+Mem:         980508    183624    750000         46884      750000
+
+# reading a FILE increases page cache
+$ cat /var/log/syslog > /dev/null && free
+              total      used      free    buff/cache   available
+Mem:         980508    183624    700000         96884      750000
+
+# reading raw BLOCK DEVICE increases buffer
+$ dd if=/dev/vda1 of=/dev/null bs=1M count=64 && free
+              total      used      free    buff/cache   available
+Mem:         980508    183624    634000        162884      750000
+```
+
+> **Note**: since Linux 2.4+, buffer is internally **backed by page cache** — `buffer_head` structs are metadata descriptors pointing into pages in the page cache. They are not separate memory pools, which is why `free` reports them together as `buff/cache`. The `drop_caches` interface reflects this: `echo 1` drops page cache (file content), `echo 2` drops dentries + inodes (metadata/buffer), `echo 3` drops both.
+
 ## I/O Modes
 Linux provides three different ways for applications to perform file I/O, each with different trade-offs:
 
