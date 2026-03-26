@@ -6,6 +6,10 @@ description: "the blog todo list"
 draft: true
 ---
 
+## Network
+- websockets
+- tcp (state machine) --> high
+
 ## Fundamental
 - [vlog](./vm/vlog.md)
 - ~[mysql lock](./db/mysql_locking.md)~
@@ -13,6 +17,9 @@ draft: true
 - [llm overview](./llm/overview.md)
 - clickhouse
 - kubernetes
+
+## SRE
+- linux command for troubleshooting --> high
 
 ## Algorithm
 - Bloom Filter
@@ -30,8 +37,5 @@ draft: true
 ## Language
 - ~Java~
 
-## Network
-- websockets
-
 ## explore
-- blockchain
+- ~blockchain~

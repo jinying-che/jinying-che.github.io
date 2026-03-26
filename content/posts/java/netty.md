@@ -1,7 +1,7 @@
 ---
 title: "Netty"
 date: 2026-03-19T00:00:00+08:00
-tags: ["java", "netty", "networking"]
+tags: ["java", "netty", "network"]
 description: "Netty: high-performance async network framework in Java"
 draft: true
 ---

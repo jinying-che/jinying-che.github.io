@@ -58,3 +58,112 @@ description: "As an infrastructure engineer, let's go through the most important
 | **DP (2D)** | [#72 Edit Distance](https://leetcode.com/problems/edit-distance/) | Minimum edit operations; powers fuzzy log matching and config drift detection. |
 | **Bit Manipulation** | [#191 Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) | Low-level performance tuning and flag-based state management. |
 | **Bit Manipulation** | [#136 Single Number](https://leetcode.com/problems/single-number/) | XOR-based deduplication; detecting unique anomalies in paired datasets. |
+
+# Infra System Design in Code
+
+## Storage Systems
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 588 | [Design In-Memory File System](https://leetcode.com/problems/design-in-memory-file-system/) | File system (mkdir, ls, read, write) |
+| 1166 | [Design File System](https://leetcode.com/problems/design-file-system/) | Hierarchical key-value storage |
+| 981 | [Time Based Key-Value Store](https://leetcode.com/problems/time-based-key-value-store/) | Versioned KV store (like MVCC) |
+| 1146 | [Snapshot Array](https://leetcode.com/problems/snapshot-array/) | Copy-on-write / snapshot semantics |
+| 635 | [Design Log Storage System](https://leetcode.com/problems/design-log-storage-system/) | Log storage with timestamp range queries |
+| 706 | [Design HashMap](https://leetcode.com/problems/design-hashmap/) | Core KV store — hashing, collision resolution |
+| 2502 | [Design Memory Allocator](https://leetcode.com/problems/design-memory-allocator/) | alloc(size) / free(id) — memory allocator |
+
+## Scheduling / Task Systems
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 621 | [Task Scheduler](https://leetcode.com/problems/task-scheduler/) | CPU scheduling with cooldown |
+| 1834 | [Single-Threaded CPU](https://leetcode.com/problems/single-threaded-cpu/) | Single-threaded job queue with priority |
+| 1882 | [Process Tasks Using Servers](https://leetcode.com/problems/process-tasks-using-servers/) | Weighted load-balanced task queue |
+| 253 | [Meeting Rooms II](https://leetcode.com/problems/meeting-rooms-ii/) | Minimum resources for overlapping jobs |
+
+## Caching / Eviction
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 146 | [LRU Cache](https://leetcode.com/problems/lru-cache/) | LRU eviction (Redis, Memcached) |
+| 460 | [LFU Cache](https://leetcode.com/problems/lfu-cache/) | Frequency-based eviction |
+| 1797 | [Design Authentication Manager](https://leetcode.com/problems/design-authentication-manager/) | Token lifecycle with TTL expiration |
+
+## Monitoring / Metrics / Rate Limiting
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 362 | [Design Hit Counter](https://leetcode.com/problems/design-hit-counter/) | QPS tracking, sliding window counter |
+| 359 | [Logger Rate Limiter](https://leetcode.com/problems/logger-rate-limiter/) | Log throttling / deduplication |
+| 295 | [Find Median from Data Stream](https://leetcode.com/problems/find-median-from-data-stream/) | Real-time P50/P99 latency |
+| 346 | [Moving Average from Data Stream](https://leetcode.com/problems/moving-average-from-data-stream/) | Rolling average (CPU, latency) |
+| 1825 | [Finding MK Average](https://leetcode.com/problems/finding-mk-average/) | Trimmed mean (remove outliers) |
+| 933 | [Number of Recent Calls](https://leetcode.com/problems/number-of-recent-calls/) | Fixed-window rate counter |
+| 2034 | [Stock Price Fluctuation](https://leetcode.com/problems/stock-price-fluctuation/) | Live min/max/current dashboard |
+
+## Message Queues / Streaming
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 1188 | [Design Bounded Blocking Queue](https://leetcode.com/problems/design-bounded-blocking-queue/) | Producer-consumer with backpressure |
+| 622 | [Design Circular Queue](https://leetcode.com/problems/design-circular-queue/) | Ring buffer (Kafka, Disruptor internals) |
+| 641 | [Design Circular Deque](https://leetcode.com/problems/design-circular-deque/) | Work-stealing queue |
+| 1656 | [Design an Ordered Stream](https://leetcode.com/problems/design-an-ordered-stream/) | In-order delivery from out-of-order stream (TCP reassembly) |
+| 352 | [Data Stream as Disjoint Intervals](https://leetcode.com/problems/data-stream-as-disjoint-intervals/) | Stream compaction / range merging |
+
+## Concurrency
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 1114 | [Print in Order](https://leetcode.com/problems/print-in-order/) | Sequential pipeline stages |
+| 1115 | [Print FooBar Alternately](https://leetcode.com/problems/print-foobar-alternately/) | Producer-consumer sync |
+| 1117 | [Building H2O](https://leetcode.com/problems/building-h2o/) | Barrier synchronization |
+| 1226 | [The Dining Philosophers](https://leetcode.com/problems/the-dining-philosophers/) | Deadlock avoidance |
+| 1242 | [Web Crawler Multithreaded](https://leetcode.com/problems/web-crawler-multithreaded/) | Concurrent worker pool |
+| 1279 | [Traffic Light Controlled Intersection](https://leetcode.com/problems/traffic-light-controlled-intersection/) | Mutual exclusion |
+
+## Search / Indexing
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 642 | [Design Search Autocomplete System](https://leetcode.com/problems/design-search-autocomplete-system/) | Typeahead / autocomplete |
+| 211 | [Design Add and Search Words](https://leetcode.com/problems/design-add-and-search-words-data-structure/) | Wildcard pattern matching in indexes |
+| 208 | [Implement Trie](https://leetcode.com/problems/implement-trie-prefix-tree/) | Core prefix index structure |
+
+## Infra Data Structures
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 1206 | [Design Skiplist](https://leetcode.com/problems/design-skiplist/) | LevelDB/RocksDB memtable, Redis sorted set |
+| 380 | [Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/) | Consistent hashing node selection |
+| 432 | [All O(1) Data Structure](https://leetcode.com/problems/all-oone-data-structure/) | Real-time metric tracking |
+| 855 | [Exam Room](https://leetcode.com/problems/exam-room/) | Uniform distribution / consistent hashing |
+| 895 | [Maximum Frequency Stack](https://leetcode.com/problems/maximum-frequency-stack/) | Hot-key detection in caching |
+
+## Resource Management
+| # | Problem | Infra Scenario |
+| :--- | :--- | :--- |
+| 379 | [Design Phone Directory](https://leetcode.com/problems/design-phone-directory/) | Connection pool / ID allocator |
+| 355 | [Design Twitter](https://leetcode.com/problems/design-twitter/) | Multi-resource system (users, feeds, fan-out) |
+| 1797 | [Design Authentication Manager](https://leetcode.com/problems/design-authentication-manager/) | Session management with TTL |
+
+## Priority
+```
+Tier 1 (Must do):
+├── 146  LRU Cache
+├── 588  In-Memory File System
+├── 981  Time Based Key-Value Store
+├── 1188 Bounded Blocking Queue
+├── 362  Hit Counter
+├── 621  Task Scheduler
+└── 1206 Design Skiplist
+
+Tier 2 (High value):
+├── 460  LFU Cache
+├── 2502 Memory Allocator
+├── 1242 Web Crawler Multithreaded
+├── 295  Median from Data Stream
+├── 642  Search Autocomplete
+├── 359  Logger Rate Limiter
+└── 1656 Ordered Stream
+
+Tier 3 (Nice to have):
+├── 355  Design Twitter
+├── 1226 Dining Philosophers
+├── 1146 Snapshot Array
+├── 635  Log Storage System
+└── 432  All O(1) Data Structure
+```

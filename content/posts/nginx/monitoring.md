@@ -16,6 +16,12 @@ vmagent :8429                             [systemd, already running]
     ↓  remote_write
 vminsert :8480  →  vmstorage :8400        [systemd, already running]
 
+Nginx access.log
+    ↓  tail & parse
+mtail :3903/metrics                       [systemd]
+    ↓  scrape
+vmagent :8429
+
 Grafana :3000  →  vmselect :8481          [already running]
 ```
 

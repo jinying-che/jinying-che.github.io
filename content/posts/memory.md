@@ -81,7 +81,22 @@ Run `man free`:
 - `buffers`: Memory used by kernel buffers (Buffers in /proc/meminfo)
 - `cache`:  Memory used by the page cache and slabs (Cached and SReclaimable in /proc/meminfo)
 - `buff/cache`: Sum of buffers and cache
-- `available`: Estimation of how much memory is available for starting new applications, without swapping. 
+- `available`: Estimation of how much memory is available for starting new applications, without swapping.
+
+**`free` vs `available`:**
+```
+               total        used        free      shared  buff/cache   available
+Mem:          980508      183624       74136         348      722748      631876
+
+free      =  74 MB   ← truly empty pages, not allocated, not cached, not buffered
+buff/cache = 722 MB  ← used for page cache / buffers, but most can be reclaimed instantly
+available  = 631 MB  ← free + reclaimable cache ≈ 74 + 557 = 631
+
+available ≠ free + all of buff/cache because:
+  - some cache is actively in use (tmpfs, shared memory, mlocked pages)
+  - some kernel memory (SReclaimable slabs) is counted in available but not in buff/cache
+```
+`available` is the metric you should monitor for memory pressure — not `free`. A system with 74MB `free` but 631MB `available` is healthy.
 
 #### 3. vmstat
 ```shell
