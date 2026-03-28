@@ -14,3 +14,4 @@ Hugo blog (jinying-che.github.io). Content in `content/posts/`.
 - Use tables for comparisons
 - Dry run with concrete examples
 - No auto-commit — only commit when asked
+- Always show proposed changes in the CLI first and wait for user confirmation before editing post files

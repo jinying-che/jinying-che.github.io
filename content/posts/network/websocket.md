@@ -229,24 +229,13 @@ Client                                          Server
 
 **Why mask client→server only?** The mask prevents cache-poisoning attacks where a malicious client crafts payloads that look like valid HTTP responses to confuse intermediary proxies. Since servers are trusted, server→client frames don't need masking.
 
-#### Common Close Status Codes
-
-| Code | Meaning |
-|------|---------|
-| 1000 | Normal closure |
-| 1001 | Going away (e.g. server shutdown, page navigated away) |
-| 1002 | Protocol error |
-| 1003 | Unsupported data type |
-| 1006 | Abnormal closure (no Close frame received) |
-| 1011 | Unexpected server error |
-
 ### Closing Handshake
 
 Either side can initiate closure by sending a Close frame (opcode `0x8`):
 
 ```
-1. Client sends Close frame (status code + optional reason)
-2. Server responds with Close frame
+1. Initiator sends Close frame (status code + optional reason)
+2. Peer responds with Close frame
 3. TCP connection is terminated
 ```
 
@@ -260,6 +249,19 @@ Common status codes:
 | 1003 | Unsupported data type |
 | 1006 | Abnormal closure (no Close frame received) |
 | 1011 | Unexpected server error |
+
+### Ping / Pong (Keepalive)
+
+WebSocket defines control frames for heartbeat:
+
+```
+Client ── Ping (opcode 0x9) ──▶ Server
+Client ◀── Pong (opcode 0xA) ── Server
+```
+
+- Either side can send a Ping; the other **must** respond with a Pong
+- Used to detect dead connections and keep intermediary proxies from closing idle connections
+- Pong must echo the Ping's payload data
 
 ## Usage & Use Cases
 

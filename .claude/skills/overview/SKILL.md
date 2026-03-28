@@ -75,7 +75,7 @@ Sections:
    - Do NOT write the file until the user approves the outline. If the user requests changes, revise and present the updated outline again.
 
 5. **Write the post** (after outline is approved) following these style rules:
-   - Hugo frontmatter: `title`, `date` (RFC3339), `tags` (array), `description`
+   - Hugo frontmatter: `title`, `date` (RFC3339, use current datetime — run `date +%Y-%m-%dT%H:%M:%S%z` to get the exact time), `tags` (array), `description`, `draft: true`
    - Use ASCII diagrams for architecture/flow (box-drawing chars: `+-|`, or Unicode: `┌─┐│└┘▶`)
    - Use tables for comparisons and component listings
    - Use concrete examples with real numbers/values, not hand-wavy descriptions
