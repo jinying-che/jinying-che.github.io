@@ -1,66 +1,344 @@
 ---
-title: "HTTP"
-date: "2018-10-10T11:19:45+08:00"
-tags: ["network"]
-description: "HTTP History"
+title: "HTTP: The Evolution from 0.9 to 3"
+date: "2026-03-28T10:00:00+08:00"
+tags: ["network", "http"]
+description: "A comprehensive overview of HTTP protocol evolution — from the one-line HTTP/0.9 to HTTP/3 over QUIC"
+draft: true
 ---
 
-> HTTP位于网络的应用层，使用TCP/IP协议进行传输
+## Background & Motivation
 
-- TCP连接
-  - HTTP/1.0：通过非标准字段`Connection: keep-alive`保持TCP连接
-  - HTTP/1.1：允许TCP复用，但所有数据通信都是按次序的，请求要一个一个处理
-  - HTTP/2：
+In 1989, Tim Berners-Lee proposed a hypertext system at CERN. By 1991, the first version of HTTP was born — a protocol so simple it fit in a few hundred words. Over the next three decades, HTTP evolved through five major versions, each solving the limitations of its predecessor:
 
-## HTTP/0.9
+```
+1991        1996        1997           2015        2022
+ │           │           │              │           │
+ ▼           ▼           ▼              ▼           ▼
+HTTP/0.9 → HTTP/1.0 → HTTP/1.1 ────→ HTTP/2 ──→ HTTP/3
+ │           │           │              │           │
+ GET only    Headers     Persistent     Binary      QUIC
+ HTML only   Status      Connections    Multiplex   over UDP
+             Codes       Pipelining     HPACK       0-RTT
+```
 
-- 客户端请求，服务器回复完毕，TCP连接即关闭
-- 只有一个命令：`GET`
-- 服务器只能回应HTML格式的字符串
+## HTTP/0.9 — The One-Line Protocol (1991)
 
-## HTTP/1.0
+The simplest possible protocol for fetching hypertext.
 
-- 加入`POST`、`HEAD`命令
-- 协议分为头部和数据部，头部字段如：`Content-Type`、`Content-Encoding`等
-- 为了保持TCP的复用，引入头部字段：`Connection: keep-alive`
+- Only one method: `GET`
+- No headers, no status codes, no version number
+- Server responds with HTML only, then closes the connection
 
-## HTTP/1.1
+```
+Request:   GET /index.html
 
-- TCP默认为持久连接，由客户端和服务端主动关闭
+Response:  <html>Hello World</html>
+           [connection closed]
+```
 
-- 引入管道机制，向TCP连接发送多个请求（而不用等待上一个请求处理之后，再发送）
+## HTTP/1.0 — Building Extensibility (1996)
 
-  - 服务端可以区分多个请求的基础：`Content-Length`字段，即知道每个请求的长度
-  -  在1.0版中，`Content-Length`字段不是必需的，因为浏览器发现服务器关闭了TCP连接，就表明收到的数据包已经全了。
+RFC 1945 introduced the building blocks we still use today.
 
-- 引入流模式
+- Version info appended to request line (`GET /page HTTP/1.0`)
+- **Headers** for both request and response — metadata becomes first-class
+- **Status codes** (`200 OK`, `404 Not Found`, etc.)
+- `Content-Type` header — not just HTML anymore (images, CSS, etc.)
+- New methods: `POST`, `HEAD`
 
-  > 对于一些很耗时的动态操作来说，这意味着，服务器要等到所有操作完成，才能发送数据，显然这样的效率不高。更好的处理方法是，产生一块数据，就发送一块，采用"流模式"（stream）取代"缓存模式"（buffer）。
-  >
-  > 因此，1.1版规定可以不使用`Content-Length`字段，而使用["分块传输编码"](https://zh.wikipedia.org/wiki/%E5%88%86%E5%9D%97%E4%BC%A0%E8%BE%93%E7%BC%96%E7%A0%81)（chunked transfer encoding）。只要请求或回应的头信息有`Transfer-Encoding`字段，就表明回应将由数量未定的数据块组成。
-  >
-  > [《HTTP 协议入门》 阮一峰](http://www.ruanyifeng.com/blog/2016/08/http.html)
+```
+Request:
+  GET /page.html HTTP/1.0
+  User-Agent: NCSA_Mosaic/2.0
+  Accept: text/html
 
-  >当HTTP流水线启动时，后续请求都可以不用等待第一个请求的成功回应就被发送。然而HTTP流水线已被证明很难在现有的网络中实现，因为现有网络中有很多老旧的软件与现代版本的软件共存。因此，HTTP流水线已被在有多请求下表现得更稳健的HTTP/2的帧所取代。
-  >
-  >[《HTTP概述》 MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview)
+Response:
+  HTTP/1.0 200 OK
+  Content-Type: text/html
+  Content-Length: 137
 
-- 服务器只能按顺序处理请求，如果前面请求处理的慢，后面的需要排队，即["队头堵塞"](https://zh.wikipedia.org/wiki/%E9%98%9F%E5%A4%B4%E9%98%BB%E5%A1%9E)（Head-of-line blocking）。
+  <html>...</html>
+  [connection closed]
+```
 
-## HTTP/2.0
+**Problem:** One TCP connection per request. Fetching a page with 10 images = 11 TCP handshakes.
 
-> 2009年，谷歌公开了自行研发的 SPDY 协议，主要解决 HTTP/1.1 效率不高的问题。
->
-> 这个协议在Chrome浏览器上证明可行以后，就被当作 HTTP/2 的基础，主要特性都在 HTTP/2 之中得到继承。
+```
+Client                  Server
+  │──── TCP SYN ──────────▶│
+  │◀─── SYN-ACK ───────────│  Request 1: GET /index.html
+  │──── GET /index.html ──▶│
+  │◀─── 200 OK ────────────│
+  │──── FIN ──────────────▶│  [connection closed]
+  │                         │
+  │──── TCP SYN ──────────▶│
+  │◀─── SYN-ACK ───────────│  Request 2: GET /style.css
+  │──── GET /style.css ───▶│
+  │◀─── 200 OK ────────────│
+  │──── FIN ──────────────▶│  [connection closed]
+  ...                      ...
+```
 
-- 头部和数据部都是二进制，统称为“帧”
-- 全双工模式（双向、实时通信），客户端和服务端可同时发送多个请求和回应（解决阻塞问题）
-  - 实现的基础：由于HTTP/2不按照顺序发送，就需要对每个请求或回应作区分，即每个请求或回应的所有数据包都对应唯一ID
-  - 客户端和服务器都可以发送信号（`RST_STREAM`帧），取消这个数据流
-- 头信息压缩
-- 服务器未经允许，主动推送数据到客户端
+Non-standard workaround: `Connection: keep-alive` header to reuse TCP connections.
 
-> Reference:
->
-> - [《HTTP 协议入门》 阮一峰](http://www.ruanyifeng.com/blog/2016/08/http.html)
-> - [《HTTP概述》 MDN](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Overview)
+## HTTP/1.1 — The Workhorse (1997)
+
+RFC 2068 (1997), refined in RFC 2616 (1999), then RFC 9110-9112 (2022). The protocol that powered the web for nearly 20 years.
+
+### Key Features
+
+- **Persistent connections by default** — no more `Connection: keep-alive` hack
+- **Pipelining** — send multiple requests without waiting for responses
+- **Chunked transfer encoding** — stream responses via `Transfer-Encoding: chunked`
+- **Host header** — enables virtual hosting (multiple domains on one IP)
+- **Cache control** — `Cache-Control`, `ETag`, `If-None-Match`, `If-Modified-Since`
+- **Content negotiation** — `Accept`, `Accept-Language`, `Accept-Encoding`
+
+### Pipelining vs Sequential
+
+```
+Sequential (HTTP/1.0):          Pipelined (HTTP/1.1):
+
+Client        Server            Client        Server
+  │─ GET A ────▶│                 │─ GET A ────▶│
+  │◀──── A ─────│                 │─ GET B ────▶│
+  │─ GET B ────▶│                 │─ GET C ────▶│
+  │◀──── B ─────│                 │◀──── A ─────│
+  │─ GET C ────▶│                 │◀──── B ─────│
+  │◀──── C ─────│                 │◀──── C ─────│
+```
+
+### Head-of-Line (HOL) Blocking
+
+Even with pipelining, **responses must be returned in order**. If response A is slow, B and C are blocked behind it — this is head-of-line blocking.
+
+```
+Client        Server
+  │─ GET A ────▶│
+  │─ GET B ────▶│   A is slow (large file / DB query)
+  │─ GET C ────▶│
+  │    ...wait...│   B and C are ready, but must wait for A
+  │◀──── A ─────│
+  │◀──── B ─────│
+  │◀──── C ─────│
+```
+
+**Practical workaround:** Browsers open **6 parallel TCP connections** per origin. But each connection still suffers from HOL blocking internally.
+
+## HTTP/2 — Binary & Multiplexed (2015)
+
+RFC 7540 (2015), updated in RFC 9113 (2022). Born from Google's SPDY protocol (2009).
+
+### Binary Framing Layer
+
+HTTP/2 replaces the text-based protocol with a binary framing layer. All communication is split into **frames**, carried over **streams** within a single TCP connection.
+
+```
+┌──────────────────────────────────────────────────────┐
+│                  TCP Connection                       │
+│                                                      │
+│  ┌─────────┐  ┌─────────┐  ┌─────────┐              │
+│  │ Stream 1│  │ Stream 3│  │ Stream 5│  ...          │
+│  │(req/res)│  │(req/res)│  │(req/res)│               │
+│  └─────────┘  └─────────┘  └─────────┘              │
+│                                                      │
+│  Frames interleaved on the wire:                     │
+│  [S1:HEADERS][S3:HEADERS][S1:DATA][S5:HEADERS]       │
+│  [S3:DATA][S1:DATA][S5:DATA][S3:DATA]...             │
+└──────────────────────────────────────────────────────┘
+```
+
+### Frame Structure
+
+```
++-----------------------------------------------+
+|                Length (24 bits)                |
++---------------+-------------------------------+
+| Type (8 bits) | Flags (8 bits)                |
++-+-------------+-------------------------------+
+|R|         Stream Identifier (31 bits)         |
++=+=============+===============================+
+|              Frame Payload (variable)          |
++-----------------------------------------------+
+```
+
+Key frame types:
+| Frame Type   | Purpose                        |
+|-------------|--------------------------------|
+| `HEADERS`   | Request/response headers        |
+| `DATA`      | Request/response body           |
+| `SETTINGS`  | Connection configuration        |
+| `PUSH_PROMISE` | Server push notification     |
+| `RST_STREAM` | Cancel a stream               |
+| `GOAWAY`    | Graceful connection shutdown    |
+| `WINDOW_UPDATE` | Flow control               |
+
+### Key Mechanisms
+
+- **Multiplexing** — multiple requests/responses interleaved on one TCP connection, no HOL blocking at HTTP layer
+- **HPACK** — header compression using static/dynamic tables and Huffman encoding. Repeated headers (e.g. `User-Agent`) sent once, then referenced by index
+- **Server Push** — server proactively sends resources before the client requests them (e.g. push `style.css` when `/index.html` is requested)
+- **Stream Prioritization** — clients assign weights and dependencies to streams
+
+### The Remaining Problem: TCP-Level HOL Blocking
+
+HTTP/2 solved HOL blocking at the HTTP layer, but **TCP itself is still ordered**. If a single TCP packet is lost, **all streams** are blocked until that packet is retransmitted.
+
+```
+                  HTTP/2 over TCP
+
+Stream 1: ■ ■ ■ ■ ■ ■
+Stream 2: □ □ □ □ □ □
+Stream 3: ▪ ▪ ▪ ▪ ▪ ▪
+
+TCP layer: ■ □ ▪ ■ □ ▪ ■ [✗ lost] □ ▪ ■ □ ▪
+                               ▲
+                    ALL streams blocked here
+                    until retransmit completes
+```
+
+On lossy networks (mobile, Wi-Fi), HTTP/2 can actually be **slower** than HTTP/1.1 with 6 parallel connections.
+
+## HTTP/3 — QUIC Revolution (2022)
+
+RFC 9114 (2022). The fundamental change: replace TCP with **QUIC** (RFC 9000), a new transport protocol built on UDP.
+
+### Protocol Stack Comparison
+
+```
+HTTP/1.1 & HTTP/2:              HTTP/3:
+
+┌──────────────┐               ┌──────────────┐
+│   HTTP/1.1   │               │    HTTP/3    │
+│   or HTTP/2  │               ├──────────────┤
+├──────────────┤               │     QUIC     │
+│     TLS      │               │  (includes   │
+├──────────────┤               │   TLS 1.3)   │
+│     TCP      │               ├──────────────┤
+├──────────────┤               │     UDP      │
+│      IP      │               ├──────────────┤
+└──────────────┘               │      IP      │
+                               └──────────────┘
+```
+
+### Handshake: TCP+TLS vs QUIC
+
+```
+TCP + TLS 1.3 (2-RTT):           QUIC (1-RTT):
+
+Client        Server              Client        Server
+  │─ SYN ────────▶│                │─ Initial ───▶│
+  │◀──── SYN-ACK ─│  1 RTT         │  (crypto +   │
+  │─ ACK ─────────▶│               │   request)   │
+  │─ ClientHello ─▶│                │◀── Handshake─│  1 RTT
+  │◀── ServerHello─│  2 RTT         │  (crypto +   │
+  │─ Finished ────▶│               │   response)  │
+  │◀── Finished ───│                │              │
+  │─ Request ─────▶│  3 RTT         │  Done!       │
+  │◀── Response ───│               │              │
+
+
+QUIC 0-RTT (returning client):
+
+Client        Server
+  │─ Initial ───▶│
+  │  (crypto +   │  0 RTT for data!
+  │   request)   │  (crypto from previous session)
+  │◀── Response ─│
+```
+
+### Key Features
+
+**Independent Stream Recovery** — The core breakthrough. Unlike TCP, QUIC handles packet loss per-stream. Lost packets in Stream 1 don't block Stream 2 or 3.
+
+```
+                  HTTP/3 over QUIC
+
+Stream 1: ■ ■ ■ [✗] ■ ■     ← only Stream 1 waits
+Stream 2: □ □ □  □  □ □     ← unaffected
+Stream 3: ▪ ▪ ▪  ▪  ▪ ▪     ← unaffected
+```
+
+**Connection Migration** — QUIC uses **Connection IDs** instead of the traditional 4-tuple (src IP, src port, dst IP, dst port). When your phone switches from Wi-Fi to cellular, the connection survives.
+
+```
+Phone (Wi-Fi)                      Server
+  │── CID: 0xABCD ──── req ────────▶│
+  │◀──────────────────── res ────────│
+  │                                  │
+  [Wi-Fi → Cellular]                 │
+  │                                  │
+Phone (Cellular)                     │
+  │── CID: 0xABCD ──── req ────────▶│  Same connection!
+  │◀──────────────────── res ────────│
+```
+
+**QPACK** — Header compression adapted for QUIC. Similar to HPACK but designed to work without strict ordering (since QUIC streams are independent).
+
+**Built-in Encryption** — TLS 1.3 is mandatory and integrated into the transport layer. No unencrypted HTTP/3 connections exist.
+
+## Comparison
+
+| Feature | HTTP/1.0 | HTTP/1.1 | HTTP/2 | HTTP/3 |
+|---------|----------|----------|--------|--------|
+| **Year** | 1996 | 1997 | 2015 | 2022 |
+| **RFC** | 1945 | 9110-9112 | 9113 | 9114 |
+| **Format** | Text | Text | Binary | Binary |
+| **Transport** | TCP | TCP | TCP | QUIC (UDP) |
+| **Connections** | 1 per request | Persistent | Single multiplexed | Single multiplexed |
+| **Multiplexing** | No | No (pipelining) | Yes | Yes |
+| **HOL Blocking** | Yes | Yes | TCP-level | No |
+| **Header Compression** | No | No | HPACK | QPACK |
+| **Server Push** | No | No | Yes | Yes |
+| **Encryption** | Optional | Optional | Optional (practical: required) | Always (TLS 1.3) |
+| **Connection Migration** | No | No | No | Yes |
+| **0-RTT** | No | No | No | Yes |
+
+## Hands-On Demo
+
+### Check HTTP version with curl
+
+```shell
+# Force HTTP/1.1
+curl -I --http1.1 https://www.google.com 2>&1 | head -1
+# HTTP/1.1 200 OK
+
+# Force HTTP/2
+curl -I --http2 https://www.google.com 2>&1 | head -1
+# HTTP/2 200
+
+# Force HTTP/3 (requires curl 7.88+ built with HTTP/3 support)
+curl -I --http3 https://www.google.com 2>&1 | head -1
+# HTTP/3 200
+```
+
+### Verbose connection info
+
+```shell
+# See the full handshake and protocol negotiation
+curl -v --http2 https://www.google.com -o /dev/null 2>&1 | grep -E '(ALPN|HTTP/|SSL)'
+
+# Example output:
+# * ALPN: curl offers h2,http/1.1
+# * ALPN: server accepted h2
+# * using HTTP/2
+# * SSL connection using TLSv1.3
+```
+
+### Check HTTP/3 support for a domain
+
+```shell
+# HTTP/3 is advertised via Alt-Svc header
+curl -sI https://www.google.com | grep -i alt-svc
+# alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
+```
+
+## References
+
+- [RFC 1945 — HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
+- [RFC 9110-9112 — HTTP Semantics, HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc9110)
+- [RFC 9113 — HTTP/2](https://datatracker.ietf.org/doc/html/rfc9113)
+- [RFC 9114 — HTTP/3](https://datatracker.ietf.org/doc/html/rfc9114)
+- [RFC 9000 — QUIC](https://datatracker.ietf.org/doc/html/rfc9000)
+- [Evolution of HTTP — MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Evolution_of_HTTP)
+- [HTTP/3 explained — Daniel Stenberg](https://http3-explained.haxx.se/)

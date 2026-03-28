@@ -3,7 +3,6 @@ title: "TCP Design"
 date: 2024-06-01T00:00:00+08:00
 tags: ["network"]
 description: "TCP key design mechanisms: congestion control, flow control, reliability, and more"
-draft: true
 ---
 
 ### 1. Flow Control — "Don't overwhelm the receiver"
