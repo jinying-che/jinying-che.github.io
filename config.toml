@@ -93,11 +93,6 @@ pagination.pagerSize = 5
         url = "/posts"
 
       [[languages.en.menu.main]]
-        identifier = "search"
-        name = "Search"
-        url = "#search"
-
-      [[languages.en.menu.main]]
         identifier = "tags"
         name = "Tags"
         url = "/tags"
