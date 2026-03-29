@@ -3,6 +3,9 @@ baseurl = "https://chejinying.com/tech/"
 enableRobotsTXT = true
 canonifyURLs = true
 languageCode = "en-us"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 # Add it only if you keep the theme in the `themes` directory.
 # Remove it if you use the theme as a remote Hugo Module.
 # theme = "terminal"
@@ -90,10 +93,14 @@ pagination.pagerSize = 5
         url = "/posts"
 
       [[languages.en.menu.main]]
+        identifier = "search"
+        name = "Search"
+        url = "#search"
+
+      [[languages.en.menu.main]]
         identifier = "tags"
         name = "Tags"
         url = "/tags"
-
 
 [module]
   # In case you would like to make changes to the theme and keep it locally in you repository,

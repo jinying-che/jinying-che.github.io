@@ -1,0 +1,187 @@
+<div id="search-overlay" style="display:none;">
+  <div id="search-modal">
+    <input type="text" id="search-input" placeholder="Type to search..." autofocus />
+    <div id="search-results"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+<script>
+  (function () {
+    const overlay = document.getElementById("search-overlay");
+    const input = document.getElementById("search-input");
+    const resultsContainer = document.getElementById("search-results");
+    let fuse;
+    let loaded = false;
+
+    function loadIndex() {
+      if (loaded) return;
+      loaded = true;
+      fetch("/tech/index.json")
+        .then((res) => res.json())
+        .then((data) => {
+          fuse = new Fuse(data, {
+            keys: [
+              { name: "title", weight: 0.6 },
+              { name: "tags", weight: 0.3 },
+              { name: "content", weight: 0.1 },
+            ],
+            includeMatches: true,
+            minMatchCharLength: 2,
+            threshold: 0.4,
+          });
+        });
+    }
+
+    function openSearch() {
+      loadIndex();
+      overlay.style.display = "flex";
+      input.focus();
+    }
+
+    function closeSearch() {
+      overlay.style.display = "none";
+      input.value = "";
+      resultsContainer.innerHTML = "";
+    }
+
+    // Search menu item triggers modal
+    document.querySelectorAll('a[href="#search"]').forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+        overlay.style.display === "flex" ? closeSearch() : openSearch();
+      });
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        overlay.style.display === "flex" ? closeSearch() : openSearch();
+      }
+      if (e.key === "Escape") {
+        closeSearch();
+      }
+    });
+
+    // Close on overlay background click
+    overlay.addEventListener("click", function (e) {
+      if (e.target === overlay) closeSearch();
+    });
+
+    // Search on input
+    input.addEventListener("input", function () {
+      const query = this.value.trim();
+      if (!fuse || query.length < 2) {
+        resultsContainer.innerHTML = "";
+        return;
+      }
+
+      const results = fuse.search(query);
+      if (results.length === 0) {
+        resultsContainer.innerHTML =
+          '<p class="search-no-results">No results found.</p>';
+        return;
+      }
+
+      resultsContainer.innerHTML = results
+        .slice(0, 15)
+        .map((r) => {
+          const item = r.item;
+          const tags = item.tags
+            ? item.tags
+                .map((t) => `<span class="search-tag">${t}</span>`)
+                .join(" ")
+            : "";
+          return `
+            <div class="search-result">
+              <a href="${item.permalink}">
+                <h3>${item.title}</h3>
+              </a>
+              <span class="search-date">${item.date}</span>
+              ${tags ? `<div class="search-tags">${tags}</div>` : ""}
+            </div>`;
+        })
+        .join("");
+    });
+  })();
+</script>
+
+<style>
+  #search-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10vh;
+  }
+
+  #search-modal {
+    width: 90%;
+    max-width: 600px;
+    max-height: 70vh;
+    background: var(--background);
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    padding: 16px;
+    overflow-y: auto;
+  }
+
+  #search-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    background: var(--background);
+    color: var(--color);
+    border: none;
+    border-bottom: 2px solid var(--accent);
+    outline: none;
+    font-family: inherit;
+    box-sizing: border-box;
+  }
+
+  #search-input::placeholder {
+    color: var(--color);
+    opacity: 0.5;
+  }
+
+  .search-result {
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--accent);
+  }
+
+  .search-result a {
+    text-decoration: none;
+  }
+
+  .search-result h3 {
+    margin: 0 0 4px 0;
+    color: var(--accent);
+  }
+
+  .search-date {
+    font-size: 0.85rem;
+    opacity: 0.7;
+  }
+
+  .search-tag {
+    display: inline-block;
+    font-size: 0.8rem;
+    padding: 2px 6px;
+    margin: 4px 4px 0 0;
+    background: var(--accent);
+    color: var(--background);
+    border-radius: 3px;
+  }
+
+  .search-no-results {
+    opacity: 0.6;
+    margin-top: 16px;
+  }
+</style>
