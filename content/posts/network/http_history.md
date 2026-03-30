@@ -3,7 +3,6 @@ title: "HTTP: The Evolution from 0.9 to 3"
 date: "2026-03-28T10:00:00+08:00"
 tags: ["network", "http"]
 description: "A comprehensive overview of HTTP protocol evolution — from the one-line HTTP/0.9 to HTTP/3 over QUIC"
-draft: true
 ---
 
 ## Background & Motivation
@@ -66,13 +65,15 @@ Response:
 ```
 Client                  Server
   │──── TCP SYN ──────────▶│
-  │◀─── SYN-ACK ───────────│  Request 1: GET /index.html
+  │◀─── SYN-ACK ───────────│
+  │──── ACK ──────────────▶│  Request 1: GET /index.html
   │──── GET /index.html ──▶│
   │◀─── 200 OK ────────────│
   │──── FIN ──────────────▶│  [connection closed]
   │                         │
   │──── TCP SYN ──────────▶│
-  │◀─── SYN-ACK ───────────│  Request 2: GET /style.css
+  │◀─── SYN-ACK ───────────│
+  │──── ACK ──────────────▶│  Request 2: GET /style.css
   │──── GET /style.css ───▶│
   │◀─── 200 OK ────────────│
   │──── FIN ──────────────▶│  [connection closed]
@@ -312,6 +313,13 @@ curl -I --http3 https://www.google.com 2>&1 | head -1
 # HTTP/3 200
 ```
 
+| Flag | Meaning |
+|------|---------|
+| `-I` | Fetch headers only (sends a HEAD request) |
+| `--http1.1` / `--http2` / `--http3` | Force a specific HTTP version |
+| `2>&1` | Redirect stderr to stdout (curl outputs connection info to stderr) |
+| `head -1` | Show only the first line (the status line) |
+
 ### Verbose connection info
 
 ```shell
@@ -325,6 +333,12 @@ curl -v --http2 https://www.google.com -o /dev/null 2>&1 | grep -E '(ALPN|HTTP/|
 # * SSL connection using TLSv1.3
 ```
 
+| Flag | Meaning |
+|------|---------|
+| `-v` | Verbose mode — shows handshake and protocol negotiation details |
+| `-o /dev/null` | Discard the response body |
+| `grep -E '...'` | Filter output with extended regex for protocol negotiation lines |
+
 ### Check HTTP/3 support for a domain
 
 ```shell
@@ -332,6 +346,12 @@ curl -v --http2 https://www.google.com -o /dev/null 2>&1 | grep -E '(ALPN|HTTP/|
 curl -sI https://www.google.com | grep -i alt-svc
 # alt-svc: h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
 ```
+
+| Flag | Meaning |
+|------|---------|
+| `-s` | Silent mode — suppress progress bar |
+| `-I` | Fetch headers only |
+| `grep -i` | Case-insensitive search for the `Alt-Svc` header |
 
 ## References
 

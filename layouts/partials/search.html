@@ -45,7 +45,13 @@
         return;
       }
 
-      const results = fuse.search(query);
+      const raw = fuse.search(query);
+      const seen = new Set();
+      const results = raw.filter((r) => {
+        if (seen.has(r.item.permalink)) return false;
+        seen.add(r.item.permalink);
+        return true;
+      });
       if (results.length === 0) {
         resultsContainer.innerHTML = '<p class="search-no-results">No results found.</p>';
         resultsContainer.style.display = "block";

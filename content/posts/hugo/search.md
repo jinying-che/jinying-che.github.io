@@ -71,59 +71,78 @@ Create `layouts/_default/index.json` to define the index schema:
 
 Hugo automatically generates `public/index.json` on every build — no extra step needed.
 
-#### 2. Search Modal Partial
+#### 2. Inline Search Bar in Header
 
-Create `layouts/partials/search.html` with:
-- A fixed overlay + modal UI
-- Fuse.js loaded from CDN
-- Lazy index loading (fetched only on first search open)
+Override `layouts/partials/menu.html` to add a search bar right-aligned in the navigation:
 
-Key Fuse.js configuration:
+```html
+<div id="search-wrapper">
+  <div id="search-bar">
+    <svg>...</svg>
+    <input type="text" id="search-input" placeholder="Search posts..." autocomplete="off" />
+    <kbd id="search-kbd">/</kbd>
+  </div>
+</div>
+```
+
+The search bar includes:
+- A magnifying glass icon on the left
+- An input field with placeholder
+- A `/` keyboard hint on the right (hidden when typing)
+
+Results appear in a dropdown panel anchored below the search bar.
+
+#### 3. Fuse.js Configuration
 
 ```javascript
 fuse = new Fuse(data, {
   keys: [
-    { name: "title",   weight: 0.6 },  // title matches ranked highest
+    { name: "title",   weight: 0.5 },  // title matches ranked highest
     { name: "tags",    weight: 0.3 },  // then tags
-    { name: "content", weight: 0.1 },  // content as tiebreaker
+    { name: "content", weight: 0.2 },  // content matches
   ],
   includeMatches: true,
   minMatchCharLength: 2,
-  threshold: 0.4,  // 0 = exact match, 1 = match anything
+  threshold: 0.5,  // 0 = exact match, 1 = match anything
 });
 ```
 
-#### 3. Include in Every Page
+- `weight` controls how much each field contributes to the ranking score
+- `threshold` controls how fuzzy the matching is — lower means stricter
+- The index is lazy-loaded on first focus, not on page load
 
-Override `layouts/_default/baseof.html` and add the partial before `</body>`:
+#### 4. Include in Every Page
+
+Override `layouts/_default/baseof.html` and add the search partial before `</body>`:
 
 ```go-html-template
 {{ partial "search.html" . }}
 </body>
 ```
 
-Important: the partial must be in `<body>`, not `<head>` — it contains HTML elements and scripts.
+Important: the partial must be in `<body>`, not `<head>` — it contains script and style elements that manipulate DOM.
 
-#### 4. Menu Integration
+#### 5. Deduplication
 
-Add a menu item with `#search` as URL (not a real page):
+Fuse.js can return the same post multiple times when it matches on different keys (title, tags, content). Deduplicate by permalink before rendering:
 
-```toml
-[[languages.en.menu.main]]
-  identifier = "search"
-  name = "Search"
-  url = "#search"
+```javascript
+const raw = fuse.search(query);
+const seen = new Set();
+const results = raw.filter((r) => {
+  if (seen.has(r.item.permalink)) return false;
+  seen.add(r.item.permalink);
+  return true;
+});
 ```
-
-JavaScript intercepts clicks on `a[href="#search"]` to toggle the modal.
 
 ### Trigger Methods
 
 | Method | How |
 |---|---|
-| Menu click | Click "Search" in navigation |
-| Keyboard | `Cmd+K` (Mac) / `Ctrl+K` (Windows) |
-| Close | `Escape` key or click outside modal |
+| Click | Click the search bar in navigation |
+| Keyboard | `/` or `Cmd+K` (Mac) / `Ctrl+K` (Windows) to focus |
+| Close | `Escape` to blur, or click outside |
 
 ### File Structure
 
@@ -133,7 +152,8 @@ layouts/
 │   ├── baseof.html      # overrides theme, includes search partial
 │   └── index.json       # search index template
 └── partials/
-    └── search.html      # modal UI + Fuse.js + CSS
+    ├── menu.html        # overrides theme, adds inline search bar
+    └── search.html      # search JS + CSS + results dropdown
 
-config.toml              # JSON output + search menu item
+config.toml              # JSON output format
 ```
