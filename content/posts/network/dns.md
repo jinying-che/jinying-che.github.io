@@ -144,7 +144,7 @@ Even after updating the DNS record, clients continue using the stale cached IP u
 
 **How to resolve**:
 1. **Pre-set low TTL**: Keep TTL low (e.g. 30-60s) for records that may need fast failover. Trade-off: more DNS queries and slightly higher latency.
-2. **Anycast + BGP (industry best practice)**: Advertise the same IP from multiple data centers via BGP. When a data center goes down, BGP withdraws the route and traffic automatically shifts to the next nearest healthy location — **no DNS change needed, no TTL delay**. This is how Cloudflare, Google, and AWS handle failover for their edge networks.
+2. **[Anycast + BGP](/posts/network/anycast_bgp) (industry best practice)**: Advertise the same IP from multiple data centers via BGP. When a data center goes down, BGP withdraws the route and traffic automatically shifts to the next nearest healthy location — **no DNS change needed, no TTL delay**. This is how Cloudflare, Google, and AWS handle failover for their edge networks.
 3. **Load Balancer / Global Traffic Manager**: Use a layer above DNS (e.g. AWS Global Accelerator, Cloudflare LB) that health-checks backends and routes traffic at the network level.
 4. **Client-side retry**: Design clients to retry with re-resolution on connection failure, so they don't stick to a stale IP forever.
 
