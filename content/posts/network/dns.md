@@ -10,12 +10,12 @@ description: "DNS Overview"
 DNS is not very complex but super useful.
 
 ## How does DNS work?
-![dns architecutre](/images/dns_architecture.svg)
+![dns architecture](/images/dns_architecture.svg)
 
 ![dns flow](/images/dns_flow.png)
 
-The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresss. 
-1. **Brower cache and OS cache**
+The basic flow to query dns level by level as follows, the previous server stores the next server address, e.g. Root Nameserver stores TLD Nameserver addresses. 
+1. **Browser cache and OS cache**
 2. **DNS Resolver**: is responsible for initiating and sequencing the queries that ultimately lead to a full resolution (translation) of the resource sought. DNS resolvers are classified by a variety of query methods, such as **recursive**, **non-recursive**, and **iterative**. A resolution process may use a combination of these methods.
 3. **Root Nameserver**: the first step in translating (resolving) human readable host names into IP addresses. It stores the IP addresses of TLD, There are **13** logical Root Nameserver globally, e.g.
     ```txt
@@ -43,7 +43,7 @@ The basic flow to query dns level by level as follows, the previous server store
     - .cn
     - ...
     ```
-5. **Authoritative Nameserver**: it provides the actual anwser for the dns request.
+5. **Authoritative Nameserver**: it provides the actual answer for the dns request.
 
 ### Example
 Let's try to trace the dns request for `jinying-che.github.io` from my local laptop:
@@ -94,30 +94,23 @@ jinying-che.github.io.  3600    IN      A       185.199.111.153
 ;; Received 114 bytes from 198.51.44.5#53(dns1.p05.nsone.net) in 168 ms
 ```
 1. Get NS Record: 13 Root Nameservers from `192.168.0.1`(DNS Resolver) which is configured by `/etc/resolv.conf`
-2. Get NS Record: TLD (Top Level Domain) from one of Root Nameserve `g.root-servers.net`
+2. Get NS Record: TLD (Top Level Domain) from one of Root Nameserver `g.root-servers.net`
 3. Get NS Record: Authoritative Nameserver from one of TLD `a0.nic.io`
 4. Get A Record: Actual ip address from one of Authoritative Nameserver `dns1.p05.nsone.net`
 
-**TXT Record**:
-```sh
-# example
-host.widgets.com.   IN   TXT   "printer=lpr5"
-sam.widgets.com.    IN   TXT   "favorite drink=orange juice"
-```
-
-
 ## DNS Record
-There're a lot of [DNS Record types](https://en.wikipedia.org/wiki/List_of_DNS_record_types), the follows are the common record from the client perspective:
+There are a lot of [DNS Record types](https://en.wikipedia.org/wiki/List_of_DNS_record_types), the following are the common records from the client perspective:
 | Record | Function |
 | ------ | -------- |
 | A | Address record: Returns a 32-bit IPv4 address |
 | AAAA | IPv6 address record: Returns a 128-bit IPv6 address |
 | NS | Name server record: Delegates a DNS zone to use the given authoritative name servers |
 | CNAME | Canonical name record: Alias of one name to another: the DNS lookup will continue by retrying the lookup with the new name |
-| TXT | arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification | 
+| MX | Mail exchange record: Specifies the mail server responsible for accepting email messages on behalf of a domain |
+| TXT | Arbitrary text: two of the most important uses for DNS TXT records are email spam prevention and domain ownership verification | 
 
 ## Configuration
-There're two way to query the ip address by domain, typically whenever a system needs to resolve a name, it first checks the `/etc/hosts` file. If no entry matched, it sends a query to the configured DNS server (by `/etc/resolv.conf`).
+There are two ways to query the ip address by domain, typically whenever a system needs to resolve a name, it first checks the `/etc/hosts` file. If no entry matched, it sends a query to the configured DNS server (by `/etc/resolv.conf`).
 
 ```shell
 # /etc/resolv.conf defines the namesever address
@@ -135,9 +128,27 @@ hosts:          files dns
 ```
 
 ## Protocol
-DNS originally used the `UDP` as transport over IP. Reliability, security, and privacy concerns spawned the use of the `TCP` as well as numerous other protocol developments.
+DNS originally used the `UDP` as transport over IP. Reliability, security, and privacy concerns spawned the use of the `TCP` as well as numerous other protocol developments, such as DNS over TLS (`DoT`) and DNS over HTTPS (`DoH`).
 
-## Referrence
+## DNS Failover
+When disaster happens, SRE usually switches traffic by updating DNS records to point to a healthy endpoint. However, this can be slow due to **DNS caching** at multiple layers:
+
+| Layer | Description |
+| ----- | ----------- |
+| Browser cache | Browsers cache DNS results (Chrome: up to 60s) |
+| OS cache | OS-level DNS cache (e.g. `systemd-resolved`, `dnsmasq`) |
+| DNS Resolver cache | ISP or corporate resolvers cache based on TTL |
+| Application cache | Some apps/libraries cache DNS independently (e.g. JVM caches DNS indefinitely by default) |
+
+Even after updating the DNS record, clients continue using the stale cached IP until the TTL expires. If the TTL was set to 3600s (1 hour), it could take up to 1 hour for all traffic to shift.
+
+**How to resolve**:
+1. **Pre-set low TTL**: Keep TTL low (e.g. 30-60s) for records that may need fast failover. Trade-off: more DNS queries and slightly higher latency.
+2. **Anycast + BGP (industry best practice)**: Advertise the same IP from multiple data centers via BGP. When a data center goes down, BGP withdraws the route and traffic automatically shifts to the next nearest healthy location — **no DNS change needed, no TTL delay**. This is how Cloudflare, Google, and AWS handle failover for their edge networks.
+3. **Load Balancer / Global Traffic Manager**: Use a layer above DNS (e.g. AWS Global Accelerator, Cloudflare LB) that health-checks backends and routes traffic at the network level.
+4. **Client-side retry**: Design clients to retry with re-resolution on connection failure, so they don't stick to a stale IP forever.
+
+## Reference
 - https://www.cloudflare.com/learning/dns/what-is-dns/
 - https://en.wikipedia.org/wiki/Domain_Name_System
 - https://blog.bytebytego.com/p/how-does-the-domain-name-system-dns
