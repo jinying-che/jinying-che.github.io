@@ -1,510 +1,708 @@
 ---
-title: "Large Language Model Overview"
-date: "2026-04-03T23:05:13+0800"
-tags: ["large language model", "AI", "transformer"]
-description: "A comprehensive overview of Large Language Models — architecture, training, inference, and practical usage"
+title: "LLM Fundamentals"
+date: "2026-04-04T00:08:50+0800"
+tags: ["llm", "AI"]
+description: "Understanding LLM fundamentals — tokenization, embedding, attention, and text generation with concrete examples"
 draft: true
 ---
+
+> This post uses many abbreviations (BPE, FFN, RoPE, etc.). See the [LLM Abbreviations Glossary]({{< ref "/posts/llm/abbreviations" >}}) for a quick reference.
 
 # What is LLM?
 
 At its core, LLM is a **next-token predictor**.
 
-Given a sequence of tokens, it predicts the most probable next token. By doing this repeatedly (autoregressive generation), it produces coherent text.
+Given a sequence of tokens, it predicts the most probable next token. By repeating this (autoregressive generation), it produces coherent text.
 
 ```
 Input:  "The cat sat on the"
-         ↓ model predicts
-Output: "mat"  (probability 0.23)
-        "floor" (probability 0.18)
-        "roof"  (probability 0.07)
-        ...
+Model:  P("mat")=0.23, P("floor")=0.18, P("roof")=0.07, ...
+Pick:   "mat"
 ```
 
-This deceptively simple mechanism — trained on massive text corpora — gives rise to capabilities like translation, code generation, reasoning, and conversation.
+Here's the high-level pipeline — every concept in this post maps to one of these stages:
 
-## NLP Evolution
+```
+"The cat sat"          ← raw text
+     │
+     ▼
+[The] [cat] [sat]      ← Tokenization (§1)
+     │
+     ▼
+[0.12, -0.5, ...]      ← Token Embedding (§2)
+[0.78,  0.3, ...]
+[0.45, -0.1, ...]
+     │
+     ▼
+┌─────────────────┐
+│   Transformer    │    ← Self-Attention (§3) + FFN (Feed-Forward Network) (§4)
+│   × N layers     │
+└────────┬────────┘
+         │
+         ▼
+[0.01, 0.23, 0.18..]   ← Logits → Probabilities
+         │
+         ▼
+      "on"              ← Sampling (§5)
+```
 
-| Era | Period | Approach | Example |
-|-----|--------|----------|---------|
-| Rule-based | 1950s-1980s | Hand-crafted rules, pattern matching | ELIZA (1966) |
-| Statistical | 1990s-2000s | N-grams, probabilistic models | IBM Candide MT (1993) |
-| Embeddings | 2013-2014 | Dense vector representations | Word2Vec, GloVe |
-| Seq2Seq | 2014-2017 | RNN/LSTM with attention | Bahdanau attention (2014) |
-| Transformer | 2017 | Self-attention, parallelizable | "Attention Is All You Need" |
-| Pre-trained LMs | 2018-2019 | Transfer learning at scale | GPT-1 (117M), BERT (340M) |
-| LLM era | 2020+ | Massive scale + alignment | GPT-3 (175B), ChatGPT, GPT-4 |
+## NLP (Natural Language Processing) Evolution
 
-The key inflection point: the **Transformer** (Vaswani et al., 2017) replaced sequential recurrence with parallelizable self-attention, enabling training on orders-of-magnitude more data.
+| Era | Period | Approach | Limitation |
+|-----|--------|----------|-----------|
+| Rule-based | 1950s-1980s | Hand-crafted patterns (ELIZA) | Can't generalize |
+| Statistical | 1990s-2000s | N-grams, HMMs (Hidden Markov Models) | Sparse, no long-range context |
+| Embeddings | 2013 | Word2Vec, GloVe | Static (one vector per word regardless of context) |
+| Seq2Seq (Sequence-to-Sequence) | 2014-2017 | RNN (Recurrent Neural Network) / LSTM (Long Short-Term Memory) + attention | Sequential, slow, vanishing gradients |
+| Transformer | 2017 | Self-attention, parallelizable | **The breakthrough** → modern LLMs |
+
+## Where Does the Transformer Come From?
+
+```
+Machine Learning (ML)
+  └── Deep Learning (DL)          ← ML with multi-layer neural networks
+        └── Neural Network (NN)   ← inspired by biological neurons
+              ├── CNN (Convolutional Neural Network)   ← images
+              ├── RNN (Recurrent Neural Network)       ← sequences (text, audio)
+              │     └── LSTM / GRU                     ← better at long sequences
+              └── Transformer                          ← replaced RNN for NLP (2017)
+                    └── LLM (Large Language Model)     ← Transformer at massive scale
+```
+
+1. **Machine Learning**: algorithms that learn patterns from data (instead of hand-coded rules)
+2. **Deep Learning**: ML using neural networks with many layers — "deep" = many layers
+3. **Neural Network**: layers of interconnected nodes, loosely inspired by brain neurons. Each node applies: `output = activation(weights · input + bias)`
+4. **Transformer**: a specific neural network architecture from the 2017 paper ["Attention Is All You Need"](https://arxiv.org/abs/1706.03762). Replaced RNNs by using **self-attention** instead of sequential processing — this made it parallelizable and far more scalable
+5. **LLM**: a Transformer trained on massive text data (billions to trillions of tokens) with billions of parameters
 
 ---
 
-# Transformer Architecture
+# 1. Tokenization
 
-Nearly all modern LLMs are built on the Transformer. Here's one **Transformer block** (a model stacks N of these, e.g., GPT-3 has 96 layers):
+LLMs don't read characters or words — they read **tokens** (subword units).
 
-```
-              Input Tokens
-                   │
-                   ▼
-        ┌─────────────────────┐
-        │  Token Embedding +  │
-        │  Positional Encoding│
-        └──────────┬──────────┘
-                   │
-          ┌────────▼────────┐
-          │  Multi-Head      │
-          │  Self-Attention   │
-          └────────┬─────────┘
-                   │
-          ┌────────▼────────┐
-          │  Add & LayerNorm │  ← residual connection
-          └────────┬─────────┘
-                   │
-          ┌────────▼────────┐
-          │  Feed-Forward    │
-          │  Network (FFN)   │
-          └────────┬─────────┘
-                   │
-          ┌────────▼────────┐
-          │  Add & LayerNorm │  ← residual connection
-          └────────┬─────────┘
-                   │
-                   ▼
-             × N layers
-                   │
-                   ▼
-        ┌─────────────────────┐
-        │  Linear + Softmax   │  → next token probabilities
-        └─────────────────────┘
-```
+## Why Not Characters or Words?
 
-## Self-Attention
+| Strategy | Vocabulary Size | Problem |
+|----------|----------------|---------|
+| Characters | ~256 | Sequences too long, no semantic meaning per unit |
+| Words | ~500K+ | Vocabulary explodes, can't handle typos or new words |
+| **Subwords (BPE, Byte Pair Encoding)** | **32K-128K** | **Best trade-off: manageable vocab, handles unseen words** |
 
-The core mechanism. Each token computes how much it should "attend to" every other token.
+## BPE (Byte Pair Encoding) — Step by Step
 
-**Step 1**: Project each token into three vectors via learned weight matrices:
-- **Q** (Query) — "what am I looking for?"
-- **K** (Key) — "what do I contain?"
-- **V** (Value) — "what information do I provide?"
+BPE builds a vocabulary by iteratively merging the most frequent character pairs. The result is a **vocabulary table** that maps each subword to an integer ID.
 
-**Step 2**: Compute attention scores:
-```
-Attention(Q, K, V) = softmax(Q·Kᵀ / √d_k) · V
-```
+**Step 1 — Build the vocabulary** (done once, during tokenizer training):
 
-The `√d_k` scaling prevents the dot products from growing too large (which would push softmax into regions with tiny gradients).
-
-**Concrete Example** — 3 tokens, d_k = 4:
+Training corpus: `"low lower lowest lowly"`
 
 ```
-Tokens: ["The", "cat", "sat"]
+Iteration 0: Start with characters
+  l o w _ l o w e r _ l o w e s t _ l o w l y
 
-Q = [[1,0,1,0],   K = [[1,1,0,0],   V = [[0,1,0,1],
-     [0,1,0,1],        [0,0,1,1],        [1,0,1,0],
-     [1,1,0,0]]        [1,0,1,0]]        [0,0,1,1]]
+Iteration 1: Most frequent pair: (l, o) → merge into "lo"
+  lo w _ lo w e r _ lo w e s t _ lo w l y
 
-Step 1: Q·Kᵀ =  [[1, 1, 2],     (raw attention scores)
-                  [0, 2, 0],
-                  [1, 0, 1]]
+Iteration 2: Most frequent pair: (lo, w) → merge into "low"
+  low _ low e r _ low e s t _ low l y
 
-Step 2: / √4 =  [[0.5, 0.5, 1.0],
-                  [0.0, 1.0, 0.0],
-                  [0.5, 0.0, 0.5]]
+Iteration 3: Most frequent pair: (low, e) → merge into "lowe"
+  low _ lowe r _ lowe s t _ low l y
 
-Step 3: softmax → [[0.26, 0.26, 0.43],   (attention weights, rows sum to 1)
-                    [0.21, 0.58, 0.21],
-                    [0.33, 0.17, 0.33]]
-
-Step 4: weights · V → weighted combination of value vectors
+... continue until vocabulary size is reached
 ```
 
-Row 2 shows "cat" attends heavily to itself (0.58) — this is how the model learns which tokens are relevant to each other.
+This produces a vocabulary — every character and merged subword gets an integer ID:
+```
+ID:     0    1    2    3    4    5    6    7    8    9    10     11
+Token: "l"  "o"  "w"  "e"  "r"  "s"  "t"  "y"  "_"  "lo"  "low"  "lowe"
+```
 
-## Multi-Head Attention
+**Step 2 — Tokenize input** (done every time text is fed to the model):
 
-Instead of one attention function, run **h parallel heads** (GPT-3 uses h=96). Each head learns different relationships (syntactic, semantic, positional). Outputs are concatenated and projected:
+Apply the learned merge rules to split input text into known subwords, then look up their IDs:
 
 ```
-MultiHead(Q, K, V) = Concat(head₁, ..., headₕ) · W_O
+"lowest"  → ["lowe", "s", "t"]  → IDs: [11, 5, 6]
+             ↑ in vocab  ↑ "st" not in vocab, falls back to "s"=5 + "t"=6
+
+"lowly"   → ["low", "l", "y"]  → IDs: [10, 0, 7]
+             ↑ in vocab  ↑ "ly" not in vocab, falls back to "l"=0 + "y"=7
+
+"low"     → ["low"]           → IDs: [10]
+             ↑ exact match
 ```
+
+The key rule: if a subword isn't in the vocabulary, BPE **falls back to smaller known pieces**, all the way down to individual characters (which are always in the vocab).
+
+> In real tokenizers the vocabulary is much larger (32K-128K entries), built from massive training corpora instead of 4 words. Subwords like "ness", "ing", "tion" would all be merged and have their own IDs.
+
+The **output of tokenization is always a 1D array of integer IDs** — this is what the model receives:
+
+```
+"The cat sat on" → ["The", " cat", " sat", " on"] → [464, 2368, 3520, 319]
+                    human-readable tokens             actual model input
+```
+
+## Tokenization Artifacts
+
+This is why LLMs make surprising mistakes:
+
+```
+"strawberry" → ["straw", "berry"]       Can't easily count letters — "r" is split across tokens
+"123 + 456"  → ["123", " +", " 456"]    Digits grouped arbitrarily → arithmetic errors
+"GPT"        → ["G", "PT"]              Acronyms split unpredictably
+```
+
+📚 **References**:
+- [Let's build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE) by Andrej Karpathy — full implementation walk-through
+- [Tiktokenizer](https://tiktokenizer.vercel.app/) — interactive tool to see how text gets tokenized
+- [SentencePiece](https://github.com/google/sentencepiece) — language-agnostic tokenizer used by Llama, T5
+
+---
+
+# 2. Token Embedding
+
+After tokenization, each token is a discrete ID (e.g., "cat" → 2368). But neural networks need continuous vectors. **Embedding** maps each token ID to a dense vector.
+
+## How It Works
+
+The model has a learned **embedding matrix** `E` of shape `[vocab_size × d_model]`. Each row is a token's embedding.
+
+```
+Vocabulary:    "the"=0  "cat"=1  "sat"=2  "on"=3  ...
+               ┌                              ┐
+Embedding      │  0.12  -0.50   0.33   0.78   │  ← "the" (ID 0)
+Matrix E =     │  0.78   0.30  -0.12   0.45   │  ← "cat" (ID 1)
+(vocab × d)    │  0.45  -0.10   0.67  -0.23   │  ← "sat" (ID 2)
+               │  0.33   0.89   0.11   0.56   │  ← "on"  (ID 3)
+               │  ...                          │
+               └                              ┘
+
+Input: "the cat sat" → IDs: [0, 1, 2]
+
+Lookup: E[0] = [0.12, -0.50, 0.33, 0.78]   ← embedding for "the"
+        E[1] = [0.78,  0.30, -0.12, 0.45]   ← embedding for "cat"
+        E[2] = [0.45, -0.10, 0.67, -0.23]   ← embedding for "sat"
+```
+
+This is just a **table lookup**, not a computation.
+
+## Where Do These Vectors Come From?
+
+The embedding matrix is **randomly initialized** before training, then **learned via backpropagation** — the same way all other weights in the model are updated.
+
+```
+Before training:  E["the"] = [0.52, -0.11, 0.87, 0.03]   ← random initialization
+After training:   E["the"] = [0.12, -0.50, 0.33, 0.78]   ← learned from data
+```
+
+During training, the model's goal is to predict the next token. If adjusting `E["the"]` helps the model make better predictions, backpropagation will nudge those values accordingly. After billions of training examples, the vectors converge to encode meaningful patterns about each token's usage.
+
+## Why Embeddings Work
+
+As a result, tokens that appear in similar contexts end up with **similar vectors**. This creates a semantic space:
+
+```
+cosine_similarity("king", "queen")  ≈ 0.85   (both royalty)
+cosine_similarity("king", "pizza")  ≈ 0.12   (unrelated)
+cosine_similarity("cat",  "dog")    ≈ 0.78   (both pets)
+```
+
+The famous example: `vector("king") - vector("man") + vector("woman") ≈ vector("queen")`
+
+In real models, d_model is large: GPT-3 uses 12288 dimensions, Llama 3 (405B) uses 16384.
 
 ## Positional Encoding
 
-Self-attention is permutation-invariant — it has no notion of token order. Position information must be injected:
+Self-attention treats input as a **set** — it has no notion of token order. "cat sat on mat" and "mat on sat cat" would produce the same attention scores. We must inject position information.
 
-| Method | Used By | Key Property |
-|--------|---------|-------------|
-| Sinusoidal | Original Transformer | Fixed, based on sin/cos functions |
-| Learned | GPT-1, GPT-2 | Trainable position embeddings |
-| RoPE (Rotary) | Llama, DeepSeek, most modern LLMs | Encodes relative positions, supports length extrapolation |
-| ALiBi | BLOOM | Adds linear bias to attention scores based on distance |
+```
+Final input = Token Embedding + Positional Encoding
+
+Token "cat" at position 2:
+  token_emb  = [0.78,  0.30, -0.12,  0.45]    ← what the token is
+  pos_enc(2) = [0.91, -0.42,  0.14, -0.99]    ← where the token is
+  input      = [1.69, -0.12,  0.02, -0.54]    ← sum
+```
+
+| Method | How It Works | Used By |
+|--------|-------------|---------|
+| Sinusoidal | Fixed sin/cos functions at different frequencies | Original Transformer (2017) |
+| Learned | Trainable position vectors (one per position) | GPT-1, GPT-2 |
+| RoPE (Rotary Position Embedding) | Rotates Q/K vectors by position-dependent angle | Llama, DeepSeek, most modern LLMs |
+
+RoPE is dominant today because it encodes **relative** positions (distance between tokens matters more than absolute position) and supports extrapolation to longer sequences than seen in training.
+
+📚 **References**:
+- [The Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/) by Jay Alammar — visual intuition for embeddings
+- [Word Embeddings](https://lena-voita.github.io/nlp_course/word_embeddings.html) by Lena Voita — beginner-friendly course
+- [RoPE explanation](https://blog.eleuther.ai/rotary-embeddings/) by EleutherAI — technical deep dive into Rotary Position Embeddings
+
+---
+
+# 3. Self-Attention
+
+This is the core mechanism that makes Transformers work. It lets each token decide **how much to attend to every other token** in the sequence.
+
+## Intuition
+
+Consider: "The **animal** didn't cross the street because **it** was too tired."
+
+What does "it" refer to? A human instantly knows "it" = "animal". Self-attention learns this by letting "it" compute a high attention score with "animal".
+
+## Q, K, V — Query, Key, Value
+
+Each token is projected into three vectors via learned weight matrices:
+
+| Vector | Role | Analogy |
+|--------|------|---------|
+| **Q** (Query) | "What am I looking for?" | A search query |
+| **K** (Key) | "What do I contain?" | A document title / tag |
+| **V** (Value) | "What information do I provide?" | The actual document content |
+
+```
+For each token:
+  Q = token_embedding × W_Q     (W_Q is a learned weight matrix)
+  K = token_embedding × W_K
+  V = token_embedding × W_V
+```
+
+## Dry Run — 3 Tokens, d_k = 4
+
+Input: `["The", "cat", "sat"]`
+
+**Step 1**: Project into Q, K, V (via learned weights — simplified here):
+
+```
+Q = [[1, 0, 1, 0],    K = [[1, 1, 0, 0],    V = [[1, 0, 1, 0],
+     [0, 1, 0, 1],         [0, 0, 1, 1],         [0, 1, 0, 1],
+     [1, 1, 0, 0]]         [1, 0, 1, 0]]         [1, 1, 0, 0]]
+```
+
+**Step 2**: Compute attention scores = Q · Kᵀ
+
+```
+Q · Kᵀ = [[1×1+0×1+1×0+0×0, 1×0+0×0+1×1+0×1, 1×1+0×0+1×1+0×0],   [[1, 1, 2],
+           [0×1+1×1+0×0+1×0, 0×0+1×0+0×1+1×1, 0×1+1×0+0×1+1×0],  = [1, 1, 0],
+           [1×1+1×1+0×0+0×0, 1×0+1×0+0×1+0×1, 1×1+1×0+0×1+0×0]]    [2, 0, 1]]
+```
+
+**Step 3**: Scale by √d_k = √4 = 2 (prevents softmax saturation)
+
+```
+Scaled = [[0.5, 0.5, 1.0],
+          [0.5, 0.5, 0.0],
+          [1.0, 0.0, 0.5]]
+```
+
+**Step 4**: Softmax (each row sums to 1.0)
+
+```
+Weights = [[0.27, 0.27, 0.45],    ← "The" attends most to "sat"
+           [0.38, 0.38, 0.23],    ← "cat" attends equally to "The" and itself
+           [0.51, 0.19, 0.31]]    ← "sat" attends most to "The"
+```
+
+**Step 5**: Weighted sum of V vectors
+
+```
+Output[0] = 0.27×V["The"] + 0.27×V["cat"] + 0.45×V["sat"]
+          = 0.27×[1,0,1,0] + 0.27×[0,1,0,1] + 0.45×[1,1,0,0]
+          = [0.72, 0.72, 0.27, 0.27]
+```
+
+Each output token is now a **context-aware blend** of all tokens, weighted by relevance.
+
+## Multi-Head Attention
+
+Instead of one attention, run **h parallel attention heads** (GPT-3: h=96, Llama 3 8B: h=32). Each head has its own W_Q, W_K, W_V — they learn different relationships:
+
+```
+Head 1: might learn syntactic structure    ("sat" → "cat" as subject)
+Head 2: might learn positional proximity   ("sat" → "on" as next word)
+Head 3: might learn semantic similarity    ("cat" → "animal")
+...
+
+MultiHead = Concat(head_1, ..., head_h) × W_O
+```
+
+## Causal Mask (Decoder-Only)
+
+For text generation, a token must NOT attend to future tokens (it hasn't generated them yet). The causal mask enforces this:
+
+```
+              The  cat  sat  on
+    The     [  ✓    ✗    ✗   ✗  ]     ✓ = can attend
+    cat     [  ✓    ✓    ✗   ✗  ]     ✗ = masked (-∞ before softmax)
+    sat     [  ✓    ✓    ✓   ✗  ]
+    on      [  ✓    ✓    ✓   ✓  ]
+
+Applied by setting masked positions to -∞ before softmax → they become 0 probability.
+```
+
+📚 **References**:
+- [Attention? Attention!](https://lilianweng.github.io/posts/2018-06-24-attention/) by Lilian Weng — evolution of attention mechanisms
+- [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) by Jay Alammar — the best visual explanation
+- [Visual intro to Transformers](https://www.youtube.com/watch?v=wjZofJX0v4M) by 3Blue1Brown — animated explanation
+- [LLM Visualization](https://bbycroft.net/llm) by Brendan Bycroft — interactive 3D visualization
+
+---
+
+# 4. Transformer Block
+
+A single Transformer block does **one round of "gather context, then think"**:
+- **Attention**: "which tokens are relevant to each other?" (gather context)
+- **FFN**: "given that context, what knowledge applies here?" (think and refine)
+
+But one round isn't enough — just like you can't fully understand a complex sentence in one pass. So LLMs **stack many blocks** (GPT-3: 96, Llama 3 8B: 32, Llama 3 405B: 126), each refining the token representations further:
+
+```
+Input: "The bank by the river was steep"
+
+Block 1-2:    syntax     — "bank" is a noun, "was" links to "bank"
+Block 3-10:   semantics  — "bank" + "river" → this means riverbank, not financial bank
+Block 11-30:  reasoning  — combines all context to predict what comes next
+```
+
+After block 1, the vector for "bank" still mostly means "bank (ambiguous)". After block 10, it means "riverbank" — because attention pulled in context from "river", and the FFN transformed that blended signal into a more specific representation.
+
+Here's one block:
+
+```
+         Input (embeddings)
+              │
+              ▼
+    ┌───────────────────┐
+    │  Multi-Head        │
+    │  Self-Attention     │  ← "which tokens are relevant to each other?"
+    └─────────┬──────────┘
+              │
+         ┌────▼────┐
+         │  Add &   │  ← residual connection: output = attention(x) + x
+         │ LayerNorm│    prevents vanishing gradients in deep networks
+         └────┬─────┘
+              │
+    ┌─────────▼──────────┐
+    │  FFN (Feed-Forward   │
+    │       Network)      │  ← "what to do with that information?"
+    │                     │
+    │  up = x × W₁       │  d_model → 4×d_model (expand)
+    │  act = GeLU(up)     │  GeLU (Gaussian Error Linear Unit) non-linearity
+    │  down = act × W₂   │  4×d_model → d_model (compress)
+    └─────────┬──────────┘
+              │
+         ┌────▼────┐
+         │  Add &   │  ← another residual connection
+         │ LayerNorm│
+         └────┬─────┘
+              │
+              ▼
+         Output (to next layer)
+```
+
+## Attention vs FFN: Who Does What?
+
+Think of it as a **team meeting**:
+- **Attention** = the discussion phase — everyone shares information, and each person decides who to listen to. It operates **across tokens** (token-to-token communication).
+- **FFN** = the thinking phase — each person goes back to their desk and processes what they heard, using their own knowledge. It operates **within each token independently** (no cross-token communication).
+
+Concrete example with `"Paris is the capital of ___"`:
+
+```
+After Attention:
+  The vector for "___" now contains blended information from
+  "Paris", "capital", "of" — it knows the context.
+
+After FFN:
+  The FFN processes that blended vector and activates the
+  stored knowledge: "capital of Paris → France"
+  The vector for "___" is now transformed to strongly
+  predict "France" as the next token.
+```
+
+| Component | Operates On | What It Does | Where Knowledge Lives |
+|-----------|------------|-------------|----------------------|
+| **Attention** | Between tokens | Routes and blends information | Learns **which** tokens matter to each other |
+| **FFN** | Each token independently | Transforms and refines | Stores **factual knowledge** in its weight matrices |
+
+The FFN's weight matrices (W₁, W₂) are enormous — they make up ~2/3 of the model's total parameters. Research shows that specific neurons in FFN layers fire for specific facts (e.g., "Paris → France"), which is why FFN is often called the model's "memory".
+
+## Residual Connections
+
+Without residuals, gradients vanish in deep networks (96+ layers). The residual path provides a "gradient highway":
+
+```
+output = LayerNorm(x + Sublayer(x))
+                   ↑
+                   gradient flows directly through here
+```
 
 ## Architecture Variants
 
-| Type | Attention | Examples | Best For |
-|------|-----------|----------|----------|
-| **Encoder-only** | Bidirectional (sees full input) | BERT, RoBERTa | Classification, NER, embedding |
-| **Decoder-only** | Causal (sees only past tokens) | GPT, Llama, Claude | Text generation, chat, code |
-| **Encoder-Decoder** | Encoder bidirectional + decoder causal | T5, BART | Translation, summarization |
+| Type | Attention Pattern | Examples | Best For |
+|------|------------------|----------|----------|
+| **Encoder-only** | Bidirectional (sees all tokens) | BERT (Bidirectional Encoder Representations from Transformers), RoBERTa | Classification, NER (Named Entity Recognition), embeddings |
+| **Decoder-only** | Causal (sees only past tokens) | GPT (Generative Pre-trained Transformer), Llama, Claude | Text generation, chat, code |
+| **Encoder-Decoder** | Encoder: bidirectional, Decoder: causal + cross-attention | T5, BART | Translation, summarization |
 
-Modern LLMs are overwhelmingly **decoder-only**. The causal mask ensures each token can only attend to previous tokens — this is what makes autoregressive generation possible.
+Modern LLMs are almost exclusively **decoder-only** — simpler, scales better, and the causal mask enables autoregressive generation.
 
----
-
-# Training Pipeline
-
-LLM training is a multi-stage process:
-
-```
-┌──────────────────┐    ┌──────────────────┐    ┌──────────────────┐
-│   Pre-training    │───▶│       SFT        │───▶│    Alignment     │
-│                   │    │                   │    │                  │
-│ Next-token pred.  │    │ Instruction       │    │ RLHF or DPO     │
-│ on massive corpus │    │ following         │    │                  │
-│                   │    │                   │    │ Human preference │
-│ Trillions of      │    │ ~100K curated     │    │ optimization     │
-│ tokens            │    │ examples          │    │                  │
-└──────────────────┘    └──────────────────┘    └──────────────────┘
-     Base model           Instruction model        Aligned model
-     (completion)          (chat-capable)           (safe, helpful)
-```
-
-## Stage 1: Pre-training
-
-The most expensive stage. The model learns language by predicting the next token on massive internet corpora.
-
-- **Objective**: Next-token prediction (decoder-only) or masked language modeling (encoder-only, e.g., BERT masks ~15% of tokens)
-- **Data**: Web crawls, books, code, academic papers — trillions of tokens
-- **Compute**: Thousands of GPUs for weeks to months
-
-## Stage 2: Supervised Fine-Tuning (SFT)
-
-Train on curated (instruction, response) pairs written by humans. This teaches the model to:
-- Follow instructions
-- Adopt a conversational style
-- Refuse harmful requests
-
-Typically thousands to hundreds of thousands of high-quality examples. Quality matters far more than quantity.
-
-## Stage 3: Alignment (RLHF / DPO)
-
-Make the model's outputs align with human preferences — helpful, harmless, honest.
-
-**RLHF (Reinforcement Learning from Human Feedback)**:
-1. Collect human preference data (rank multiple model outputs)
-2. Train a **Reward Model** on those preferences
-3. Optimize the LLM via PPO (Proximal Policy Optimization) against the reward model
-
-**DPO (Direct Preference Optimization)**:
-- Skips the reward model entirely — optimizes directly on preference pairs
-- Simpler, more stable, 40-75% less compute than RLHF
-- Now the dominant approach (used by Meta for Llama 3/4)
-
-## Training Cost
-
-| Model | Params | Training Tokens | Estimated Cost | Compute |
-|-------|--------|----------------|---------------|---------|
-| GPT-3 | 175B | 300B | ~$4.6M | 355 GPU-years |
-| Llama 3 | 405B | 15T | ~$30M+ | ~5.4×10²⁵ FLOPs |
-| DeepSeek-V3 | 671B (37B active) | 14.8T | ~$5.6M (compute only) | 2048 H800 GPUs |
-| GPT-4 | Undisclosed | Undisclosed | $78-100M+ | ~2.1×10²⁵ FLOPs |
-
-## Scaling Laws (Chinchilla, 2022)
-
-DeepMind's key finding: for a given compute budget, **model size and training tokens should be scaled equally**. The optimal ratio is ~20 tokens per parameter.
-
-```
-GPT-3:      175B params × 300B tokens  → ~1.7 tokens/param  (undertrained!)
-Chinchilla:  70B params × 1.4T tokens  → ~20  tokens/param  (optimal)
-Result: Chinchilla matched GPT-3 performance with 4× fewer parameters
-```
-
-This shifted the field from "bigger model" to "more data + right-sized model."
+📚 **References**:
+- [nanoGPT](https://www.youtube.com/watch?v=kCc8FmEb1nY) by Andrej Karpathy — reimplement GPT from scratch in 2 hours
+- [Transformer Circuits Thread](https://transformer-circuits.pub/) by Anthropic — deep analysis of what each component learns
 
 ---
 
-# Core Concepts
+# 5. Text Generation (Sampling)
 
-## Tokenization
+After the final Transformer block, the model outputs a **logit** (raw score) for every token in the vocabulary. How we convert logits into a chosen token is the **sampling strategy**.
 
-LLMs don't process raw text — they work with **tokens** (subword units).
+## From Logits to Probabilities
 
-```
-"unhappiness" → ["un", "happiness"]     (BPE might split it this way)
-"ChatGPT"     → ["Chat", "G", "PT"]
-"123456"      → ["123", "456"]           (why LLMs struggle with arithmetic)
-```
-
-| Method | Used By | How It Works |
-|--------|---------|-------------|
-| **BPE** (Byte Pair Encoding) | GPT series | Iteratively merge most frequent byte pairs |
-| **SentencePiece** | Llama, T5 | Language-agnostic, treats input as raw bytes |
-| **tiktoken** | OpenAI models | Optimized BPE implementation |
-
-Typical vocab size: 32K–128K tokens. Tokenization directly affects API cost (you pay per token) and model capabilities (tokenization artifacts cause spelling/math issues).
-
-## Context Window
-
-The maximum number of tokens (input + output) the model processes in one pass.
-
-| Model | Context Window |
-|-------|---------------|
-| GPT-3 (original) | 2K |
-| GPT-3.5 Turbo | 16K |
-| GPT-4 Turbo | 128K |
-| GPT-4.1 | 1M |
-| Claude Opus 4.6 | 1M |
-| Gemini 1.5 Pro | 1M (up to 2M) |
-| Llama 4 Scout | 10M |
-
-Longer context ≠ better comprehension. Models often struggle with information in the **middle** of long contexts ("lost in the middle" problem).
-
-## Sampling Parameters
-
-When generating text, these parameters control the randomness/diversity of output:
-
-**Temperature (T)**:
-```
-T = 0.0  → deterministic (greedy), always pick the top token
-T = 0.7  → balanced creativity (common default)
-T = 1.5  → high randomness, more creative but less coherent
-```
-
-**Top-p (nucleus sampling)**: Only consider tokens whose cumulative probability reaches p.
-```
-Top-p = 0.1  → very focused (top 10% probability mass)
-Top-p = 0.9  → broad (top 90% probability mass)
-```
-
-**Top-k**: Only consider the k most probable tokens.
-
-General advice: adjust temperature **or** top-p, not both simultaneously.
-
-## In-Context Learning
-
-LLMs can learn tasks from examples provided in the prompt — no weight updates needed:
+To keep the math verifiable, let's use a simplified vocabulary of just 4 tokens:
 
 ```
-Zero-shot:   "Translate to French: Hello"
-One-shot:    "English: Good morning → French: Bonjour\nEnglish: Hello → French:"
-Few-shot:    (provide 3-5 examples)
+Tokens:  ["on", "the", "mat", "in"]
+Logits:  [2.0,   1.0,   0.5,   0.0]      ← raw scores from the model
+
+Softmax: P(token) = e^logit / Σe^all_logits
+
+  e^2.0 = 7.39    e^1.0 = 2.72    e^0.5 = 1.65    e^0.0 = 1.00
+  sum = 7.39 + 2.72 + 1.65 + 1.00 = 12.76
+
+  P("on")  = 7.39 / 12.76 = 0.58
+  P("the") = 2.72 / 12.76 = 0.21
+  P("mat") = 1.65 / 12.76 = 0.13
+  P("in")  = 1.00 / 12.76 = 0.08
+                               sum = 1.00 ✓
 ```
 
-## Chain-of-Thought (CoT)
+> In real models, the softmax is over the entire vocabulary (32K-128K tokens), so each individual probability is much smaller. We use 4 tokens here to keep the math clear.
 
-Prompting the model to show step-by-step reasoning dramatically improves performance on math, logic, and multi-step tasks:
+## Greedy Decoding
+
+Always pick the highest probability token. Deterministic but often repetitive:
 
 ```
-Q: If a train travels 120 km in 2 hours, what is its speed?
-A: Let me think step by step.
-   Distance = 120 km
-   Time = 2 hours
-   Speed = Distance / Time = 120 / 2 = 60 km/h
+P("on")=0.58, P("the")=0.21, P("mat")=0.13, P("in")=0.08
+→ Always picks "on"
 ```
+
+## Temperature
+
+Temperature **reshapes** the probability distribution before sampling:
+
+```
+New logits = original logits / T
+```
+
+| Temperature | Effect | Distribution |
+|-------------|--------|-------------|
+| T → 0 | Deterministic (greedy) | All probability on top token |
+| T = 1.0 | Original distribution | Balanced |
+| T > 1.0 | Flatter, more random | Spreads probability to unlikely tokens |
+
+**Dry run** with logits `[2.0, 1.0, 0.5, 0.0]` for tokens `["on", "the", "mat", "in"]`:
+
+```
+T = 0.5 (focused):
+  logits/T = [4.0, 2.0, 1.0, 0.0]
+  e^4.0=54.60  e^2.0=7.39  e^1.0=2.72  e^0.0=1.00  sum=65.71
+  softmax  → P("on")=0.83  P("the")=0.11  P("mat")=0.04  P("in")=0.02
+  → almost always picks "on"
+
+T = 1.0 (original):
+  logits/T = [2.0, 1.0, 0.5, 0.0]
+  softmax  → P("on")=0.58  P("the")=0.21  P("mat")=0.13  P("in")=0.08
+  → usually "on", sometimes "the"
+
+T = 2.0 (creative):
+  logits/T = [1.0, 0.5, 0.25, 0.0]
+  e^1.0=2.72  e^0.5=1.65  e^0.25=1.28  e^0.0=1.00  sum=6.65
+  softmax  → P("on")=0.41  P("the")=0.25  P("mat")=0.19  P("in")=0.15
+  → more diverse, might pick "mat" or "in"
+```
+
+Notice how temperature flattens or sharpens the distribution:
+```
+              "on"   "the"   "mat"   "in"
+T = 0.5  →   0.83    0.11    0.04    0.02    ← concentrated
+T = 1.0  →   0.58    0.21    0.13    0.08    ← balanced
+T = 2.0  →   0.41    0.25    0.19    0.15    ← flattened
+```
+
+## Top-k Sampling
+
+Only consider the **k most probable** tokens, then renormalize:
+
+```
+Original: P("on")=0.58, P("the")=0.21, P("mat")=0.13, P("in")=0.08
+
+Top-k=2: keep only top 2, zero out the rest
+  P("on")=0.58, P("the")=0.21 → renormalize (divide by 0.58+0.21=0.79):
+  P("on")=0.73, P("the")=0.27
+  → sample from these 2 only
+```
+
+Problem: top-k is **fixed**. If the model is very confident (top token is 0.95), k=50 still considers 50 tokens. If uncertain, k=2 might cut off good options.
+
+## Top-p (Nucleus Sampling)
+
+Keep the smallest set of tokens whose **cumulative probability** reaches p:
+
+```
+Sorted: P("on")=0.58, P("the")=0.21, P("mat")=0.13, P("in")=0.08
+
+Top-p=0.7:
+  "on"  → cumulative: 0.58 (< 0.7, keep)
+  "the" → cumulative: 0.79 (≥ 0.7, keep this last one, stop)
+  → sample from {"on", "the"} (2 tokens)
+
+Top-p=0.95:
+  "on"  → cumulative: 0.58 (< 0.95, keep)
+  "the" → cumulative: 0.79 (< 0.95, keep)
+  "mat" → cumulative: 0.92 (< 0.95, keep)
+  "in"  → cumulative: 1.00 (≥ 0.95, keep this last one, stop)
+  → sample from all 4 tokens
+```
+
+Top-p **adapts** — when the model is confident, fewer tokens pass the threshold; when uncertain, more do.
+
+## Practical Advice
+
+| Use Case | Recommended Settings |
+|----------|---------------------|
+| Code generation | T=0.0 (deterministic) or T=0.2, top-p=0.1 |
+| Factual Q&A | T=0.3, top-p=0.3 |
+| Creative writing | T=0.8-1.0, top-p=0.9 |
+| Brainstorming | T=1.0-1.2, top-p=0.95 |
+
+General rule: adjust **temperature or top-p**, not both. They do similar things and combining them can produce unpredictable results.
+
+📚 **References**:
+- [LLM Settings — Temperature, Top-p](https://www.promptingguide.ai/introduction/settings) by Prompt Engineering Guide
+- [Decoding Strategies in LLMs](https://mlabonne.github.io/blog/posts/2023-06-07-Decoding_strategies.html) by Maxime Labonne — visual guide with code
+- [How to generate text](https://huggingface.co/blog/how-to-generate) by Hugging Face — comprehensive sampling guide
 
 ---
 
-# Key Models Comparison
+# 6. Putting It All Together
 
-| Model | Org | Release | Parameters | Context | Notes |
-|-------|-----|---------|-----------|---------|-------|
-| GPT-3.5 Turbo | OpenAI | Mar 2023 | Undisclosed | 16K | First widely used chat model |
-| GPT-4 | OpenAI | Mar 2023 | Undisclosed (rumored MoE) | 128K | Major quality leap |
-| GPT-4o | OpenAI | May 2024 | Undisclosed | 128K | Native multimodal |
-| GPT-4.1 | OpenAI | Apr 2025 | Undisclosed | 1M | Coding-focused |
-| Claude 3 Opus | Anthropic | Mar 2024 | Undisclosed | 200K | Strong reasoning |
-| Claude 3.5 Sonnet | Anthropic | Jun 2024 | Undisclosed | 200K | Best code at the time |
-| Claude Opus 4.6 | Anthropic | Feb 2026 | Undisclosed | 1M | Frontier reasoning + code |
-| Gemini 1.5 Pro | Google | Feb 2024 | Undisclosed (MoE) | 1M-2M | Longest context window |
-| Gemini 2.5 Pro | Google | Jun 2025 | Undisclosed (MoE) | 1M | Multimodal, strong reasoning |
-| Llama 3 | Meta | Apr 2024 | 8B-405B | 128K | Open-weight |
-| Llama 4 Scout | Meta | Apr 2025 | 109B (17B active, MoE) | 10M | Open-weight, huge context |
-| DeepSeek-V3 | DeepSeek | Dec 2024 | 671B (37B active, MoE) | 128K | Remarkably cost-efficient |
-| DeepSeek-R1 | DeepSeek | Jan 2025 | 671B (37B active, MoE) | 128K | Reasoning-specialized |
+Let's trace `"The cat sat"` through the entire pipeline to predict the next token:
 
-**MoE (Mixture of Experts)**: Only a subset of parameters are active per token. DeepSeek-V3 has 671B total params but only 37B active — this dramatically reduces inference cost while maintaining quality.
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ Step 1: TOKENIZE                                                │
+│   "The cat sat" → ["The", "cat", "sat"] → IDs: [464, 2368, 3520]│
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ Step 2: EMBED                                                   │
+│   E[464]  = [0.12, -0.50, 0.33, ...]   (d=4096 in real models) │
+│   E[2368] = [0.78,  0.30, -0.12, ...]                          │
+│   E[3520] = [0.45, -0.10, 0.67, ...]                           │
+│                                                                 │
+│   + Positional Encoding (RoPE, Rotary Position Embedding)        │
+│     → position-aware embeddings                                  │
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ Step 3: TRANSFORMER × N layers                                  │
+│                                                                 │
+│   Layer 1:                                                      │
+│     Attention: "sat" attends to "cat" (subject) and "The"       │
+│     FFN (Feed-Forward Network): transforms each token's repr.   │
+│                                                                 │
+│   Layer 2-N:                                                    │
+│     Builds increasingly abstract representations                │
+│     Early layers: syntax  Middle: semantics  Late: task-level   │
+│                                                                 │
+│   Final representation for last token "sat":                    │
+│     h = [1.34, -0.89, 2.11, 0.56, ...]                         │
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ Step 4: PROJECT TO VOCABULARY                                   │
+│   logits = h × W_vocab    (4096 → 32000 vocabulary logits)      │
+│                                                                 │
+│   logits: ["on"=2.0, "the"=1.0, "mat"=0.5, "in"=0.0, ...]     │
+└─────────────────────────────┬───────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│ Step 5: SAMPLE                                                  │
+│   softmax → P("on")=0.58, P("the")=0.21, P("mat")=0.13, ...   │
+│   with T=1.0, top-p=0.9 → sample → "on"                        │
+│                                                                 │
+│   Append "on" to sequence → "The cat sat on"                    │
+│   Repeat from Step 1 with new sequence...                       │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+This loop continues until:
+- A special `<EOS>` (End of Sequence) token is generated
+- A maximum length limit is reached
+- The caller stops the generation
+
+That's it. Every LLM — from GPT-4 to Llama to Claude — follows this same fundamental pipeline.
 
 ---
 
-# Inference Optimization
+# What's Next
 
-LLM inference is **memory-bandwidth bound**, not compute-bound. The GPU has spare compute capacity but is bottlenecked reading weights and KV cache from memory. Most optimizations target this bottleneck.
-
-## Key Techniques
-
-| Technique | What It Optimizes | Typical Speedup | Trade-off |
-|-----------|------------------|----------------|-----------|
-| **KV Cache** | Avoids recomputing attention for past tokens | Essential (not optional) | Memory grows linearly with seq length |
-| **Quantization** (INT8/INT4) | Reduces model size and memory bandwidth | 2-4× memory reduction | Slight accuracy loss (esp. INT4) |
-| **Flash Attention** | Optimizes attention memory I/O via tiling | 2-4× attention speedup | None (exact computation) |
-| **Speculative Decoding** | Uses small draft model to propose tokens | 2-3× generation speed | Needs a good draft model |
-| **PagedAttention (vLLM)** | Manages KV cache like virtual memory | Higher throughput (2-4×) | Implementation complexity |
-| **Continuous Batching** | Dynamically batches requests | Higher GPU utilization | Added scheduling logic |
-
-## KV Cache
-
-During autoregressive generation, each new token needs the Key and Value vectors of all previous tokens. Without caching, you'd recompute them every step.
+This post covered **how an LLM works internally** — the architecture. But building a useful LLM involves many more stages. Here's the full picture:
 
 ```
-Step 1: Generate token 1 → store K₁, V₁
-Step 2: Generate token 2 → store K₂, V₂ (reuse K₁, V₁)
-Step 3: Generate token 3 → store K₃, V₃ (reuse K₁,V₁, K₂,V₂)
-...
-
-Memory cost = seq_length × num_layers × 2 × hidden_dim × precision_bytes
+┌──────────────────────┐
+│  1. Architecture      │  ← this post (fundamentals)
+│  (Transformer)        │
+└──────────┬───────────┘
+           │ architecture is what gets trained
+           ▼
+┌──────────────────────┐
+│  2. Pre-Training      │  ← train on massive data (next-token prediction)
+│                       │    adjusts all the weights we discussed:
+│                       │    embedding matrix, W_Q/W_K/W_V, FFN weights
+└──────────┬───────────┘
+           │ produces a base model (can complete text, but not chat)
+           ▼
+┌──────────────────────────────────────────────────────────┐
+│  3-5. Post-Training (treats model mostly as a black box)  │
+│                                                           │
+│  3. Post-Training Datasets  — curate instruction data     │
+│  4. SFT (Supervised Fine-Tuning) — teach it to chat       │
+│  5. Preference Alignment (RLHF/DPO) — make it safe/helpful│
+└──────────┬───────────────────────────────────────────────┘
+           │ produces a chat model (e.g., ChatGPT, Claude)
+           ▼
+┌──────────────────────────────────────────────────────────┐
+│  6-8. Ship & Improve (also treats model as a black box)   │
+│                                                           │
+│  6. Evaluation       — measure quality (benchmarks, human) │
+│  7. Quantization     — compress for deployment (INT8/INT4) │
+│  8. New Trends       — merging, multimodal, reasoning      │
+└──────────────────────────────────────────────────────────┘
 ```
 
-For a 70B model with 128K context at FP16: ~40 GB of KV cache alone.
+Steps 1 → 2 are tightly coupled — pre-training directly adjusts the weights inside the architecture we covered (embeddings, attention, FFN). But steps 3-8 largely treat the model as a black box: feed it data, train, evaluate, compress. You don't need to understand self-attention to do SFT or run benchmarks.
 
-## Quantization
-
-Reduce weight precision to shrink memory footprint:
-
-```
-FP32 (32 bits) → FP16 (16 bits) → INT8 (8 bits) → INT4 (4 bits)
-  Full precision    Standard          2× smaller       4× smaller
-```
-
-- **INT8 (e.g., LLM.int8())**: Minimal quality loss, widely used in production
-- **INT4 (GPTQ, AWQ)**: Some quality degradation, useful for running large models on consumer GPUs
-- A 70B parameter model: FP16 = ~140 GB, INT8 = ~70 GB, INT4 = ~35 GB
-
-## Speculative Decoding
-
-Pair a small "draft" model (10-50× smaller) with the target LLM:
-
-```
-Draft model (fast): proposes tokens  [t₁, t₂, t₃, t₄, t₅]
-                                         ↓
-Target model (slow): verifies all 5 in ONE forward pass
-                                         ↓
-Result: accepts [t₁, t₂, t₃] ✓, rejects t₄ ✗
-         → generated 3 tokens in ~1 forward pass instead of 3
-```
-
-Mathematically lossless — accepted tokens are identical to what the target model would have produced. Achieves 2-3× speedup when acceptance rate ≥ 0.6.
-
-## PagedAttention (vLLM)
-
-Manages KV cache like an OS manages virtual memory:
-
-```
-Traditional: contiguous pre-allocated KV cache → fragmentation, waste
-PagedAttention: fixed-size blocks, non-contiguous → no fragmentation
-
-┌────┐ ┌────┐ ┌────┐ ┌────┐
-│Req1│ │Req2│ │Req1│ │Req3│  ← blocks from different requests
-│Blk0│ │Blk0│ │Blk1│ │Blk0│    can be interleaved in GPU memory
-└────┘ └────┘ └────┘ └────┘
-```
-
-This eliminates memory waste (traditional approaches waste 60-80% of KV cache memory) and enables serving many more concurrent requests.
-
----
-
-# Practical Usage
-
-## API Usage Pattern
-
-Most LLM providers expose a similar chat completion API:
-
-```shell
-curl https://api.anthropic.com/v1/messages \
-  -H "x-api-key: $API_KEY" \
-  -H "content-type: application/json" \
-  -d '{
-    "model": "claude-sonnet-4-6-20250514",
-    "max_tokens": 1024,
-    "messages": [
-      {"role": "user", "content": "Explain KV cache in one sentence."}
-    ]
-  }'
-```
-
-Streaming responses use Server-Sent Events (SSE) for real-time token delivery.
-
-## Prompt Engineering Basics
-
-| Technique | When to Use | Example |
-|-----------|------------|---------|
-| **System prompt** | Set behavior/persona/constraints | "You are a Go expert. Be concise." |
-| **Few-shot** | Demonstrate desired format | Provide 2-3 input→output examples |
-| **Chain-of-thought** | Math, logic, multi-step tasks | "Think step by step" |
-| **Structured output** | Need parseable response | "Respond in JSON with fields: ..." |
-
-## RAG (Retrieval-Augmented Generation)
-
-Augment the LLM with external knowledge to reduce hallucination and stay up-to-date:
-
-```
-┌──────────┐    ┌──────────────┐    ┌──────────────┐
-│ Documents │───▶│ Chunk + Embed│───▶│  Vector DB   │
-└──────────┘    └──────────────┘    └──────────────┘
-                                           │
-                    User Query             │ semantic search
-                        │                  │
-                        ▼                  ▼
-                 ┌─────────────────────────────┐
-                 │  Combine query + retrieved   │
-                 │  chunks into prompt          │
-                 └──────────────┬──────────────┘
-                                │
-                                ▼
-                         ┌────────────┐
-                         │    LLM     │ → grounded response
-                         └────────────┘
-```
-
-**Key stages**:
-1. **Ingestion**: chunk documents, generate embeddings, store in vector DB (e.g., Pinecone, Weaviate, pgvector)
-2. **Retrieval**: embed user query, find top-k similar chunks via cosine similarity
-3. **Augmentation**: inject retrieved chunks into the prompt as context
-4. **Generation**: LLM generates a response grounded in the retrieved information
-
-## Function Calling / Tool Use
-
-LLMs can be trained to emit structured tool-call requests:
-
-```
-User: "What's the weather in Tokyo?"
-         ↓
-LLM output: {"tool": "get_weather", "args": {"city": "Tokyo"}}
-         ↓
-App executes tool → {"temp": 22, "condition": "sunny"}
-         ↓
-LLM: "It's 22°C and sunny in Tokyo."
-```
-
-This enables **AI agents** that can plan, act, and iterate — calling APIs, running code, querying databases.
-
----
-
-# Limitations
-
-**Hallucination**: LLMs generate plausible but factually incorrect information — fabricated citations, wrong dates, invented entities. This is arguably fundamental: the per-token compute budget is insufficient for guaranteed factual recall. Scaling alone will not eliminate it.
-
-**Lost in the Middle**: Even with 1M+ token context windows, models struggle to retrieve information buried in the middle of long contexts. Information at the beginning and end gets disproportionate attention.
-
-**Reasoning Failures**:
-- **Reversal curse**: Can answer "A is B" but fails "B is A"
-- Multi-step logical reasoning degrades as steps increase
-- Arithmetic errors on large numbers (partly a tokenization artifact)
-- Spatial reasoning remains weak
-
-**Cost**: Frontier model training costs $50M-$100M+. API inference costs $2-15 per million tokens for flagship models. Fine-tuning and alignment add significant overhead.
+That said, the fundamentals help you understand **why** things work: why certain prompts are more effective (attention patterns), why models hallucinate (FFN knowledge retrieval limits), why quantization can degrade quality (weight precision matters for subtle knowledge stored in FFN).
 
 ---
 
 # References
 
-- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) — Vaswani et al., 2017 (original Transformer paper)
-- [Training Compute-Optimal LLMs (Chinchilla)](https://arxiv.org/abs/2203.15556) — Hoffmann et al., 2022
+- [Attention Is All You Need](https://arxiv.org/abs/1706.03762) — Vaswani et al., 2017 (the original Transformer paper)
 - [The Illustrated Transformer](https://jalammar.github.io/illustrated-transformer/) — Jay Alammar
+- [Visual intro to Transformers](https://www.youtube.com/watch?v=wjZofJX0v4M) — 3Blue1Brown
+- [LLM Visualization](https://bbycroft.net/llm) — Brendan Bycroft (interactive 3D)
+- [nanoGPT](https://www.youtube.com/watch?v=kCc8FmEb1nY) — Andrej Karpathy (build GPT from scratch)
+- [Let's build the GPT Tokenizer](https://www.youtube.com/watch?v=zduSFxRajkE) — Andrej Karpathy
+- [Decoding Strategies in LLMs](https://mlabonne.github.io/blog/posts/2023-06-07-Decoding_strategies.html) — Maxime Labonne
+- [Transformer Circuits Thread](https://transformer-circuits.pub/) — Anthropic
 - [Understanding Encoder and Decoder LLMs](https://magazine.sebastianraschka.com/p/understanding-encoder-and-decoder) — Sebastian Raschka
-- [State of LLMs 2025](https://magazine.sebastianraschka.com/p/state-of-llms-2025) — Sebastian Raschka
-- [New LLM Pre-training and Post-training Paradigms](https://sebastianraschka.com/blog/2024/new-llm-pre-training-and-post-training.html)
-- [vLLM: PagedAttention](https://github.com/vllm-project/vllm)
-- [Speculative Decoding Introduction](https://developer.nvidia.com/blog/an-introduction-to-speculative-decoding-for-reducing-latency-in-ai-inference/) — NVIDIA
-- [LLM Settings: Temperature, Top-p](https://www.promptingguide.ai/introduction/settings) — Prompt Engineering Guide
-- [RAG Guide](https://www.promptingguide.ai/techniques/rag) — Prompt Engineering Guide
