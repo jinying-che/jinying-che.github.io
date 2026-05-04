@@ -3,7 +3,6 @@ title: "LLM Abbreviations Glossary"
 date: "2026-01-22T11:00:00+08:00"
 tags: ["large language model"]
 description: "common abbreviations used in the large language model domain"
-draft: true
 ---
 
 A quick reference for common abbreviations in the LLM (Large Language Model) domain.

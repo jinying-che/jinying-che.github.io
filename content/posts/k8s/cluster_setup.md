@@ -68,11 +68,14 @@ sed -i '/swap/d' /etc/fstab
 `overlay` is needed for overlayfs (container image layers). `br_netfilter` allows iptables to see bridged traffic — required for kube-proxy to intercept Pod-to-Pod packets crossing the bridge.
 
 ```bash
+# write modules to /etc/modules-load.d/ — systemd-modules-load.service
+# reads this dir at boot, so the modules will auto-load on every reboot
 cat <<EOF | tee /etc/modules-load.d/k8s.conf
 overlay
 br_netfilter
 EOF
 
+# load them right now (without reboot) so kubeadm init can proceed
 modprobe overlay
 modprobe br_netfilter
 ```
