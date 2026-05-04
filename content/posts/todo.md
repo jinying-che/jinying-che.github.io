@@ -7,7 +7,7 @@ draft: true
 ---
 
 ## Network
-- websockets
+- ~websockets~
 - tcp (state machine) --> high
 
 ## Fundamental

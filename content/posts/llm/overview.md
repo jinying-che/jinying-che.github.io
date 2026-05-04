@@ -3,7 +3,6 @@ title: "LLM Fundamentals"
 date: "2026-04-04T00:08:50+0800"
 tags: ["llm", "AI"]
 description: "Understanding LLM fundamentals — tokenization, embedding, attention, and text generation with concrete examples"
-draft: true
 ---
 
 > This post uses many abbreviations (BPE, FFN, RoPE, etc.). See the [LLM Abbreviations Glossary]({{< ref "/posts/llm/abbreviations" >}}) for a quick reference.

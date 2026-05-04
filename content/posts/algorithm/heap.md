@@ -3,7 +3,6 @@ title: "Heap"
 date: "2026-04-14T10:27:23+0800"
 tags: ["algorithm"]
 description: "binary heap: structure, operations, and applications"
-draft: true
 ---
 
 ## What Is a Heap?

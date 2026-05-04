@@ -15,13 +15,7 @@ description: "Linux Memroy Overview"
 ![virtual memory](/images/virtual_memory.png)
 
 ## Buffer vs Cache
-
-- Buffer: the memory used for the disk (both read and write)
-- Cache: the memory used for the file (both read and write)
-
-```
-Common Mistake: Buffer is for write only, whereas Cache is for read only --> WRONG!
-```
+> See [Buffer vs Cache](/posts/buffer_vs_cache/) — buffer caches filesystem metadata; "cache" in `free` is page cache (file content) + reclaimable slab (dentry/inode caches). Both serve reads and writes — the split is by data type, not direction.
 
 ## Reclaim Memory
 Operation system will try to reclaim the memory when the resource is lack:

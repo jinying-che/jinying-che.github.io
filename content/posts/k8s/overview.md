@@ -125,6 +125,8 @@ A **Service** gives a stable IP/DNS to a set of Pods (selected by labels). Pods 
 Internet → LoadBalancer → Ingress Controller → Ingress rules → Service → Pods
 ```
 
+**Gateway API** (GA since k8s 1.31, `gateway.networking.k8s.io/v1`) is the successor to Ingress — more expressive, supports TCP/UDP/gRPC, role-based split between infra and app teams. Ingress is still supported but new deployments should prefer Gateway API.
+
 ## Config & Storage
 
 | Resource | Purpose |
@@ -237,6 +239,7 @@ Pod processes      → pid namespace    → process tree (PID 1 inside container
 Pod filesystem     → mnt namespace    → mount points, /proc, /sys
 Pod hostname       → uts namespace    → hostname, domainname
 Pod IPC            → ipc namespace    → shared memory, semaphores, message queues
+Pod user/group IDs → user namespace   → UID/GID mapping; beta since k8s 1.30, requires Linux 6.3+
 ```
 
 Two containers in the **same Pod** share the `net` and `ipc` namespaces — that's why they can talk via `localhost` and share memory. Each container gets its own `mnt` namespace.
@@ -265,26 +268,28 @@ ls -la /proc/<pid>/ns/
 
 **cgroups (control groups)** limit and account for resource usage. When you set `resources` in a Pod spec, kubelet translates them to cgroup config:
 
+cgroups v2 is the default since k8s 1.25 (GA). File names differ from v1:
+
 ```
-k8s spec                            cgroup controller
-────────────────────────────────────────────────────────────────
-resources.requests.cpu: "500m"   → cpu.shares (proportional weight, soft limit)
-resources.limits.cpu: "1"        → cpu.cfs_quota_us / cpu.cfs_period_us (hard cap)
-resources.requests.memory: "256Mi" → (used for scheduling math only)
-resources.limits.memory: "512Mi" → memory.limit_in_bytes (OOM-killer threshold)
+k8s spec                              cgroupv2 file          cgroupv1 file (legacy)
+──────────────────────────────────────────────────────────────────────────────────
+resources.requests.cpu: "500m"   →  cpu.weight            (was: cpu.shares)
+resources.limits.cpu: "1"        →  cpu.max               (was: cpu.cfs_quota_us/period)
+resources.requests.memory: "256Mi" → (scheduling only, no cgroup file)
+resources.limits.memory: "512Mi" →  memory.max            (was: memory.limit_in_bytes)
 ```
 
-cgroup hierarchy on the node:
+cgroup hierarchy on the node (cgroupv2 + systemd):
 ```
 /sys/fs/cgroup/
-└── kubepods/
-    ├── besteffort/          ← Pods with no requests/limits (QoS: BestEffort)
-    ├── burstable/           ← Pods with requests < limits  (QoS: Burstable)
-    │   └── pod<uid>/
-    │       └── <container>/
-    │           ├── cpu.cfs_quota_us
-    │           └── memory.limit_in_bytes
-    └── guaranteed/          ← Pods where requests == limits (QoS: Guaranteed)
+└── kubepods.slice/
+    ├── kubepods-besteffort.slice/   ← Pods with no requests/limits (QoS: BestEffort)
+    ├── kubepods-burstable.slice/    ← Pods with requests < limits  (QoS: Burstable)
+    │   └── kubepods-burstable-pod<uid>.slice/
+    │       └── cri-containerd-<container>.scope/
+    │           ├── cpu.max
+    │           └── memory.max
+    └── kubepods-guaranteed.slice/   ← Pods where requests == limits (QoS: Guaranteed)
 ```
 
 QoS class matters: when node is under memory pressure, `BestEffort` pods are OOM-killed first, then `Burstable`, never `Guaranteed`.
@@ -382,18 +387,25 @@ Client Pod sends packet: src=10.244.3.2, dst=10.96.0.10:80
            (conntrack reverses the DNAT automatically)
 ```
 
-IPVS mode (alternative to iptables): same concept but uses kernel's virtual server table — O(1) lookup vs O(n) iptables chains, better for clusters with thousands of Services.
+kube-proxy has three backend modes:
+
+| Mode | Mechanism | Lookup | Status |
+|---|---|---|---|
+| iptables | netfilter rules, random selection | O(n) | default, stable |
+| ipvs | kernel virtual server table | O(1) | stable, better for large clusters |
+| nftables | successor to iptables, atomic rule updates | O(n→better) | beta since k8s 1.31 |
 
 ### Summary: k8s abstraction → Linux primitive
 
 ```
-k8s concept              Linux primitive        kernel subsystem
-────────────────────────────────────────────────────────────────
-Pod isolation          → namespaces           → kernel/nsproxy.c
-resource limits        → cgroups v2           → kernel/cgroup/
-Pod networking         → veth + bridge        → drivers/net/veth.c
-image filesystem       → overlayfs            → fs/overlayfs/
-Service load balancing → iptables / IPVS      → netfilter / net/netfilter/
+k8s concept              Linux primitive          kernel subsystem
+──────────────────────────────────────────────────────────────────
+Pod isolation          → namespaces             → kernel/nsproxy.c
+UID/GID isolation      → user namespace (β1.30) → kernel/user_namespace.c
+resource limits        → cgroups v2 (GA k8s1.25)→ kernel/cgroup/
+Pod networking         → veth + bridge          → drivers/net/veth.c
+image filesystem       → overlayfs              → fs/overlayfs/
+Service load balancing → iptables / IPVS / nftables → netfilter
 container security     → seccomp + capabilities → kernel/seccomp.c
 ```
 
@@ -522,3 +534,46 @@ Stage 6 — Ecosystem
   → GitOps (ArgoCD / Flux)
   → Service Mesh (Istio / Linkerd)
 ```
+
+---
+
+# References
+
+## Official Kubernetes Docs
+
+| Topic | Link |
+|---|---|
+| Cluster Architecture | https://kubernetes.io/docs/concepts/architecture/ |
+| Components overview | https://kubernetes.io/docs/concepts/overview/components/ |
+| Workloads (Pod, Deployment, StatefulSet…) | https://kubernetes.io/docs/concepts/workloads/ |
+| Services & Networking | https://kubernetes.io/docs/concepts/services-networking/ |
+| Gateway API | https://kubernetes.io/docs/concepts/services-networking/gateway/ |
+| Storage (PV/PVC/StorageClass) | https://kubernetes.io/docs/concepts/storage/ |
+| RBAC | https://kubernetes.io/docs/reference/access-authn-authz/rbac/ |
+| Pod QoS classes | https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/ |
+| Resource requests & limits | https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/ |
+| Pod lifecycle | https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/ |
+| Scheduling (affinity, taints) | https://kubernetes.io/docs/concepts/scheduling-eviction/ |
+| User Namespaces (beta k8s 1.30) | https://kubernetes.io/docs/concepts/workloads/pods/user-namespaces/ |
+| cgroups v2 (GA k8s 1.25) | https://kubernetes.io/docs/concepts/architecture/cgroups/ |
+| CNI (cluster networking) | https://kubernetes.io/docs/concepts/cluster-administration/networking/ |
+| kube-proxy & nftables | https://kubernetes.io/docs/reference/networking/virtual-ips/ |
+
+## Linux Fundamentals
+
+| Topic | Link |
+|---|---|
+| Linux namespaces (man 7 namespaces) | https://man7.org/linux/man-pages/man7/namespaces.7.html |
+| cgroups v2 kernel docs | https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html |
+| veth devices (man 4 veth) | https://man7.org/linux/man-pages/man4/veth.4.html |
+| overlayfs kernel docs | https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html |
+| netfilter / iptables | https://www.netfilter.org/documentation/ |
+
+## Recommended Reading
+
+| Resource | Why |
+|---|---|
+| *Kubernetes in Action* (Marko Luksa) | Best book for deep understanding of k8s internals |
+| *Container Security* (Liz Rice) | Linux primitives (namespaces, cgroups, seccomp) under containers |
+| Gateway API docs | https://gateway-api.sigs.k8s.io/ — successor to Ingress, GA since 2023 |
+| Kubernetes blog | https://kubernetes.io/blog/ — release notes and deep-dive posts per version |
