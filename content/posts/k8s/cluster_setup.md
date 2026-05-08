@@ -341,34 +341,99 @@ kubectl get pvc test-pvc
 kubectl delete pvc test-pvc
 ```
 
-# 7. Exposing Apps to the Internet (ingress / Gateway API)
+# 7. Exposing Apps to the Internet (Gateway API with Traefik)
 
-> **When you need this:** only if you want external HTTP/HTTPS traffic routed to your apps by hostname or path (e.g. `myapp.example.com` → Service `myapp:80`). Skip if you only need cluster-internal services or test access via `kubectl port-forward`.
+> **When you need this:** only if you want external HTTP/HTTPS traffic routed to your apps by hostname (e.g. `myapp.example.com` → Service `myapp:80`). 
 
-## ⚠️ ingress-nginx is retired (March 2026)
+In 2026, the **Gateway API** is the modern successor to Ingress. It offers a more expressive, role-oriented way to manage traffic. We will use **Traefik v3** as our Gateway controller.
 
-Earlier versions of this post recommended `kubernetes/ingress-nginx`, but **the project was archived on March 24, 2026** — no further releases, bug fixes, or security updates. See the official notice: [Ingress NGINX Retirement: What You Need to Know](https://kubernetes.io/blog/2025/11/11/ingress-nginx-retirement/).
+### 1. Install Gateway API CRDs
+Unlike the legacy Ingress, the Gateway API requires specific Custom Resource Definitions (CRDs) to be installed in the cluster first.
 
-The k8s SIG Network recommends migrating to **Gateway API** (the modern Ingress successor, GA since October 2023). Gateway API is the spec — you still need a controller that implements it.
+```bash
+# Install the Standard Channel CRDs (Gateway, HTTPRoute, etc.)
+kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.1.0/standard-install.yaml
+```
 
-## Recommended replacements
+### 2. Install Traefik as a Gateway Provider
+We will deploy Traefik and configure it to listen for Gateway API resources.
 
-| Approach | When to use |
-|---|---|
-| **[Gateway API](https://gateway-api.sigs.k8s.io/) + [Traefik](https://doc.traefik.io/traefik/)** | Future-proof. Traefik is fully conformant with Gateway API v1.5, supports both Gateway API and classic Ingress, lightweight, also bundled in k3s |
-| **[Gateway API](https://gateway-api.sigs.k8s.io/) + [NGINX Gateway Fabric](https://github.com/nginx/nginx-gateway-fabric)** | F5/NGINX-maintained — closest spirit successor to ingress-nginx |
-| **[Cilium](https://docs.cilium.io/) (CNI + Gateway API)** | Combine networking + ingress in one — would replace Flannel from Part 1 |
-| **[Istio](https://istio.io/)** | Full service mesh — only if you need mTLS, traffic shaping, observability |
-| **Classic [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) + Traefik** | Pragmatic stop-gap — same Ingress YAML you may already have, can migrate to Gateway API later |
+```bash
+# Create namespace
+kubectl create namespace traefik
 
-For the actively-maintained list of conformant Gateway API controllers, see [gateway-api.sigs.k8s.io/implementations/](https://gateway-api.sigs.k8s.io/implementations/).
+# Install Traefik CRDs and RBAC
+kubectl apply -f https://raw.githubusercontent.com/traefik/traefik/v3.1/docs/content/reference/dynamic-configuration/kubernetes-crd-definition-v1.yml
+kubectl apply -f https://raw.githubusercontent.com/traefik/traefik/v3.1/docs/content/reference/dynamic-configuration/kubernetes-crd-rbac.yml
 
-Detailed installation and YAML for each option is out of scope for this cluster-setup post — see the controller's own docs:
+# Deploy Traefik with Gateway API support
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik-ingress-controller
+  namespace: traefik
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: traefik
+  namespace: traefik
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: traefik
+  template:
+    metadata:
+      labels:
+        app: traefik
+    spec:
+      serviceAccountName: traefik-ingress-controller
+      hostNetwork: true
+      containers:
+        - name: traefik
+          image: traefik:v3.1
+          args:
+            - --providers.kubernetesgateway  # Enable Gateway API
+            - --entrypoints.web.address=:80
+            - --entrypoints.websecure.address=:443
+          ports:
+            - name: web
+              containerPort: 80
+            - name: websecure
+              containerPort: 443
+---
+# Define the Gateway configuration
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: traefik
+spec:
+  controllerName: traefik.io/gateway-controller
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: my-gateway
+  namespace: traefik
+spec:
+  gatewayClassName: traefik
+  listeners:
+  - name: web
+    port: 80
+    protocol: HTTP
+    allowedRoutes:
+      namespaces:
+        from: All
+EOF
+```
 
-- **Traefik**: [Setup Traefik on Kubernetes](https://doc.traefik.io/traefik/setup/kubernetes/)
-- **NGINX Gateway Fabric**: [Quick Start](https://docs.nginx.com/nginx-gateway-fabric/installation/)
-- **Cilium**: [Cilium Gateway API](https://docs.cilium.io/en/stable/network/servicemesh/gateway-api/gateway-api/)
-- **Gateway API**: [Getting Started Guide](https://gateway-api.sigs.k8s.io/guides/)
+Verify the Gateway is "Programmed":
+```bash
+kubectl get gateway -n traefik
+# STATUS should eventually show 'Programmed: True'
+```
 
 # 8. TLS: cert-manager
 
@@ -417,9 +482,9 @@ kubectl top nodes
 kubectl top pods -A
 ```
 
-# Verify the Cluster: Test App
+# Verify the Cluster: Test App (with Gateway API)
 
-Verify scheduling, networking, and DNS work end-to-end. No ingress required — we use `kubectl port-forward` to reach the Service.
+Verify scheduling, networking, and DNS work end-to-end. We will expose this app via the Pi's IP using `sslip.io` and the modern **HTTPRoute** resource.
 
 ```yaml
 # test-app.yaml
@@ -453,16 +518,34 @@ spec:
   ports:
   - port: 80
     targetPort: 80
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: whoami-route
+spec:
+  parentRefs:
+  - name: my-gateway
+    namespace: traefik
+  hostnames:
+  - "whoami.<YOUR_PI_IP>.sslip.io"
+  rules:
+  - matches:
+    - path:
+        type: PathPrefix
+        value: /
+    backendRefs:
+    - name: whoami
+      port: 80
 ```
 
 ```bash
+# Update <YOUR_PI_IP> in test-app.yaml, then apply:
 kubectl apply -f test-app.yaml
-kubectl get pods,svc
 
-# wait for both pods to be Running, then test reachability
-kubectl port-forward svc/whoami 8080:80 &
-curl http://localhost:8080
-# should respond with hostname, IP, headers from the whoami container
+# Test reachability (no port-forward needed!)
+curl http://whoami.<YOUR_PI_IP>.sslip.io
+# should respond with hostname, IP, and pod details
 ```
 
 # Cluster State Summary
