@@ -65,7 +65,7 @@ Consistent hashing alone only solves **key routing**. Production distributed sys
 
 ## Implementation
 
-See [consistent_hashing.py](https://github.com/jinying-che/jinying-che.github.io/blob/main/consistent_hashing.py) for a complete Python implementation with virtual nodes and binary search lookup.
+See [consistent_hashing.py](https://github.com/jinying-che/jinying-che.github.io/blob/main/content/posts/algorithm/consistent_hashing.py) for a complete Python implementation with virtual nodes and binary search lookup.
 
 ## Real-World Usage
 
