@@ -1,5 +1,4 @@
 title = "Jinying Tech Blog"
-baseurl = "https://chejinying.com/tech/"
 enableRobotsTXT = true
 canonifyURLs = true
 languageCode = "en-us"
