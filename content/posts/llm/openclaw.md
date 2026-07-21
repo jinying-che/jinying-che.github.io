@@ -1,12 +1,12 @@
 ---
 title: "OpenClaw Overview"
 date: "2026-06-14T18:43:25+0800"
-tags: ["llm", "ai-agent", "openclaw"]
+tags: ["openclaw"]
 description: "OpenClaw architecture, agent loop, skills, security model, and local setup"
 draft: true
 ---
 
-OpenClaw is an open-source personal AI assistant that runs on user-controlled infrastructure. It connects messaging channels, local apps, model providers, tools, memory, and automation into one long-lived assistant process.
+OpenClaw is an open-source personal AI assistant that runs on user-controlled infrastructure. A long-lived Gateway connects messaging channels, companion apps, model providers, tools, memory, and automation.
 
 The important distinction is that OpenClaw is not only a chat UI. It is closer to a local agent platform:
 
@@ -17,14 +17,14 @@ The important distinction is that OpenClaw is not only a chat UI. It is closer t
 
 ## Background and Motivation
 
-Most AI assistants fall into one of three shapes:
+Most AI assistants fall into one of four shapes:
 
-| Shape | Strength | Weakness |
-|---|---|---|
-| Hosted chatbot | Easy to start | Limited local access, limited workflow ownership |
-| Coding agent | Strong at repository work | Usually scoped to code and terminal tasks |
-| Workflow automation | Predictable integrations | Rigid flows, weak natural-language planning |
-| Local personal agent | Can combine chat, tools, files, devices, and automation | Requires careful security and operations |
+| Shape                | Strength                                                | Weakness                                         |
+| -------------------- | ------------------------------------------------------- | ------------------------------------------------ |
+| Hosted chatbot       | Easy to start                                           | Limited local access, limited workflow ownership |
+| Coding agent         | Strong at repository work                               | Usually scoped to code and terminal tasks        |
+| Workflow automation  | Predictable integrations                                | Rigid flows, weak natural-language planning      |
+| Local personal agent | Can combine chat, tools, files, devices, and automation | Requires careful security and operations         |
 
 OpenClaw targets the last shape. The goal is a personal assistant that can answer through the communication channels users already use, while also taking real actions through local tools and configured services.
 
@@ -42,9 +42,9 @@ OpenClaw's answer is a single Gateway process that acts as the control plane for
 
 ## What It Is
 
-OpenClaw is a self-hosted personal AI assistant. It can be installed from npm or official install scripts, run as a local daemon, and controlled through CLI, dashboard, messaging channels, or companion apps.
+OpenClaw is a self-hosted personal AI assistant. It can be installed from npm or official install scripts, run as a local daemon, and controlled through the CLI, Control UI, messaging channels, or companion apps such as Windows Hub and the macOS app.
 
-Supported channels listed by the project include WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, iMessage, IRC, Microsoft Teams, Matrix, Feishu, LINE, Mattermost, Nextcloud Talk, Nostr, Synology Chat, Twitch, Zalo, WeChat, QQ, and WebChat.
+Supported channels listed by the project include WhatsApp, Telegram, Slack, Discord, Google Chat, Signal, iMessage, IRC, Microsoft Teams, Matrix, Feishu, LINE, Mattermost, Nextcloud Talk, Nostr, Synology Chat, Tlon, Twitch, Zalo, Zalo Personal, WeChat, QQ, and WebChat.
 
 At runtime, a user message becomes an agent run. The run can read context, call an LLM, invoke tools, update session state, and stream the reply back to the originating channel.
 
@@ -52,56 +52,26 @@ At runtime, a user message becomes an agent run. The run can read context, call 
 
 High-level architecture:
 
-```text
-                         model providers
-                   +------------------------+
-                   | OpenAI / Anthropic /   |
-                   | Google / local models  |
-                   +-----------^------------+
-                               |
-                               | model calls
-                               |
-+--------------+   WS/RPC   +--+----------------+   reads   +----------------+
-| CLI / Web UI |----------->| OpenClaw Gateway  |<--------->| agent workspace|
-| macOS app    |<-----------|                   |           | AGENTS.md      |
-| automations  |            | - channel adapters|           | SOUL.md        |
-+--------------+            | - WS API          |           | TOOLS.md       |
-                            | - sessions/events |           | skills/        |
-+--------------+            | - auth/pairing    |           +----------------+
-| messaging    |----------->| - agent runtime   |
-| channels     |<-----------| - tool policy     |
-| Telegram ... |            +---------+---------+
-+--------------+                      |
-                                      | node protocol
-+--------------+                      |
-| nodes        |<---------------------+
-| mobile/head- |
-| less devices |
-+--------------+                      |
-                                      | tool calls
-                                      v
-                            +--------------------+
-                            | local tools         |
-                            | read/write/edit     |
-                            | exec/browser/canvas |
-                            | sessions/cron/etc.  |
-                            +--------------------+
-```
+![OpenClaw high-level architecture](/images/openclaw-architecture.drawio.svg)
+
+The editable draw.io diagram groups interfaces, Gateway control-plane responsibilities, runtime intelligence, persistent state, local capabilities, and paired devices by color.
 
 Core components:
 
-| Component | Role |
-|---|---|
-| Gateway | Long-lived daemon that owns channels, WebSocket API, events, pairing, health, and agent dispatch |
-| Agent runtime | Runs the actual agent loop: context, model, tools, streaming, persistence |
-| Workspace | Files and directories that define the assistant's working context |
-| Sessions | JSONL transcripts and state for conversations |
-| Skills | `SKILL.md`-based capability packages loaded into the agent context |
-| Nodes | Paired devices or headless clients that expose capabilities to the Gateway |
-| Tools | Runtime capabilities such as file operations, shell execution, browser, canvas, cron, and messaging actions |
-| Model providers | External or local LLM backends selected by configuration |
+| Component       | Role                                                                                                        |
+| --------------- | ----------------------------------------------------------------------------------------------------------- |
+| Gateway         | Long-lived daemon that owns channels, WebSocket API, events, pairing, health, and agent dispatch            |
+| Agent runtime   | Runs the actual agent loop: context, model, tools, streaming, persistence                                   |
+| Workspace       | Per-agent working directory containing bootstrap context, memory, and local skills                          |
+| Sessions        | Active session rows and transcripts stored in a per-agent SQLite database                                   |
+| Skills          | `SKILL.md`-based capability packages loaded into the agent context                                          |
+| Nodes           | Paired devices or headless clients that expose capabilities to the Gateway                                  |
+| Tools           | Runtime capabilities such as file operations, shell execution, browser, canvas, cron, and messaging actions |
+| Model providers | External or local LLM backends selected by configuration                                                    |
 
 The Gateway exposes a WebSocket API. Clients connect, authenticate or pair, send requests, and receive events. A typical local Gateway listens on loopback port `18789`.
+
+One Gateway can route channels, accounts, or peers to multiple configured agents. Each agent has its own workspace, bootstrap files, and session store; the Gateway remains the shared control plane.
 
 ## Core Concepts
 
@@ -129,21 +99,27 @@ The runtime has a clear operational boundary: OpenClaw owns model discovery, too
 
 The workspace is the agent's working directory and the source of persistent user context. Important files include:
 
-| File | Purpose |
-|---|---|
-| `AGENTS.md` | Operating instructions and memory |
-| `SOUL.md` | Persona, boundaries, and tone |
-| `TOOLS.md` | User-maintained tool notes and conventions |
-| `BOOTSTRAP.md` | First-run setup ritual |
-| `IDENTITY.md` | Agent identity |
-| `USER.md` | User profile and preferences |
-| `skills/` | Workspace-local skill packages |
+| File                   | Purpose                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| `AGENTS.md`            | Operating instructions and memory                                               |
+| `SOUL.md`              | Persona, boundaries, and tone                                                   |
+| `TOOLS.md`             | User-maintained tool notes and conventions                                      |
+| `IDENTITY.md`          | Agent identity                                                                  |
+| `USER.md`              | User profile and preferences                                                    |
+| `HEARTBEAT.md`         | Instructions for heartbeat runs                                                 |
+| `BOOT.md`              | Optional startup checklist for Gateway restarts when internal hooks are enabled |
+| `BOOTSTRAP.md`         | One-time first-run ritual, deleted after completion                             |
+| `MEMORY.md`            | Optional curated long-term memory                                               |
+| `memory/YYYY-MM-DD.md` | Daily memory log                                                                |
+| `skills/`              | Workspace-local skill packages                                                  |
 
-On a new session, OpenClaw injects relevant workspace files into the system prompt's project context. Large files are trimmed or truncated to keep prompts under model limits.
+On the first turn of a new session, OpenClaw injects relevant bootstrap files into the system prompt's project context. `MEMORY.md` is loaded only when present and only for the main private session. Blank files are skipped, while large files are trimmed or truncated to stay within model limits.
 
 ### Sessions
 
 Sessions keep conversation state stable across messages. OpenClaw serializes runs per session key so two overlapping prompts do not corrupt the same transcript or race over the same tool state.
+
+Active session rows and transcripts are stored in `~/.openclaw/agents/<agentId>/agent/openclaw-agent.sqlite`. JSONL files under the agent's `sessions/` directory are retained only as legacy migration inputs, archives, imports, exports, or support artifacts.
 
 Conceptually:
 
@@ -168,13 +144,13 @@ persist final state
 
 ### Skills
 
-Skills are capability packages based on a `SKILL.md` file plus optional scripts, references, and assets. OpenClaw discovers skills from several locations, with workspace skills taking precedence over personal, managed, bundled, and extra skill folders.
+Skills are capability packages based on a `SKILL.md` file plus optional scripts, references, and assets. OpenClaw resolves collisions in this order: workspace, project-agent, personal-agent, managed, bundled, then extra directories and plugin skills.
 
 Typical install paths:
 
 ```shell
 # Install a public skill from ClawHub
-openclaw skills install <slug>
+openclaw skills install @owner/<slug>
 
 # Install from a Git repository
 openclaw skills install git:owner/repo@ref
@@ -183,7 +159,7 @@ openclaw skills install git:owner/repo@ref
 openclaw skills install ./path/to/skill --as my-tool
 
 # Verify a skill trust envelope
-openclaw skills verify <slug>
+openclaw skills verify @owner/<slug>
 ```
 
 Treat third-party skills as code, not as passive documentation. A skill can shape model behavior and may include scripts the agent can run.
@@ -232,7 +208,7 @@ persist transcript and emit final reply
 Key properties:
 
 - Runs are serialized per session to avoid races.
-- Transcript writes use locking so session files remain consistent.
+- Transcript mutations are protected by a process-aware, file-based write lock before SQLite rows are changed.
 - Tool and assistant streams are emitted as Gateway events.
 - Auto-compaction can summarize long context and retry a run.
 - Timeouts and aborts protect the Gateway from permanently stuck runs.
@@ -265,7 +241,7 @@ The same composition also increases blast radius. Tool policy should match the t
 
 ### Nodes and Companion Apps
 
-Nodes are paired clients that connect to the Gateway and declare device capabilities. Examples include macOS, iOS, Android, and headless nodes.
+Companion surfaces include Windows Hub and the macOS app. Nodes are paired clients that connect to the Gateway and declare device capabilities; examples include macOS, iOS, Android, and headless nodes.
 
 Node capabilities can include canvas commands, camera capture, screen recording, location lookup, voice wake, or mobile chat surfaces. Pairing is device-based, and non-local connects require explicit approval.
 
@@ -288,18 +264,18 @@ OpenClaw's official security guidance assumes a personal assistant deployment: o
 
 Practical implications:
 
-| Area | Risk | Safer default |
-|---|---|---|
-| Gateway exposure | Remote control API reachable by attackers | Bind to loopback; use VPN/Tailscale or SSH tunnel |
-| DM access | Unknown senders can trigger the assistant | Pairing policy or strict allowlists |
-| Tool authority | Model can invoke filesystem/process tools | Deny risky tool groups by default |
-| Shared inbox | Multiple users share one agent authority | Per-peer DM scope and limited tools |
-| Third-party skills | Prompt/code injection through extensions | Read and verify skills before enabling |
-| Remote nodes | Device capabilities exposed through Gateway | Require pairing and narrow node permissions |
+| Area               | Risk                                        | Safer default                                     |
+| ------------------ | ------------------------------------------- | ------------------------------------------------- |
+| Gateway exposure   | Remote control API reachable by attackers   | Bind to loopback; use VPN/Tailscale or SSH tunnel |
+| DM access          | Unknown senders can trigger the assistant   | Pairing policy or strict allowlists               |
+| Tool authority     | Model can invoke filesystem/process tools   | Deny risky tool groups by default                 |
+| Shared inbox       | Multiple users share one agent authority    | Per-peer DM scope and limited tools               |
+| Third-party skills | Prompt/code injection through extensions    | Read and verify skills before enabling            |
+| Remote nodes       | Device capabilities exposed through Gateway | Require pairing and narrow node permissions       |
 
-A hardened baseline keeps the Gateway local-only, uses token auth, isolates DMs, and disables broad runtime/filesystem/control-plane tools unless explicitly needed.
+A hardened baseline keeps the Gateway local-only, uses token auth, isolates DMs, and disables broad runtime, filesystem, session-delegation, and control-plane tools unless explicitly needed.
 
-Example shape:
+Example shape for WhatsApp (adapt the channel policy for other providers):
 
 ```json
 {
@@ -316,10 +292,24 @@ Example shape:
   },
   "tools": {
     "profile": "messaging",
-    "deny": ["group:automation", "group:runtime", "group:fs"],
+    "deny": [
+      "group:automation",
+      "group:runtime",
+      "group:fs",
+      "sessions_spawn",
+      "sessions_send"
+    ],
     "fs": { "workspaceOnly": true },
     "exec": { "security": "deny", "ask": "always" },
     "elevated": { "enabled": false }
+  },
+  "channels": {
+    "whatsapp": {
+      "dmPolicy": "pairing",
+      "groups": {
+        "*": { "requireMention": true }
+      }
+    }
   }
 }
 ```
@@ -328,7 +318,7 @@ Example shape:
 
 Requirements:
 
-- Node.js 24 recommended, Node.js 22.19+ supported
+- Node.js 24.15+ recommended; Node.js 22.22.3+ and 25.9+ are also supported
 - API key or auth profile for a model provider
 - A local machine, server, or VPS where the Gateway can run
 
@@ -369,6 +359,8 @@ cd openclaw
 
 pnpm install
 pnpm openclaw setup
+# Optional: build the Control UI before first startup
+pnpm ui:build
 pnpm gateway:watch
 ```
 
@@ -394,13 +386,13 @@ It is a poor fit when:
 
 Comparison:
 
-| Option | Best for | Main limitation |
-|---|---|---|
-| OpenClaw | Local personal assistant with real tools and messaging channels | Operator must own security and setup |
-| Hosted chatbot | Simple Q&A and general productivity | Limited local/device control |
-| Zapier-style automation | Repeatable SaaS workflows | Harder to handle open-ended tasks |
-| Coding agent | Repository and terminal work | Usually not a full personal assistant surface |
-| Homegrown bot | Narrow custom integration | Expensive to grow into a general agent platform |
+| Option                  | Best for                                                        | Main limitation                                 |
+| ----------------------- | --------------------------------------------------------------- | ----------------------------------------------- |
+| OpenClaw                | Local personal assistant with real tools and messaging channels | Operator must own security and setup            |
+| Hosted chatbot          | Simple Q&A and general productivity                             | Limited local/device control                    |
+| Zapier-style automation | Repeatable SaaS workflows                                       | Harder to handle open-ended tasks               |
+| Coding agent            | Repository and terminal work                                    | Usually not a full personal assistant surface   |
+| Homegrown bot           | Narrow custom integration                                       | Expensive to grow into a general agent platform |
 
 ## Operational Checklist
 
@@ -412,7 +404,8 @@ Before exposing OpenClaw beyond local loopback:
 - Use pairing or allowlists for inbound DMs.
 - Keep high-authority tools disabled for shared or unknown senders.
 - Verify third-party skills before installing.
-- Run `openclaw doctor` after configuration changes.
+- Run `openclaw security audit` after configuration changes and `openclaw security audit --deep` before remote exposure.
+- Run `openclaw doctor` after upgrades or migrations, and when diagnosing configuration problems.
 - Back up the agent workspace and state directory if the assistant becomes operationally important.
 
 ## References
@@ -422,6 +415,7 @@ Before exposing OpenClaw beyond local loopback:
 - [Getting started](https://docs.openclaw.ai/start/getting-started)
 - [Gateway architecture](https://docs.openclaw.ai/concepts/architecture)
 - [Agent runtime](https://docs.openclaw.ai/concepts/agent)
+- [Agent workspace](https://docs.openclaw.ai/concepts/agent-workspace)
 - [Agent loop](https://docs.openclaw.ai/concepts/agent-loop)
 - [Skills](https://docs.openclaw.ai/tools/skills)
 - [Security](https://docs.openclaw.ai/gateway/security)

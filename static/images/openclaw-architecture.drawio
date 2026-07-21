@@ -1,0 +1,149 @@
+<mxfile host="app.diagrams.net" modified="2026-07-19T00:00:00.000Z" agent="Codex" version="30.3.14" type="device">
+  <diagram id="openclaw-architecture" name="Architecture">
+    <mxGraphModel dx="1400" dy="830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="1400" pageHeight="830" math="0" shadow="0" background="#FFFFFF" adaptiveColors="auto">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="badge" value="ARCHITECTURE" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#0F172A;strokeColor=#0F172A;fontColor=#FFFFFF;fontFamily=Helvetica;fontSize=11;fontStyle=1;align=center;verticalAlign=middle;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="40" y="28" width="120" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="title" value="OpenClaw high-level architecture" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=24;fontStyle=1;fontColor=#0F172A;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="180" y="18" width="500" height="38" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="A user-controlled Gateway connects interfaces, models, state, tools, and devices." style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=13;fontColor=#475569;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="180" y="55" width="560" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-interface" value="Interfaces" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;fontColor=#1E3A8A;fontFamily=Helvetica;fontSize=11;fontStyle=1;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="770" y="30" width="88" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-control" value="Control" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#FEF3C7;strokeColor=#D97706;fontColor=#78350F;fontFamily=Helvetica;fontSize=11;fontStyle=1;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="868" y="30" width="76" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-runtime" value="Runtime" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#15803D;fontColor=#14532D;fontFamily=Helvetica;fontSize=11;fontStyle=1;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="954" y="30" width="78" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-state" value="State" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#7C3AED;fontColor=#4C1D95;fontFamily=Helvetica;fontSize=11;fontStyle=1;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1042" y="30" width="68" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-capability" value="Capabilities" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#FFE4E6;strokeColor=#BE123C;fontColor=#881337;fontFamily=Helvetica;fontSize=11;fontStyle=1;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1120" y="30" width="104" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="legend-device" value="Devices" style="rounded=1;arcSize=18;whiteSpace=wrap;html=1;fillColor=#CFFAFE;strokeColor=#0E7490;fontColor=#164E63;fontFamily=Helvetica;fontSize=11;fontStyle=1;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="1234" y="30" width="82" height="24" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-boundary" value="" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFBEB;strokeColor=#D97706;strokeWidth=2;container=1;collapsible=0;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="340" y="110" width="510" height="670" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-title" value="OpenClaw Gateway" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=21;fontStyle=1;fontColor=#78350F;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="370" y="132" width="260" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-subtitle" value="Long-lived control plane on the user-controlled host" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Helvetica;fontSize=12;fontColor=#92400E;spacing=0;" vertex="1" parent="1">
+          <mxGeometry x="370" y="162" width="390" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="messaging" value="&lt;b&gt;Messaging channels&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Telegram, Slack, Discord, WhatsApp, Feishu, WebChat&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#1E3A8A;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="185" width="230" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="clients" value="&lt;b&gt;Clients and surfaces&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;CLI, Control UI, macOS app, Windows Hub&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#1E3A8A;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="355" width="230" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="automation" value="&lt;b&gt;Automation&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Cron, hooks, scheduled runs, external triggers&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#2563EB;strokeWidth=2;fontColor=#1E3A8A;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=18;spacingRight=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="525" width="230" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="channel-adapters" value="&lt;b&gt;Channel adapters&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Normalize inbound messages&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#78350F;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;" vertex="1" parent="1">
+          <mxGeometry x="375" y="210" width="200" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="gateway-api" value="&lt;b&gt;WebSocket and RPC API&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Requests, events, health, control&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#78350F;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;" vertex="1" parent="1">
+          <mxGeometry x="615" y="210" width="200" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="session-router" value="&lt;b&gt;Session router&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Agent, account, peer, queue&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#78350F;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;" vertex="1" parent="1">
+          <mxGeometry x="375" y="335" width="200" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="auth-policy" value="&lt;b&gt;Auth and tool policy&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Pairing, trust, permissions&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#78350F;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;" vertex="1" parent="1">
+          <mxGeometry x="615" y="335" width="200" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="agent-runtime" value="&lt;b&gt;Agent runtime&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#166534&quot;&gt;Assemble context | call model | execute tools | stream | persist&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#15803D;strokeWidth=2;fontColor=#14532D;fontFamily=Helvetica;fontSize=16;align=left;verticalAlign=middle;spacingLeft=20;spacingRight=16;" vertex="1" parent="1">
+          <mxGeometry x="375" y="465" width="440" height="112" as="geometry" />
+        </mxCell>
+        <mxCell id="events" value="&lt;b&gt;Sessions and events&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Serialized runs and streams&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#78350F;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;" vertex="1" parent="1">
+          <mxGeometry x="375" y="630" width="200" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="delivery" value="&lt;b&gt;Reply delivery&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Channel and client output&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFFFFF;strokeColor=#D97706;strokeWidth=1.5;fontColor=#78350F;fontFamily=Helvetica;fontSize=14;align=left;verticalAlign=middle;spacingLeft=16;spacingRight=12;" vertex="1" parent="1">
+          <mxGeometry x="615" y="630" width="200" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="models" value="&lt;b&gt;Model providers&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;OpenAI, Anthropic, Google, local models&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#DCFCE7;strokeColor=#15803D;strokeWidth=2;fontColor=#14532D;fontFamily=Helvetica;fontSize=15;align=left;verticalAlign=middle;spacingLeft=20;spacingRight=16;" vertex="1" parent="1">
+          <mxGeometry x="995" y="135" width="400" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="state" value="&lt;b&gt;Workspace and state&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;AGENTS.md, SOUL.md, TOOLS.md, skills, memory&lt;br&gt;Per-agent SQLite session store&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#EDE9FE;strokeColor=#7C3AED;strokeWidth=2;fontColor=#4C1D95;fontFamily=Helvetica;fontSize=15;align=left;verticalAlign=middle;spacingLeft=20;spacingRight=16;" vertex="1" parent="1">
+          <mxGeometry x="995" y="300" width="400" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="tools" value="&lt;b&gt;Local tools and integrations&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Files, shell, browser, canvas, cron, messaging&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#FFE4E6;strokeColor=#BE123C;strokeWidth=2;fontColor=#881337;fontFamily=Helvetica;fontSize=15;align=left;verticalAlign=middle;spacingLeft=20;spacingRight=16;" vertex="1" parent="1">
+          <mxGeometry x="995" y="485" width="400" height="118" as="geometry" />
+        </mxCell>
+        <mxCell id="nodes" value="&lt;b&gt;Paired nodes and devices&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#475569&quot;&gt;Mobile, headless, camera, screen, voice, location&lt;/font&gt;" style="rounded=1;arcSize=8;whiteSpace=wrap;html=1;fillColor=#CFFAFE;strokeColor=#0E7490;strokeWidth=2;fontColor=#164E63;fontFamily=Helvetica;fontSize=15;align=left;verticalAlign=middle;spacingLeft=20;spacingRight=16;" vertex="1" parent="1">
+          <mxGeometry x="995" y="650" width="400" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-messaging" value="message I/O" style="html=1;strokeColor=#2563EB;strokeWidth=2;startArrow=classicThin;startFill=1;endArrow=classicThin;endFill=1;fontFamily=Helvetica;fontSize=11;fontColor=#475569;labelBackgroundColor=none;exitX=1;exitY=0.5;entryX=0;entryY=0.19;" edge="1" parent="1" source="messaging" target="gateway-boundary">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-clients" value="RPC / events" style="html=1;strokeColor=#2563EB;strokeWidth=2;startArrow=classicThin;startFill=1;endArrow=classicThin;endFill=1;fontFamily=Helvetica;fontSize=11;fontColor=#475569;labelBackgroundColor=none;exitX=1;exitY=0.5;entryX=0;entryY=0.444;" edge="1" parent="1" source="clients" target="gateway-boundary">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-automation" value="triggers" style="html=1;strokeColor=#2563EB;strokeWidth=2;endArrow=classicThin;endFill=1;fontFamily=Helvetica;fontSize=11;fontColor=#475569;labelBackgroundColor=none;exitX=1;exitY=0.5;entryX=0;entryY=0.698;" edge="1" parent="1" source="automation" target="gateway-boundary">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-channel-router" value="" style="html=1;strokeColor=#B45309;strokeWidth=1.5;endArrow=classicThin;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="channel-adapters" target="session-router">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-api-policy" value="" style="html=1;strokeColor=#B45309;strokeWidth=1.5;endArrow=classicThin;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="gateway-api" target="auth-policy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-router-runtime" value="" style="html=1;strokeColor=#B45309;strokeWidth=1.5;endArrow=classicThin;endFill=1;exitX=0.5;exitY=1;entryX=0.227273;entryY=0;" edge="1" parent="1" source="session-router" target="agent-runtime">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-policy-runtime" value="" style="html=1;strokeColor=#B45309;strokeWidth=1.5;endArrow=classicThin;endFill=1;exitX=0.5;exitY=1;entryX=0.772727;entryY=0;" edge="1" parent="1" source="auth-policy" target="agent-runtime">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-runtime-events" value="" style="html=1;strokeColor=#15803D;strokeWidth=1.5;endArrow=classicThin;endFill=1;exitX=0.227273;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="agent-runtime" target="events">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-runtime-delivery" value="" style="html=1;strokeColor=#15803D;strokeWidth=1.5;endArrow=classicThin;endFill=1;exitX=0.772727;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="agent-runtime" target="delivery">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="edge-models" value="model calls" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#15803D;strokeWidth=2;startArrow=classicThin;startFill=1;endArrow=classicThin;endFill=1;fontFamily=Helvetica;fontSize=11;fontColor=#475569;labelBackgroundColor=none;" edge="1" parent="1" source="agent-runtime" target="models">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="44" y="0" as="offset" />
+            <Array as="points">
+              <mxPoint x="885" y="488" />
+              <mxPoint x="885" y="194" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-state" value="context / state" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#7C3AED;strokeWidth=2;startArrow=classicThin;startFill=1;endArrow=classicThin;endFill=1;fontFamily=Helvetica;fontSize=11;fontColor=#475569;labelBackgroundColor=none;" edge="1" parent="1" source="agent-runtime" target="state">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="48" y="0" as="offset" />
+            <Array as="points">
+              <mxPoint x="900" y="510" />
+              <mxPoint x="900" y="370" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-tools" value="tool calls" style="html=1;strokeColor=#BE123C;strokeWidth=2;endArrow=classicThin;endFill=1;fontFamily=Helvetica;fontSize=11;fontColor=#475569;labelBackgroundColor=none;exitX=1;exitY=0.705357;entryX=0;entryY=0.5;" edge="1" parent="1" source="agent-runtime" target="tools">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="edge-nodes" value="node protocol" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#0E7490;strokeWidth=2;startArrow=classicThin;startFill=1;endArrow=classicThin;endFill=1;fontFamily=Helvetica;fontSize=11;fontColor=#475569;labelBackgroundColor=none;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="delivery" target="nodes">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="0" y="-16" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
