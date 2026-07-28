@@ -1,0 +1,170 @@
+/* Site-specific styles loaded after the theme through extended_head.html. */
+table {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: normal;
+  border: none;
+}
+
+.post-layout {
+  min-width: 0;
+}
+
+.post-layout--with-toc {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 48px;
+  gap: 24px;
+  align-items: start;
+  transition: grid-template-columns 0.2s ease;
+}
+
+.post-layout--with-toc.post-layout--toc-open {
+  grid-template-columns: minmax(0, 1fr) 340px;
+}
+
+.post-layout__main {
+  min-width: 0;
+}
+
+.post-toc {
+  --toc-panel: color-mix(in srgb, var(--foreground) 5%, var(--background));
+  --toc-border: color-mix(in srgb, var(--foreground) 16%, var(--background));
+  --toc-title: color-mix(in srgb, var(--foreground) 76%, var(--background));
+  --toc-text: color-mix(in srgb, var(--foreground) 60%, var(--background));
+
+  position: sticky;
+  top: 24px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.post-toc__details {
+  border: 1px solid var(--toc-border);
+  border-radius: 4px;
+  background: var(--toc-panel);
+  box-shadow: 0 6px 18px color-mix(in srgb, var(--foreground) 8%, transparent);
+}
+
+.post-toc__details summary {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-height: 48px;
+  padding: 12px 14px;
+  color: var(--toc-title);
+  font-weight: bold;
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.post-toc__details summary::-webkit-details-marker {
+  display: none;
+}
+
+.post-toc__details summary::before {
+  content: "◀";
+  display: inline-block;
+  flex: 0 0 auto;
+}
+
+.post-toc__details[open] summary::before {
+  content: "▶";
+}
+
+.post-toc__details:not([open]) summary {
+  justify-content: center;
+  padding: 0;
+}
+
+.post-toc__toggle-label {
+  min-width: 0;
+  max-width: 280px;
+  overflow: hidden;
+  opacity: 1;
+  transition:
+    max-width 0.18s ease,
+    opacity 0.12s ease;
+}
+
+.post-toc__details:not([open]) .post-toc__toggle-label {
+  display: none;
+  max-width: 0;
+  opacity: 0;
+}
+
+.post-toc__content {
+  padding: 2px 16px 16px;
+  color: var(--toc-text);
+  font-size: 0.84rem;
+  font-weight: normal;
+  line-height: 1.45;
+}
+
+.post-toc__content nav > ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.post-toc__content ul {
+  margin-left: 0;
+  margin: 0;
+  padding-left: 18px;
+  list-style: none;
+}
+
+.post-toc__content li::marker {
+  content: "";
+}
+
+.post .post-toc__content ul li:not(:empty)::before {
+  content: none;
+  display: none;
+}
+
+.post-toc__content li {
+  margin: 8px 0;
+}
+
+.post-toc__content a {
+  color: inherit;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.post-toc__content a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 1099px) {
+  .post-layout--with-toc {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .post-layout--with-toc.post-layout--toc-open {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .post-toc {
+    position: static;
+    order: -1;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .post-toc__content {
+    max-height: 50vh;
+    overflow-y: auto;
+  }
+}
+
+@media print {
+  .post-toc {
+    display: none;
+  }
+}

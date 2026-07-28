@@ -1,4 +1,4 @@
 interface:
   display_name: "Overview"
-  short_description: "Generate Hugo tech overview posts"
-  default_prompt: "Generate an overview post about <topic>"
+  short_description: "Research and draft Hugo tech overview posts"
+  default_prompt: "Use $overview to research and draft a Hugo technology overview post."

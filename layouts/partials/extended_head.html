@@ -21,6 +21,9 @@ To add an extended head section, please create
 <meta name="twitter:title" content="{{ .Title }}"/>
 {{ with $desc }}<meta name="twitter:description" content="{{ . }}"/>{{ end }}
 
+{{/* Keep critical layout CSS inside the generated page with no asset lookup. */}}
+<style>{{ partial "site-overrides.css" . | safeCSS }}</style>
+
 <style>
   /* Prevent table first column from wrapping */
   table td:first-child {
