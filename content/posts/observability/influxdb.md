@@ -3,7 +3,6 @@ title: "InfluxDB"
 date: "2026-07-22T16:02:35+0800"
 tags: ["influxdb", "monitoring"]
 description: "A practical guide to InfluxDB's data model, storage architecture, deployment options, and trade-offs versus Prometheus."
-draft: true
 ---
 
 ## Overview
