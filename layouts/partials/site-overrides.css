@@ -1,11 +1,38 @@
 /* Site-specific styles loaded after the theme through extended_head.html. */
-table {
-  display: block;
+.table-scroll {
   width: 100%;
   max-width: 100%;
   overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.table-scroll table {
+  display: table;
+  width: 100%;
+  min-width: 50rem;
+  max-width: none;
+  margin: 0;
   white-space: normal;
-  border: none;
+}
+
+.table-scroll th,
+.table-scroll td {
+  min-width: 8rem;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+
+.table-scroll th:first-child,
+.table-scroll td:first-child {
+  min-width: 10rem;
+  white-space: nowrap;
 }
 
 .post-layout {

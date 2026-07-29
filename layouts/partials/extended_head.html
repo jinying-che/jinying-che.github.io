@@ -23,10 +23,3 @@ To add an extended head section, please create
 
 {{/* Keep critical layout CSS inside the generated page with no asset lookup. */}}
 <style>{{ partial "site-overrides.css" . | safeCSS }}</style>
-
-<style>
-  /* Prevent table first column from wrapping */
-  table td:first-child {
-    white-space: nowrap;
-  }
-</style>
