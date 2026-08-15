@@ -55,6 +55,13 @@
   min-width: 0;
 }
 
+.post-content img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+}
+
 .post-toc {
   --toc-panel: color-mix(in srgb, var(--foreground) 5%, var(--background));
   --toc-border: color-mix(in srgb, var(--foreground) 16%, var(--background));

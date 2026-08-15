@@ -1,0 +1,61 @@
+<mxfile>
+  <diagram id="seqlayout" name="ZMODEM transfer, recovery, and finish">
+    <mxGraphModel dx="1200" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="sender" value="Sender (sz)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="100" height="890" as="geometry"/>
+        </mxCell>
+        <mxCell id="receiver" value="Receiver (rz)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="740" y="40" width="100" height="890" as="geometry"/>
+        </mxCell>
+        <mxCell id="m0" value="ZRQINIT: request receiver initialization" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.1011;entryX=0.5;entryY=0.1011;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m1" value="ZRINIT: CRC32, full duplex, overlap I/O" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.1573;entryX=0.5;entryY=0.1573;" edge="1" parent="1" source="receiver" target="sender">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m2" value="Optional ZSINIT: attention string / escaping" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.2135;entryX=0.5;entryY=0.2135;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3" value="ZACK" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.2697;entryX=0.5;entryY=0.2697;" edge="1" parent="1" source="receiver" target="sender">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m4" value="ZFILE: name, size, mtime, mode" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.3258;entryX=0.5;entryY=0.3258;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m5" value="ZRPOS: start or resume offset N" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.382;entryX=0.5;entryY=0.382;" edge="1" parent="1" source="receiver" target="sender">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m6" value="ZDATA(offset N) + streaming data subpackets" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.4382;entryX=0.5;entryY=0.4382;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="note7" value="Receiver detects bad CRC or a missing range" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="810" y="460" width="260" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="m8" value="ZRPOS: retransmit from last verified offset M" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.5618;entryX=0.5;entryY=0.5618;" edge="1" parent="1" source="receiver" target="sender">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m9" value="ZDATA(offset M) + remaining subpackets" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.618;entryX=0.5;entryY=0.618;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m10" value="ZEOF: final byte offset" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.6742;entryX=0.5;entryY=0.6742;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m11" value="ZRINIT: file accepted; ready for another file" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.7303;entryX=0.5;entryY=0.7303;" edge="1" parent="1" source="receiver" target="sender">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m12" value="ZFIN" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.7865;entryX=0.5;entryY=0.7865;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m13" value="ZFIN" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.8427;entryX=0.5;entryY=0.8427;" edge="1" parent="1" source="receiver" target="sender">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m14" value="OO: session complete" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.8989;entryX=0.5;entryY=0.8989;" edge="1" parent="1" source="sender" target="receiver">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

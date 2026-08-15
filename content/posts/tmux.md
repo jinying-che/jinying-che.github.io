@@ -8,9 +8,12 @@ date: 2021-07-10T11:18:14+08:00
 ### Session
 - new session: `tmux new -s name`
 - show session: `tmux ls`
+- show session list inside tmux: `ctrl+b` then `s`
 - attach session with name: `tmux a -t name`
 - detach from session: `ctrl+b` then `d`
 - rename session: `ctrl+b` then `$`
+- kill a session from the session list: select it with the arrow keys, press `x`, then confirm with `y`
+- kill a session by name: `tmux kill-session -t name`
 
 ### Panes
 - split pane horizontally: `ctrl+b` then `%`

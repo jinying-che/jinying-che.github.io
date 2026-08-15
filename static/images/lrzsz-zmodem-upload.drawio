@@ -1,0 +1,70 @@
+<mxfile>
+  <diagram id="seqlayout" name="Upload with rz through a jump server">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="disk" value="Local file" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="100" height="840" as="geometry"/>
+        </mxCell>
+        <mxCell id="local" value="Local sz" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="240" y="40" width="100" height="840" as="geometry"/>
+        </mxCell>
+        <mxCell id="iterm" value="iTerm2 trigger" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="440" y="40" width="100" height="840" as="geometry"/>
+        </mxCell>
+        <mxCell id="stream" value="Nested SSH + PTYs" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="640" y="40" width="100" height="840" as="geometry"/>
+        </mxCell>
+        <mxCell id="remote" value="Remote rz" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="840" y="40" width="100" height="840" as="geometry"/>
+        </mxCell>
+        <mxCell id="rdisk" value="Remote file" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;size=40;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="40" width="100" height="840" as="geometry"/>
+        </mxCell>
+        <mxCell id="m0" value="rz waiting to receive + ZRINIT" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.1071;entryX=0.5;entryY=0.1071;" edge="1" parent="1" source="remote" target="stream">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m1" value="SSH channel data" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.1667;entryX=0.5;entryY=0.1667;" edge="1" parent="1" source="stream" target="iterm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="note2" value="Trigger opens the local file picker" style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="510" y="210" width="140" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3" value="Start silent coprocess: sz file" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.2976;entryX=0.5;entryY=0.2976;" edge="1" parent="1" source="iterm" target="local">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m4" value="Read selected file" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.3571;entryX=0.5;entryY=0.3571;" edge="1" parent="1" source="disk" target="local">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m5" value="ZFILE metadata" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.4167;entryX=0.5;entryY=0.4167;" edge="1" parent="1" source="local" target="remote">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m6" value="ZRPOS offset 0" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.4762;entryX=0.5;entryY=0.4762;" edge="1" parent="1" source="remote" target="local">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m7" value="ZDATA: escaped chunks + CRC" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.5357;entryX=0.5;entryY=0.5357;" edge="1" parent="1" source="local" target="remote">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m8" value="Write verified bytes" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.5952;entryX=0.5;entryY=0.5952;" edge="1" parent="1" source="remote" target="rdisk">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m9" value="ZEOF: final offset" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.6548;entryX=0.5;entryY=0.6548;" edge="1" parent="1" source="local" target="remote">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m10" value="ZRINIT: file accepted" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.7143;entryX=0.5;entryY=0.7143;" edge="1" parent="1" source="remote" target="local">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m11" value="ZFIN" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.7738;entryX=0.5;entryY=0.7738;" edge="1" parent="1" source="local" target="remote">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m12" value="ZFIN" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.8333;entryX=0.5;entryY=0.8333;" edge="1" parent="1" source="remote" target="local">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="m13" value="OO" style="html=1;verticalAlign=bottom;endArrow=block;curved=0;rounded=0;exitX=0.5;exitY=0.8929;entryX=0.5;entryY=0.8929;" edge="1" parent="1" source="local" target="remote">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

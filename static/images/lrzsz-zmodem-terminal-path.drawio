@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="drawio" version="30.3.14">
+  <diagram id="terminal-path" name="Terminal path through a jump server">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="850" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="2" value="Local Mac" style="swimlane;startSize=40;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="20" y="40" width="400" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="3" value="iTerm2" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontStyle=1;" vertex="1" parent="2">
+          <mxGeometry x="30" y="90" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="4" value="Local ssh client&#xa;connection A endpoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;" vertex="1" parent="2">
+          <mxGeometry x="210" y="95" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="5" value="Silent coprocess&#xa;local rz / sz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="2">
+          <mxGeometry x="40" y="340" width="130" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="6" value="Local file" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="2">
+          <mxGeometry x="40" y="480" width="130" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="7" value="Jump server" style="swimlane;startSize=40;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="460" y="40" width="560" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="8" value="jump sshd&#xa;connection A endpoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" vertex="1" parent="7">
+          <mxGeometry x="40" y="95" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="9" value="Jump PTY&#xa;master / slave" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="7">
+          <mxGeometry x="220" y="95" width="140" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="10" value="ssh client on jump&#xa;connection B endpoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;" vertex="1" parent="7">
+          <mxGeometry x="390" y="95" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="11" value="The jump relays terminal bytes in memory.&#xa;No temporary file is created by lrzsz." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="7">
+          <mxGeometry x="110" y="300" width="340" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="12" value="Remote server" style="swimlane;startSize=40;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;pointerEvents=0;" vertex="1" parent="1">
+          <mxGeometry x="1060" y="40" width="580" height="620" as="geometry"/>
+        </mxCell>
+        <mxCell id="13" value="remote sshd&#xa;connection B endpoint" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;" vertex="1" parent="12">
+          <mxGeometry x="40" y="95" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="14" value="Remote PTY&#xa;/dev/pts/N" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="12">
+          <mxGeometry x="220" y="95" width="140" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="15" value="Remote lrzsz&#xa;sz / rz" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" vertex="1" parent="12">
+          <mxGeometry x="390" y="95" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="16" value="Remote file" style="shape=document;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#f5f5f5;strokeColor=#666666;" vertex="1" parent="12">
+          <mxGeometry x="395" y="330" width="140" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="17" value="SSH A" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="4" target="8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-55" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="18" value="channel data" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#d79b00;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="8" target="9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-55" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="19" value="PTY bytes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#d79b00;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="9" target="10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-55" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="20" value="SSH B" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#82b366;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="10" target="13">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-55" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="21" value="channel data" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#82b366;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="13" target="14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-55" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="22" value="PTY bytes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#9673a6;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="14" target="15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-55" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="23" value="triggered coprocess I/O" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#9673a6;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="3" target="5">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="24" value="read / write" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#666666;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="5" target="6">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="25" value="read / write" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#666666;labelBackgroundColor=#ffffff;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="15" target="16">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="26" value="No direct-tcpip request: ZMODEM frames are ordinary bytes inside the two existing session channels." style="shape=note;whiteSpace=wrap;html=1;size=14;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="520" y="690" width="1060" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="27" value="PTY bytes" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;startArrow=blockThin;startFill=1;endArrow=blockThin;endFill=1;strokeColor=#6c8ebf;strokeWidth=2;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint y="-55" as="offset"/>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
