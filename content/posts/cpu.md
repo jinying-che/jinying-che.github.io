@@ -24,7 +24,7 @@ On Linux, the smallest schedulable CPU unit is a **logical CPU**. Commands may c
 
 ![Dual-socket CPU, core, hardware-thread, and NUMA topology](/images/cpu-topology.drawio.svg)
 
-The diagram shows a common dual-socket design where each socket is one NUMA node. This is a useful mental model, not a universal rule: modern processors can expose multiple NUMA nodes per socket, and virtual machines can present an artificial topology.
+The diagram shows a common dual-socket design where each socket is one NUMA node. It expands two representative physical cores per socket; `...` means the remaining physical cores follow the same pattern. This is a useful mental model, not a universal rule: modern processors can expose multiple NUMA nodes per socket, and virtual machines can present an artificial topology.
 
 ### Socket and processor package
 
@@ -42,7 +42,7 @@ Socket count matters because it affects cost, power, memory capacity and bandwid
 
 ### Physical core and logical CPU
 
-A **physical core** is a real execution core implemented in silicon. It has execution pipelines, registers, and usually private L1 and L2 caches.
+A **physical core** is a real execution core implemented in silicon. It has execution pipelines, registers, and commonly has per-core L1 and L2 caches. When SMT is enabled, the logical CPUs belonging to that physical core share those per-core caches.
 
 A **logical CPU** is an execution context that Linux can schedule work onto. With Intel Hyper-Threading or the more general Simultaneous Multithreading (SMT), one physical core exposes two or more logical CPUs. Those sibling logical CPUs share much of the physical core, so they do not provide the throughput of two independent physical cores.
 
@@ -80,25 +80,27 @@ taskset -cp 0-3 1234
 
 ### Cache hierarchy
 
-CPU caches keep frequently used data closer to the execution cores than DRAM:
+CPU caches keep recently used instructions and data closer to the execution cores than DRAM. A common modern x86 cache hierarchy is:
 
-| Level | Typical ownership | Relative size and speed |
-| --- | --- | --- |
-| L1 | Private to one physical core, often split into instruction and data caches | Smallest and fastest |
-| L2 | Usually private to one core | Larger and slightly slower |
-| L3 / LLC | Shared by a group of cores, often across a die or package | Largest on-chip cache and slower than L1/L2 |
-| DRAM | Local to a NUMA node or socket through memory controllers | Much larger and much slower than cache |
+| Level | Typical organization | Typical sharing boundary | Relative size and speed |
+| --- | --- | --- | --- |
+| L1 | Separate instruction (`L1I`) and data (`L1D`) caches | Per physical core; shared by its SMT sibling logical CPUs | Smallest and fastest |
+| L2 | Unified instruction and data cache | Usually per physical core; shared by its SMT sibling logical CPUs | Larger and slower than L1 |
+| L3 / LLC | Unified last-level cache | Shared by multiple physical cores; exact scope depends on the CPU | Larger and slower than L2 |
+| DRAM | Main memory outside the CPU caches | Local to a NUMA node through its memory controllers | Much larger and much slower than cache |
 
-Exact cache sharing depends on the processor. Inspect it instead of assuming:
+Use `lscpu` to see which logical CPUs share each cache:
 
 ```shell
-lscpu -C
-
-# Detailed cache topology for logical CPU 0.
-find /sys/devices/system/cpu/cpu0/cache -maxdepth 2 -type f \
-  \( -name 'level' -o -name 'type' -o -name 'size' \
-  -o -name 'shared_cpu_list' \) -print
+$ lscpu -e=CPU,CORE,CACHE
+CPU CORE L1d:L1i:L2:L3
+  0    0 0:0:0:0
+ 96    0 0:0:0:0
+  1    1 1:1:1:0
+ 97    1 1:1:1:0
 ```
+
+In this example, logical CPUs `0` and `96` belong to physical core `0` and share its L1/L2 caches. CPUs `1` and `97` belong to physical core `1` and share a different L1/L2 set. All four use L3 cache domain `0`. Cache IDs and CPU numbering vary by machine.
 
 ### NUMA
 
