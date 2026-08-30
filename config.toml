@@ -58,6 +58,21 @@ pagination.pagerSize = 5
   # can be overridden in a page's front-matter
   Toc = true
 
+  [params.comments]
+    enabled = true
+    repo = "jinying-che/jinying-che.github.io"
+    repoId = "MDEwOlJlcG9zaXRvcnkyOTkwNDc4MjI="
+    category = "Blog comments"
+    categoryId = "DIC_kwDOEdMbjs4DEb4J"
+    mapping = "pathname"
+    strict = true
+    reactionsEnabled = true
+    inputPosition = "top"
+    theme = "light"
+    language = "en"
+    lazyLoading = true
+    discussionsURL = "https://github.com/jinying-che/jinying-che.github.io/discussions"
+
   # set title for the table of contents
   # can be overridden in a page's front-matter
   # TocTitle = "Table of Contents" # default

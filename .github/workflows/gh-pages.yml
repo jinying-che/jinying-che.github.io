@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main  # Set a branch that will trigger a deployment
-    paths:
-      - content/** # set a folder that will triger the a deployment
 
 jobs:
   deploy:

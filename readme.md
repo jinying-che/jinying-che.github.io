@@ -16,6 +16,23 @@ Here is my [blog](https://jinying-che.github.io/)
 4. push the changes to `main` branch which will trigger the **Github Action** automatically
 5. check the [action workflow](https://github.com/jinying-che/jinying-che.github.io/actions) which is defined by [vps.yml](.github/workflows/vps.yml)
 
+## Comments
+
+Post comments are powered by [giscus](https://giscus.app/) and stored in this
+repository's GitHub Discussions.
+
+Repository setup:
+
+1. Enable GitHub Discussions.
+2. Install the giscus GitHub App for this repository only.
+3. Keep the repository and category IDs in `[params.comments]` in
+   [config.toml](config.toml).
+4. Keep allowed production and development origins in
+   [giscus.json](giscus.json).
+
+Set `hideComments = true` in a post's front matter to disable comments for that
+post.
+
 ## How to deploy the website to vps manually 
 ```bash
 # 1. local: build and send the `/public` folder to vps
@@ -49,4 +66,3 @@ sudo systemctl restart nginx
 	- [Pages](https://pages.github.com/)
 	- [Action](https://docs.github.com/en/actions/quickstart)
 	- [Events](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#push)
-

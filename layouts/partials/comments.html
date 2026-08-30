@@ -1,8 +1,37 @@
-<!--
-To add comments section, please create `layouts/partials/comments.html` in your
-Hugo directory and insert:
+{{- $comments := .Site.Params.comments -}}
+{{- $commentsEnabled := and $comments.enabled (eq .Type .Site.Params.contentTypeName) (not (.Params.hideComments | default false)) -}}
+{{- if $commentsEnabled -}}
+  <section class="comments" aria-labelledby="comments-title">
+    <header class="comments__header">
+      <h2 id="comments-title">Comments</h2>
+    </header>
 
-{{ template "_internal/disqus.html" . }}
+    <noscript>
+      <p class="comments__fallback">
+        JavaScript is required for the embedded comments. You can participate
+        directly in
+        <a href="{{ $comments.discussionsURL }}">GitHub Discussions</a>.
+      </p>
+    </noscript>
 
-or whatever comment engine you want -> https://gohugo.io/content-management/comments/#readout
--->
+    <script
+      src="https://giscus.app/client.js"
+      data-repo="{{ $comments.repo }}"
+      data-repo-id="{{ $comments.repoId }}"
+      data-category="{{ $comments.category }}"
+      data-category-id="{{ $comments.categoryId }}"
+      data-mapping="{{ $comments.mapping }}"
+      data-strict="{{ if $comments.strict }}1{{ else }}0{{ end }}"
+      data-reactions-enabled="{{ if $comments.reactionsEnabled }}1{{ else }}0{{ end }}"
+      data-emit-metadata="0"
+      data-input-position="{{ $comments.inputPosition }}"
+      data-theme="{{ $comments.theme }}"
+      data-lang="{{ $comments.language }}"
+      {{ if $comments.lazyLoading }}
+      data-loading="lazy"
+      {{ end }}
+      crossorigin="anonymous"
+      async>
+    </script>
+  </section>
+{{- end -}}

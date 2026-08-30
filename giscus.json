@@ -1,0 +1,10 @@
+{
+  "origins": [
+    "https://chejinying.com",
+    "https://jinying-che.github.io"
+  ],
+  "originsRegex": [
+    "^http://(localhost|127\\.0\\.0\\.1):[0-9]+$"
+  ],
+  "defaultCommentOrder": "newest"
+}
