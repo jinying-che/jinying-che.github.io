@@ -96,6 +96,76 @@
   height: auto;
 }
 
+.inline-svg {
+  display: block;
+  width: 100%;
+  cursor: zoom-in;
+}
+
+.inline-svg:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.inline-svg svg {
+  display: block;
+  width: 100%;
+  max-width: none !important;
+  height: auto;
+}
+
+.inline-svg-dialog {
+  position: relative;
+  width: 96vw;
+  max-width: none;
+  max-height: 94vh;
+  padding: 48px 16px 16px;
+  overflow: auto;
+  border: 1px solid color-mix(in srgb, var(--foreground) 20%, transparent);
+  border-radius: 8px;
+  background: var(--background);
+}
+
+.inline-svg-dialog::backdrop {
+  background: rgb(0 0 0 / 72%);
+}
+
+.inline-svg-dialog__close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.post-content .inline-svg-dialog__image {
+  display: block;
+  width: 100%;
+  min-width: 1200px;
+  max-width: none;
+  user-select: text;
+}
+
+.post-content .inline-svg-dialog__image svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.post-content .inline-svg-dialog__image text,
+.post-content .inline-svg-dialog__image foreignObject,
+.post-content .inline-svg-dialog__image foreignObject * {
+  user-select: text;
+  cursor: text;
+}
+
 .post-toc {
   --toc-panel: color-mix(in srgb, var(--foreground) 5%, var(--background));
   --toc-border: color-mix(in srgb, var(--foreground) 16%, var(--background));

@@ -1,0 +1,10 @@
+lockfileVersion: "1.0"
+extensions:
+  - identifier: skills:github.com/larksuite/cli/lark-whiteboard
+    agents: []
+    link: copy
+    source:
+      kind: git
+      url: https://github.com/larksuite/cli.git
+      path: skills/lark-whiteboard/SKILL.md
+      archive_digest: sha1:dc5eae804df0a67dd9ea9cb7ebe7f197bc31663f

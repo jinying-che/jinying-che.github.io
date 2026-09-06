@@ -1,0 +1,28 @@
+mindmap
+  root((curl))
+    No response?
+      headers["Headers — curl -I URL"]
+      verbose["Connection details — curl -v URL"]
+      timeout["Stop hangs — curl --connect-timeout 3 --max-time 10 URL"]
+    Too slow?
+      total["Total time — curl -sS -o /dev/null -w %{time_total} URL"]
+      phases["DNS / connect / TLS / TTFB — use --write-out timing variables"]
+    DNS or routing?
+      backend["Test one IP — curl --resolve HOST:443:IP URL"]
+      ipfamily["Compare IP families — curl -4 URL / curl -6 URL"]
+    TLS or protocol?
+      tls["Inspect TLS and ALPN — curl -v URL"]
+      ca["Use private CA — curl --cacert CA.pem URL"]
+      http1["Force HTTP/1.1 — curl --http1.1 URL"]
+    Proxy involved?
+      proxy["Use proxy — curl -x PROXY URL"]
+      noproxy["Bypass proxy — curl --noproxy HOST URL"]
+    HTTP or API?
+      status["Status only — curl -sS -o /dev/null -w %{response_code} URL"]
+      fail["Fail on 4xx/5xx — curl --fail-with-body URL"]
+      json["POST JSON — curl --json @payload.json URL"]
+      form["POST form — curl -d @form.txt URL"]
+      basic["Basic auth — curl -u USER URL"]
+      bearer["Bearer token — curl --oauth2-bearer TOKEN URL"]
+    Feature unavailable?
+      version["Check build — curl --version"]

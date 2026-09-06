@@ -1,0 +1,207 @@
+# Website Statistics with Nginx, VictoriaMetrics, and Grafana
+
+## Summary
+
+The proposed website statistics system is feasible and fits the blog's existing infrastructure well. The production site is a static Hugo site served by Nginx on a VPS, so page traffic can be measured from Nginx access logs without adding a third-party browser analytics service.
+
+The recommended architecture is:
+
+```text
+Visitor
+   |
+   v
+Nginx -- JSON access log --> Vector --> VictoriaLogs
+                                  |           |
+                                  |           v
+                                  +--> VictoriaMetrics (optional rollups)
+                                              |
+                                              v
+                                           Grafana
+                                              |
+                                 externally shared dashboard
+                                              |
+                                              v
+                                    Hugo /statistics/ page
+```
+
+VictoriaLogs should store individual request events because paths, referrers, and visitor identifiers are high-cardinality data. VictoriaMetrics can optionally store low-cardinality, long-lived rollups. Grafana provides the visualization and Hugo only needs a responsive iframe shortcode and a statistics page.
+
+## Recommended components
+
+- **Nginx:** Produce a dedicated JSON access log for the blog.
+- **Vector:** Parse, filter, normalize, anonymize, and forward request events.
+- **VictoriaLogs:** Store detailed request events and answer LogsQL aggregation queries.
+- **VictoriaMetrics:** Optionally retain derived counters and histograms for inexpensive long-range queries.
+- **Grafana:** Build the public statistics dashboard.
+- **Hugo:** Embed the deliberately public dashboard in `/statistics/`.
+
+Useful existing components:
+
+- [VictoriaLogs Grafana datasource](https://grafana.com/grafana/plugins/victoriametrics-logs-datasource/)
+- [Nginx Insights: Vector + VictoriaLogs dashboard, ID 24774](https://grafana.com/grafana/dashboards/24774-nginx-with-vlogs/)
+
+Dashboard 24774 is a community template rather than a finished blog-analytics product. It should be imported as a starting point, audited, and adapted to this site's fields and privacy rules.
+
+## Metrics to expose
+
+The public dashboard can safely show aggregated data such as:
+
+- Human pageviews today, over seven days, and over thirty days
+- Pageviews over time
+- Most-viewed posts
+- Response status classes
+- Request latency distribution
+- Bytes served
+- Referrer domains
+- Human versus known-bot traffic
+- Approximate unique visitors, if privacy-preserving visitor identification is enabled
+
+The public dashboard must not expose:
+
+- Raw access logs
+- IP addresses or unhashed visitor identifiers
+- Complete referrer URLs
+- Query strings
+- Complete user-agent strings
+
+## Collection and normalization
+
+Configure Nginx with a dedicated `log_format` using `escape=json`. Suggested fields are:
+
+- ISO-8601 timestamp
+- Host or fixed site identifier
+- Normalized `$uri`
+- Request method
+- Status code
+- Response bytes
+- Request duration
+- Referrer
+- User agent
+
+Use `$uri` rather than `$request_uri` so query parameters are not collected. Query strings may contain search terms, tokens, email addresses, or other sensitive values.
+
+Vector should then:
+
+1. Parse each JSON record.
+2. Keep requests for the `chejinying.com` blog and `/tech/` prefix.
+3. Count document requests rather than static assets.
+4. Exclude health checks, RSS, `index.json`, images, scripts, stylesheets, and fonts.
+5. Separate known bots from probable human traffic.
+6. Normalize paths before using them as dimensions.
+7. Reduce the referrer to its hostname for public reporting.
+8. Remove the raw client IP before sending data downstream.
+
+Server-side pageviews include bots, prefetches, and monitoring requests, so the dashboard should expose both total requests and filtered human pageviews instead of treating them as the same metric.
+
+## Storage design
+
+### VictoriaLogs
+
+VictoriaLogs is the primary store for request events. It supports query-time statistics and high-cardinality fields, making it suitable for top-page, referrer, and approximate-visitor calculations.
+
+Use a dedicated stream or tenant for the blog. Keep stream fields low-cardinality, for example:
+
+```text
+app=nginx
+site=chejinying-blog
+environment=production
+```
+
+Fields such as URI, referrer, user agent, and visitor hash should remain ordinary log fields, not stream fields.
+
+### Optional VictoriaMetrics rollups
+
+Vector can derive durable metrics such as:
+
+```text
+blog_pageviews_total{page, status_class}
+blog_response_bytes_total{page}
+blog_request_duration_seconds{page}
+```
+
+Only bounded labels should be used. Never use IP addresses, visitor hashes, complete referrers, or user agents as metric labels. Page labels should be normalized and, ideally, limited to paths generated by Hugo.
+
+Rollups are optional for the proof of concept. Add them if long retention or public-dashboard query cost becomes important.
+
+## Privacy model
+
+The simplest privacy-preserving MVP should omit unique-visitor counts and avoid storing client IP addresses in VictoriaLogs.
+
+If approximate unique visitors are required, Vector can derive a daily pseudonymous identifier from the client IP, user agent, and a rotating secret salt, then immediately delete the raw IP. This remains an approximation and should have a short retention period. It should not be represented as an exact count of people.
+
+Access-log analytics cannot reliably measure scroll depth, reading time, outbound link clicks, Web Vitals, or true bounce rate. Those features require a browser-side collector and a protected ingestion endpoint and should be considered a separate phase.
+
+## Grafana publishing and security
+
+Use a dedicated externally shared dashboard instead of enabling anonymous Viewer access across the normal Grafana organization.
+
+Externally shared dashboards are preferable because they are read-only and execute only queries stored in the dashboard. Anonymous Grafana Viewer access can permit arbitrary datasource queries.
+
+The public dashboard should:
+
+- Use a dedicated blog datasource or tenant.
+- Contain only aggregated panels.
+- Avoid raw-log panels.
+- Avoid Grafana template variables, which externally shared dashboards do not support.
+- Use a bounded time range and conservative refresh interval.
+- Be protected by reverse-proxy and `vmauth` concurrency limits.
+- Be served over HTTPS.
+
+The VictoriaLogs datasource declares both `backend` and `alerting` support, which meets Grafana's documented conditions for externally shared dashboards. Grafana does not explicitly list VictoriaLogs among its confirmed public datasources, so this must be validated with an incognito-browser proof of concept.
+
+If that validation fails, derive public metrics in VictoriaMetrics and use Grafana's built-in Prometheus datasource, which Grafana explicitly supports for externally shared dashboards.
+
+Embedding also requires Grafana `allow_embedding = true`. Where supported, restrict iframe parents with Content Security Policy to `https://chejinying.com`.
+
+## Hugo integration
+
+No special Hugo analytics plugin is required. Add:
+
+- A `grafana` shortcode that renders a responsive, lazy-loaded iframe
+- A `content/statistics.md` page
+- A Statistics navigation entry
+- A direct "Open dashboard" fallback link
+
+The iframe should have a defined mobile height, full available width, a title for accessibility, and a loading or fallback state.
+
+After implementation, visually verify the page at the project-required viewports:
+
+- Phone: 390 x 844
+- Tablet: 768 x 1024
+- Desktop: 1440 x 900
+
+## Rollout plan
+
+1. Define the exact public KPIs and retention policy.
+2. Add and validate the Nginx JSON access log.
+3. Configure Vector parsing, filtering, and privacy transforms.
+4. Send events to a dedicated VictoriaLogs stream or tenant.
+5. Install the VictoriaLogs Grafana datasource.
+6. Import dashboard 24774 and adapt it to the normalized fields.
+7. Remove variables and raw-log panels from the public dashboard.
+8. Test Grafana external sharing in an unauthenticated browser.
+9. Add the Hugo shortcode, statistics page, and menu entry.
+10. Validate pageview counts with controlled requests.
+11. Perform phone, tablet, and desktop visual verification.
+12. Add VictoriaMetrics rollups later if query cost or retention warrants them.
+
+## Feasibility and effort
+
+- **Pageview and operational statistics:** High feasibility, approximately 9/10.
+- **Detailed engagement analytics without browser instrumentation:** Moderate feasibility, approximately 6/10.
+- **Proof of concept:** Approximately half to one working day if the VictoriaMetrics stack and Grafana are already reachable.
+- **Hardened production implementation:** Approximately one to two working days, including privacy controls, dashboard adaptation, rate limits, validation, and responsive Hugo integration.
+
+## References
+
+- [NGINX access-log and JSON escaping documentation](https://nginx.org/en/docs/http/ngx_http_log_module.html)
+- [NGINX embedded URI variables](https://nginx.org/en/docs/http/ngx_http_core_module.html)
+- [VictoriaLogs overview](https://docs.victoriametrics.com/victorialogs/)
+- [VictoriaLogs Grafana integration](https://docs.victoriametrics.com/victorialogs/integrations/grafana/)
+- [VictoriaLogs file collection with vlagent](https://docs.victoriametrics.com/victorialogs/vlagent/)
+- [VictoriaMetrics Grafana integration](https://docs.victoriametrics.com/victoriametrics/integrations/grafana/)
+- [Vector log-to-metric transform](https://vector.dev/docs/reference/configuration/transforms/log_to_metric/)
+- [Grafana externally shared dashboards](https://grafana.com/docs/grafana/latest/visualizations/dashboards/share-dashboards-panels/shared-dashboards/)
+- [Grafana dashboard and panel embedding](https://grafana.com/docs/grafana/latest/dashboards/share-dashboards-panels/)
+- [VictoriaMetrics vmauth](https://docs.victoriametrics.com/victoriametrics/vmauth/)
+- [Hugo shortcode templates](https://gohugo.io/templates/shortcode/)
