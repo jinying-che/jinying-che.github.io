@@ -1,0 +1,15 @@
+<a
+  class="zoomable"
+  href="{{ .Destination | safeURL }}"
+  target="_blank"
+  rel="noopener"
+  aria-label="Open image: {{ .Text }}"
+>
+  <img
+    src="{{ .Destination | safeURL }}"
+    alt="{{ .Text }}"
+    {{- with .Title }} title="{{ . }}"{{ end }}
+    loading="lazy"
+    decoding="async"
+  >
+</a>
