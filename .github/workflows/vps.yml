@@ -4,6 +4,11 @@ on:
   push:
     branches: [ "main" ]
 
+# Finish an active release before another run switches the live symlink.
+concurrency:
+  group: vps-production
+  cancel-in-progress: false
+
 env:
   RELEASE_DIR_BASE: /var/www/site/releases
 

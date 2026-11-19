@@ -16,6 +16,14 @@ Here is my [blog](https://jinying-che.github.io/)
 4. push the changes to `main` branch which will trigger the **Github Action** automatically
 5. check the [action workflow](https://github.com/jinying-che/jinying-che.github.io/actions) which is defined by [vps.yml](.github/workflows/vps.yml)
 
+## Publish standalone HTML
+
+For standalone HTML generated in ChatGPT or Codex, follow the
+[phone-first HTML publishing workflow](docs/html-publishing.md): generate,
+review the HTML on your phone, save it under `static/x/<slug>/index.html`,
+and push to `main`. The existing VPS deployment publishes it automatically.
+The guide includes the Nginx mapping for `https://chejinying.com/x/<slug>/`.
+
 ## Comments
 
 Post comments are powered by [giscus](https://giscus.app/) and stored in this
