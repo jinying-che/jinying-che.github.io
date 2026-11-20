@@ -1,15 +1,5 @@
 {{ define "page-head" }}
 <style>
-  #archive-search label {
-    display: block;
-    margin-bottom: .4rem;
-  }
-
-  #archive-query {
-    width: min(100%, 36rem);
-    min-height: 44px;
-  }
-
   #archive-status:empty {
     margin: 0;
   }
@@ -23,10 +13,6 @@
 {{ define "main" }}
 <section aria-labelledby="archive-title">
   <h1 id="archive-title">{{ .Title }}</h1>
-  <div id="archive-search" hidden>
-    <label for="archive-query">Search pages</label>
-    <input id="archive-query" type="search" placeholder="Search titles and page text">
-  </div>
   <p id="archive-status" role="status"></p>
   <div class="posts" id="archive-results"></div>
   <noscript>Enable JavaScript to browse and search {{ .Title }}.</noscript>
@@ -35,34 +21,61 @@
 <template id="archive-result">
   <article class="post on-list">
     <h2 class="post-title"><a></a></h2>
-    <p class="post-meta"></p>
+    <div class="post-meta"><time class="post-date"></time></div>
+    <span class="post-tags"></span>
+    <div class="post-content"><p></p></div>
+    <div><a class="read-more button inline">[{{ .Site.Params.ReadMore }}]</a></div>
   </article>
 </template>
 
 <script type="application/json" id="archive-data">{"archivePages":[]}</script>
 <script>
   (() => {
-    const query = document.getElementById("archive-query");
+    const query = document.getElementById("search-input");
     const status = document.getElementById("archive-status");
     const results = document.getElementById("archive-results");
     const template = document.getElementById("archive-result");
     const normalize = text => text.normalize("NFKC").toLowerCase();
+    const tagTerm = tag => "#" + normalize(tag).replace(/\s+/g, "-");
     const { archivePages } = JSON.parse(document.getElementById("archive-data").textContent);
-    const pages = archivePages.map(page => ({
-      ...page,
-      searchText: normalize([page.title, page.path, page.text].join(" ")),
-    }));
+    const pages = archivePages.map(page => {
+      const tags = page.tags.map(tagTerm);
+      return {
+        ...page,
+        tags,
+        searchText: normalize([page.title, page.path, page.summary, page.text, ...page.tags].join(" ")),
+      };
+    });
+
+    const activeTag = new URLSearchParams(window.location.search).get("tag");
+    if (activeTag) query.value = activeTag;
 
     function render() {
       const terms = normalize(query.value).trim().split(/\s+/).filter(Boolean);
-      const matches = pages.filter(page => terms.every(term => page.searchText.includes(term)));
+      const matches = pages.filter(page => terms.every(term => (
+        term.startsWith("#") && term.length > 1 ? page.tags.includes(term) : page.searchText.includes(term)
+      )));
       const rows = document.createDocumentFragment();
       for (const page of matches) {
         const row = template.content.cloneNode(true);
         const title = row.querySelector(".post-title a");
         title.href = page.href;
         title.textContent = page.title;
-        row.querySelector(".post-meta").textContent = page.path;
+        const date = row.querySelector(".post-date");
+        date.dateTime = page.date;
+        date.textContent = page.date;
+        const tags = row.querySelector(".post-tags");
+        for (const tag of page.tags) {
+          const link = document.createElement("a");
+          link.href = "?" + new URLSearchParams({ tag });
+          link.textContent = tag.slice(1);
+          tags.append("#", link, "\u00a0 ");
+        }
+        if (!page.tags.length) tags.remove();
+        const summary = row.querySelector(".post-content");
+        summary.querySelector("p").textContent = page.summary;
+        if (!page.summary) summary.remove();
+        row.querySelector(".read-more").href = page.href;
         rows.append(row);
       }
       results.replaceChildren(rows);
@@ -77,7 +90,6 @@
     }
 
     query.addEventListener("input", render);
-    document.getElementById("archive-search").hidden = false;
     render();
   })();
 </script>

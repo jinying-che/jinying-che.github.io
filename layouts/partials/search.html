@@ -1,3 +1,4 @@
+{{ if ne .Type "archive" }}
 <script>
   // Move results container inside the search wrapper
   (function() {
@@ -14,7 +15,6 @@
   (function () {
     const input = document.getElementById("search-input");
     const resultsContainer = document.getElementById("search-results");
-    const kbd = document.getElementById("search-kbd");
     let fuse;
     let loaded = false;
 
@@ -85,17 +85,31 @@
 
     input.addEventListener("focus", function () {
       loadIndex();
-      if (kbd) kbd.style.display = "none";
       showResults();
     });
 
     input.addEventListener("blur", function () {
-      if (kbd && !input.value) kbd.style.display = "inline-block";
       // Delay to allow click on results
       setTimeout(closeResults, 200);
     });
 
     input.addEventListener("input", showResults);
+  })();
+</script>
+{{ end }}
+
+<script>
+  (() => {
+    const input = document.getElementById("search-input");
+    const kbd = document.getElementById("search-kbd");
+    if (!input) return;
+
+    input.addEventListener("focus", () => {
+      if (kbd) kbd.style.display = "none";
+    });
+    input.addEventListener("blur", () => {
+      if (kbd && !input.value) kbd.style.display = "inline-block";
+    });
 
     // "/" shortcut to focus search
     document.addEventListener("keydown", function (e) {

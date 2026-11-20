@@ -24,6 +24,8 @@ class PageText(HTMLParser):
         super().__init__()
         self.title = []
         self.text = []
+        self.summary = ""
+        self.tags = []
         self.dates = []
         self.in_head = False
         self.in_title = False
@@ -42,6 +44,13 @@ class PageText(HTMLParser):
             self.in_title = True
         elif tag in {"meta", "time"}:
             attrs = dict(attrs)
+            name = (attrs.get("name") or "").lower()
+            if tag == "meta" and self.in_head:
+                content = attrs.get("content") or ""
+                if name == "description" and not self.summary:
+                    self.summary = " ".join(content.split())
+                elif name == "keywords":
+                    self.tags.extend(" ".join(keyword.split()) for keyword in content.split(","))
             if (
                 attrs.get("property") == "article:published_time"
                 or attrs.get("itemprop") == "datePublished"
@@ -113,6 +122,9 @@ def main(destination):
             "title": title or fallback_title.replace("-", " ").replace("_", " "),
             "path": f"/x/{route}",
             "href": "./" + quote(route),
+            "date": created.date().isoformat(),
+            "summary": parser.summary,
+            "tags": list(dict.fromkeys(tag for tag in parser.tags if tag)),
             "text": " ".join("".join(parser.text).split()),
         }))
 

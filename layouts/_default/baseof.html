@@ -29,9 +29,7 @@
   {{ end }}
 </div>
 
-{{ if ne .Type "archive" }}
-  {{ partial "search.html" . }}
-{{ end }}
+{{ partial "search.html" . }}
 {{ partial "lightbox.html" . }}
 </body>
 </html>
