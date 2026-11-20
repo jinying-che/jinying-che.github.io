@@ -334,3 +334,22 @@
   vertical-align: middle;
   font-weight: bold;
 }
+
+/* Keep the three primary destinations visible on phones as well as desktop. */
+@media (max-width: 684px) {
+  .navigation-menu {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .navigation-menu .menu--desktop {
+    display: flex;
+    flex-direction: row;
+    flex: 1 0 100%;
+    align-items: center;
+  }
+
+  .navigation-menu .navigation-menu__inner > li {
+    padding: 0;
+  }
+}

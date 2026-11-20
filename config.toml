@@ -98,18 +98,26 @@ pagination.pagerSize = 5
 
     [languages.en.params.logo]
       logoText = "jinying-che:~#"
-      logoHomeLink = "/"
+      logoHomeLink = "/tech/"
 
     [languages.en.menu]
       [[languages.en.menu.main]]
-        identifier = "posts"
-        name = "Home"
-        url = "/posts"
+        identifier = "tech"
+        name = "Tech"
+        url = "/tech/"
+        weight = 10
+
+      [[languages.en.menu.main]]
+        identifier = "x"
+        name = "X"
+        url = "https://chejinying.com/x/"
+        weight = 20
 
       [[languages.en.menu.main]]
         identifier = "tags"
         name = "Tags"
-        url = "/tags"
+        url = "/tech/tags/"
+        weight = 30
 
 [module]
   # In case you would like to make changes to the theme and keep it locally in you repository,
