@@ -109,23 +109,23 @@ def main(destination):
         title = " ".join("".join(parser.title).split())
         fallback_title = relative.parent.name if is_directory_index else relative.stem
         created = creation_date(path, parser.dates).astimezone(timezone.utc)
-        pages.append({
+        pages.append((created, {
             "title": title or fallback_title.replace("-", " ").replace("_", " "),
             "path": f"/x/{route}",
             "href": "./" + quote(route),
             "text": " ".join("".join(parser.text).split()),
-            "created": created.isoformat(timespec="milliseconds"),
-        })
+        }))
 
+    pages.sort(key=lambda entry: entry[0], reverse=True)
     # An HTML document's text can contain a literal closing script tag.
-    data = json.dumps(pages, ensure_ascii=False).replace("<", r"\u003c")
-    html = INDEX.read_text(encoding="utf-8")
-    marker = '<script type="application/json" id="archive-data">[]</script>'
-    indexed = marker.replace("[]", data)
-    if html.count(marker) != 1:
-        raise ValueError(f"Expected one archive data placeholder in {INDEX}")
+    data = json.dumps({"archivePages": [page for _, page in pages]}, ensure_ascii=False)
+    data = data.replace("<", r"\u003c")
     output = destination / "x/index.html"
-    output.write_text(html.replace(marker, indexed, 1), encoding="utf-8")
+    html = output.read_text(encoding="utf-8")
+    marker = '{"archivePages":[]}'
+    if html.count(marker) != 1:
+        raise ValueError(f"Expected one archive data placeholder in {output}")
+    output.write_text(html.replace(marker, data, 1), encoding="utf-8")
     print(f"Indexed {len(pages)} HTML pages in {output}")
 
 

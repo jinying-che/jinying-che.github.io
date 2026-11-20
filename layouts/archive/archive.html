@@ -1,0 +1,84 @@
+{{ define "page-head" }}
+<style>
+  #archive-search label {
+    display: block;
+    margin-bottom: .4rem;
+  }
+
+  #archive-query {
+    width: min(100%, 36rem);
+    min-height: 44px;
+  }
+
+  #archive-status:empty {
+    margin: 0;
+  }
+
+  #archive-results {
+    overflow-wrap: anywhere;
+  }
+</style>
+{{ end }}
+
+{{ define "main" }}
+<section aria-labelledby="archive-title">
+  <h1 id="archive-title">{{ .Title }}</h1>
+  <div id="archive-search" hidden>
+    <label for="archive-query">Search pages</label>
+    <input id="archive-query" type="search" placeholder="Search titles and page text">
+  </div>
+  <p id="archive-status" role="status"></p>
+  <div class="posts" id="archive-results"></div>
+  <noscript>Enable JavaScript to browse and search {{ .Title }}.</noscript>
+</section>
+
+<template id="archive-result">
+  <article class="post on-list">
+    <h2 class="post-title"><a></a></h2>
+    <p class="post-meta"></p>
+  </article>
+</template>
+
+<script type="application/json" id="archive-data">{"archivePages":[]}</script>
+<script>
+  (() => {
+    const query = document.getElementById("archive-query");
+    const status = document.getElementById("archive-status");
+    const results = document.getElementById("archive-results");
+    const template = document.getElementById("archive-result");
+    const normalize = text => text.normalize("NFKC").toLowerCase();
+    const { archivePages } = JSON.parse(document.getElementById("archive-data").textContent);
+    const pages = archivePages.map(page => ({
+      ...page,
+      searchText: normalize([page.title, page.path, page.text].join(" ")),
+    }));
+
+    function render() {
+      const terms = normalize(query.value).trim().split(/\s+/).filter(Boolean);
+      const matches = pages.filter(page => terms.every(term => page.searchText.includes(term)));
+      const rows = document.createDocumentFragment();
+      for (const page of matches) {
+        const row = template.content.cloneNode(true);
+        const title = row.querySelector(".post-title a");
+        title.href = page.href;
+        title.textContent = page.title;
+        row.querySelector(".post-meta").textContent = page.path;
+        rows.append(row);
+      }
+      results.replaceChildren(rows);
+
+      if (matches.length) {
+        status.textContent = terms.length
+          ? `${matches.length} matching ${matches.length === 1 ? "page" : "pages"}.`
+          : "";
+      } else {
+        status.textContent = terms.length ? "No matching pages." : "No pages yet.";
+      }
+    }
+
+    query.addEventListener("input", render);
+    document.getElementById("archive-search").hidden = false;
+    render();
+  })();
+</script>
+{{ end }}

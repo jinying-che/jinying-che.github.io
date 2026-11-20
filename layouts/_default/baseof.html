@@ -4,7 +4,13 @@
   {{ block "title" . }}
     <title>{{ if .IsHome }}{{ $.Site.Title }}{{ else }}{{ .Title }} :: {{ $.Site.Title }}{{ end }}</title>
   {{ end }}
-  {{ partial "head.html" . }}
+  {{ $head := partial "head.html" . }}
+  {{/* The archive is served outside Hugo's /tech/ base path. */}}
+  {{ with .Params.canonicalURL }}
+    {{ $head = replace $head $.Permalink . | safeHTML }}
+  {{ end }}
+  {{ $head }}
+  {{ block "page-head" . }}{{ end }}
 </head>
 <body>
 {{ $container := cond ($.Site.Params.FullWidthTheme | default false) "container full" (cond ($.Site.Params.CenterTheme | default false) "container center" "container") }}
@@ -23,7 +29,9 @@
   {{ end }}
 </div>
 
-{{ partial "search.html" . }}
+{{ if ne .Type "archive" }}
+  {{ partial "search.html" . }}
+{{ end }}
 {{ partial "lightbox.html" . }}
 </body>
 </html>

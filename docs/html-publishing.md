@@ -60,14 +60,14 @@ or comments. Keep the existing production `baseURL` unchanged.
 ## HTML archive
 
 The archive at `https://chejinying.com/x/` lists the HTML files under `static/x/`.
-Search matches text in each page, its title, and its path. The list starts with
-the newest pages and can be switched to oldest first.
+It uses the blog's Hugo Terminal theme. Search matches text in each page, its
+title, and its path. Pages appear newest first.
 
 Both deployment workflows run `make build`, which rebuilds the archive after
 Hugo copies the files. The creation date comes from ISO 8601 publication
 metadata, such as `<meta property="article:published_time" content="2026-11-19">`,
 or the Git author date when the file was first added. For files without Git
-history, it uses the file modification time. Dates are displayed in UTC.
+history, it uses the file modification time.
 
 For a local preview, run `make local-build` and then
 `python3 -m http.server 8000 --directory public`. Open
@@ -139,7 +139,7 @@ curl -I https://chejinying.com/x/does-not-exist/
 
 Expect the first two to serve HTML successfully and the missing path to return
 404, then open the page on the phone and exercise it. Open
-`https://chejinying.com/x/` to verify the archive and its search and date controls.
+`https://chejinying.com/x/` to verify the archive and its search.
 Use the trailing-slash page URL when sharing.
 
 ## References
