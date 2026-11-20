@@ -57,12 +57,28 @@ deployment workflow is needed. Standalone HTML bypasses Hugo templates and does
 not automatically receive the blog navigation, search, RSS, sitemap entries,
 or comments. Keep the existing production `baseURL` unchanged.
 
+## HTML archive
+
+The archive at `https://chejinying.com/x/` lists the HTML files under `static/x/`.
+Search matches text in each page, its title, and its path. The list starts with
+the newest pages and can be switched to oldest first.
+
+Both deployment workflows run `make build`, which rebuilds the archive after
+Hugo copies the files. The creation date comes from ISO 8601 publication
+metadata, such as `<meta property="article:published_time" content="2026-11-19">`,
+or the Git author date when the file was first added. For files without Git
+history, it uses the file modification time. Dates are displayed in UTC.
+
+For a local preview, run `make local-build` and then
+`python3 -m http.server 8000 --directory public`. Open
+`http://localhost:8000/x/` and rebuild after adding or editing a page.
+
 ## Publication checks
 
 - Preserve the approved HTML bytes when placing it in the repository.
 - Follow AGENTS.md: visually check 390 x 844, 768 x 1024, and 1440 x 900; verify
   interactive controls and report any unavailable browser verification.
-- Build with `hugo` and confirm `public/x/<slug>/index.html` exists. Compare it
+- Build with `make build` and confirm `public/x/<slug>/index.html` exists. Compare it
   with the source when checking the VPS build; the separate Pages workflow uses
   minification and is not the byte-preservation target.
 - Review `git status` and stage named files only. Fetch latest `main`; do not
@@ -122,9 +138,9 @@ curl -I https://chejinying.com/x/does-not-exist/
 ```
 
 Expect the first two to serve HTML successfully and the missing path to return
-404, then open the page on the phone and exercise it. `/x/` itself has no gallery
-yet and may return 403 without an index page; that does not prevent slug URLs
-from working. Use the trailing-slash page URL when sharing.
+404, then open the page on the phone and exercise it. Open
+`https://chejinying.com/x/` to verify the archive and its search and date controls.
+Use the trailing-slash page URL when sharing.
 
 ## References
 
