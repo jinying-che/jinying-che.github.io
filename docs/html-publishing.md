@@ -48,6 +48,15 @@ static/x/prometheus-staleness/index.html
 
 Use lowercase letters, digits, and hyphens for slugs. An existing slug updates
 the existing page; verify that overwrite is intended. Prefer one HTML file.
+Use stable English topic names without dates or year suffixes, for example
+`cloudflare-net-investment` rather than `cloudflare-net-investment-2026-11-18`.
+Keep dates in the report content or publication metadata, and keep the document
+title free of appended dates. `make build` validates every standalone page path
+for both deployment workflows. When migrating an already-published URL, add its
+old slug to `REDIRECTS` in `scripts/build_x_index.py`; the build generates a
+compatibility redirect and lists only the new path in the notebook. These
+browser redirects preserve query parameters and fragments when JavaScript is
+enabled, with a basic redirect and link available without JavaScript.
 If additional assets are necessary, keep them in the same page directory and
 use relative links such as `./assets/chart.svg`. Do not use `sandbox:`, `file:`,
 localhost URLs, temporary download links, or `/tech/` asset paths in the export.

@@ -1,6 +1,7 @@
 """Build the searchable /x/ index from the standalone HTML files."""
 
 import json
+import re
 import subprocess
 import sys
 from datetime import datetime, timezone
@@ -11,6 +12,41 @@ from urllib.parse import quote
 
 ARCHIVE = Path("static/x")
 INDEX = ARCHIVE / "index.html"
+# Compatibility routes only; these are never included in the notebook.
+REDIRECTS = {
+    "cny-sgd-exchange-rate-comparison-2026-11-19": "cny-sgd-exchange-rate-comparison",
+    "cloudflare-net-investment-2026-11-18": "cloudflare-net-investment",
+}
+
+
+def validate_route(route):
+    for part in route.strip("/").split("/"):
+        slug = re.sub(r"\.html?$", "", part)
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+            raise ValueError(f"Use lowercase English slugs with hyphens: {route}")
+        if re.search(r"(?:^|-)(?:19|20)\d{2}(?:\d{2}){0,2}(?:-|$)", slug):
+            raise ValueError(f"Dates are not allowed in page URLs: {route}")
+
+
+def write_redirects(destination):
+    for old, new in REDIRECTS.items():
+        validate_route(new)
+        if (ARCHIVE / old).exists():
+            raise ValueError(f"Legacy URL must be a generated redirect, not a page: {old}")
+        if not (ARCHIVE / new / "index.html").is_file():
+            raise ValueError(f"Missing redirect target: {new}")
+        target = f"/x/{new}/"
+        output = destination / "x" / old / "index.html"
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(
+            '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+            '<meta name="robots" content="noindex">'
+            f'<link rel="canonical" href="{target}"><title>Page moved</title>'
+            f'<script>location.replace({json.dumps(target)} + location.search + location.hash);</script>'
+            f'<noscript><meta http-equiv="refresh" content="0;url={target}"></noscript>'
+            f'</head><body><a href="{target}">Continue to the page</a></body></html>',
+            encoding="utf-8",
+        )
 BLOCK_TAGS = {
     "article", "aside", "blockquote", "br", "dd", "div", "dl", "dt", "figcaption",
     "footer", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hr", "li", "main",
@@ -115,6 +151,7 @@ def main(destination):
         relative = path.relative_to(ARCHIVE)
         is_directory_index = relative.name == "index.html"
         route = f"{relative.parent.as_posix()}/" if is_directory_index else relative.as_posix()
+        validate_route(route)
         title = " ".join("".join(parser.title).split())
         fallback_title = relative.parent.name if is_directory_index else relative.stem
         created = creation_date(path, parser.dates).astimezone(timezone.utc)
@@ -138,6 +175,7 @@ def main(destination):
     if html.count(marker) != 1:
         raise ValueError(f"Expected one archive data placeholder in {output}")
     output.write_text(html.replace(marker, data, 1), encoding="utf-8")
+    write_redirects(destination)
     print(f"Indexed {len(pages)} HTML pages in {output}")
 
 

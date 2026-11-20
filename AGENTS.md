@@ -4,6 +4,7 @@
 
 - Follow `docs/html-publishing.md` when generating or publishing standalone HTML.
 - Use `static/x/<slug>/index.html`, with lowercase hyphenated slugs. Prefer a single self-contained HTML file with inline CSS/JavaScript and embedded SVG.
+- Keep URLs in English and free of dates, including year-only suffixes. Put report and publication dates in page content or metadata. Reuse the stable topic slug for updates. `make build` rejects dated page paths; legacy URLs are generated redirects only and must not appear in the notebook.
 - Write a descriptive document `<title>` without appending a publication or report date. The notebook reads this title and displays the publication date on its own line.
 - Read the complete page and write a one- or two-sentence summary in the page's language. Cover the main subject and takeaway in `<meta name="description" content="…">` in the HTML head. Jinying’s Notebook shows this summary below the page title. Update it when the page's main takeaway changes.
 - When the page has clear topics, add a few comma-separated tags in `<meta name="keywords" content="…">` in the HTML head. The notebook uses them as filters.
