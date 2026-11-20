@@ -38,7 +38,7 @@ class PageText(HTMLParser):
             self.in_head = True
         elif tag == "body":
             self.in_head = False
-        elif tag == "title":
+        elif tag == "title" and self.in_head:
             self.in_title = True
         elif tag in {"meta", "time"}:
             attrs = dict(attrs)
