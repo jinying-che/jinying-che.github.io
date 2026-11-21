@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>美股三大指数对比与 ETF 图解</title>
-  <meta name="description" content="横向比较标普 500、纳斯达克综合指数和道琼斯工业平均指数的选股范围与加权规则。对照 VOO、QQQ、ONEQ、DIA 等 12 只美股 ETF 各自跟踪的指数。">
+  <meta name="description" content="横向比较标普 500、纳斯达克综合指数和道琼斯工业平均指数的选股范围与加权规则。介绍 VOO、QQQ、ONEQ、DIA 等 12 只美股 ETF 的跟踪指数、费率和覆盖范围，并横向对比同类基金。">
   <meta name="keywords" content="美股,股票指数,ETF,标普500,纳斯达克综合指数,道琼斯">
   <meta property="article:published_time" content="2026-11-21">
   <style>
@@ -47,7 +47,7 @@
     .language-buttons button:focus-visible { outline-color: #f4d478; }
     .language-bar:not([hidden]) ~ .article-language header { padding-top: 20px; }
     .article-language[lang="en"] h1 { font-size: clamp(2.2rem, 5.5vw, 4.3rem); }
-    h1, h2, p { margin: 0; }
+    h1, h2, h3, p { margin: 0; }
     h1 { font-size: clamp(2.35rem, 6vw, 4.8rem); line-height: 1.12; letter-spacing: -.05em; }
     h2 { font-size: clamp(1.6rem, 3.7vw, 2.5rem); line-height: 1.25; letter-spacing: -.035em; }
     a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: .2em; }
@@ -66,29 +66,68 @@
     .map .labels { background: var(--mint); font-size: .9rem; }
     .index-code { display: block; color: var(--muted); font: .81rem/1.6 ui-monospace, monospace; }
     .weight { display: block; color: var(--muted); font-size: .88rem; }
-    .etf-table {
-      width: 100%;
+    .fund-list {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .fund {
+      background: var(--surface);
       border: 1px solid var(--line);
-      border-spacing: 0;
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .fund h3 { font-size: 1.15rem; line-height: 1.45; }
+    .etf-ticker { font: 700 1.08em/1.45 ui-monospace, monospace; }
+    .fund h3 span { display: block; color: var(--muted); font-size: .81em; font-weight: 500; }
+    .fund-facts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 12px;
+      margin: 12px 0;
+      padding: 9px 12px;
+      background: var(--mint);
+      border-radius: 8px;
+    }
+    .fund-facts div:first-child { grid-column: 1 / -1; }
+    .fund-facts dt { color: var(--muted); font-size: .8rem; }
+    .fund-facts dd { margin: 0; font-size: .92rem; font-weight: 650; }
+    .fund p { font-size: .92rem; }
+    .fund-comparisons {
+      margin-top: 15px;
+      overflow: hidden;
+      border: 1px solid var(--line);
       border-radius: 14px;
       background: var(--surface);
     }
-    .etf-table caption { text-align: start; padding-bottom: 10px; color: var(--muted); font-size: .9rem; }
-    .etf-table th, .etf-table td { padding: 8px 14px; border-bottom: 1px solid var(--line); }
-    .etf-table th { text-align: start; }
-    .etf-table thead th { background: var(--mint); font-size: .9rem; }
-    .etf-table thead th:first-child { width: 27%; border-start-start-radius: 13px; }
-    .etf-table thead th:last-child { border-start-end-radius: 13px; }
-    .etf-table tbody tr:last-child > * { border-bottom: 0; }
-    .etf-ticker { display: inline-flex; align-items: center; min-height: 26px; font: 700 .95rem/1.3 ui-monospace, monospace; }
+    .fund-comparison {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+      gap: 6px 20px;
+      padding: 15px 18px;
+    }
+    .fund-comparison + .fund-comparison { border-top: 1px solid var(--line); }
+    .fund-comparison h3 { font-size: 1rem; line-height: 1.45; }
+    .fund-comparison h3 span {
+      display: block;
+      margin-top: 4px;
+      color: var(--green);
+      font: 600 .81rem/1.5 ui-monospace, monospace;
+    }
     .note { margin-top: 13px; font-size: .88rem; color: var(--muted); }
     footer { border-top: 1px solid var(--line); padding-block: 22px 32px; color: var(--muted); font-size: .88rem; }
     footer ul { margin: 7px 0 12px; padding-inline-start: 1.35em; }
+    @media (max-width: 940px) {
+      .fund-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
     @media (max-width: 640px) {
       header { padding-top: 35px; }
       .map .labels { display: none; }
       .map li { grid-template-columns: minmax(0, 1fr); padding: 14px; }
-      .etf-table th, .etf-table td { padding-inline: 10px; }
+      .fund-list, .fund-comparison { grid-template-columns: minmax(0, 1fr); }
     }
   </style>
 </head>
@@ -106,7 +145,8 @@
         <p class="lead">标普 500 看美国大型股，纳斯达克综合指数看纳斯达克交易所的上市股票，道琼斯工业平均指数看 30 家美国蓝筹公司。</p>
         <nav aria-label="页面目录">
           <a href="#compare">三大指数</a>
-          <a href="#etfs">ETF 与跟踪指数</a>
+          <a href="#etfs">ETF 资料</a>
+          <a href="#etf-comparison">ETF 对比</a>
         </nav>
       </div>
     </header>
@@ -134,63 +174,145 @@
       </section>
 
       <section id="etfs" aria-labelledby="etfs-title">
-        <h2 id="etfs-title">主流 ETF 跟踪什么指数？</h2>
-        <table class="etf-table">
-          <caption>点击基金代码，查看发行方资料。</caption>
-          <thead>
-            <tr><th scope="col">ETF 代码</th><th scope="col">跟踪的指数</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://investor.vanguard.com/investment-products/etfs/profile/voo">VOO</a></th>
-              <td>标普 500 指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf">IVV</a></th>
-              <td>标普 500 指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy">SPY</a></th>
-              <td>标普 500 指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-portfolio-sp-500-etf-spym">SPYM</a></th>
-              <td>标普 500 指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://institutional.fidelity.com/app/proxy/content?literatureURL=%2F9871761.PDF">ONEQ</a></th>
-              <td>纳斯达克综合指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html">QQQ</a></th>
-              <td>纳斯达克 100 指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-nasdaq-100-etf.html">QQQM</a></th>
-              <td>纳斯达克 100 指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-dow-jones-industrial-average-etf-trust-dia">DIA</a></th>
-              <td>道琼斯工业平均指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vti/vanguard-morningstar-total-stock-market-etf">VTI</a></th>
-              <td>晨星美国全市场指数（Morningstar US Total Market Index）</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ishares.com/us/products/239724/ishares-core-s-p-total-u-s-stock-market-etf-itot">ITOT</a></th>
-              <td>标普全市场指数（S&amp;P Total Market Index）</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ishares.com/us/products/239710/ishares-russell-2000-etf">IWM</a></th>
-              <td>罗素 2000 指数</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-sp-500-equal-weight-etf.html">RSP</a></th>
-              <td>标普 500 等权重指数</td>
-            </tr>
-          </tbody>
-        </table>
+        <h2 id="etfs-title">12 只主流指数 ETF</h2>
+        <p class="intro">基金资料和年费率核对于 <time datetime="2026-11-21">2026 年 11 月 21 日</time>。点击代码可查看发行方资料。</p>
+        <ul class="fund-list">
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/voo/vanguard-sp-500-etf">VOO</a><span>Vanguard S&amp;P 500 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
+              <div><dt>年费率</dt><dd>0.03%</dd></div>
+              <div><dt>成立</dt><dd>2010 年</dd></div>
+            </dl>
+            <p>Vanguard 500 Index Fund 的 ETF 份额。按自由流通市值配置约 500 家美国大型公司。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf">IVV</a><span>iShares Core S&amp;P 500 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
+              <div><dt>年费率</dt><dd>0.03%</dd></div>
+              <div><dt>成立</dt><dd>2000 年</dd></div>
+            </dl>
+            <p>贝莱德 iShares 的大型股基金。跟踪的指数和年费率均与 VOO 相同，成立时间早十年。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy">SPY</a><span>State Street SPDR S&amp;P 500 ETF Trust</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
+              <div><dt>年费率</dt><dd>0.0945%</dd></div>
+              <div><dt>成立</dt><dd>1993 年</dd></div>
+            </dl>
+            <p>美国首只上市 ETF，采用单位投资信托结构。它的二级市场交易活跃，年费率高于同组另外三只。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-portfolio-sp-500-etf-spym">SPYM</a><span>State Street SPDR Portfolio S&amp;P 500 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
+              <div><dt>年费率</dt><dd>0.02%</dd></div>
+              <div><dt>成立</dt><dd>2005 年</dd></div>
+            </dl>
+            <p>State Street 的低费率标普 500 基金。基金成立于 2005 年，从 2020 年起跟踪标普 500。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://institutional.fidelity.com/advisors/investment-solutions/performance/fidelity-etfs">ONEQ</a><span>Fidelity Nasdaq Composite Index ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>纳斯达克综合指数</dd></div>
+              <div><dt>年费率</dt><dd>0.21%</dd></div>
+              <div><dt>成立</dt><dd>2003 年</dd></div>
+            </dl>
+            <p>覆盖纳斯达克交易所符合条件的不同规模股票，包括金融公司。指数按市值加权，大型股仍占较大比重。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.invesco.com/qqq-etf/en/about.html">QQQ</a><span>Invesco QQQ ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>纳斯达克 100 指数</dd></div>
+              <div><dt>年费率</dt><dd>0.18%</dd></div>
+              <div><dt>成立</dt><dd>1999 年</dd></div>
+            </dl>
+            <p>跟踪纳斯达克上市的 100 家大型非金融公司，科技股占比较高。它比 QQQM 成立更早，二级市场交易也更活跃。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-nasdaq-100-etf.html">QQQM</a><span>Invesco NASDAQ 100 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>纳斯达克 100 指数</dd></div>
+              <div><dt>年费率</dt><dd>0.15%</dd></div>
+              <div><dt>成立</dt><dd>2020 年</dd></div>
+            </dl>
+            <p>与 QQQ 跟踪同一个纳斯达克 100 指数，股票敞口相近，年费率低 0.03 个百分点。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-dow-jones-industrial-average-etf-trust-dia">DIA</a><span>State Street SPDR Dow Jones Industrial Average ETF Trust</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>道琼斯工业平均指数</dd></div>
+              <div><dt>年费率</dt><dd>0.16%</dd></div>
+              <div><dt>成立</dt><dd>1998 年</dd></div>
+            </dl>
+            <p>持有道指的 30 家美国蓝筹公司，股价越高权重越大。发行方列示派息频率为每月。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vti/vanguard-morningstar-total-stock-market-etf">VTI</a><span>Vanguard Morningstar Total Stock Market ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>晨星美国全市场指数</dd></div>
+              <div><dt>年费率</dt><dd>0.03%</dd></div>
+              <div><dt>成立</dt><dd>2001 年</dd></div>
+            </dl>
+            <p>覆盖美国大盘、中盘、小盘和微盘股。指数名称已从 CRSP US Total Market Index 更名为晨星美国全市场指数。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ishares.com/us/products/239724/ishares-core-s-p-total-u-s-stock-market-etf-itot">ITOT</a><span>iShares Core S&amp;P Total U.S. Stock Market ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>标普全市场指数</dd></div>
+              <div><dt>年费率</dt><dd>0.03%</dd></div>
+              <div><dt>成立</dt><dd>2004 年</dd></div>
+            </dl>
+            <p>覆盖多个市值规模的美国股票。与 VTI 的费率相同，使用标普编制的全市场基准。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ishares.com/us/products/239710/ishares-russell-2000-etf">IWM</a><span>iShares Russell 2000 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>罗素 2000 指数</dd></div>
+              <div><dt>年费率</dt><dd>0.19%</dd></div>
+              <div><dt>成立</dt><dd>2000 年</dd></div>
+            </dl>
+            <p>聚焦约 2,000 只美国小盘股。它集中覆盖全市场基金中只占一部分的小盘股。</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-sp-500-equal-weight-etf.html">RSP</a><span>Invesco S&amp;P 500 Equal Weight ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>跟踪指数</dt><dd>标普 500 等权重指数</dd></div>
+              <div><dt>年费率</dt><dd>0.20%</dd></div>
+              <div><dt>成立</dt><dd>2003 年</dd></div>
+            </dl>
+            <p>覆盖标普 500 的同一组公司，每季再平衡时把每家公司权重调回约 0.2%，从而降低头部大公司的权重。</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="etf-comparison" aria-labelledby="etf-comparison-title">
+        <h2 id="etf-comparison-title">这些 ETF 有什么区别？</h2>
+        <div class="fund-comparisons">
+          <article class="fund-comparison">
+            <h3>同一个标普 500 基准<span>VOO · IVV · SPY · SPYM</span></h3>
+            <p>四只基金的持仓和权重通常接近。按每持有 1 万美元估算年费用，SPYM 约 2 美元，VOO 和 IVV 各 3 美元，SPY 约 9.45 美元。SPY 交易更活跃，基金年费与买卖价差分别影响持有和交易成本。</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>两种纳斯达克敞口<span>QQQ · QQQM · ONEQ</span></h3>
+            <p>QQQ 和 QQQM 都跟踪纳斯达克 100，费率分别为 0.18% 和 0.15%，每 1 万美元年费用约差 3 美元。ONEQ 跟踪纳斯达克综合指数，覆盖范围扩展至较小公司和符合条件的金融股。</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>全市场与小盘股<span>VTI · ITOT · IWM</span></h3>
+            <p>VTI 和 ITOT 都覆盖美国不同规模的公司，费率均为 0.03%。两者的指数编制方不同，成分和权重会有差别。IWM 把敞口集中在美国小盘股，费率为 0.19%。</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>相同成分，权重不同<span>RSP · VOO · IVV · SPY · SPYM</span></h3>
+            <p>RSP 每季把标普 500 成分公司的权重调回接近相等。普通标普 500 基金按自由流通市值加权，因此更集中于规模最大的公司。即便成分公司相同，组合敞口也会不同。</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>30 家蓝筹与宽基<span>DIA · VOO · VTI</span></h3>
+            <p>DIA 只覆盖道指的 30 家公司，权重由每股价格决定。VOO 覆盖约 500 家大型公司，VTI 还纳入中、小和微盘股。基金之间可能持有相同的大公司，覆盖范围和权重仍有明显差别。</p>
+          </article>
+        </div>
+        <p class="note">年费用示例按 1 万美元的固定持仓乘以基金年费率估算。交易和账户费用另计。</p>
       </section>
     </main>
 
@@ -213,7 +335,8 @@
         <p class="lead">The S&amp;P 500 tracks large U.S. companies. The Nasdaq Composite follows stocks listed on Nasdaq. The Dow Jones Industrial Average follows 30 U.S. blue-chip companies.</p>
         <nav aria-label="On this page">
           <a href="#en-compare">Three indexes</a>
-          <a href="#en-etfs">ETFs and benchmarks</a>
+          <a href="#en-etfs">ETF profiles</a>
+          <a href="#en-etf-comparison">Compare ETFs</a>
         </nav>
       </div>
     </header>
@@ -241,63 +364,145 @@
       </section>
 
       <section id="en-etfs" aria-labelledby="en-etfs-title">
-        <h2 id="en-etfs-title">Major ETFs and the indexes they track</h2>
-        <table class="etf-table">
-          <caption>Select a ticker for issuer information.</caption>
-          <thead>
-            <tr><th scope="col">ETF ticker</th><th scope="col">Index tracked</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://investor.vanguard.com/investment-products/etfs/profile/voo">VOO</a></th>
-              <td>S&amp;P 500 Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf">IVV</a></th>
-              <td>S&amp;P 500 Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy">SPY</a></th>
-              <td>S&amp;P 500 Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-portfolio-sp-500-etf-spym">SPYM</a></th>
-              <td>S&amp;P 500 Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://institutional.fidelity.com/app/proxy/content?literatureURL=%2F9871761.PDF">ONEQ</a></th>
-              <td>Nasdaq Composite Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-qqq-trust-series-1.html">QQQ</a></th>
-              <td>Nasdaq-100 Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-nasdaq-100-etf.html">QQQM</a></th>
-              <td>Nasdaq-100 Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-dow-jones-industrial-average-etf-trust-dia">DIA</a></th>
-              <td>Dow Jones Industrial Average</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vti/vanguard-morningstar-total-stock-market-etf">VTI</a></th>
-              <td>Morningstar US Total Market Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ishares.com/us/products/239724/ishares-core-s-p-total-u-s-stock-market-etf-itot">ITOT</a></th>
-              <td>S&amp;P Total Market Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.ishares.com/us/products/239710/ishares-russell-2000-etf">IWM</a></th>
-              <td>Russell 2000 Index</td>
-            </tr>
-            <tr>
-              <th scope="row"><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-sp-500-equal-weight-etf.html">RSP</a></th>
-              <td>S&amp;P 500 Equal Weight Index</td>
-            </tr>
-          </tbody>
-        </table>
+        <h2 id="en-etfs-title">12 major index ETFs</h2>
+        <p class="intro">Fund facts and annual expense ratios checked <time datetime="2026-11-21">November 21, 2026</time>. Select a ticker for the issuer’s fund information.</p>
+        <ul class="fund-list">
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/voo/vanguard-sp-500-etf">VOO</a><span>Vanguard S&amp;P 500 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
+              <div><dt>Launched</dt><dd>2010</dd></div>
+            </dl>
+            <p>The ETF share class of Vanguard 500 Index Fund. It gives about 500 large U.S. companies weights based on publicly tradable market value.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf">IVV</a><span>iShares Core S&amp;P 500 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
+              <div><dt>Launched</dt><dd>2000</dd></div>
+            </dl>
+            <p>BlackRock’s iShares large-cap fund. It tracks the same index and charges the same annual expense ratio as VOO, and launched ten years earlier.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy">SPY</a><span>State Street SPDR S&amp;P 500 ETF Trust</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.0945%</dd></div>
+              <div><dt>Launched</dt><dd>1993</dd></div>
+            </dl>
+            <p>The first U.S.-listed ETF and a unit investment trust. It trades actively on the secondary market and has a higher expense ratio than the other three S&amp;P 500 funds shown here.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-portfolio-sp-500-etf-spym">SPYM</a><span>State Street SPDR Portfolio S&amp;P 500 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.02%</dd></div>
+              <div><dt>Launched</dt><dd>2005</dd></div>
+            </dl>
+            <p>State Street’s lower-fee S&amp;P 500 fund. It launched in 2005 and began tracking the S&amp;P 500 in 2020.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://institutional.fidelity.com/advisors/investment-solutions/performance/fidelity-etfs">ONEQ</a><span>Fidelity Nasdaq Composite Index ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>Nasdaq Composite Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.21%</dd></div>
+              <div><dt>Launched</dt><dd>2003</dd></div>
+            </dl>
+            <p>Exposure spans eligible Nasdaq listings across company sizes, including financial companies. Market-cap weighting still gives large companies substantial influence.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.invesco.com/qqq-etf/en/about.html">QQQ</a><span>Invesco QQQ ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>Nasdaq-100 Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.18%</dd></div>
+              <div><dt>Launched</dt><dd>1999</dd></div>
+            </dl>
+            <p>Tracks 100 large nonfinancial companies listed on Nasdaq, with substantial technology exposure. It launched earlier than QQQM and trades more actively.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-nasdaq-100-etf.html">QQQM</a><span>Invesco NASDAQ 100 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>Nasdaq-100 Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.15%</dd></div>
+              <div><dt>Launched</dt><dd>2020</dd></div>
+            </dl>
+            <p>Tracks the same Nasdaq-100 index as QQQ, with similar stock exposure and an expense ratio 0.03 percentage points lower.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-dow-jones-industrial-average-etf-trust-dia">DIA</a><span>State Street SPDR Dow Jones Industrial Average ETF Trust</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>Dow Jones Industrial Average</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.16%</dd></div>
+              <div><dt>Launched</dt><dd>1998</dd></div>
+            </dl>
+            <p>Holds the Dow’s 30 U.S. blue-chip companies, with higher-priced shares receiving more weight. The issuer lists a monthly distribution schedule.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vti/vanguard-morningstar-total-stock-market-etf">VTI</a><span>Vanguard Morningstar Total Stock Market ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>Morningstar US Total Market Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
+              <div><dt>Launched</dt><dd>2001</dd></div>
+            </dl>
+            <p>Covers U.S. large-, mid-, small-, and micro-cap stocks. Its index was renamed from the CRSP US Total Market Index to the Morningstar US Total Market Index.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ishares.com/us/products/239724/ishares-core-s-p-total-u-s-stock-market-etf-itot">ITOT</a><span>iShares Core S&amp;P Total U.S. Stock Market ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>S&amp;P Total Market Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
+              <div><dt>Launched</dt><dd>2004</dd></div>
+            </dl>
+            <p>Covers U.S. stocks across market-cap sizes. It charges the same expense ratio as VTI and follows a total-market benchmark from S&amp;P.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.ishares.com/us/products/239710/ishares-russell-2000-etf">IWM</a><span>iShares Russell 2000 ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>Russell 2000 Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.19%</dd></div>
+              <div><dt>Launched</dt><dd>2000</dd></div>
+            </dl>
+            <p>Focuses on roughly 2,000 U.S. small-cap stocks. It concentrates on a segment that makes up only part of total-market funds.</p>
+          </li>
+          <li class="fund">
+            <h3><a class="etf-ticker" href="https://www.invesco.com/us/en/financial-products/etfs/invesco-sp-500-equal-weight-etf.html">RSP</a><span>Invesco S&amp;P 500 Equal Weight ETF</span></h3>
+            <dl class="fund-facts">
+              <div><dt>Tracks</dt><dd>S&amp;P 500 Equal Weight Index</dd></div>
+              <div><dt>Expense ratio</dt><dd>0.20%</dd></div>
+              <div><dt>Launched</dt><dd>2003</dd></div>
+            </dl>
+            <p>Covers the same companies as the S&amp;P 500. Quarterly rebalancing resets each company to about 0.2%, reducing the weight of the largest companies.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="en-etf-comparison" aria-labelledby="en-etf-comparison-title">
+        <h2 id="en-etf-comparison-title">How the ETFs compare</h2>
+        <div class="fund-comparisons">
+          <article class="fund-comparison">
+            <h3>Same S&amp;P 500 benchmark<span>VOO · IVV · SPY · SPYM</span></h3>
+            <p>All four have broadly similar holdings and weights. Per $10,000 held, estimated annual fund costs are $2 for SPYM, $3 each for VOO and IVV, and $9.45 for SPY. SPY trades more actively. The expense ratio affects holding costs, while the bid-ask spread affects trading costs.</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>Two Nasdaq exposures<span>QQQ · QQQM · ONEQ</span></h3>
+            <p>QQQ and QQQM both track the Nasdaq-100 and charge 0.18% and 0.15%, respectively, a difference of about $3 a year per $10,000. ONEQ tracks the Nasdaq Composite, which also covers smaller companies and eligible financial stocks.</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>Total market and small caps<span>VTI · ITOT · IWM</span></h3>
+            <p>VTI and ITOT cover U.S. companies across market-cap sizes and both charge 0.03%. Their index providers differ, so holdings and weights can vary. IWM concentrates on U.S. small caps and charges 0.19%.</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>Same companies, different weights<span>RSP · VOO · IVV · SPY · SPYM</span></h3>
+            <p>RSP resets S&amp;P 500 company weights to roughly equal levels each quarter. The standard S&amp;P 500 funds give the largest companies more weight based on publicly tradable market value. The same companies can produce different portfolio exposures.</p>
+          </article>
+          <article class="fund-comparison">
+            <h3>30 blue chips and broader funds<span>DIA · VOO · VTI</span></h3>
+            <p>DIA covers 30 Dow companies and weights them by share price. VOO covers about 500 large companies, and VTI extends to mid-, small-, and micro-caps. The funds can hold some of the same large companies with very different coverage and weights.</p>
+          </article>
+        </div>
+        <p class="note">Annual cost examples assume a constant $10,000 holding and multiply it by the expense ratio. Trading and account costs are separate.</p>
       </section>
     </main>
 
@@ -318,7 +523,7 @@
     const languageButtons = languageControls.querySelectorAll('button');
     const editions = document.querySelectorAll('.article-language');
     const storageKey = 'us-stock-indexes-language';
-    const sectionIds = ['compare', 'etfs'];
+    const sectionIds = ['compare', 'etfs', 'etf-comparison'];
     let activeLanguage;
 
     function languageForFragment() {
