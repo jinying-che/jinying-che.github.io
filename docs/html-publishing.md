@@ -1,17 +1,16 @@
-# Publish standalone HTML from your phone
+# Publish standalone HTML
 
 ## Daily workflow
 
-1. Ask ChatGPT or Codex Cloud to generate a complete, responsive `index.html`.
-2. Download/open the actual HTML file on your phone and review it. Request changes
-   before publication. Some phone file viewers do not execute JavaScript; for
-   interactive pages, check the controls in a browser-accessible preview if the
-   file viewer cannot run them. A screenshot alone does not verify interaction.
-3. Tell Codex Cloud to publish the approved file in this repository at
-   `static/x/<slug>/index.html`, commit it, and push to `main`.
-4. The existing **Deploy Hugo to VPS** GitHub Action builds and deploys the site.
-5. Open `https://chejinying.com/x/<slug>/` after deployment succeeds and the
-   one-time Nginx mapping below is installed.
+1. Ask Codex Cloud to create or update a complete, responsive page and publish it.
+   To publish an existing HTML file, attach it to the request.
+2. Codex saves the page at `static/x/<slug>/index.html` and checks the build,
+   layout, and interactive controls.
+3. The publication request authorizes Codex to commit the verified file and push
+   it directly to `main` after the checks.
+4. The **Deploy Hugo to VPS** GitHub Action builds and deploys the site. Codex
+   checks the workflow result and verifies the page at
+   `https://chejinying.com/x/<slug>/`.
 
 Use Codex **Cloud**, with access to this GitHub repository, so publishing does
 not depend on your laptop being awake. If HTML was generated in another ChatGPT
@@ -20,20 +19,23 @@ conversations share files. Ask for a downloadable HTML attachment, not only a
 code block. This repository configuration does not itself enable cloud account
 access or provide a hosted preview service.
 
-Example generation request:
+Example generation and publication request:
 
 > Generate a self-contained, responsive HTML explanation of [topic]. Use inline
 > CSS and JavaScript, embedded SVG for diagrams, and no external dependencies or
 > private API keys. Include a viewport meta tag and complete Simplified Chinese
-> and English editions with a language switch. Return index.html for review on
-> my phone. Do not publish yet.
+> and English editions with a language switch. Run the publication checks and
+> publish it to my website.
 
-Example publication request, after reviewing the file:
+Example publication request for an existing file:
 
-> Publish this approved HTML file to jinying-che/jinying-che.github.io at
+> Publish this HTML file to jinying-che/jinying-che.github.io at
 > static/x/[slug]/index.html. Preserve its contents, check the build and the
 > required viewport sizes, commit only the intended files, and push to main.
 > Wait for the VPS deployment and report the public URL and verification result.
+
+To preview a page, request the actual HTML file or a browser-accessible preview.
+Some phone file viewers require a browser preview to run JavaScript controls.
 
 For a stock report, include source links and an explicit data timestamp. Live
 prices and private data APIs require separate data/backend arrangements.
@@ -101,7 +103,7 @@ For a local preview, run `make local-build` and then
 
 ## Publication checks
 
-- Preserve the approved HTML bytes when placing it in the repository.
+- Publish the exact HTML that passed verification.
 - Follow AGENTS.md: visually check 390 x 844, 768 x 1024, and 1440 x 900; verify
   interactive controls and report any unavailable browser verification.
 - Build with `make build` and confirm `public/x/<slug>/index.html` exists. Compare it
@@ -119,7 +121,7 @@ an active deployment to finish before another switches the live symlink. GitHub
 may replace pending runs; a later main revision includes earlier committed pages.
 Do not run an older deployment manually over a newer one unless rolling back.
 
-To update a page, review and publish a replacement at the same path. To undo a
+To update a page, verify and publish a replacement at the same path. To undo a
 publication, revert its dedicated commit and push to `main`; the normal full
 release deployment restores the previous version or removes the new page.
 
@@ -151,9 +153,9 @@ can read/traverse the release directories and follow the current symlink.
 Ensure the server's normal MIME types are loaded (typically
 `include /etc/nginx/mime.types;` in the http context), HTML is served as
 `text/html`, and no inherited attachment header forces downloads. Existing
-Content-Security-Policy headers must permit the approved page's inline code or
+Content-Security-Policy headers must permit the page's inline code or
 the page should be adapted to that policy. `/x/` shares the site's origin;
-publish trusted, reviewed scripts only and keep credentials out of HTML.
+publish trusted scripts only and keep credentials out of HTML.
 
 Validate with `sudo nginx -t`, then reload Nginx. Once a real page is published:
 

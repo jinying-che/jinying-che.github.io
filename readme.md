@@ -18,10 +18,10 @@ Here is my [blog](https://jinying-che.github.io/)
 
 ## Publish standalone HTML
 
-For standalone HTML generated in ChatGPT or Codex, follow the
-[phone-first HTML publishing workflow](docs/html-publishing.md): generate,
-review the HTML on your phone, save it under `static/x/<slug>/index.html`,
-and push to `main`. The existing VPS deployment publishes it automatically.
+Ask Codex to create or update a standalone HTML page and publish it. Codex saves
+the file under `static/x/<slug>/index.html`, runs the publication checks, and
+pushes to `main`. The existing VPS deployment publishes it automatically.
+See the [standalone HTML publishing workflow](docs/html-publishing.md).
 The guide includes the Nginx mapping for `https://chejinying.com/x/<slug>/`.
 
 ## Comments

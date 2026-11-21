@@ -8,8 +8,8 @@
 - Write a descriptive document `<title>` without appending a publication or report date. The notebook reads this title and displays the publication date on its own line.
 - Read the complete page and write a one- or two-sentence summary in the page's language. Cover the main subject and takeaway in `<meta name="description" content="…">` in the HTML head. Jinying’s Notebook shows this summary below the page title. Update it when the page's main takeaway changes.
 - When the page has clear topics, add a few comma-separated tags in `<meta name="keywords" content="…">` in the HTML head. The notebook uses them as filters.
-- Before publishing, provide the actual HTML file for phone review. Preserve the reviewed file; do not regenerate it during publication. If the phone viewer cannot run its JavaScript, use a browser-accessible preview and disclose the limitation.
-- After the user approves the page for publication, commit only the intended files and push directly to `main`; no pull request is required for this workflow. Never include unrelated working-tree changes or force-push.
+- A request to publish authorizes both the commit and the push. After the build and frontend checks, commit only the intended files and push directly to `main`. Preserve the exact HTML that passed verification. Never include unrelated working-tree changes or force-push.
+- Provide the actual HTML file or a browser preview when the user requests a draft or preview.
 - The existing VPS workflow publishes these files automatically. Do not upload directly into the live release directory or change the blog's `/tech/` baseURL.
 - Report deployment status separately from public URL verification. `/x/<slug>/` requires the owner's Nginx mapping.
 
