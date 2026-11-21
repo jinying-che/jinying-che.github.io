@@ -11,8 +11,7 @@
 {{ end }}
 
 {{ define "main" }}
-<section aria-labelledby="archive-title">
-  <h1 id="archive-title">{{ .Title }}</h1>
+<section aria-label="{{ .Title }}">
   <p id="archive-status" role="status"></p>
   <div class="posts" id="archive-results"></div>
   <noscript>Enable JavaScript to browse and search {{ .Title }}.</noscript>
