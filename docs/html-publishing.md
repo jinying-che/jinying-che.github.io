@@ -24,7 +24,8 @@ Example generation request:
 
 > Generate a self-contained, responsive HTML explanation of [topic]. Use inline
 > CSS and JavaScript, embedded SVG for diagrams, and no external dependencies or
-> private API keys. Include a viewport meta tag. Return index.html for review on
+> private API keys. Include a viewport meta tag and complete Simplified Chinese
+> and English editions with a language switch. Return index.html for review on
 > my phone. Do not publish yet.
 
 Example publication request, after reviewing the file:
@@ -36,6 +37,22 @@ Example publication request, after reviewing the file:
 
 For a stock report, include source links and an explicit data timestamp. Live
 prices and private data APIs require separate data/backend arrangements.
+
+## Chinese and English editions
+
+- Include complete Simplified Chinese and English editions by default. Follow
+  the requested language when the author specifies a single-language page.
+- Place a one-click **中文 / English** control at the top of the page. Translate
+  the title, section links, body, chart labels, captions, and control labels.
+  Keep both editions in the same standalone HTML file.
+- Default to Simplified Chinese for first-time readers. Mark both editions with
+  the correct HTML language, update the document language when switching, and
+  indicate the selected language. Keep at least the default edition readable
+  when JavaScript is unavailable. The source title and description should
+  describe the default edition for the notebook.
+- Before publishing, test switching in both directions, section navigation,
+  keyboard interaction, and layout in both languages at the required viewport
+  sizes.
 
 ## File and URL convention
 
