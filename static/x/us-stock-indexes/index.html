@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>美股三大指数对比与 ETF 图解</title>
+  <meta name="description" content="横向比较标普 500、纳斯达克综合指数和道琼斯工业平均指数的选股范围、加权规则及对应 ETF。用同一组股票演示为什么三个指数在同一天也会涨跌不一。">
+  <meta name="keywords" content="美股,股票指数,ETF,标普500,纳斯达克综合指数,道琼斯">
+  <meta property="article:published_time" content="2026-11-21">
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f6f4ec;
+      --surface: #fffdf7;
+      --ink: #162e2a;
+      --muted: #49615b;
+      --green: #005e50;
+      --hero: #103b34;
+      --mint: #d9ebe0;
+      --line: #c8d4c8;
+      --warm: #f2e7cc;
+      --focus: #a4461d;
+      font: 16px/1.7 system-ui, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); }
+    .wrap { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
+    header { background: var(--hero); color: #fcfcf3; padding: 54px 0 36px; }
+    h1, h2, h3, p, figure { margin: 0; }
+    h1 { font-size: clamp(2.35rem, 6vw, 4.8rem); line-height: 1.12; letter-spacing: -.05em; }
+    h2 { font-size: clamp(1.6rem, 3.7vw, 2.5rem); line-height: 1.25; letter-spacing: -.035em; }
+    h3 { font-size: 1.22rem; line-height: 1.4; }
+    p + p { margin-top: .8em; }
+    a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: .2em; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+    header :focus-visible { outline-color: #f4d478; }
+    .lead { max-width: 40em; margin-top: 18px; color: #e2f0e7; font-size: 1.12rem; }
+    nav { display: flex; flex-wrap: wrap; gap: 8px 10px; margin-top: 24px; }
+    nav a { color: #fffdf7; border: 1px solid #8fb6a8; border-radius: 30px; padding: 5px 12px; text-decoration: none; }
+    nav a:hover { background: #25574c; }
+    main { padding-block: 34px 48px; }
+    section + section { margin-top: 46px; }
+    .intro { color: var(--muted); max-width: 45em; margin: 10px 0 19px; }
+    .map { display: grid; gap: 1px; margin: 0; padding: 0; list-style: none; border: 1px solid var(--line); border-radius: 14px; background: var(--line); overflow: hidden; }
+    .map li { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.7fr) minmax(0, 1.1fr); align-items: start; gap: 8px 20px; padding: 17px 19px; background: var(--surface); }
+    .map .labels { background: var(--mint); font-size: .9rem; }
+    .index-code { display: block; color: var(--muted); font: .81rem/1.6 ui-monospace, monospace; }
+    .weight { display: block; color: var(--muted); font-size: .88rem; }
+    .ticker-list { display: flex; gap: 6px; flex-wrap: wrap; }
+    .ticker { display: inline-flex; align-items: center; min-height: 36px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 6px; background: var(--mint); font: 700 .88rem/1.2 ui-monospace, monospace; }
+    .ticker:hover { background: #c5e1d2; }
+    .note { margin-top: 13px; font-size: .88rem; color: var(--muted); }
+    figure, .checklist { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 19px; }
+    .callout { margin-top: 13px; padding: 13px 16px; background: var(--warm); border-inline-start: 4px solid #906526; border-radius: 0 8px 8px 0; }
+    figure h3 { margin-bottom: 10px; }
+    .scenario { margin-bottom: 16px; }
+    .bars { display: grid; grid-template-columns: auto minmax(0, 1fr) 4em; align-items: center; gap: 8px 12px; margin: 10px 0 13px; font-size: .92rem; }
+    .track { position: relative; background: #e6ece4; height: 13px; border-radius: 9px; }
+    .track::after { content: ""; position: absolute; inset: -3px auto -3px 50%; border-left: 1px solid var(--muted); }
+    .bar { position: absolute; width: var(--width); height: 100%; }
+    .bar.gain { left: 50%; border-radius: 0 9px 9px 0; background: #00695a; }
+    .bar.loss { right: 50%; border-radius: 9px 0 0 9px; background: #9b4827; }
+    .value { text-align: end; font-variant-numeric: tabular-nums; }
+    figcaption { color: var(--muted); font-size: .92rem; }
+    .checklist { margin-top: 15px; padding-inline-start: 2.65em; }
+    .checklist li + li { margin-top: 8px; }
+    details { margin-top: 10px; border-bottom: 1px solid var(--line); }
+    summary { padding: 10px 4px; cursor: pointer; font-weight: 700; }
+    summary:focus-visible { outline-offset: -3px; border-radius: 5px; }
+    details p { padding: 0 4px 13px; }
+    footer { border-top: 1px solid var(--line); padding-block: 22px 32px; color: var(--muted); font-size: .88rem; }
+    footer ul { margin: 7px 0 12px; padding-inline-start: 1.35em; }
+    @media (max-width: 640px) {
+      header { padding-top: 35px; }
+      .map .labels { display: none; }
+      .map li { grid-template-columns: minmax(0, 1fr); padding: 14px; }
+      .ticker { min-height: 44px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>美股三大指数对比与 ETF 图解</h1>
+      <p class="lead">标普 500 看美国大型股，纳斯达克综合指数看纳斯达克交易所的上市股票，道琼斯工业平均指数看 30 家美国蓝筹公司。三者选股范围和加权规则不同，涨跌也会不同。</p>
+      <nav aria-label="页面目录">
+        <a href="#compare">指数与 ETF</a>
+        <a href="#weighting">为什么涨跌不同</a>
+        <a href="#broker">券商怎么搜</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="compare" aria-labelledby="compare-title">
+      <h2 id="compare-title">三大指数，分别看什么？</h2>
+      <p class="intro">同一只股票可能进入多个指数，权重却不同。按同一组维度比较，最容易看清每个指数代表的市场范围。点 ETF 代码可打开基金发行方页面。</p>
+      <ul class="map" aria-label="指数、覆盖范围、权重与 ETF 对照">
+        <li class="labels" aria-hidden="true"><strong>指数</strong><strong>覆盖范围与加权方式</strong><strong>美股 ETF 代码</strong></li>
+        <li>
+          <div><strong>标普 500</strong><span class="index-code">S&amp;P 500 · SPX</span></div>
+          <div>500 家美国大型公司，覆盖约 80% 的可投资美国股市市值。<span class="weight">自由流通市值加权，可公开流通的市值越大，权重越高。</span></div>
+          <div class="ticker-list" role="group" aria-label="跟踪标普 500 的 ETF">
+            <a class="ticker" href="https://investor.vanguard.com/investment-products/etfs/profile/voo">VOO</a>
+            <a class="ticker" href="https://www.ishares.com/us/products/239726/ishares-core-sp-500-etf">IVV</a>
+            <a class="ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-spdr-sp-500-etf-trust-spy">SPY</a>
+            <a class="ticker" href="https://www.ssga.com/us/en/intermediary/etfs/state-street-spdr-portfolio-sp-500-etf-spym">SPYM</a>
+          </div>
+        </li>
+        <li>
+          <div><strong>纳斯达克综合指数</strong><span class="index-code">Nasdaq Composite · COMP</span></div>
+          <div>按上市地点选股，覆盖纳斯达克交易所符合资格的普通股类证券。大大小小的公司都能入选，大型科技股对涨跌影响较大。<span class="weight">市值加权，公司市值越大，影响通常越大。</span></div>
+          <div class="ticker-list" role="group" aria-label="跟踪纳斯达克综合指数的 ETF">
+            <a class="ticker" href="https://digital.fidelity.com/prgw/digital/research/quote/dashboard/summary?symbol=ONEQ">ONEQ</a>
+          </div>
+        </li>
+        <li>
+          <div><strong>道琼斯工业平均指数</strong><span class="index-code">Dow Jones Industrial Average · DJIA</span></div>
+          <div>由 30 家有代表性的美国蓝筹公司组成，覆盖多个行业，样本比前两者更窄。<span class="weight">股价加权，每股价格越高，权重越大。</span></div>
+          <div class="ticker-list" role="group" aria-label="跟踪道琼斯工业平均指数的 ETF">
+            <a class="ticker" href="https://www.ssga.com/us/en/individual/capabilities/spdr-core-equity-etfs/dia-djia">DIA</a>
+          </div>
+        </li>
+      </ul>
+      <p class="note">指数简称与行情代码因平台而异。成分股数量会变化，同一公司也可能有多个股类入选。标普 500 的纳入规则还考虑盈利、流动性等条件。</p>
+    </section>
+
+    <section id="weighting" aria-labelledby="weighting-title">
+      <h2 id="weighting-title">同一天，为什么有的涨、有的跌？</h2>
+      <p class="intro">先看指数有没有纳入那只股票，再看它的权重。市值加权看公司规模，自由流通市值只计可公开流通的股份。股价加权看每股价格，股价高的小公司也可能占较大权重。</p>
+      <figure>
+        <h3>用三只虚构股票演示</h3>
+        <p class="scenario">甲、乙都在纳斯达克上市，丙在纽交所上市。假设股份全部可流通，甲每股 <strong>200 美元</strong>，市值 <strong>200 亿美元</strong>，涨 <strong>10%</strong>。乙每股 <strong>50 美元</strong>，市值 <strong>1,800 亿美元</strong>，跌 <strong>2%</strong>。丙每股 <strong>100 美元</strong>，市值 <strong>2,000 亿美元</strong>，持平。</p>
+        <div class="bars">
+          <span>标普 500</span><span class="track" aria-hidden="true"><span class="bar loss" style="--width:2.86%"></span></span><strong class="value">−0.4%</strong>
+          <span>纳斯达克综合</span><span class="track" aria-hidden="true"><span class="bar loss" style="--width:5.71%"></span></span><strong class="value">−0.8%</strong>
+          <span>道琼斯工业平均</span><span class="track" aria-hidden="true"><span class="bar gain" style="--width:47.62%"></span></span><strong class="value">+6.67%</strong>
+        </div>
+        <figcaption>假设标普纳入三只，按市值加权，甲占 5%、乙占 45%，合计跌 0.4%。纳斯达克综合只纳入甲、乙，乙的权重升至 90%，合计跌 0.8%。假设道琼斯纳入甲、丙，甲按股价占约三分之二，带动指数涨约 6.67%。中线为 0%，两端分别为 −7% 和 +7%。数值仅用于演示指数规则。</figcaption>
+      </figure>
+    </section>
+
+    <section id="broker" aria-labelledby="broker-title">
+      <h2 id="broker-title">在券商里，怎样找到对应的基金？</h2>
+      <ol class="checklist">
+        <li><strong>搜索 ETF 代码。</strong> 例如，标普 500 搜 <strong>VOO</strong>，纳斯达克综合搜 <strong>ONEQ</strong>，道琼斯工业平均搜 <strong>DIA</strong>。指数点位用于观察市场，ETF 以每份的市场价格成交。</li>
+        <li><strong>核对基金全名和跟踪基准。</strong> 打开发行方页面，找到 Benchmark 或 Underlying Index，并和上表的指数全名核对。</li>
+        <li><strong>同一基准下比较交易和持有成本。</strong> 看年费率、买卖价差、成交活跃度、交易佣金与换汇费用。基金成交价可能高于或低于每份净值，可交易性也取决于券商和账户所在地。</li>
+      </ol>
+      <p class="callout"><strong>核对纳斯达克 ETF 的基准。</strong> ONEQ 对应 Nasdaq Composite。<a href="https://www.invesco.com/us/en/solutions/innovation-suite.html">QQQ 和 QQQM</a> 跟踪的是 Nasdaq-100。</p>
+      <details>
+        <summary>买 ETF 和买单只成分股有什么区别？</summary>
+        <p>买一只指数 ETF，你持有的是基金份额，获得一篮子证券的组合敞口。买单只股票则承担这家公司的涨跌。例如，买 AAPL 获得的是苹果公司敞口，买跟踪标普 500 的 ETF 则获得该指数覆盖的组合敞口。</p>
+      </details>
+      <details>
+        <summary>为什么 ETF 收益和新闻里的指数涨幅对不上？</summary>
+        <p>先核对比较区间、币种和分红口径。价格指数只计价格变动，总回报指数假设分红再投资。ETF 还会受到费用、跟踪差异和交易价格相对净值的折溢价影响。做比较时，尽量使用同一币种、同一期间和相同分红口径。</p>
+      </details>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <strong>资料来源</strong>
+      <ul>
+        <li><a href="https://www.spglobal.com/spdji/en/indices/equity/sp-500/">S&amp;P DJI · 标普 500</a>、<a href="https://www.spglobal.com/spdji/en/methodology/article/dow-jones-averages-methodology/">道琼斯指数编制方法</a></li>
+        <li><a href="https://indexes.nasdaq.com/docs/methodology_COMP.pdf">Nasdaq · 综合指数编制方法</a></li>
+        <li><a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins-24">美国证监会投资者公告 · ETF、净值与交易成本</a></li>
+      </ul>
+      <p>资料核对于 <time datetime="2026-11-21">2026 年 11 月 21 日</time>。</p>
+    </div>
+  </footer>
+</body>
+</html>
