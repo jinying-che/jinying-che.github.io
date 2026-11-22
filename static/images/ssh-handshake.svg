@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="1180" role="img" aria-labelledby="ssh-title ssh-desc" style="display:block;max-width:760px;margin:24px auto;color:inherit;overflow:visible">
+<title id="ssh-title">SSH handshake: client and server message sequence</title>
+<desc id="ssh-desc">Time flows downward: TCP SYN, SYN ACK, ACK; version and algorithm exchange; client ECDH key and server signed reply; host verification and NEWKEYS; encrypted user authentication; then channel setup and application data. Arrowheads indicate the sender and recipient.</desc>
+<defs><marker id="ssh-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1L9 5 1 9" fill="none" stroke="currentColor" stroke-width="1.5"/></marker></defs>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="10%" y="24">Client</text><text x="90%" y="24">Server</text>
+</g>
+<g stroke="currentColor" opacity=".22"><line x1="10%" x2="10%" y1="36" y2="1160"/><line x1="90%" x2="90%" y1="36" y2="1160"/></g>
+<rect x="0" y="44" width="100%" height="28" fill="currentColor" opacity=".07"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="62">1 / TCP connection</text>
+</g>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="98">SYN</text>
+</g>
+<line x1="10%" x2="90%" y1="110" y2="110" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="140">SYN + ACK</text>
+</g>
+<line x1="90%" x2="10%" y1="152" y2="152" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="182">ACK</text>
+</g>
+<line x1="10%" x2="90%" y1="194" y2="194" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<rect x="0" y="220" width="100%" height="28" fill="currentColor" opacity=".07"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="238">2 / Algorithm negotiation</text>
+</g>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="276">SSH version strings</text>
+</g>
+<line x1="10%" x2="90%" y1="288" y2="288" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)" marker-start="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="322">SSH_MSG_KEXINIT</text>
+</g>
+<line x1="10%" x2="90%" y1="334" y2="334" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)" marker-start="url(#ssh-arrow)"/>
+<rect x="0" y="364" width="100%" height="28" fill="currentColor" opacity=".07"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="382">3 / Key exchange + server trust</text>
+</g>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="424">SSH_MSG_KEX_ECDH_INIT</text>
+<text x="50%" y="441">Client ephemeral public key</text>
+</g>
+<line x1="10%" x2="90%" y1="453" y2="453" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="490">SSH_MSG_KEX_ECDH_REPLY</text>
+<text x="50%" y="507">Server ephemeral key,</text>
+<text x="50%" y="524">host key + signature</text>
+</g>
+<line x1="90%" x2="10%" y1="536" y2="536" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="582">Client verifies host key</text>
+<text x="50%" y="599">and exchange signature</text>
+</g>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="636">SSH_MSG_NEWKEYS</text>
+</g>
+<line x1="10%" x2="90%" y1="648" y2="648" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)" marker-start="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="684">Encrypted from here onward</text>
+</g>
+<rect x="0" y="718" width="100%" height="28" fill="currentColor" opacity=".07"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="736">4 / User authentication</text>
+</g>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="776">SSH_MSG_SERVICE_REQUEST</text>
+</g>
+<line x1="10%" x2="90%" y1="788" y2="788" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="822">SSH_MSG_SERVICE_ACCEPT</text>
+</g>
+<line x1="90%" x2="10%" y1="834" y2="834" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="868">SSH_MSG_USERAUTH_REQUEST</text>
+<text x="50%" y="885">Public key + signature</text>
+</g>
+<line x1="10%" x2="90%" y1="897" y2="897" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="934">SSH_MSG_USERAUTH_SUCCESS</text>
+</g>
+<line x1="90%" x2="10%" y1="946" y2="946" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)"/>
+<rect x="0" y="978" width="100%" height="28" fill="currentColor" opacity=".07"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="996">5 / Session</text>
+</g>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="1038">Channel open + shell / command</text>
+<text x="50%" y="1055">Simplified request / reply</text>
+</g>
+<line x1="10%" x2="90%" y1="1067" y2="1067" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)" marker-start="url(#ssh-arrow)"/>
+<g fill="currentColor" font-family="ui-monospace,monospace" font-size="12" text-anchor="middle">
+<text x="50%" y="1108">Encrypted application data</text>
+</g>
+<line x1="10%" x2="90%" y1="1120" y2="1120" stroke="currentColor" stroke-width="1.5" marker-end="url(#ssh-arrow)" marker-start="url(#ssh-arrow)"/>
+</svg>

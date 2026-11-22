@@ -1,5 +1,13 @@
 # Project Instructions
 
+## Markdown publishing
+
+- Follow `docs/markdown-publishing.md` when creating, updating, or publishing Markdown blog posts.
+- A request to create or update a blog post authorizes publication unless the user explicitly asks for a draft, preview, or local-only change. After validation, commit the intended files and push directly to `main` without asking for another confirmation. An explicit publish request also authorizes the commit and push.
+- Before publishing, review the complete post, validate front matter, links, commands, code blocks, shortcodes, and referenced assets, and run `make build`. Verify the generated post at its intended `/tech/` URL path. For visual changes, complete the frontend verification below before pushing.
+- Publish the exact source and assets that passed validation. Stage named files only, fetch latest `main`, preserve unrelated work, and never force-push. Rerun affected checks after resolving conflicts or changing the verified content.
+- Use the existing VPS deployment workflow; do not change the production `/tech/` baseURL or upload directly to the live release directory. Check the deployment for the pushed commit and separately verify the public post and its assets. Report any unavailable checks accurately.
+
 ## Standalone HTML publishing
 
 - Follow `docs/html-publishing.md` when generating or publishing standalone HTML.
