@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>美股三大指数对比与 ETF 图解</title>
-  <meta name="description" content="横向比较标普 500、纳斯达克综合指数和道琼斯工业平均指数的选股范围与加权规则。介绍 VOO、QQQ、ONEQ、DIA 等 12 只美股 ETF 的跟踪指数、费率和覆盖范围，并对照房地产、科技、半导体等板块的代表基金。">
-  <meta name="keywords" content="美股,股票指数,ETF,标普500,纳斯达克综合指数,道琼斯">
+  <meta name="description" content="横向比较标普 500、纳斯达克综合指数和道琼斯工业平均指数的选股范围与加权规则。用持仓图比较 VOO 与 QQQ，介绍 12 只常见 ETF、板块基金与半导体、存储、算力、网络和数据中心的相关基金。">
+  <meta name="keywords" content="美股,股票指数,ETF,标普500,纳斯达克综合指数,道琼斯,人工智能,数据中心">
   <meta property="article:published_time" content="2026-11-21">
   <style>
     :root {
@@ -47,7 +47,7 @@
     .language-buttons button:focus-visible { outline-color: #f4d478; }
     .language-bar:not([hidden]) ~ .article-language header { padding-top: 20px; }
     .article-language[lang="en"] h1 { font-size: clamp(2.2rem, 5.5vw, 4.3rem); }
-    h1, h2, h3, p { margin: 0; }
+    h1, h2, h3, h4, p, figure { margin: 0; }
     h1 { font-size: clamp(2.35rem, 6vw, 4.8rem); line-height: 1.12; letter-spacing: -.05em; }
     h2 { font-size: clamp(1.6rem, 3.7vw, 2.5rem); line-height: 1.25; letter-spacing: -.035em; }
     a { color: var(--green); text-decoration-thickness: 1px; text-underline-offset: .2em; }
@@ -142,6 +142,57 @@
     .sector-funds { display: flex; flex-wrap: wrap; gap: 2px 14px; margin-top: 4px; }
     .sector-funds > span { white-space: nowrap; }
     .sector-fee { color: var(--muted); font-size: .8rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .holdings-focus { margin-bottom: 20px; }
+    .holdings-legend strong { font-variant-numeric: tabular-nums; }
+    .holdings-focus h3 { font-size: clamp(1.3rem, 2.7vw, 1.8rem); line-height: 1.3; }
+    .holdings-grid, .ai-layers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .holdings-card, .ai-layer {
+      min-width: 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .holdings-card h4 { color: var(--green); font-size: 1.15rem; }
+    .snapshot-date, .research-links { color: var(--muted); font-size: .83rem; }
+    .holdings-visual {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      align-items: center;
+      gap: 12px;
+      margin: 15px 0;
+    }
+    .holdings-donut {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 100%;
+      max-width: 170px;
+      margin-inline: auto;
+      aspect-ratio: 1;
+      border-radius: 50%;
+    }
+    .holdings-donut > span {
+      position: absolute;
+      display: grid;
+      place-content: center;
+      inset: 18%;
+      border-radius: 50%;
+      background: var(--surface);
+      text-align: center;
+      font-size: .64rem;
+      line-height: 1.35;
+    }
+    .holdings-donut strong { font-size: clamp(.92rem, 2vw, 1.45rem); }
+    .holdings-legend { margin: 0; padding: 0; list-style: none; font-size: .82rem; }
+    .holdings-legend li { display: grid; grid-template-columns: 9px minmax(0, 1fr) auto; gap: 6px; align-items: center; padding-block: 3px; }
+    .holding-key { width: 9px; height: 9px; border-radius: 3px; background: var(--key); }
+    .holdings-card figcaption, .ai-layer p { font-size: .92rem; }
+    .research-links, .ai-layer .research-links { margin-top: 8px; font-size: .83rem; }
+    .ai-layers { margin-top: 14px; }
+    .ai-layer h3 { font-size: 1.08rem; line-height: 1.4; }
+    .ai-layer p { margin-top: 8px; }
+    .ai-layer:last-child { grid-column: 1 / -1; }
     .note { margin-top: 13px; font-size: .88rem; color: var(--muted); }
     footer { border-top: 1px solid var(--line); padding-block: 22px 32px; color: var(--muted); font-size: .88rem; }
     footer ul { margin: 7px 0 12px; padding-inline-start: 1.35em; }
@@ -152,7 +203,7 @@
       header { padding-top: 35px; }
       .map .labels { display: none; }
       .map li { grid-template-columns: minmax(0, 1fr); padding: 14px; }
-      .fund-list, .fund-comparison { grid-template-columns: minmax(0, 1fr); }
+      .fund-list, .fund-comparison, .holdings-grid, .ai-layers { grid-template-columns: minmax(0, 1fr); }
       .sector-table { font-size: .9rem; }
       .sector-table th, .sector-table td { padding-inline: 9px; }
       .sector-table thead th:first-child { width: 42%; }
@@ -174,6 +225,7 @@
         <nav aria-label="页面目录">
           <a href="#compare">三大指数</a>
           <a href="#etfs">ETF 资料</a>
+          <a href="#ai-infrastructure">AI 产业链</a>
           <a href="#etf-comparison">ETF 对比</a>
           <a href="#sector-etfs">板块 ETF</a>
         </nav>
@@ -205,6 +257,47 @@
       <section id="etfs" aria-labelledby="etfs-title">
         <h2 id="etfs-title">12 只主流指数 ETF</h2>
         <p class="intro">基金资料和年费率核对于 <time datetime="2026-11-21">2026 年 11 月 21 日</time>。点击代码可查看发行方资料。</p>
+        <section class="holdings-focus" id="fund-holdings" aria-labelledby="fund-holdings-title">
+          <h3 id="fund-holdings-title">VOO 与 QQQ：三只共同持仓占多少？</h3>
+          <p class="intro">用同一组选定股票看两只基金的持仓重叠。每个环代表该基金的全部权重，中心数字是 NVIDIA、Apple 和 Microsoft 的合计权重。</p>
+          <div class="holdings-grid">
+            <figure class="holdings-card">
+              <h4>VOO</h4>
+              <p class="snapshot-date">数据截至 <time datetime="2026-09-30">2026 年 9 月 30 日</time></p>
+              <div class="holdings-visual">
+                <div class="holdings-donut" aria-hidden="true" style="background:conic-gradient(#087567 0% 8.4%, #365b97 8.4% 15.8%, #995416 15.8% 21.6%, #d7e3dc 21.6% 100.0%)">
+                  <span><strong>21.6%</strong>三只合计</span>
+                </div>
+                <ul class="holdings-legend">
+                  <li><span class="holding-key" style="--key:#087567" aria-hidden="true"></span><span>NVIDIA (NVDA)</span><strong>8.4%</strong></li>
+                  <li><span class="holding-key" style="--key:#365b97" aria-hidden="true"></span><span>Apple (AAPL)</span><strong>7.4%</strong></li>
+                  <li><span class="holding-key" style="--key:#995416" aria-hidden="true"></span><span>Microsoft (MSFT)</span><strong>5.8%</strong></li>
+                  <li><span class="holding-key" style="--key:#d7e3dc" aria-hidden="true"></span><span>其余权重</span><strong>78.4%</strong></li>
+                </ul>
+              </div>
+              <figcaption><p><strong>三只合计 21.6%。</strong> 标普 500 覆盖美国大型股。Vanguard 在此快照披露了 505 只股票，信息技术占 39.7%（GICS）。年费率为 0.03%，按每 1 万美元约 3 美元估算。</p>
+                <p class="research-links"><a href="https://workplace.vanguard.com/assets/corp/fund_communications/pdf_publish/us-products/fact-sheet/F0968.pdf">Vanguard 季度事实表（FO968_092026）</a></p></figcaption>
+            </figure>
+            <figure class="holdings-card">
+              <h4>QQQ</h4>
+              <p class="snapshot-date">数据截至 <time datetime="2026-08-31">2026 年 8 月 31 日</time></p>
+              <div class="holdings-visual">
+                <div class="holdings-donut" aria-hidden="true" style="background:conic-gradient(#087567 0% 8.51%, #365b97 8.51% 15.92%, #995416 15.92% 21.92%, #d7e3dc 21.92% 100.00%)">
+                  <span><strong>21.92%</strong>三只合计</span>
+                </div>
+                <ul class="holdings-legend">
+                  <li><span class="holding-key" style="--key:#087567" aria-hidden="true"></span><span>NVIDIA (NVDA)</span><strong>8.51%</strong></li>
+                  <li><span class="holding-key" style="--key:#365b97" aria-hidden="true"></span><span>Apple (AAPL)</span><strong>7.41%</strong></li>
+                  <li><span class="holding-key" style="--key:#995416" aria-hidden="true"></span><span>Microsoft (MSFT)</span><strong>6.00%</strong></li>
+                  <li><span class="holding-key" style="--key:#d7e3dc" aria-hidden="true"></span><span>其余权重</span><strong>78.08%</strong></li>
+                </ul>
+              </div>
+              <figcaption><p><strong>三只合计 21.92%。</strong> 纳斯达克 100 纳入约 100 家在纳斯达克上市的大型非金融公司，采用修正市值加权。基金也持有科技板块以外的公司。年费率为 0.18%，按每 1 万美元约 18 美元估算。</p>
+                <p class="research-links"><a href="https://www.invesco.com/us/en/insights/harness-growth-potential-international-innovation.html">Invesco 持仓权重表</a>、<a href="https://www.invesco.com/qqq-etf/en/about.html">QQQ 基金资料</a>、<a href="https://indexes.nasdaqomx.com/docs/methodology_NDX.pdf">纳斯达克 100 编制方法</a></p></figcaption>
+            </figure>
+          </div>
+          <p class="note">两份发行方资料的报告日不同，图表比较的是两份历史快照。其余权重按 100% 减去已披露的三个权重计算，含其他持仓及剩余资产。三只选定股票的合计并非基金的科技或 AI 权重。费用估算假设持仓金额不变，交易费用另计。</p>
+        </section>
         <ul class="fund-list">
           <li class="fund">
             <h3><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/voo/vanguard-sp-500-etf">VOO</a><span>Vanguard S&amp;P 500 ETF</span></h3>
@@ -212,6 +305,8 @@
               <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
               <div><dt>年费率</dt><dd>0.03%</dd></div>
               <div><dt>成立</dt><dd>2010 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国大型股</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$3</dd></div>
             </dl>
             <p>Vanguard 500 Index Fund 的 ETF 份额。按自由流通市值配置约 500 家美国大型公司。</p>
           </li>
@@ -221,6 +316,8 @@
               <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
               <div><dt>年费率</dt><dd>0.03%</dd></div>
               <div><dt>成立</dt><dd>2000 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国大型股</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$3</dd></div>
             </dl>
             <p>贝莱德 iShares 的大型股基金。跟踪的指数和年费率均与 VOO 相同，成立时间早十年。</p>
           </li>
@@ -230,6 +327,8 @@
               <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
               <div><dt>年费率</dt><dd>0.0945%</dd></div>
               <div><dt>成立</dt><dd>1993 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国大型股</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$9.45</dd></div>
             </dl>
             <p>美国首只上市 ETF，采用单位投资信托结构。它的二级市场交易活跃，年费率高于同组另外三只。</p>
           </li>
@@ -239,6 +338,8 @@
               <div><dt>跟踪指数</dt><dd>标普 500 指数</dd></div>
               <div><dt>年费率</dt><dd>0.02%</dd></div>
               <div><dt>成立</dt><dd>2005 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国大型股</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$2</dd></div>
             </dl>
             <p>State Street 的低费率标普 500 基金。基金成立于 2005 年，从 2020 年起跟踪标普 500。</p>
           </li>
@@ -248,6 +349,8 @@
               <div><dt>跟踪指数</dt><dd>纳斯达克综合指数</dd></div>
               <div><dt>年费率</dt><dd>0.21%</dd></div>
               <div><dt>成立</dt><dd>2003 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>纳斯达克上市股票</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$21</dd></div>
             </dl>
             <p>覆盖纳斯达克交易所符合条件的不同规模股票，包括金融公司。指数按市值加权，大型股仍占较大比重。</p>
           </li>
@@ -257,6 +360,8 @@
               <div><dt>跟踪指数</dt><dd>纳斯达克 100 指数</dd></div>
               <div><dt>年费率</dt><dd>0.18%</dd></div>
               <div><dt>成立</dt><dd>1999 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>纳斯达克大型非金融股</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$18</dd></div>
             </dl>
             <p>跟踪纳斯达克上市的 100 家大型非金融公司，科技股占比较高。它比 QQQM 成立更早，二级市场交易也更活跃。</p>
           </li>
@@ -266,6 +371,8 @@
               <div><dt>跟踪指数</dt><dd>纳斯达克 100 指数</dd></div>
               <div><dt>年费率</dt><dd>0.15%</dd></div>
               <div><dt>成立</dt><dd>2020 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>纳斯达克大型非金融股</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$15</dd></div>
             </dl>
             <p>与 QQQ 跟踪同一个纳斯达克 100 指数，股票敞口相近，年费率低 0.03 个百分点。</p>
           </li>
@@ -275,6 +382,8 @@
               <div><dt>跟踪指数</dt><dd>道琼斯工业平均指数</dd></div>
               <div><dt>年费率</dt><dd>0.16%</dd></div>
               <div><dt>成立</dt><dd>1998 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>30 家美国蓝筹</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$16</dd></div>
             </dl>
             <p>持有道指的 30 家美国蓝筹公司，股价越高权重越大。发行方列示派息频率为每月。</p>
           </li>
@@ -284,6 +393,8 @@
               <div><dt>跟踪指数</dt><dd>晨星美国全市场指数</dd></div>
               <div><dt>年费率</dt><dd>0.03%</dd></div>
               <div><dt>成立</dt><dd>2001 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国全市场</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$3</dd></div>
             </dl>
             <p>覆盖美国大盘、中盘、小盘和微盘股。指数名称已从 CRSP US Total Market Index 更名为晨星美国全市场指数。</p>
           </li>
@@ -293,6 +404,8 @@
               <div><dt>跟踪指数</dt><dd>标普全市场指数</dd></div>
               <div><dt>年费率</dt><dd>0.03%</dd></div>
               <div><dt>成立</dt><dd>2004 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国全市场</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$3</dd></div>
             </dl>
             <p>覆盖多个市值规模的美国股票。与 VTI 的费率相同，使用标普编制的全市场基准。</p>
           </li>
@@ -302,6 +415,8 @@
               <div><dt>跟踪指数</dt><dd>罗素 2000 指数</dd></div>
               <div><dt>年费率</dt><dd>0.19%</dd></div>
               <div><dt>成立</dt><dd>2000 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国小盘股</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$19</dd></div>
             </dl>
             <p>聚焦约 2,000 只美国小盘股。它集中覆盖全市场基金中只占一部分的小盘股。</p>
           </li>
@@ -311,10 +426,51 @@
               <div><dt>跟踪指数</dt><dd>标普 500 等权重指数</dd></div>
               <div><dt>年费率</dt><dd>0.20%</dd></div>
               <div><dt>成立</dt><dd>2003 年</dd></div>
+              <div><dt>覆盖范围</dt><dd>美国大型股等权重</dd></div>
+              <div><dt>每 $10,000 估算年费</dt><dd>$20</dd></div>
             </dl>
             <p>覆盖标普 500 的同一组公司，每季再平衡时把每家公司权重调回约 0.2%，从而降低头部大公司的权重。</p>
           </li>
         </ul>
+      </section>
+
+      <section id="ai-infrastructure" aria-labelledby="ai-infrastructure-title">
+        <h2 id="ai-infrastructure-title">AI 基础设施产业链与相关 ETF</h2>
+        <p class="intro">AI 工作负载同时依赖芯片、内存与存储、算力服务、网络和机房。下面按业务环节列出可观察的需求指标和代表基金，便于查清 ETF 买到的是哪一段。</p>
+        <div class="ai-layers">
+          <article class="ai-layer">
+            <h3>半导体：设计、制造与先进封装</h3>
+            <p>GPU 和定制 ASIC 的设计、晶圆制造、HBM 集成和先进封装分属不同环节。以台积电 CoWoS 为例，封装可将逻辑芯片和 HBM 等组件集成在同一封装内。观察需求时，可以分别跟踪先进制程与封装产能、良率和客户集中度。</p>
+            <p><strong>ETF 敞口。</strong> SOXX（0.33%）和 SMH（0.35%）覆盖芯片及设备公司，跟踪不同指数。持仓可以同时涉及设计、制造和设备，AI 加速器只占其中一部分。</p>
+            <p class="research-links"><a href="https://www.tsmc.com/english/dedicatedFoundry/services/advanced-packaging">台积电先进封装</a>、<a href="https://www.ishares.com/us/products/239705/ishares-semiconductor-etf-soxx">SOXX 基金资料</a>、<a href="https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/overview">SMH 基金资料</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>存储：HBM、主内存与持久存储</h3>
+            <p>HBM 是堆叠式 DRAM，靠近加速器提供高带宽内存。服务器主内存一般也用 DRAM。企业级 NAND SSD 和 HDD 用来持久保存训练数据、检查点及结果，需求还取决于访问速度、容量和成本。评估这个环节时，HBM 产品组合与认证进度、DRAM/NAND 价格和库存周期值得分开看。</p>
+            <p><strong>ETF 敞口。</strong> DRAM（0.65%）是 Roundhill 的主动管理存储主题 ETF，投资全球存储芯片相关公司，发行方披露会使用总回报互换。SOXX、SMH 提供较广的半导体敞口，其中也可能持有存储芯片公司。</p>
+            <p class="research-links"><a href="https://www.micron.com/products/memory/hbm">Micron HBM</a>、<a href="https://www.micron.com/products/storage/ssd/data-center-ssd">Micron 数据中心 SSD</a>、<a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA 存储与集群设计</a>、<a href="https://www.roundhillinvestments.com/etf/dram/">DRAM 基金资料及互换说明</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>计算：训练、推理与云算力</h3>
+            <p>训练要在大量加速器之间同步数据，推理更关注并发、延迟和每个 token 的成本。云厂商可以同时部署通用 GPU 与自研加速器，例如 AWS EC2 提供 NVIDIA GPU 实例和 Trainium 实例。芯片出货、云算力利用率与租用价格分别反映不同环节。</p>
+            <p><strong>ETF 敞口。</strong> QQQ 和 AIQ（0.68%）能覆盖部分芯片和云平台公司。SKYY（0.60%）更接近云计算主题，持仓也包含软件和云服务。以算力租赁或加速器业务的实际营收占比衡量敞口会更清楚。</p>
+            <p class="research-links"><a href="https://docs.aws.amazon.com/decision-guides/latest/decision-guides/choosing-aws-compute-service.html">AWS 加速计算选型指南</a>、<a href="https://docs.nvidia.com/reference-architectures/">NVIDIA AI 集群参考架构</a>、<a href="https://www.invesco.com/qqq-etf/en/about.html">QQQ 持仓与行业</a>、<a href="https://www.globalxetfs.com/funds/aiq">AIQ 基金与指数</a>、<a href="https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=SKYY">SKYY 基金及基准</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>网络：机内互连、跨机集群与光互连</h3>
+            <p>Scale-up 连接同一系统内的加速器，Scale-out 连接多个服务器。后者依靠高速网卡、交换机及铜缆或光模块，常见方案包括 InfiniBand 和适配 AI 的以太网。对产业链而言，端口速率升级、交换容量和光模块用量是不同的需求指标。</p>
+            <p><strong>ETF 敞口。</strong> XLK、VGT 可以覆盖部分交换芯片和网络设备公司，SOXX、SMH 则偏向相关半导体。比较持仓时可关注网络及光通信厂商的具体权重，因为这些基金还覆盖其他业务。</p>
+            <p class="research-links"><a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA 网络与集群设计</a>、<a href="https://ultraethernet.org/specification-history/">Ultra Ethernet 技术规范</a>、<a href="https://www.ssga.com/us/en/individual/etfs/state-street-technology-select-sector-spdr-etf-xlk">XLK 基金与持仓</a>、<a href="https://advisors.vanguard.com/investments/products/vgt/vanguard-information-technology-etf">VGT 基金与持仓</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>数据中心：机房、电力与散热</h3>
+            <p>数据中心运营商通过租赁或托管变现，还需要电网接入、配电、备用电力与散热。机柜功率密度提高时，部分场景会使用液冷。数据中心 REIT 的出租率、融资成本和已锁定电力，与电力及散热设备厂商的订单指标有所区别。</p>
+            <p><strong>ETF 敞口。</strong> DTCR（0.50%）覆盖数据中心 REIT 和数字基础设施，持仓也包括通信塔企业。AIPO（0.69%）按指数覆盖 AI 硬件、数据中心和电力基础设施，业务范围横跨多个环节。</p>
+            <p class="research-links"><a href="https://www.energy.gov/powering-americas-ai-future-data-center-resource-hub">美国能源部数据中心资料</a>、<a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA 供电与冷却设计</a>、<a href="https://www.globalxetfs.com/funds/dtcr">DTCR 基金和指数</a>、<a href="https://www.defianceetfs.com/aipo/">AIPO 基金和指数</a></p>
+          </article>
+        </div>
+        <p class="note">VOO 和 QQQ 已持有部分 AI 基础设施公司。叠加 SOXX、SMH 或 AIQ 之前，可以对照各基金前十大持仓及其权重。跨环节投资时，机房租赁、供电设备和芯片销售的业务指标也应分别看。</p>
+        <p class="note">发行方基金资料和年费率核对日期 <time datetime="2026-11-22">2026 年 11 月 22 日</time>。</p>
       </section>
 
       <section id="etf-comparison" aria-labelledby="etf-comparison-title">
@@ -478,6 +634,7 @@
         <nav aria-label="On this page">
           <a href="#en-compare">Three indexes</a>
           <a href="#en-etfs">ETF profiles</a>
+          <a href="#en-ai-infrastructure">AI infrastructure</a>
           <a href="#en-etf-comparison">Compare ETFs</a>
           <a href="#en-sector-etfs">Sector ETFs</a>
         </nav>
@@ -509,6 +666,47 @@
       <section id="en-etfs" aria-labelledby="en-etfs-title">
         <h2 id="en-etfs-title">12 major index ETFs</h2>
         <p class="intro">Fund facts and annual expense ratios checked <time datetime="2026-11-21">November 21, 2026</time>. Select a ticker for the issuer’s fund information.</p>
+        <section class="holdings-focus" id="en-fund-holdings" aria-labelledby="en-fund-holdings-title">
+          <h3 id="en-fund-holdings-title">VOO and QQQ: How much do three shared holdings weigh?</h3>
+          <p class="intro">Use the same three stocks to see where the funds overlap. Each ring shows 100% of one fund. The center shows the combined weight of NVIDIA, Apple, and Microsoft.</p>
+          <div class="holdings-grid">
+            <figure class="holdings-card">
+              <h4>VOO</h4>
+              <p class="snapshot-date">As of <time datetime="2026-09-30">September 30, 2026</time></p>
+              <div class="holdings-visual">
+                <div class="holdings-donut" aria-hidden="true" style="background:conic-gradient(#087567 0% 8.4%, #365b97 8.4% 15.8%, #995416 15.8% 21.6%, #d7e3dc 21.6% 100.0%)">
+                  <span><strong>21.6%</strong>Three combined</span>
+                </div>
+                <ul class="holdings-legend">
+                  <li><span class="holding-key" style="--key:#087567" aria-hidden="true"></span><span>NVIDIA (NVDA)</span><strong>8.4%</strong></li>
+                  <li><span class="holding-key" style="--key:#365b97" aria-hidden="true"></span><span>Apple (AAPL)</span><strong>7.4%</strong></li>
+                  <li><span class="holding-key" style="--key:#995416" aria-hidden="true"></span><span>Microsoft (MSFT)</span><strong>5.8%</strong></li>
+                  <li><span class="holding-key" style="--key:#d7e3dc" aria-hidden="true"></span><span>Remainder</span><strong>78.4%</strong></li>
+                </ul>
+              </div>
+              <figcaption><p><strong>The three holdings total 21.6%.</strong> The S&amp;P 500 covers large U.S. companies. Vanguard reported 505 stocks and a 39.7% GICS information technology weight in this snapshot. Its 0.03% expense ratio works out to about $3 a year per $10,000.</p>
+                <p class="research-links"><a href="https://workplace.vanguard.com/assets/corp/fund_communications/pdf_publish/us-products/fact-sheet/F0968.pdf">Vanguard quarterly fact sheet (FO968_092026)</a></p></figcaption>
+            </figure>
+            <figure class="holdings-card">
+              <h4>QQQ</h4>
+              <p class="snapshot-date">As of <time datetime="2026-08-31">August 31, 2026</time></p>
+              <div class="holdings-visual">
+                <div class="holdings-donut" aria-hidden="true" style="background:conic-gradient(#087567 0% 8.51%, #365b97 8.51% 15.92%, #995416 15.92% 21.92%, #d7e3dc 21.92% 100.00%)">
+                  <span><strong>21.92%</strong>Three combined</span>
+                </div>
+                <ul class="holdings-legend">
+                  <li><span class="holding-key" style="--key:#087567" aria-hidden="true"></span><span>NVIDIA (NVDA)</span><strong>8.51%</strong></li>
+                  <li><span class="holding-key" style="--key:#365b97" aria-hidden="true"></span><span>Apple (AAPL)</span><strong>7.41%</strong></li>
+                  <li><span class="holding-key" style="--key:#995416" aria-hidden="true"></span><span>Microsoft (MSFT)</span><strong>6.00%</strong></li>
+                  <li><span class="holding-key" style="--key:#d7e3dc" aria-hidden="true"></span><span>Remainder</span><strong>78.08%</strong></li>
+                </ul>
+              </div>
+              <figcaption><p><strong>The three holdings total 21.92%.</strong> The Nasdaq-100 selects about 100 large nonfinancial Nasdaq-listed companies and uses modified market-cap weighting. The fund also holds companies outside the technology sector. Its 0.18% expense ratio works out to about $18 a year per $10,000.</p>
+                <p class="research-links"><a href="https://www.invesco.com/us/en/insights/harness-growth-potential-international-innovation.html">Invesco holdings weight table</a> · <a href="https://www.invesco.com/qqq-etf/en/about.html">QQQ fund information</a> · <a href="https://indexes.nasdaqomx.com/docs/methodology_NDX.pdf">Nasdaq-100 methodology</a></p></figcaption>
+            </figure>
+          </div>
+          <p class="note">The issuer disclosures have different reporting dates. The remainder is 100% minus the three published weights and includes other holdings and any remaining assets. The combined weight is for these three stocks only. Fee examples assume a constant balance and exclude trading costs.</p>
+        </section>
         <ul class="fund-list">
           <li class="fund">
             <h3><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/voo/vanguard-sp-500-etf">VOO</a><span>Vanguard S&amp;P 500 ETF</span></h3>
@@ -516,6 +714,8 @@
               <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
               <div><dt>Launched</dt><dd>2010</dd></div>
+              <div><dt>Coverage</dt><dd>U.S. large caps</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$3</dd></div>
             </dl>
             <p>The ETF share class of Vanguard 500 Index Fund. It gives about 500 large U.S. companies weights based on publicly tradable market value.</p>
           </li>
@@ -525,6 +725,8 @@
               <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
               <div><dt>Launched</dt><dd>2000</dd></div>
+              <div><dt>Coverage</dt><dd>U.S. large caps</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$3</dd></div>
             </dl>
             <p>BlackRock’s iShares large-cap fund. It tracks the same index and charges the same annual expense ratio as VOO, and launched ten years earlier.</p>
           </li>
@@ -534,6 +736,8 @@
               <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.0945%</dd></div>
               <div><dt>Launched</dt><dd>1993</dd></div>
+              <div><dt>Coverage</dt><dd>U.S. large caps</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$9.45</dd></div>
             </dl>
             <p>The first U.S.-listed ETF and a unit investment trust. It trades actively on the secondary market and has a higher expense ratio than the other three S&amp;P 500 funds shown here.</p>
           </li>
@@ -543,6 +747,8 @@
               <div><dt>Tracks</dt><dd>S&amp;P 500 Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.02%</dd></div>
               <div><dt>Launched</dt><dd>2005</dd></div>
+              <div><dt>Coverage</dt><dd>U.S. large caps</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$2</dd></div>
             </dl>
             <p>State Street’s lower-fee S&amp;P 500 fund. It launched in 2005 and began tracking the S&amp;P 500 in 2020.</p>
           </li>
@@ -552,6 +758,8 @@
               <div><dt>Tracks</dt><dd>Nasdaq Composite Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.21%</dd></div>
               <div><dt>Launched</dt><dd>2003</dd></div>
+              <div><dt>Coverage</dt><dd>Nasdaq-listed stocks</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$21</dd></div>
             </dl>
             <p>Exposure spans eligible Nasdaq listings across company sizes, including financial companies. Market-cap weighting still gives large companies substantial influence.</p>
           </li>
@@ -561,6 +769,8 @@
               <div><dt>Tracks</dt><dd>Nasdaq-100 Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.18%</dd></div>
               <div><dt>Launched</dt><dd>1999</dd></div>
+              <div><dt>Coverage</dt><dd>Large nonfinancial Nasdaq companies</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$18</dd></div>
             </dl>
             <p>Tracks 100 large nonfinancial companies listed on Nasdaq, with substantial technology exposure. It launched earlier than QQQM and trades more actively.</p>
           </li>
@@ -570,6 +780,8 @@
               <div><dt>Tracks</dt><dd>Nasdaq-100 Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.15%</dd></div>
               <div><dt>Launched</dt><dd>2020</dd></div>
+              <div><dt>Coverage</dt><dd>Large nonfinancial Nasdaq companies</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$15</dd></div>
             </dl>
             <p>Tracks the same Nasdaq-100 index as QQQ, with similar stock exposure and an expense ratio 0.03 percentage points lower.</p>
           </li>
@@ -579,6 +791,8 @@
               <div><dt>Tracks</dt><dd>Dow Jones Industrial Average</dd></div>
               <div><dt>Expense ratio</dt><dd>0.16%</dd></div>
               <div><dt>Launched</dt><dd>1998</dd></div>
+              <div><dt>Coverage</dt><dd>30 U.S. blue chips</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$16</dd></div>
             </dl>
             <p>Holds the Dow’s 30 U.S. blue-chip companies, with higher-priced shares receiving more weight. The issuer lists a monthly distribution schedule.</p>
           </li>
@@ -588,6 +802,8 @@
               <div><dt>Tracks</dt><dd>Morningstar US Total Market Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
               <div><dt>Launched</dt><dd>2001</dd></div>
+              <div><dt>Coverage</dt><dd>Total U.S. market</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$3</dd></div>
             </dl>
             <p>Covers U.S. large-, mid-, small-, and micro-cap stocks. Its index was renamed from the CRSP US Total Market Index to the Morningstar US Total Market Index.</p>
           </li>
@@ -597,6 +813,8 @@
               <div><dt>Tracks</dt><dd>S&amp;P Total Market Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.03%</dd></div>
               <div><dt>Launched</dt><dd>2004</dd></div>
+              <div><dt>Coverage</dt><dd>Total U.S. market</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$3</dd></div>
             </dl>
             <p>Covers U.S. stocks across market-cap sizes. It charges the same expense ratio as VTI and follows a total-market benchmark from S&amp;P.</p>
           </li>
@@ -606,6 +824,8 @@
               <div><dt>Tracks</dt><dd>Russell 2000 Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.19%</dd></div>
               <div><dt>Launched</dt><dd>2000</dd></div>
+              <div><dt>Coverage</dt><dd>U.S. small caps</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$19</dd></div>
             </dl>
             <p>Focuses on roughly 2,000 U.S. small-cap stocks. It concentrates on a segment that makes up only part of total-market funds.</p>
           </li>
@@ -615,10 +835,51 @@
               <div><dt>Tracks</dt><dd>S&amp;P 500 Equal Weight Index</dd></div>
               <div><dt>Expense ratio</dt><dd>0.20%</dd></div>
               <div><dt>Launched</dt><dd>2003</dd></div>
+              <div><dt>Coverage</dt><dd>Equal-weight U.S. large caps</dd></div>
+              <div><dt>Annual fee per $10,000</dt><dd>$20</dd></div>
             </dl>
             <p>Covers the same companies as the S&amp;P 500. Quarterly rebalancing resets each company to about 0.2%, reducing the weight of the largest companies.</p>
           </li>
         </ul>
+      </section>
+
+      <section id="en-ai-infrastructure" aria-labelledby="en-ai-infrastructure-title">
+        <h2 id="en-ai-infrastructure-title">AI infrastructure and related ETFs</h2>
+        <p class="intro">AI workloads depend on chips, memory and storage, compute services, networks, and facilities. These five layers show what drives demand and which funds provide exposure.</p>
+        <div class="ai-layers">
+          <article class="ai-layer">
+            <h3>Semiconductors: design, fabrication, and packaging</h3>
+            <p>Accelerator design, wafer fabrication, HBM integration, and advanced packaging occupy different parts of the supply chain. TSMC’s CoWoS packages can integrate logic chips and HBM. Relevant indicators include advanced-node and packaging capacity, yields, and customer concentration.</p>
+            <p><strong>ETF exposure.</strong> SOXX (0.33%) and SMH (0.35%) cover chip and equipment companies under different indexes. Their holdings span parts of the chip supply chain, of which AI accelerators are one piece.</p>
+            <p class="research-links"><a href="https://www.tsmc.com/english/dedicatedFoundry/services/advanced-packaging">TSMC advanced packaging</a> · <a href="https://www.ishares.com/us/products/239705/ishares-semiconductor-etf-soxx">SOXX fund information</a> · <a href="https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/overview">SMH fund information</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>Memory and storage: HBM, system memory, and persistence</h3>
+            <p>HBM is stacked DRAM that supplies high-bandwidth memory close to the accelerator. Servers also generally use DRAM for system memory. Enterprise NAND SSDs and HDDs persist training data, checkpoints, and outputs, with different speed, capacity, and cost trade-offs. HBM mix and qualification, DRAM and NAND prices, and inventory cycles help distinguish the businesses.</p>
+            <p><strong>ETF exposure.</strong> DRAM (0.65%) is Roundhill’s actively managed global memory theme ETF. The issuer discloses use of total return swaps. SOXX and SMH have broader semiconductor exposure that can also include memory chipmakers.</p>
+            <p class="research-links"><a href="https://www.micron.com/products/memory/hbm">Micron HBM</a> · <a href="https://www.micron.com/products/storage/ssd/data-center-ssd">Micron data center SSDs</a> · <a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA storage and cluster design</a> · <a href="https://www.roundhillinvestments.com/etf/dram/">DRAM fund and swap disclosures</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>Compute: training, inference, and cloud capacity</h3>
+            <p>Training requires synchronization across accelerators. Inference economics depend more on concurrency, latency, and cost per token. Cloud providers can deploy both GPUs and custom accelerators, as AWS EC2 does with NVIDIA GPU and Trainium instances. Chip shipments, utilization, and rental prices measure different parts of the business.</p>
+            <p><strong>ETF exposure.</strong> QQQ and AIQ (0.68%) cover some chip and cloud platform companies. SKYY (0.60%) targets cloud computing and also includes software and cloud services. Revenue from accelerator or compute-rental businesses is a better measure of exposure than the ETF label alone.</p>
+            <p class="research-links"><a href="https://docs.aws.amazon.com/decision-guides/latest/decision-guides/choosing-aws-compute-service.html">AWS accelerated computing guide</a> · <a href="https://docs.nvidia.com/reference-architectures/">NVIDIA AI cluster reference architectures</a> · <a href="https://www.invesco.com/qqq-etf/en/about.html">QQQ holdings and sectors</a> · <a href="https://www.globalxetfs.com/funds/aiq">AIQ fund and index</a> · <a href="https://www.ftportfolios.com/Retail/etf/etfsummary.aspx?Ticker=SKYY">SKYY fund and benchmark</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>Networking: in-system links, cluster fabrics, and optics</h3>
+            <p>Scale-up links accelerators within a system. Scale-out connects many servers through high-speed adapters, switches, and copper or optical links. InfiniBand and Ethernet designed for AI workloads are examples. Port speeds, switch capacity, and optical module volumes describe different sources of demand.</p>
+            <p><strong>ETF exposure.</strong> XLK and VGT can include some switch silicon and networking companies. SOXX and SMH provide semiconductor exposure. The actual weights of networking and optics suppliers matter because these funds also cover other businesses.</p>
+            <p class="research-links"><a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA networking and cluster design</a> · <a href="https://ultraethernet.org/specification-history/">Ultra Ethernet specifications</a> · <a href="https://www.ssga.com/us/en/individual/etfs/state-street-technology-select-sector-spdr-etf-xlk">XLK fund and holdings</a> · <a href="https://advisors.vanguard.com/investments/products/vgt/vanguard-information-technology-etf">VGT fund and holdings</a></p>
+          </article>
+          <article class="ai-layer">
+            <h3>Data centers: facilities, power, and cooling</h3>
+            <p>Operators earn revenue from leases or colocation and need grid access, distribution, backup power, and cooling. Some high-density deployments use liquid cooling. REIT occupancy, funding costs, and secured power describe a different business from equipment suppliers’ orders.</p>
+            <p><strong>ETF exposure.</strong> DTCR (0.50%) covers data center REITs and digital infrastructure, including tower companies. AIPO (0.69%) follows an index spanning AI hardware, data centers, and power infrastructure.</p>
+            <p class="research-links"><a href="https://www.energy.gov/powering-americas-ai-future-data-center-resource-hub">U.S. DOE data center resource hub</a> · <a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA power and cooling design</a> · <a href="https://www.globalxetfs.com/funds/dtcr">DTCR fund and index</a> · <a href="https://www.defianceetfs.com/aipo/">AIPO fund and index</a></p>
+          </article>
+        </div>
+        <p class="note">VOO and QQQ already hold some AI infrastructure companies. Check the top holdings and their weights when layering SOXX, SMH, or AIQ onto them. Leasing, power equipment, and chip sales also have distinct business metrics.</p>
+        <p class="note">Issuer fund information and expense ratios checked <time datetime="2026-11-22">November 22, 2026</time>.</p>
       </section>
 
       <section id="en-etf-comparison" aria-labelledby="en-etf-comparison-title">
@@ -779,7 +1040,7 @@
     const languageButtons = languageControls.querySelectorAll('button');
     const editions = document.querySelectorAll('.article-language');
     const storageKey = 'us-stock-indexes-language';
-    const sectionIds = ['compare', 'etfs', 'etf-comparison', 'sector-etfs'];
+    const sectionIds = ['compare', 'etfs', 'fund-holdings', 'ai-infrastructure', 'etf-comparison', 'sector-etfs'];
     let activeLanguage;
 
     function languageForFragment() {

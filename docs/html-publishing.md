@@ -37,8 +37,22 @@ Example publication request for an existing file:
 To preview a page, request the actual HTML file or a browser-accessible preview.
 Some phone file viewers require a browser preview to run JavaScript controls.
 
-For a stock report, include source links and an explicit data timestamp. Live
-prices and private data APIs require separate data/backend arrangements.
+## Research, sources, and charts
+
+- Verify material claims and figures before publishing. Prefer primary sources
+  such as issuer disclosures, index methodologies, regulatory filings, official
+  statistics, and technical specifications. Link directly to the relevant
+  documents in the article and place references near the figures or analysis
+  they support. Include a references section or clearly labeled source links.
+- Give changing figures an as-of date or reporting period, including holdings,
+  fees, prices, and market data. State the units and denominator when they
+  affect interpretation. Identify projections, estimates, and author analysis.
+- Check chart labels, values, and totals against the cited data. Use a common
+  date and definition for direct comparisons where possible. Label differences
+  in snapshot dates, benchmarks, or classification systems explicitly. Include
+  text values alongside charts so the data is readable without color.
+
+Live prices and private data APIs require separate data/backend arrangements.
 
 ## Chinese and English editions
 
@@ -104,6 +118,8 @@ For a local preview, run `make local-build` and then
 ## Publication checks
 
 - Publish the exact HTML that passed verification.
+- Check that material claims, figures, and charts have working source links and
+  the dates and definitions needed to interpret them.
 - Follow AGENTS.md: visually check 390 x 844, 768 x 1024, and 1440 x 900; verify
   interactive controls and report any unavailable browser verification.
 - Build with `make build` and confirm `public/x/<slug>/index.html` exists. Compare it
