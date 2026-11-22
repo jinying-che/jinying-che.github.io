@@ -189,6 +189,44 @@
     .holding-key { width: 9px; height: 9px; border-radius: 3px; background: var(--key); }
     .holdings-card figcaption, .ai-layer p { font-size: .92rem; }
     .research-links, .ai-layer .research-links { margin-top: 8px; font-size: .83rem; }
+    .ai-architecture {
+      margin-top: 16px;
+      padding: clamp(14px, 3vw, 24px);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .ai-architecture h3 { font-size: clamp(1.25rem, 2.7vw, 1.65rem); }
+    .architecture-layers, .architecture-nodes { margin: 0; padding: 0; list-style: none; }
+    .architecture-layers { margin-top: 12px; }
+    .architecture-workload, .architecture-tier { padding: 11px 13px; border-radius: 10px; }
+    .architecture-workload { background: var(--hero); color: #fffdf7; text-align: center; }
+    .architecture-workload p { color: #e2f0e7; font-size: .9rem; }
+    .architecture-tier { background: var(--mint); }
+    .architecture-foundation { background: #ebe8d8; }
+    .architecture-tier h4 { text-align: center; }
+    .architecture-dependency {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 0;
+      color: var(--green);
+      font-size: .82rem;
+      font-weight: 650;
+    }
+    .architecture-dependency span { font-size: 1.15em; }
+    .architecture-nodes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; margin-top: 8px; }
+    .architecture-cluster .architecture-nodes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .architecture-node {
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: var(--surface);
+      font-size: .9rem;
+    }
+    .architecture-node span { display: block; color: var(--muted); }
+    .ai-architecture figcaption { margin-top: 12px; color: var(--muted); font-size: .88rem; }
     .ai-layers { margin-top: 14px; }
     .ai-layer h3 { font-size: 1.08rem; line-height: 1.4; }
     .ai-layer p { margin-top: 8px; }
@@ -204,6 +242,13 @@
       .map .labels { display: none; }
       .map li { grid-template-columns: minmax(0, 1fr); padding: 14px; }
       .fund-list, .fund-comparison, .holdings-grid, .ai-layers { grid-template-columns: minmax(0, 1fr); }
+      .architecture-tier .architecture-nodes { grid-template-columns: minmax(0, 1fr); }
+      .architecture-node {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+        align-items: start;
+        gap: 8px;
+      }
       .sector-table { font-size: .9rem; }
       .sector-table th, .sector-table td { padding-inline: 9px; }
       .sector-table thead th:first-child { width: 42%; }
@@ -437,6 +482,55 @@
       <section id="ai-infrastructure" aria-labelledby="ai-infrastructure-title">
         <h2 id="ai-infrastructure-title">AI 基础设施产业链与相关 ETF</h2>
         <p class="intro">AI 工作负载同时依赖芯片、内存与存储、算力服务、网络和机房。下面按业务环节列出可观察的需求指标和代表基金，便于查清 ETF 买到的是哪一段。</p>
+        <figure class="ai-architecture" id="ai-architecture" aria-labelledby="ai-architecture-title">
+          <h3 id="ai-architecture-title">AI 基础设施分层架构</h3>
+          <ol class="architecture-layers">
+            <li class="architecture-workload">
+              <h4>模型工作负载</h4>
+              <p>训练更新模型参数，推理用训练好的模型生成结果。</p>
+            </li>
+            <li>
+              <div class="architecture-dependency">运行于<span aria-hidden="true">↓</span></div>
+              <div class="architecture-tier architecture-cluster">
+                <h4>运行集群</h4>
+                <ul class="architecture-nodes">
+                  <li class="architecture-node">
+                    <strong>计算节点</strong>
+                    <span>GPU 或定制 ASIC 执行计算。HBM 为加速器提供高速内存，服务器 DRAM 提供主内存。</span>
+                  </li>
+                  <li class="architecture-node">
+                    <strong>互连网络</strong>
+                    <span>机内互连连接加速器。以太网或 InfiniBand 连接多个节点。</span>
+                  </li>
+                  <li class="architecture-node">
+                    <strong>持久存储</strong>
+                    <span>SSD 和 HDD 保存训练数据、模型检查点及输出。</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="architecture-dependency">依赖<span aria-hidden="true">↓</span></div>
+              <div class="architecture-tier architecture-foundation">
+                <h4>上游供给与机房设施</h4>
+                <ul class="architecture-nodes">
+                  <li class="architecture-node">
+                    <strong>半导体供给</strong>
+                    <span>芯片设计、晶圆制造与先进封装提供加速器、存储芯片和网络芯片。</span>
+                  </li>
+                  <li class="architecture-node">
+                    <strong>数据中心设施</strong>
+                    <span>机房、供电、配电和冷却为服务器、网络及存储设备提供运行条件。</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+          <figcaption>
+            <p>从上往下看依赖关系。计算、网络和持久存储在集群中协同工作。半导体供给与数据中心设施分别提供硬件和运行环境。</p>
+            <p class="research-links"><a href="https://docs.nvidia.com/reference-architectures/">NVIDIA AI 集群参考架构</a>、<a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA 集群与设施设计</a>、<a href="https://www.tsmc.com/english/dedicatedFoundry/services/advanced-packaging">台积电先进封装</a></p>
+          </figcaption>
+        </figure>
         <div class="ai-layers">
           <article class="ai-layer">
             <h3>半导体：设计、制造与先进封装</h3>
@@ -846,6 +940,55 @@
       <section id="en-ai-infrastructure" aria-labelledby="en-ai-infrastructure-title">
         <h2 id="en-ai-infrastructure-title">AI infrastructure and related ETFs</h2>
         <p class="intro">AI workloads depend on chips, memory and storage, compute services, networks, and facilities. These five layers show what drives demand and which funds provide exposure.</p>
+        <figure class="ai-architecture" id="en-ai-architecture" aria-labelledby="en-ai-architecture-title">
+          <h3 id="en-ai-architecture-title">AI infrastructure architecture</h3>
+          <ol class="architecture-layers">
+            <li class="architecture-workload">
+              <h4>Model workloads</h4>
+              <p>Training updates model parameters. Inference uses the trained model to produce outputs.</p>
+            </li>
+            <li>
+              <div class="architecture-dependency">Runs on<span aria-hidden="true">↓</span></div>
+              <div class="architecture-tier architecture-cluster">
+                <h4>Runtime cluster</h4>
+                <ul class="architecture-nodes">
+                  <li class="architecture-node">
+                    <strong>Compute nodes</strong>
+                    <span>GPUs or custom ASICs execute workloads. HBM serves the accelerator. Host DRAM provides system memory.</span>
+                  </li>
+                  <li class="architecture-node">
+                    <strong>Network fabric</strong>
+                    <span>In-system links connect accelerators. Ethernet or InfiniBand connects nodes.</span>
+                  </li>
+                  <li class="architecture-node">
+                    <strong>Persistent storage</strong>
+                    <span>SSDs and HDDs retain training data, model checkpoints, and outputs.</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <div class="architecture-dependency">Depends on<span aria-hidden="true">↓</span></div>
+              <div class="architecture-tier architecture-foundation">
+                <h4>Upstream supply and facilities</h4>
+                <ul class="architecture-nodes">
+                  <li class="architecture-node">
+                    <strong>Chip supply</strong>
+                    <span>Chip design, wafer fabrication, and advanced packaging supply accelerators, memory, and networking chips.</span>
+                  </li>
+                  <li class="architecture-node">
+                    <strong>Data center facilities</strong>
+                    <span>Space, power, electrical distribution, and cooling keep servers, networking, and storage equipment running.</span>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ol>
+          <figcaption>
+            <p>Read from top to bottom to see what each layer depends on. Compute, networks, and persistent storage work together in the cluster. Semiconductor supply provides hardware, and data center facilities provide the operating environment.</p>
+            <p class="research-links"><a href="https://docs.nvidia.com/reference-architectures/">NVIDIA AI cluster reference architectures</a> · <a href="https://docs.nvidia.com/enterprise-reference-architectures/white-paper/latest/design-tenets.html">NVIDIA cluster and facility design</a> · <a href="https://www.tsmc.com/english/dedicatedFoundry/services/advanced-packaging">TSMC advanced packaging</a></p>
+          </figcaption>
+        </figure>
         <div class="ai-layers">
           <article class="ai-layer">
             <h3>Semiconductors: design, fabrication, and packaging</h3>
@@ -1040,7 +1183,7 @@
     const languageButtons = languageControls.querySelectorAll('button');
     const editions = document.querySelectorAll('.article-language');
     const storageKey = 'us-stock-indexes-language';
-    const sectionIds = ['compare', 'etfs', 'fund-holdings', 'ai-infrastructure', 'etf-comparison', 'sector-etfs'];
+    const sectionIds = ['compare', 'etfs', 'fund-holdings', 'ai-infrastructure', 'ai-architecture', 'etf-comparison', 'sector-etfs'];
     let activeLanguage;
 
     function languageForFragment() {
