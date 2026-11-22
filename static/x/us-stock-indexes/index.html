@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>美股三大指数对比与 ETF 图解</title>
-  <meta name="description" content="横向比较标普 500、纳斯达克综合指数和道琼斯工业平均指数的选股范围与加权规则。介绍 VOO、QQQ、ONEQ、DIA 等 12 只美股 ETF 的跟踪指数、费率和覆盖范围，并横向对比同类基金。">
+  <meta name="description" content="横向比较标普 500、纳斯达克综合指数和道琼斯工业平均指数的选股范围与加权规则。介绍 VOO、QQQ、ONEQ、DIA 等 12 只美股 ETF 的跟踪指数、费率和覆盖范围，并对照房地产、科技、半导体等板块的代表基金。">
   <meta name="keywords" content="美股,股票指数,ETF,标普500,纳斯达克综合指数,道琼斯">
   <meta property="article:published_time" content="2026-11-21">
   <style>
@@ -117,6 +117,31 @@
       color: var(--green);
       font: 600 .81rem/1.5 ui-monospace, monospace;
     }
+    .sector-etfs { margin-top: 32px; }
+    .sector-etfs h3 { font-size: clamp(1.3rem, 2.7vw, 1.9rem); line-height: 1.3; }
+    .sector-table {
+      width: 100%;
+      table-layout: fixed;
+      border: 1px solid var(--line);
+      border-spacing: 0;
+      border-radius: 14px;
+      background: var(--surface);
+    }
+    .sector-table caption { padding-bottom: 8px; text-align: start; color: var(--muted); font-size: .88rem; }
+    .sector-table th, .sector-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: start;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    .sector-table thead th { background: var(--mint); }
+    .sector-table thead th:first-child { width: 32%; border-start-start-radius: 13px; }
+    .sector-table thead th:last-child { border-start-end-radius: 13px; }
+    .sector-table tbody tr:last-child > * { border-bottom: 0; }
+    .sector-funds { display: flex; flex-wrap: wrap; gap: 2px 14px; margin-top: 4px; }
+    .sector-funds > span { white-space: nowrap; }
+    .sector-fee { color: var(--muted); font-size: .8rem; font-weight: 500; font-variant-numeric: tabular-nums; }
     .note { margin-top: 13px; font-size: .88rem; color: var(--muted); }
     footer { border-top: 1px solid var(--line); padding-block: 22px 32px; color: var(--muted); font-size: .88rem; }
     footer ul { margin: 7px 0 12px; padding-inline-start: 1.35em; }
@@ -128,6 +153,9 @@
       .map .labels { display: none; }
       .map li { grid-template-columns: minmax(0, 1fr); padding: 14px; }
       .fund-list, .fund-comparison { grid-template-columns: minmax(0, 1fr); }
+      .sector-table { font-size: .9rem; }
+      .sector-table th, .sector-table td { padding-inline: 9px; }
+      .sector-table thead th:first-child { width: 42%; }
     }
   </style>
 </head>
@@ -147,6 +175,7 @@
           <a href="#compare">三大指数</a>
           <a href="#etfs">ETF 资料</a>
           <a href="#etf-comparison">ETF 对比</a>
+          <a href="#sector-etfs">板块 ETF</a>
         </nav>
       </div>
     </header>
@@ -313,6 +342,119 @@
           </article>
         </div>
         <p class="note">年费用示例按 1 万美元的固定持仓乘以基金年费率估算。交易和账户费用另计。</p>
+
+        <section class="sector-etfs" id="sector-etfs" aria-labelledby="sector-etfs-title">
+          <h3 id="sector-etfs-title">按板块找 ETF</h3>
+          <p class="intro">下表覆盖标普 500 的 11 个 GICS 行业板块，另列出覆盖范围更广的房地产与科技基金，以及聚焦科技子行业的半导体 ETF。</p>
+          <table class="sector-table">
+            <caption>发行方年费率核对于 <time datetime="2026-11-22">2026 年 11 月 22 日</time>。</caption>
+            <thead>
+              <tr><th scope="col">板块、ETF 与年费率</th><th scope="col">覆盖范围</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">房地产
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-real-estate-select-sector-spdr-etf-xlre">XLRE</a> <span class="sector-fee">0.08%</span></span>
+                    <span><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vnq/vanguard-real-estate-etf">VNQ</a> <span class="sector-fee">0.13%</span></span>
+                  </span>
+                </th>
+                <td>XLRE 覆盖标普 500 中的房地产公司与权益型 REIT。VNQ 覆盖更广的美国上市房地产股票，包括更多非标普 500 的权益型 REIT 和房地产公司。</td>
+              </tr>
+              <tr>
+                <th scope="row">信息技术
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-technology-select-sector-spdr-etf-xlk">XLK</a> <span class="sector-fee">0.08%</span></span>
+                    <span><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vgt/vanguard-information-technology-etf">VGT</a> <span class="sector-fee">0.09%</span></span>
+                  </span>
+                </th>
+                <td>XLK 聚焦标普 500 科技板块，包括软件、硬件和芯片公司。VGT 采用 MSCI 美国信息技术指数，也纳入符合条件的中小盘科技股。</td>
+              </tr>
+              <tr>
+                <th scope="row">半导体（子行业）
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ishares.com/us/products/239705/ishares-semiconductor-etf-soxx">SOXX</a> <span class="sector-fee">0.33%</span></span>
+                    <span><a class="etf-ticker" href="https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/overview">SMH</a> <span class="sector-fee">0.35%</span></span>
+                  </span>
+                </th>
+                <td>两只基金都聚焦芯片和设备公司。SOXX 跟踪 NYSE Semiconductor Index，目标覆盖约 30 家公司。SMH 跟踪 MVIS US Listed Semiconductor 25 Index，覆盖约 25 家美国上市公司，选股和权重规则不同。</td>
+              </tr>
+              <tr>
+                <th scope="row">工业
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-industrial-select-sector-spdr-etf-xli">XLI</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖工业机械、航空航天与国防、运输和商业服务。</td>
+              </tr>
+              <tr>
+                <th scope="row">可选消费
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-consumer-discretionary-select-sector-spdr-etf-xly">XLY</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖汽车、零售、餐饮等消费。需求通常更容易受到经济周期和可支配收入影响。</td>
+              </tr>
+              <tr>
+                <th scope="row">必需消费
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-consumer-staples-select-sector-spdr-etf-xlp">XLP</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖食品、饮料、日用品和必需品零售，主要敞口来自日常消费需求。</td>
+              </tr>
+              <tr>
+                <th scope="row">金融
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-financial-select-sector-spdr-etf-xlf">XLF</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖银行、保险、资本市场与金融服务公司。</td>
+              </tr>
+              <tr>
+                <th scope="row">医疗保健
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-health-care-select-sector-spdr-etf-xlv">XLV</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖制药、生物科技、医疗设备与医疗服务。</td>
+              </tr>
+              <tr>
+                <th scope="row">能源
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-energy-select-sector-spdr-etf-xle">XLE</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖油气生产、炼化和能源设备服务公司。敞口来自相关企业股票。</td>
+              </tr>
+              <tr>
+                <th scope="row">通信服务
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-communication-services-select-sector-spdr-etf-xlc">XLC</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖电信、媒体、娱乐和互动媒体平台。部分常被口语称为科技巨头的公司，在行业分类上属于这一板块。</td>
+              </tr>
+              <tr>
+                <th scope="row">公用事业
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-utilities-select-sector-spdr-etf-xlu">XLU</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖电力、天然气、水务等公用事业运营商。</td>
+              </tr>
+              <tr>
+                <th scope="row">原材料
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-materials-select-sector-spdr-etf-xlb">XLB</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>覆盖化工、金属与采矿、建筑材料及包装。</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note"><strong>先看与宽基的持仓重叠。</strong> VOO 已覆盖标普 500 的 11 个板块。再加 XLK 或半导体 ETF，通常会提高对相关股票的配置比例。同一行业的基金还可以对照前几大持仓权重和费率。</p>
+        </section>
       </section>
     </main>
 
@@ -337,6 +479,7 @@
           <a href="#en-compare">Three indexes</a>
           <a href="#en-etfs">ETF profiles</a>
           <a href="#en-etf-comparison">Compare ETFs</a>
+          <a href="#en-sector-etfs">Sector ETFs</a>
         </nav>
       </div>
     </header>
@@ -503,6 +646,119 @@
           </article>
         </div>
         <p class="note">Annual cost examples assume a constant $10,000 holding and multiply it by the expense ratio. Trading and account costs are separate.</p>
+
+        <section class="sector-etfs" id="en-sector-etfs" aria-labelledby="en-sector-etfs-title">
+          <h3 id="en-sector-etfs-title">ETF examples by sector and industry</h3>
+          <p class="intro">The 11 Select Sector SPDR ETFs each cover one GICS sector within the S&P 500. The table also shows broader real estate and technology alternatives, plus two funds focused on semiconductors within technology.</p>
+          <table class="sector-table">
+            <caption>Issuer annual expense ratios checked <time datetime="2026-11-22">November 22, 2026</time>.</caption>
+            <thead>
+              <tr><th scope="col">Sector, ETF and fee</th><th scope="col">Exposure</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Real estate
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-real-estate-select-sector-spdr-etf-xlre">XLRE</a> <span class="sector-fee">0.08%</span></span>
+                    <span><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vnq/vanguard-real-estate-etf">VNQ</a> <span class="sector-fee">0.13%</span></span>
+                  </span>
+                </th>
+                <td>XLRE covers real estate companies and equity REITs in the S&amp;P 500. VNQ covers a broader set of listed U.S. real estate companies and equity REITs.</td>
+              </tr>
+              <tr>
+                <th scope="row">Information technology
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-technology-select-sector-spdr-etf-xlk">XLK</a> <span class="sector-fee">0.08%</span></span>
+                    <span><a class="etf-ticker" href="https://advisors.vanguard.com/investments/products/vgt/vanguard-information-technology-etf">VGT</a> <span class="sector-fee">0.09%</span></span>
+                  </span>
+                </th>
+                <td>XLK covers S&amp;P 500 technology companies across software, hardware, and chips. VGT follows an MSCI U.S. technology index that also includes eligible mid- and small-cap stocks.</td>
+              </tr>
+              <tr>
+                <th scope="row">Semiconductors (industry)
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ishares.com/us/products/239705/ishares-semiconductor-etf-soxx">SOXX</a> <span class="sector-fee">0.33%</span></span>
+                    <span><a class="etf-ticker" href="https://www.vaneck.com/us/en/investments/semiconductor-etf-smh/overview">SMH</a> <span class="sector-fee">0.35%</span></span>
+                  </span>
+                </th>
+                <td>Both focus on chip and equipment companies. SOXX tracks the NYSE Semiconductor Index, targeting about 30 companies. SMH tracks the MVIS US Listed Semiconductor 25 Index, with about 25 U.S.-listed companies and different selection and weighting rules.</td>
+              </tr>
+              <tr>
+                <th scope="row">Industrials
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-industrial-select-sector-spdr-etf-xli">XLI</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers industrial machinery, aerospace and defense, transportation, and commercial services.</td>
+              </tr>
+              <tr>
+                <th scope="row">Consumer discretionary
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-consumer-discretionary-select-sector-spdr-etf-xly">XLY</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers areas such as automobiles, retail, and restaurants. Demand tends to be more sensitive to the economy and disposable income.</td>
+              </tr>
+              <tr>
+                <th scope="row">Consumer staples
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-consumer-staples-select-sector-spdr-etf-xlp">XLP</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers food, beverages, household products, and staples retailers, with exposure tied to everyday spending.</td>
+              </tr>
+              <tr>
+                <th scope="row">Financials
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-financial-select-sector-spdr-etf-xlf">XLF</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers banks, insurers, capital markets, and financial services companies.</td>
+              </tr>
+              <tr>
+                <th scope="row">Health care
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-health-care-select-sector-spdr-etf-xlv">XLV</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers pharmaceuticals, biotechnology, medical equipment, and health care services.</td>
+              </tr>
+              <tr>
+                <th scope="row">Energy
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-energy-select-sector-spdr-etf-xle">XLE</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers stocks of oil and gas producers, refiners, and energy equipment and services companies.</td>
+              </tr>
+              <tr>
+                <th scope="row">Communication services
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-communication-services-select-sector-spdr-etf-xlc">XLC</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers telecom, media, entertainment, and interactive platforms. Some companies commonly described as tech giants are classified here.</td>
+              </tr>
+              <tr>
+                <th scope="row">Utilities
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-utilities-select-sector-spdr-etf-xlu">XLU</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers electricity, gas, water, and other utility operators.</td>
+              </tr>
+              <tr>
+                <th scope="row">Materials
+                  <span class="sector-funds">
+                    <span><a class="etf-ticker" href="https://www.ssga.com/us/en/individual/etfs/state-street-materials-select-sector-spdr-etf-xlb">XLB</a> <span class="sector-fee">0.08%</span></span>
+                  </span>
+                </th>
+                <td>Covers chemicals, metals and mining, construction materials, and packaging.</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="note"><strong>Check the overlap with broad-market funds.</strong> VOO already holds stocks from all 11 S&P 500 sectors. Adding XLK or a semiconductor ETF generally increases your exposure to those stocks. For funds in the same industry, compare the weights of the largest holdings as well as fees.</p>
+        </section>
       </section>
     </main>
 
@@ -523,7 +779,7 @@
     const languageButtons = languageControls.querySelectorAll('button');
     const editions = document.querySelectorAll('.article-language');
     const storageKey = 'us-stock-indexes-language';
-    const sectionIds = ['compare', 'etfs', 'etf-comparison'];
+    const sectionIds = ['compare', 'etfs', 'etf-comparison', 'sector-etfs'];
     let activeLanguage;
 
     function languageForFragment() {
