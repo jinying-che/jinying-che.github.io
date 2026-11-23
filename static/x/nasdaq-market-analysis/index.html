@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>跌了 18%，然后呢？纳斯达克综合指数深度分析</title>
+<meta name="description" content="陈浩基于 2026 年 11 月 20 日收盘数据，分析纳斯达克综合指数的历史回撤、纳斯达克 100 成分集中度、与沪深 300 的对照，以及四种情景和验证条件。">
+<meta name="keywords" content="纳斯达克综合指数,纳斯达克100,纳指回撤,QQQ,沪深300,情景分析,美股">
+<meta name="author" content="陈浩">
+<meta property="article:published_time" content="2026-11-23">
+<style>
+:root {
+  color-scheme: light;
+  --paper: #f5f4ee;
+  --surface: #fffefa;
+  --ink: #172947;
+  --muted: #516276;
+  --hero: #142843;
+  --teal: #006352;
+  --line: #cdd7da;
+  --wash: #e2eeeb;
+  --rust: #913f28;
+  font: 16px/1.7 system-ui, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); }
+[hidden] { display: none !important; }
+.wrap { width: min(1100px, calc(100% - 40px)); margin-inline: auto; }
+h1,h2,h3,p,figure,ul,dl,dd { margin: 0; }
+a { color: var(--teal); text-underline-offset: .18em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 3px solid var(--rust); outline-offset: 3px; }
+.language-bar, .hero { background: var(--hero); color: #f8faff; }
+.language-bar { padding-top: 16px; }
+.language-controls { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 8px; }
+.language-controls button { min-height: 44px; border: 1px solid #a8bace; border-radius: 24px; padding: 5px 14px; background: transparent; color: #fff; font: inherit; font-weight: 650; cursor: pointer; }
+.language-controls button[aria-pressed=true] { background: #d4eee7; border-color: #d4eee7; color: #142843; }
+.hero { padding: 25px 0 33px; }
+.hero :focus-visible, .language-bar :focus-visible { outline-color: #ffc887; }
+h1 { font-size: clamp(2.6rem, 8.8vw, 5.9rem); line-height: 1.11; letter-spacing: -.047em; }
+.eyebrow { color: #c1e5dd; font-size: .9rem; font-weight: 700; margin-bottom: 10px; }
+.byline { margin-top: 15px; color: #d3efe9; font-weight: 720; }
+.subtitle { margin-top: 9px; font-size: clamp(1rem, 2.2vw, 1.35rem); }
+.asof { margin-top: 6px; color: #ccd9e9; font-size: .9rem; }
+.metrics { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 8px; margin: 20px 0; }
+.metrics div { padding: 10px; border: 1px solid #607891; border-radius: 9px; background: #203a58; }
+.metrics dt { color: #d1e1eb; font-size: .8rem; }
+.metrics dd { font-weight: 750; font-size: clamp(1.13rem, 2.5vw, 1.7rem); font-variant-numeric: tabular-nums; line-height: 1.28; overflow-wrap: anywhere; }
+nav { display: flex; gap: 7px 10px; flex-wrap: wrap; }
+nav a { display: flex; align-items: center; min-height: 42px; padding: 3px 11px; color: #eaf7f3; border: 1px solid #9fb7c9; border-radius: 24px; text-decoration: none; font-size: .87rem; }
+nav a:hover { background: #274360; }
+main { padding: 30px 0 60px; }
+main > section { scroll-margin-top: 12px; padding-block: 16px 27px; }
+main > section + section { border-top: 1px solid var(--line); padding-top: 27px; }
+h2 { font-size: clamp(1.55rem, 4vw, 2.45rem); line-height: 1.25; letter-spacing: -.03em; margin-bottom: 12px; }
+h3 { font-size: clamp(1rem, 2vw, 1.22rem); line-height: 1.4; margin-bottom: 7px; }
+section > h3 { margin-top: 20px; }
+p { max-width: 72ch; }
+p + p { margin-top: .55em; }
+.lead { font-size: 1.06rem; }
+.method, .small, figcaption, .refs { color: var(--muted); font-size: .88rem; }
+.method { padding: 10px 13px; border-inline-start: 3px solid #669287; background: var(--wash); margin-top: 12px; max-width: none; }
+.refs { margin-top: 8px; overflow-wrap: anywhere; }
+.cards, .viz-pair { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin-block: 14px; }
+.card, .chart { min-width: 0; padding: 15px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; }
+.chart { margin-block: 14px; }
+.viz-pair .chart { margin: 0; }
+figcaption { margin-top: 10px; }
+.bars { display: grid; gap: 6px; list-style: none; padding: 0; font-size: .89rem; }
+.bars li { display: grid; grid-template-columns: minmax(4em,auto) minmax(0,1fr) 5em; gap: 9px; align-items: center; }
+.bars strong { text-align: end; font-variant-numeric: tabular-nums; }
+.track { display: block; min-width: 0; height: 10px; border-radius: 12px; background: #e0e8ee; }
+.track i { display: block; height: 100%; border-radius: inherit; background: #2a7885; }
+.track i.negative { background: #9a4f37; }
+.table-frame { margin-block: 14px; overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+table caption { padding: 9px 12px; text-align: start; font-weight: 720; }
+thead { background: var(--wash); }
+th, td { text-align: start; vertical-align: top; border-bottom: 1px solid var(--line); padding: 7px 10px; }
+tbody tr:last-child > * { border-bottom: 0; }
+td { font-variant-numeric: tabular-nums; }
+.wide table { min-width: 660px; }
+.watch table { min-width: 600px; }
+.wide td, .wide tbody th { white-space: nowrap; }
+.sector-ring { width: clamp(90px,23%,151px); aspect-ratio: 1; margin: 10px auto 12px; border-radius: 50%; position: relative; background: conic-gradient(#006352 0 24.7%,#2e5c8a 24.7% 55.5%,#cdd7da 55.5% 100%); }
+.sector-ring::before { content: ''; position: absolute; inset: 22%; border-radius: 50%; background: var(--surface); }
+.line-scroll { max-width: 100%; overflow-x: auto; }
+.line-scroll svg { display: block; width: min(100%, 700px); min-width: 470px; height: auto; margin-inline: auto; }
+.probability { display: flex; margin-top: 13px; overflow: hidden; border-radius: 8px; }
+.probability span { flex-grow: 0; flex-shrink: 0; min-width: 0; padding-block: 7px; text-align: center; font-size: .78rem; color: #fff; }
+.scenario-A { background: #153957; }
+.scenario-B { background: #006352; }
+.scenario-C { background: #8a472e; }
+.scenario-D { background: #526176; }
+.prob { color: var(--teal); font-size: 1.6rem; line-height: 1.2; }
+.scenario p { margin-top: 6px; }
+.endnote { background: var(--wash); padding: 13px 15px; border-radius: 10px; }
+.source-list { padding-inline-start: 21px; margin-top: 12px; }
+.source-list li + li { margin-top: 8px; }
+@media (max-width: 740px) {
+  .metrics { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+@media (max-width: 550px) {
+  .wrap { width: calc(100% - 30px); }
+  .metrics, .cards, .viz-pair { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .cards, .viz-pair { grid-template-columns: minmax(0,1fr); }
+  .bars li { gap: 6px; grid-template-columns: minmax(3.6em,auto) minmax(0,1fr) 4.5em; }
+  th, td { padding-inline: 7px; }
+}
+</style>
+</head>
+<body>
+<div class="language-bar" hidden><div class="wrap language-controls" role="group" aria-label="语言 / Language">
+<button type="button" lang="zh-CN" aria-pressed="true">中文</button><button type="button" lang="en" aria-pressed="false">English</button>
+</div></div>
+<div class="edition" lang="zh-CN">
+<header class="hero"><div class="wrap">
+<p class=eyebrow>纳斯达克综合指数 · 2026 年 11 月研究</p>
+<h1>跌了 18%，然后呢？</h1>
+<p class=byline>作者 陈浩</p>
+<p class=subtitle>纳指的当前位置、内部结构与四种走向</p>
+<p class=asof>数据截至 2026 年 11 月 20 日美股收盘。原稿生成于 2026 年 11 月 22 日。</p>
+<dl class="metrics">
+<div><dt>COMP 收盘回撤</dt><dd>−18.05%</dd></div>
+<div><dt>COMP 收盘点位</dt><dd>22,617.73</dd></div>
+<div><dt>COMP 较年初首日</dt><dd>−2.66%</dd></div>
+<div><dt>QQQ 收盘回撤（原稿）</dt><dd>−19.90%</dd></div>
+<div><dt>COMP 相对 200 日均线</dt><dd>−10.1%</dd></div>
+</dl>
+<nav aria-label="章节导航"><a href="#view">研究结论</a><a href="#drawdowns">回撤与历史</a><a href="#cycles">两轮对照</a><a href="#holdings">成分结构</a><a href="#returns">长期收益</a><a href="#csi">沪深 300 对照</a><a href="#scenarios">四种情景</a><a href="#watch">证伪条件</a><a href="#sources">来源与口径</a></nav>
+</div></header>
+<main class="wrap">
+<section id="view" aria-labelledby="view-title"><h2 id="view-title">回撤到了哪里，盈利证据还缺什么？</h2>
+<p class=lead>陈浩的判断是，估值调整已到中段，后续深度可能小于 2022 年。这一判断仍需盈利预期支持。原稿未取得可核实的 EPS 一致预期序列。</p>
+<div class="cards">
+<article class="card"><h3>历史刻度</h3><p>选取的六轮历史回撤中位数约 −29.8%，其中四轮超过 25%，一轮超过 50%。本轮进一步回撤只是情景之一。</p></article>
+<article class="card"><h3>估值与盈利</h3><p>原稿认为头部企业的现金流为本轮提供缓冲。头部个股的价格回撤可用于比较市场表现，盈利下修幅度仍需直接数据。</p></article>
+<article class="card"><h3>成分集中</h3><p>原稿把纳斯达克 100 成分划为半导体链、云厂与其他。前两组合计约 55.5%，当日下跌集中于相关权重股。</p></article>
+<article class="card"><h3>情景判断</h3><p>原稿把磨底列为概率最高的单一情景（35%），重点跟踪云厂资本开支、半导体库存与盈利预期。</p></article>
+</div>
+<p class=method>阅读口径。下文保留原稿的历史统计、成分分类与情景设定。市场快照、作者判断及网页换算分别标明。</p>
+</section>
+<section id="drawdowns" aria-labelledby="drawdowns-title"><h2 id="drawdowns-title">当前位置与历史回撤</h2>
+<p class=lead>2026 年 11 月 20 日，COMP 收于 22,617.73 点，单日跌 5.28%，较 10 月 6 日收盘高点 27,599.89 低 18.05%。纳斯达克 100 指数（NDX）当日收于 25,028.98 点，跌 5.61%。原稿并列的 −19.90% 是 QQQ 的回撤口径，仍在 −20% 收盘线之上。</p>
+<p class="refs">资料 <a href="https://indexes.nasdaq.com/Index/Overview/COMP">Nasdaq 综合指数</a> · <a href="https://indexes.nasdaq.com/Index/Overview/NDX">Nasdaq-100 指数</a> · <a href="https://www.reuters.com/markets/us/nasdaq-set-correction-investors-reassess-ai-spending-boom-2026-11-05/">路透社 · 10 月 6 日收盘高点</a> · <a href="https://www.invesco.com/qqq-etf/en/about.html">Invesco · QQQ 基金资料</a> · <a href="https://finance.yahoo.com/quote/QQQ/history/">QQQ 历史收盘价</a></p>
+<figure class="chart"><h3>本轮与六次历史回撤</h3>
+<ul class="bars"><li><span>当前 2026</span><span class="track" aria-hidden="true"><i class="negative" style="width:23.171%"></i></span><strong>−18.05%</strong></li><li><span>2018</span><span class="track" aria-hidden="true"><i class="negative" style="width:30.295%"></i></span><strong>−23.60%</strong></li><li><span>2024–25</span><span class="track" aria-hidden="true"><i class="negative" style="width:31.194%"></i></span><strong>−24.30%</strong></li><li><span>1998</span><span class="track" aria-hidden="true"><i class="negative" style="width:37.997%"></i></span><strong>−29.60%</strong></li><li><span>2020</span><span class="track" aria-hidden="true"><i class="negative" style="width:38.639%"></i></span><strong>−30.10%</strong></li><li><span>2021–22</span><span class="track" aria-hidden="true"><i class="negative" style="width:46.727%"></i></span><strong>−36.40%</strong></li><li><span>2000–02</span><span class="track" aria-hidden="true"><i class="negative" style="width:100.000%"></i></span><strong>−77.90%</strong></li></ul>
+<figcaption>回撤按峰值收盘价至谷底收盘价计算。当前一轮按报告截止日计算，尚未计入六次已结束样本。</figcaption></figure>
+<div class="table-frame wide" tabindex="0" role="region" aria-label="六轮回撤与恢复时间"><table><caption>六轮回撤与恢复时间</caption><thead><tr><th scope="col">峰值日</th><th scope="col">峰值</th><th scope="col">谷底日</th><th scope="col">谷底</th><th scope="col">最大回撤</th><th scope="col">峰到谷（天）</th><th scope="col">收复日</th><th scope="col">谷到收复（天）</th><th scope="col">峰到收复（天）</th></tr></thead><tbody><tr><th scope="row">1998-07-20</th><td>2,014.25</td><td>1998-10-08</td><td>1,419.12</td><td>−29.6%</td><td>80</td><td>1998-11-27</td><td>50</td><td>130</td></tr><tr><th scope="row">2000-03-10</th><td>5,048.62</td><td>2002-10-09</td><td>1,114.11</td><td>−77.9%</td><td>943</td><td>2015-04-23</td><td>4579</td><td>5522</td></tr><tr><th scope="row">2018-08-29</th><td>8,109.69</td><td>2018-12-24</td><td>6,192.92</td><td>−23.6%</td><td>117</td><td>2019-04-23</td><td>120</td><td>237</td></tr><tr><th scope="row">2020-02-19</th><td>9,817.18</td><td>2020-03-23</td><td>6,860.67</td><td>−30.1%</td><td>33</td><td>2020-06-08</td><td>77</td><td>110</td></tr><tr><th scope="row">2021-11-19</th><td>16,057.44</td><td>2022-12-28</td><td>10,213.29</td><td>−36.4%</td><td>404</td><td>2024-02-29</td><td>428</td><td>832</td></tr><tr><th scope="row">2024-12-16</th><td>20,173.89</td><td>2025-04-08</td><td>15,267.91</td><td>−24.3%</td><td>113</td><td>2025-06-27</td><td>80</td><td>193</td></tr></tbody></table></div>
+<p class=method>时间按自然日重算，原稿标题为「峰到谷」的 130、5,522 等数字实际是「峰到收复」。2000 年一轮从谷底到收复用了 4,579 天，其余五轮为 50、77、80、120 与 428 天。</p>
+<h3>极端下跌集中在少数时期</h3>
+<p>按原稿 1991-08-12 至 2026-11-20 的样本（8,881 个交易日），跌至少 5% 的 47 个交易日中，2000–02 年、2008 年与 2020 年合计 35 次，占约 74%。原稿还估算约 42% 的交易日处在较历史前高低至少 20% 的区间。</p>
+<figure class="chart"><ul class="bars"><li><span>2000–2002</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>21</strong></li><li><span>2008</span><span class="track" aria-hidden="true"><i class="" style="width:47.619%"></i></span><strong>10</strong></li><li><span>2020</span><span class="track" aria-hidden="true"><i class="" style="width:19.048%"></i></span><strong>4</strong></li><li><span>其余年份合计</span><span class="track" aria-hidden="true"><i class="" style="width:57.143%"></i></span><strong>12</strong></li></ul><figcaption>原稿将单日收盘跌幅至少 5% 的交易日分组，单位为交易日数量。</figcaption></figure>
+<div class="table-frame " tabindex="0" role="region" aria-label="原稿样本内的极端行情频次"><table><caption>原稿样本内的极端行情频次</caption><thead><tr><th scope="col">指标</th><th scope="col">全样本</th><th scope="col">2016 年以来</th></tr></thead><tbody><tr><th scope="row">单周下跌至少 10%</th><td>10</td><td>4</td></tr><tr><th scope="row">单日下跌至少 5%</th><td>47</td><td>9</td></tr><tr><th scope="row">回撤至少 20%</th><td>6</td><td>4</td></tr><tr><th scope="row">回撤至少 30%</th><td>3</td><td>2</td></tr></tbody></table></div>
+<p class=method>周收益以自然周最后一个交易日收盘计算。原稿列出 2026 年 11 月 5 日 −5.52% 和 11 月 20 日 −5.28% 两次单日下跌至少 5% 的情况。六轮回撤中位数比本轮高约 11.8 个百分点，差值均以峰值为分母。</p>
+<p class="refs">资料 <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED 历史收盘序列</a> · <a href="https://indexes.nasdaq.com/Index/Overview/COMP">Nasdaq 综合指数</a></p>
+</section>
+<section id="cycles" aria-labelledby="cycles-title"><h2 id="cycles-title">2022、2026 与互联网泡沫的对照</h2>
+<p>原稿个股样本里，2022 年跌幅普遍较深，Meta 与特斯拉超过 70%，苹果为 31.1%。2026 年至截止日，半导体公司的年内峰值回撤差异明显，苹果回撤 3.8%，沃尔玛较年初首日上涨 14.2%。这些是价格观察。</p>
+<div class="table-frame " tabindex="0" role="region" aria-label="个股收盘回撤对比"><table><caption>个股收盘回撤对比</caption><thead><tr><th scope="col">代码</th><th scope="col">2021 峰值至 2022 谷底</th><th scope="col">2026 最高收盘至 11 月 20 日</th></tr></thead><tbody><tr><th scope="row">NVDA</th><td>−67.6%</td><td>−47.5%</td></tr><tr><th scope="row">META</th><td>−75.7%</td><td>−27.9%</td></tr><tr><th scope="row">TSLA</th><td>−73.4%</td><td>−23.4%</td></tr><tr><th scope="row">AMZN</th><td>−55.7%</td><td>−13.1%</td></tr><tr><th scope="row">GOOGL</th><td>−44.9%</td><td>−34.0%</td></tr><tr><th scope="row">MSFT</th><td>−38.8%</td><td>−12.7%</td></tr><tr><th scope="row">AAPL</th><td>−31.1%</td><td>−3.8%</td></tr><tr><th scope="row">AVGO</th><td>−41.0%</td><td>−36.6%</td></tr><tr><th scope="row">AMD</th><td>−65.4%</td><td>−34.7%</td></tr><tr><th scope="row">MU</th><td>−50.8%</td><td>−51.0%</td></tr></tbody></table></div>
+<p class=method>原稿按前复权收盘价计算，2022 谷底取该年最后一个交易日或之前的最低收盘。纳指个股表现与 EPS 一致预期使用不同数据。</p>
+<h3>互联网泡沫回撤的关键节点</h3>
+<div class="table-frame " tabindex="0" role="region" aria-label="原稿列出的收盘节点"><table><caption>原稿列出的收盘节点</caption><thead><tr><th scope="col">节点</th><th scope="col">日期</th><th scope="col">收盘点位</th><th scope="col">较峰值</th><th scope="col">交易日数</th></tr></thead><tbody><tr><th scope="row">周期顶点</th><td>2000-03-10</td><td>5,048.62</td><td>—</td><td>0</td></tr><tr><th scope="row">跌破 −20%</th><td>2000-04-12</td><td>3,769.63</td><td>−25.3%</td><td>23</td></tr><tr><th scope="row">跌破 −30%</th><td>2000-04-14</td><td>3,321.29</td><td>−34.2%</td><td>25</td></tr><tr><th scope="row">跌破 −35%</th><td>2000-05-23</td><td>3,164.55</td><td>−37.3%</td><td>51</td></tr><tr><th scope="row">反弹高点</th><td>2000-09-01</td><td>4,234.33</td><td>−16.1%</td><td>122</td></tr><tr><th scope="row">第二波下跌</th><td>2001-04-04</td><td>1,638.80</td><td>−67.5%</td><td>269</td></tr><tr><th scope="row">最终低点</th><td>2002-10-09</td><td>1,114.11</td><td>−77.9%</td><td>647</td></tr></tbody></table></div>
+<p>按原稿所列节点，2000 年 4 月 14 日比 3 月 10 日峰值低 34.2%，相隔 25 个交易日。9 月反弹后再进入第二波下跌。2002 年谷底至 2015 年收复前高相隔约 12 年 6 个月，指数约回到谷底的 4.53 倍。</p>
+<p class="refs">资料 <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED 历史收盘序列</a></p>
+</section>
+<section id="holdings" aria-labelledby="holdings-title"><h2 id="holdings-title">纳斯达克 100 的成分与单日分层</h2>
+<p class=lead>以下为 2026 年 11 月 20 日原稿记录的 Slickcharts 快照。半导体链包含设备、EDA、存储和光模块，原稿估算纯芯片设计约 15%。云厂是作者自定义分组，各组并非标准行业分类。快照原始权重合计约 99.93%。</p>
+<div class="viz-pair">
+<figure class="chart"><h3>作者划分的三组权重</h3>
+<div class="sector-ring" aria-hidden="true"></div>
+<ul class="bars"><li><span>半导体链</span><span class="track" aria-hidden="true"><i class="" style="width:55.506%"></i></span><strong>24.7%</strong></li><li><span>云厂</span><span class="track" aria-hidden="true"><i class="" style="width:69.213%"></i></span><strong>30.8%</strong></li><li><span>其他</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>44.5%</strong></li></ul>
+<figcaption>三组按原图四舍五入至 100%。</figcaption></figure>
+<figure class="chart"><h3>前八大证券权重</h3>
+<ul class="bars"><li><span>AAPL</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>13.99%</strong></li><li><span>MSFT</span><span class="track" aria-hidden="true"><i class="" style="width:72.266%"></i></span><strong>10.11%</strong></li><li><span>NVDA</span><span class="track" aria-hidden="true"><i class="" style="width:60.901%"></i></span><strong>8.52%</strong></li><li><span>AMZN</span><span class="track" aria-hidden="true"><i class="" style="width:53.610%"></i></span><strong>7.5%</strong></li><li><span>SPCX</span><span class="track" aria-hidden="true"><i class="" style="width:34.882%"></i></span><strong>4.88%</strong></li><li><span>GOOGL</span><span class="track" aria-hidden="true"><i class="" style="width:33.667%"></i></span><strong>4.71%</strong></li><li><span>GOOG</span><span class="track" aria-hidden="true"><i class="" style="width:31.737%"></i></span><strong>4.44%</strong></li><li><span>AVGO</span><span class="track" aria-hidden="true"><i class="" style="width:29.164%"></i></span><strong>4.08%</strong></li></ul>
+<figcaption>前十合计 66.1%，前二十合计 79.8%（原稿快照）。Alphabet 的两类股票分别列出。</figcaption></figure></div>
+<p>SpaceX 于 2026 年 6 月上市，Nasdaq 公告显示其 7 月 7 日生效纳入纳斯达克 100。原稿快照列 SPCX 4.88%、MU 1.89%。权重会随价格和指数调整变化。</p>
+<p class="refs">资料 <a href="https://www.slickcharts.com/nasdaq100">Slickcharts · 权重与日涨跌</a> · <a href="https://www.slickcharts.com/nasdaq100/analysis">Slickcharts · 成分与累计权重</a> · <a href="https://ir.nasdaq.com/news-releases/news-release-details/space-exploration-technologies-corporation-join-nasdaq-100">Nasdaq · SpaceX 纳入公告</a></p>
+<div class="table-frame wide" tabindex="0" role="region" aria-label="2026 年 11 月 20 日个股表现"><table><caption>2026 年 11 月 20 日个股表现</caption><thead><tr><th scope="col">代码</th><th scope="col">作者分组</th><th scope="col">权重</th><th scope="col">当日涨跌</th><th scope="col">距年内最高收盘</th><th scope="col">较年初首日</th></tr></thead><tbody><tr><th scope="row">NVDA</th><td>半导体</td><td>8.52%</td><td>−14.01%</td><td>−47.5%</td><td>−33.3%</td></tr><tr><th scope="row">MU</th><td>半导体</td><td>1.89%</td><td>−13.89%</td><td>−51.0%</td><td>+88.8%</td></tr><tr><th scope="row">AMD</th><td>半导体</td><td>1.97%</td><td>−13.25%</td><td>−34.7%</td><td>+89.9%</td></tr><tr><th scope="row">AVGO</th><td>半导体</td><td>4.08%</td><td>−12.19%</td><td>−36.6%</td><td>−11.9%</td></tr><tr><th scope="row">INTC</th><td>半导体</td><td>0.77%</td><td>−7.97%</td><td>−63.6%</td><td>+30.2%</td></tr><tr><th scope="row">META</th><td>云厂</td><td>4.03%</td><td>−5.93%</td><td>−27.9%</td><td>−13.6%</td></tr><tr><th scope="row">AMZN</th><td>云厂</td><td>7.50%</td><td>−4.10%</td><td>−13.1%</td><td>+9.0%</td></tr><tr><th scope="row">MSFT</th><td>云厂</td><td>10.11%</td><td>−2.77%</td><td>−12.7%</td><td>+3.3%</td></tr><tr><th scope="row">GOOGL</th><td>云厂</td><td>4.71%</td><td>−2.70%</td><td>−34.0%</td><td>−15.6%</td></tr><tr><th scope="row">AAPL</th><td>其他</td><td>13.99%</td><td>−1.90%</td><td>−3.8%</td><td>+26.9%</td></tr><tr><th scope="row">WMT</th><td>其他</td><td>2.85%</td><td>+1.52%</td><td>−4.5%</td><td>+14.2%</td></tr></tbody></table></div>
+<p class=method>原稿认为，芯片价格回落可能改善云厂的采购成本，估值压力仍可能同时影响两组。GOOGL 和 META 表中的 −34.0%、−27.9% 是距年内高点的回撤。相对于年初首日，两者分别为 −15.6% 和 −13.6%。</p>
+<p class="refs">资料 <a href="https://www.slickcharts.com/nasdaq100">Slickcharts · 权重与日涨跌</a></p>
+</section>
+<section id="returns" aria-labelledby="returns-title"><h2 id="returns-title">起点如何改变长期收益</h2>
+<figure class="chart"><h3>2015–26 年度价格变化</h3>
+<ul class="bars"><li><span>2015</span><span class="track" aria-hidden="true"><i class="" style="width:13.130%"></i></span><strong>+5.73%</strong></li><li><span>2016</span><span class="track" aria-hidden="true"><i class="" style="width:17.186%"></i></span><strong>+7.50%</strong></li><li><span>2017</span><span class="track" aria-hidden="true"><i class="" style="width:64.711%"></i></span><strong>+28.24%</strong></li><li><span>2018</span><span class="track" aria-hidden="true"><i class="negative" style="width:8.891%"></i></span><strong>−3.88%</strong></li><li><span>2019</span><span class="track" aria-hidden="true"><i class="" style="width:80.729%"></i></span><strong>+35.23%</strong></li><li><span>2020</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>+43.64%</strong></li><li><span>2021</span><span class="track" aria-hidden="true"><i class="" style="width:49.015%"></i></span><strong>+21.39%</strong></li><li><span>2022</span><span class="track" aria-hidden="true"><i class="negative" style="width:75.848%"></i></span><strong>−33.10%</strong></li><li><span>2023</span><span class="track" aria-hidden="true"><i class="" style="width:99.496%"></i></span><strong>+43.42%</strong></li><li><span>2024</span><span class="track" aria-hidden="true"><i class="" style="width:65.628%"></i></span><strong>+28.64%</strong></li><li><span>2025</span><span class="track" aria-hidden="true"><i class="" style="width:46.654%"></i></span><strong>+20.36%</strong></li><li><span>2026</span><span class="track" aria-hidden="true"><i class="negative" style="width:6.095%"></i></span><strong>−2.66%</strong></li></ul>
+<figcaption>原稿年度收益。2026 行按年初首日到 11 月 20 日计算，其余为完整自然年。正负号及条形颜色区分方向。</figcaption></figure>
+<div class="table-frame " tabindex="0" role="region" aria-label="不同起点至同一终点"><table><caption>不同起点至同一终点</caption><thead><tr><th scope="col">起点</th><th scope="col">年化</th><th scope="col">历时（年）</th><th scope="col">累计</th></tr></thead><tbody><tr><th scope="row">1991-08</th><td>11.35%</td><td>35.3</td><td>+4,335%</td></tr><tr><th scope="row">2000-03 · 泡沫顶</th><td>4.48%</td><td>26.7</td><td>+348%</td></tr><tr><th scope="row">2009-03 · 危机底</th><td>17.67%</td><td>17.7</td><td>+1,683%</td></tr><tr><th scope="row">2016-01</th><td>15.09%</td><td>10.9</td><td>+361%</td></tr><tr><th scope="row">2022-12 · 上轮底</th><td>22.64%</td><td>3.9</td><td>+121%</td></tr></tbody></table></div>
+<p>原稿测算从 1991 年 8 月起年化 11.35%，从 2000 年泡沫高点起则为 4.48%。原稿的年度收益均值为 14.4%，中位数为 15.2%。这些是价格指数收益，未计股息。若估值不变且假设股息率约 0.7%，达到 10% 年化总回报大致需要约 9% 的年盈利增长，属于假设测算。</p>
+<p class="refs">资料 <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED 历史收盘序列</a> · <a href="https://www.statmuse.com/money/ask?q=what+was+the+nasdaq+on+january+2%2C+2026">2026 年首个交易日收盘</a></p>
+</section>
+<section id="csi" aria-labelledby="csi-title"><h2 id="csi-title">同一观察期，纳指与沪深 300 的修复路径</h2>
+<figure class="chart"><h3>各自 2021 年 2 月高点归一为 100</h3>
+<div class="line-scroll" tabindex="0" role="region" aria-label="季度价格指数曲线"><svg viewBox="0 0 700 394" role="img" aria-label="原稿曲线，纳指归一后至 161.9，沪深 300 至 68.1"><rect x="0" y="0" width="700" height="394" fill="#FCFCFA" /><line x1="58" y1="336.0" x2="656" y2="336.0" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="340.0" font-size="11" fill="#9AA3AA" text-anchor="end">50</text><line x1="58" y1="282.3" x2="656" y2="282.3" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="286.3" font-size="11" fill="#9AA3AA" text-anchor="end">75</text><line x1="58" y1="228.7" x2="656" y2="228.7" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="232.7" font-size="11" fill="#9AA3AA" text-anchor="end">100</text><line x1="58" y1="175.0" x2="656" y2="175.0" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="179.0" font-size="11" fill="#9AA3AA" text-anchor="end">125</text><line x1="58" y1="121.3" x2="656" y2="121.3" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="125.3" font-size="11" fill="#9AA3AA" text-anchor="end">150</text><line x1="58" y1="67.7" x2="656" y2="67.7" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="71.7" font-size="11" fill="#9AA3AA" text-anchor="end">175</text><line x1="58" y1="14.0" x2="656" y2="14.0" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="18.0" font-size="11" fill="#9AA3AA" text-anchor="end">200</text><line x1="240.0" y1="14" x2="240.0" y2="336" stroke="#DCC9A0" stroke-width="1" /><text x="247.0" y="29" font-size="12" font-family="Songti SC" fill="#B8860B">2022-12 同底</text><text x="58.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">21Q1</text><text x="162.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">22Q1</text><text x="266.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">23Q1</text><text x="370.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">24Q1</text><text x="474.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">25Q1</text><text x="578.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">26Q1</text><text x="656.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">26-11</text><line x1="58" y1="336" x2="656" y2="336" stroke="#C9CFD4" stroke-width="1" /><polyline points="58.0,239.8 84.0,220.5 110.0,221.4 136.0,202.9 162.0,224.8 188.0,274.0 214.0,280.8 240.0,282.5 266.0,255.5 292.0,231.5 318.0,240.3 344.0,212.8 370.0,191.7 396.0,170.9 422.0,163.8 448.0,146.7 474.0,177.6 500.0,130.3 526.0,95.1 552.0,86.3 578.0,111.7 604.0,40.6 630.0,30.7 656.0,95.8" fill="none" stroke="#1B2A45" stroke-width="2.2" /><polyline points="58.0,256.8 84.0,250.3 110.0,263.4 136.0,260.7 162.0,287.3 188.0,277.6 214.0,302.7 240.0,300.2 266.0,293.5 292.0,301.2 318.0,307.0 344.0,316.5 370.0,312.6 396.0,315.4 422.0,294.8 448.0,297.8 474.0,299.7 500.0,297.8 526.0,271.8 552.0,272.2 578.0,278.9 604.0,259.4 630.0,282.3 656.0,297.1" fill="none" stroke="#087567" stroke-width="2.2" /><circle cx="656.0" cy="95.8" r="3.4" fill="#1B2A45" /><circle cx="656.0" cy="297.1" r="3.4" fill="#087567" /><text x="650.0" y="83.8" font-size="12" fill="#1B2A45" text-anchor="end">161.9</text><text x="650.0" y="317.1" font-size="12" fill="#087567" text-anchor="end">68.1</text><line x1="58" y1="378" x2="92" y2="378" stroke="#1B2A45" stroke-width="2.2" /><text x="98" y="382" font-size="12" fill="#6B7A8C">纳斯达克综指</text><line x1="198" y1="378" x2="232" y2="378" stroke="#087567" stroke-width="2.2" /><text x="238" y="382" font-size="12" fill="#6B7A8C">沪深300</text></svg></div>
+<figcaption>曲线来自原稿，季度末收盘，最后一点为 2026 年 11 月 20 日。两个指数按本币价格指数计算，各自归一，未计股息及汇率。</figcaption></figure>
+<div class="table-frame " tabindex="0" role="region" aria-label="四个归一化观察点"><table><caption>四个归一化观察点</caption><thead><tr><th scope="col">时间</th><th scope="col">纳斯达克综合指数</th><th scope="col">沪深 300</th></tr></thead><tbody><tr><th scope="row">2021-02 各自高点</th><td>100.0</td><td>100.0</td></tr><tr><th scope="row">2022-12 谷底</th><td>74.9</td><td>66.7</td></tr><tr><th scope="row">2024-12</th><td>138.2</td><td>67.8</td></tr><tr><th scope="row">2026-11-20</th><td>161.9</td><td>68.1</td></tr></tbody></table></div>
+<p>按各自高点归一，最终值对应 +61.9% 和 −31.9%。2022 年底以后，纳指由 74.9 回升至 161.9，约 +116.2%；沪深 300 由 66.7 回升至 68.1，约 +2.1%。原稿将分化与盈利联系起来，价格曲线本身无法拆分盈利、估值和汇率的贡献。</p>
+<p class="refs">资料 <a href="https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000300_Index_Methodology_cn.pdf">中证指数 · 沪深 300 编制方案</a> · <a href="https://finance.yahoo.com/quote/000300.SS/history/">沪深 300 历史行情</a> · <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED 历史收盘序列</a></p>
+</section>
+<section id="scenarios" aria-labelledby="scenarios-title"><h2 id="scenarios-title">四种情景与作者赋予的概率</h2>
+<p class=lead>这组概率是作者研究判断，合计 100%。点位区间用 27,599.89 点收盘高点折算并取整。</p>
+<div class="probability" aria-hidden="true"><span class="scenario-A" style="flex-basis:30%">30%</span><span class="scenario-B" style="flex-basis:35%">35%</span><span class="scenario-C" style="flex-basis:27%">27%</span><span class="scenario-D" style="flex-basis:8%">8%</span></div><div class="cards">
+<article class="card scenario"><h3>A · 浅回调</h3><strong class="prob">30%</strong>
+<p><b>−20% → −25%</b> · 20,700–22,100 点</p>
+<p>估值回落，盈利预期尚未明显下修。假设 2027 年 AI 订单继续兑现，指数在均线附近完成换手。</p>
+<p class="small">历史参照 · 2018 年 −23.6%，2025 年 −24.3%。</p></article>
+<article class="card scenario"><h3>B · 磨底</h3><strong class="prob">35%</strong>
+<p><b>−25% → −35%</b> · 17,900–20,700 点</p>
+<p>EPS 一致预期连续两个季度下修，降息推迟。原稿假设指数在 18,000–20,000 点之间横盘 6–12 个月。</p>
+<p class="small">历史参照 · 1998 年 −29.6%，2020 年 −30.1%。</p></article>
+<article class="card scenario"><h3>C · 深熊</h3><strong class="prob">27%</strong>
+<p><b>−35% → −50%</b> · 13,800–17,900 点</p>
+<p>AI 资本开支回报低于预期，引发半导体板块重估。跌幅可能接近或超过 2022 年。</p>
+<p class="small">历史参照 · 2021–22 年 −36.4%。</p></article>
+<article class="card scenario"><h3>D · 系统性冲击</h3><strong class="prob">8%</strong>
+<p><b>跌逾 50%</b> · 低于 13,800 点</p>
+<p>假设融资结构破裂并叠加宏观硬着陆。原稿因未观察到杠杆明显过热而给予最低概率。</p>
+<p class="small">历史参照 · 2000–02 年 −77.9%。</p></article>
+</div>
+<p class=method>原稿把六轮历史回撤分为浅回调 2 次、磨底 2 次、深熊 1 次和系统性 1 次。作者在历史频次之外考虑成分集中和融资条件。</p>
+</section>
+<section id="watch" aria-labelledby="watch-title"><h2 id="watch-title">哪些观察会推翻判断</h2>
+<div class="table-frame watch" tabindex="0" role="region" aria-label="原稿的七条观察线"><table><caption>原稿的七条观察线</caption><thead><tr><th scope="col">观察项</th><th scope="col">2026-11-20 读数</th><th scope="col">触发条件</th><th scope="col">原稿调整</th></tr></thead><tbody><tr><th scope="row">200 日均线</th><td>25,157 点，现价低约 10.1%</td><td>收复 25,157 且站稳三周</td><td>上调 A，下调 B</td></tr><tr><th scope="row">前十大权重</th><td>66.1%，前二十 79.8%</td><td>因权重股下修而低于 60%</td><td>改判为结构性重估</td></tr><tr><th scope="row">半导体链权重</th><td>24.7%，云厂为 30.8%</td><td>跌破 20%，云厂预期同步下修</td><td>C 上调至 40% 以上</td></tr><tr><th scope="row">单周下跌至少 10%</th><td>原稿近十年计 4 次，最近为 11 月 20 日当周</td><td>一个月内再出现两次或以上</td><td>增加 C 的权重</td></tr><tr><th scope="row">相对前高回撤</th><td>−18.05%，峰值 27,599.89</td><td>跌破 −25%，约 20,700 点</td><td>权重从 A 转向 B</td></tr><tr><th scope="row">沪深 300 相对表现</th><td>按各自高点归一为 68.1 对 161.9</td><td>沪深 300 重回 100</td><td>重查利率、汇率和盈利的贡献</td></tr><tr><th scope="row">2026 年 EPS 一致预期</th><td>原稿未取得可核实数据</td><td>连续两季下修</td><td>权重从 B 转向 C</td></tr></tbody></table></div>
+<p>原稿把 EPS 一致预期视为最关键的缺项。后续判断还依赖云厂资本开支、半导体库存、融资条件与市场价格。</p>
+</section>
+<section id="sources" aria-labelledby="sources-title"><h2 id="sources-title">来源与口径</h2>
+<div class="endnote">
+<p>原稿结语是「数据会更新，判断要跟着改」。这里的收盘快照、历史统计和概率以 2026 年 11 月 20 日为截止日。情景是研究推演，不构成投资建议。</p>
+</div><ul class="source-list">
+<li><p>原始文稿。陈浩《纳指2026深度分析》，2026 年 11 月 22 日。原稿注明东方财富历史行情接口和 Slickcharts 权重快照。</p><p class="refs">资料 <a href="https://quote.eastmoney.com/">东方财富行情中心</a> · <a href="https://www.slickcharts.com/nasdaq100">Slickcharts · 权重与日涨跌</a></p></li>
+<li><p>收盘点位、指数与 ETF 口径。</p><p class="refs">资料 <a href="https://indexes.nasdaq.com/Index/Overview/COMP">Nasdaq 综合指数</a> · <a href="https://indexes.nasdaq.com/Index/Overview/NDX">Nasdaq-100 指数</a> · <a href="https://www.reuters.com/markets/us/nasdaq-set-correction-investors-reassess-ai-spending-boom-2026-11-05/">路透社 · 10 月 6 日收盘高点</a> · <a href="https://www.invesco.com/qqq-etf/en/about.html">Invesco · QQQ 基金资料</a> · <a href="https://finance.yahoo.com/quote/QQQ/history/">QQQ 历史收盘价</a></p></li>
+<li><p>历史序列、成分及 A 股对照。</p><p class="refs">资料 <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED 历史收盘序列</a> · <a href="https://www.slickcharts.com/nasdaq100/analysis">Slickcharts · 成分与累计权重</a> · <a href="https://ir.nasdaq.com/news-releases/news-release-details/space-exploration-technologies-corporation-join-nasdaq-100">Nasdaq · SpaceX 纳入公告</a> · <a href="https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000300_Index_Methodology_cn.pdf">中证指数 · 沪深 300 编制方案</a> · <a href="https://finance.yahoo.com/quote/000300.SS/history/">沪深 300 历史行情</a></p></li>
+</ul>
+<p class=method>网页编校。根据原稿日期重算回撤天数，区分 COMP、NDX 和 QQQ。核对了主要收盘点位和部分成分权重。历史次数、个股复权和作者分组按原稿保留，未逐笔重算。资料核对于 2026 年 11 月 23 日。</p>
+</section></main></div>
+<div class="edition" lang="en" hidden>
+<header class="hero"><div class="wrap">
+<p class=eyebrow>Nasdaq Composite · November 2026 research</p>
+<h1>Down 18%. What comes next?</h1>
+<p class=byline>Author · 陈浩 (Chen Hao)</p>
+<p class=subtitle>The drawdown, what lies beneath it, and four paths forward</p>
+<p class=asof>Market data through the November 20, 2026 U.S. close. The source deck is dated November 22, 2026.</p>
+<dl class="metrics">
+<div><dt>COMP closing drawdown</dt><dd>−18.05%</dd></div>
+<div><dt>COMP at close</dt><dd>22,617.73</dd></div>
+<div><dt>COMP since first 2026 close</dt><dd>−2.66%</dd></div>
+<div><dt>QQQ closing drawdown (deck)</dt><dd>−19.90%</dd></div>
+<div><dt>COMP vs. 200-day average</dt><dd>−10.1%</dd></div>
+</dl>
+<nav aria-label="Sections"><a href="#en-view">Research view</a><a href="#en-drawdowns">Drawdowns</a><a href="#en-cycles">Cycle comparisons</a><a href="#en-holdings">Index composition</a><a href="#en-returns">Long-run returns</a><a href="#en-csi">CSI 300 comparison</a><a href="#en-scenarios">Four scenarios</a><a href="#en-watch">What would change the view</a><a href="#en-sources">Sources and methods</a></nav>
+</div></header>
+<main class="wrap">
+<section id="en-view" aria-labelledby="en-view-title"><h2 id="en-view-title">Where is the drawdown, and what evidence is missing?</h2>
+<p class=lead>Chen Hao’s view is that the valuation reset is partway through and may be shallower than in 2022. The earnings case remains unverified because the deck did not obtain a reproducible consensus EPS series.</p>
+<div class="cards">
+<article class="card"><h3>Historical scale</h3><p>The six selected historical episodes had a median drawdown of about 29.8%. Four exceeded 25% and one exceeded 50%. Further losses remain one possible path.</p></article>
+<article class="card"><h3>Valuation and earnings</h3><p>The deck sees cash flow at large companies as a buffer. Stock drawdowns describe market behavior. Earnings revisions still require a direct data series.</p></article>
+<article class="card"><h3>Concentration</h3><p>In the deck’s Nasdaq-100 grouping, semiconductors and cloud providers account for about 55.5%. The day’s losses were concentrated in related heavyweights.</p></article>
+<article class="card"><h3>Scenario view</h3><p>The deck puts prolonged bottoming first among its individual scenarios (35%), with cloud capital spending, semiconductor inventories, and earnings expectations as signals.</p></article>
+</div>
+<p class=method>Reading guide. The page retains the deck’s historical statistics, classifications, and scenarios. It distinguishes market observations, the author’s judgments, and editorial calculations.</p>
+</section>
+<section id="en-drawdowns" aria-labelledby="en-drawdowns-title"><h2 id="en-drawdowns-title">Current position and historical drawdowns</h2>
+<p class=lead>On November 20, 2026, COMP closed at 22,617.73, down 5.28% on the day and 18.05% below its October 6 record close of 27,599.89. The Nasdaq-100 (NDX) closed at 25,028.98, down 5.61% on the day. The deck’s −19.90% figure uses QQQ as a proxy and is still above the −20% closing threshold.</p>
+<p class="refs">Sources <a href="https://indexes.nasdaq.com/Index/Overview/COMP">Nasdaq Composite</a> · <a href="https://indexes.nasdaq.com/Index/Overview/NDX">Nasdaq-100 Index</a> · <a href="https://www.reuters.com/markets/us/nasdaq-set-correction-investors-reassess-ai-spending-boom-2026-11-05/">Reuters · October 6 closing high</a> · <a href="https://www.invesco.com/qqq-etf/en/about.html">Invesco · QQQ fund profile</a> · <a href="https://finance.yahoo.com/quote/QQQ/history/">QQQ historical closes</a></p>
+<figure class="chart"><h3>Current drawdown and six historical episodes</h3>
+<ul class="bars"><li><span>Current 2026</span><span class="track" aria-hidden="true"><i class="negative" style="width:23.171%"></i></span><strong>−18.05%</strong></li><li><span>2018</span><span class="track" aria-hidden="true"><i class="negative" style="width:30.295%"></i></span><strong>−23.60%</strong></li><li><span>2024–25</span><span class="track" aria-hidden="true"><i class="negative" style="width:31.194%"></i></span><strong>−24.30%</strong></li><li><span>1998</span><span class="track" aria-hidden="true"><i class="negative" style="width:37.997%"></i></span><strong>−29.60%</strong></li><li><span>2020</span><span class="track" aria-hidden="true"><i class="negative" style="width:38.639%"></i></span><strong>−30.10%</strong></li><li><span>2021–22</span><span class="track" aria-hidden="true"><i class="negative" style="width:46.727%"></i></span><strong>−36.40%</strong></li><li><span>2000–02</span><span class="track" aria-hidden="true"><i class="negative" style="width:100.000%"></i></span><strong>−77.90%</strong></li></ul>
+<figcaption>Drawdowns use closing levels from peak to trough. The current line uses the report cutoff and is outside the six completed episodes.</figcaption></figure>
+<div class="table-frame wide" tabindex="0" role="region" aria-label="Six drawdowns and their recovery periods"><table><caption>Six drawdowns and their recovery periods</caption><thead><tr><th scope="col">Peak date</th><th scope="col">Peak</th><th scope="col">Trough date</th><th scope="col">Trough</th><th scope="col">Drawdown</th><th scope="col">Peak to trough (days)</th><th scope="col">Recovery date</th><th scope="col">Trough to recovery (days)</th><th scope="col">Peak to recovery (days)</th></tr></thead><tbody><tr><th scope="row">1998-07-20</th><td>2,014.25</td><td>1998-10-08</td><td>1,419.12</td><td>−29.6%</td><td>80</td><td>1998-11-27</td><td>50</td><td>130</td></tr><tr><th scope="row">2000-03-10</th><td>5,048.62</td><td>2002-10-09</td><td>1,114.11</td><td>−77.9%</td><td>943</td><td>2015-04-23</td><td>4579</td><td>5522</td></tr><tr><th scope="row">2018-08-29</th><td>8,109.69</td><td>2018-12-24</td><td>6,192.92</td><td>−23.6%</td><td>117</td><td>2019-04-23</td><td>120</td><td>237</td></tr><tr><th scope="row">2020-02-19</th><td>9,817.18</td><td>2020-03-23</td><td>6,860.67</td><td>−30.1%</td><td>33</td><td>2020-06-08</td><td>77</td><td>110</td></tr><tr><th scope="row">2021-11-19</th><td>16,057.44</td><td>2022-12-28</td><td>10,213.29</td><td>−36.4%</td><td>404</td><td>2024-02-29</td><td>428</td><td>832</td></tr><tr><th scope="row">2024-12-16</th><td>20,173.89</td><td>2025-04-08</td><td>15,267.91</td><td>−24.3%</td><td>113</td><td>2025-06-27</td><td>80</td><td>193</td></tr></tbody></table></div>
+<p class=method>Elapsed calendar days were recalculated from the dates. Source values such as 130 and 5,522 measure peak to recovery. The dot-com episode took 4,579 days from trough to recovery. The other five took 50, 77, 80, 120, and 428 days.</p>
+<h3>Severe declines cluster</h3>
+<p>Across the deck’s August 12, 1991–November 20, 2026 sample of 8,881 sessions, 35 of the 47 drops of at least 5% occurred in 2000–02, 2008, and 2020, about 74%. The deck also estimates that about 42% of sessions sat at least 20% below the running peak.</p>
+<figure class="chart"><ul class="bars"><li><span>2000–2002</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>21</strong></li><li><span>2008</span><span class="track" aria-hidden="true"><i class="" style="width:47.619%"></i></span><strong>10</strong></li><li><span>2020</span><span class="track" aria-hidden="true"><i class="" style="width:19.048%"></i></span><strong>4</strong></li><li><span>Other years combined</span><span class="track" aria-hidden="true"><i class="" style="width:57.143%"></i></span><strong>12</strong></li></ul><figcaption>Source groups for daily closing losses of at least 5%. Values are counts of trading sessions.</figcaption></figure>
+<div class="table-frame " tabindex="0" role="region" aria-label="Extreme moves counted in the deck"><table><caption>Extreme moves counted in the deck</caption><thead><tr><th scope="col">Measure</th><th scope="col">Full sample</th><th scope="col">Since 2016</th></tr></thead><tbody><tr><th scope="row">Weekly loss of at least 10%</th><td>10</td><td>4</td></tr><tr><th scope="row">Daily loss of at least 5%</th><td>47</td><td>9</td></tr><tr><th scope="row">Drawdown of at least 20%</th><td>6</td><td>4</td></tr><tr><th scope="row">Drawdown of at least 30%</th><td>3</td><td>2</td></tr></tbody></table></div>
+<p class=method>Weekly returns use the last closing level of each calendar week. The deck records two daily drops of at least 5% in 2026, November 5 (−5.52%) and November 20 (−5.28%). The historical median drawdown is about 11.8 percentage points deeper than the current drawdown, using the peak as the denominator.</p>
+<p class="refs">Sources <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED daily close series</a> · <a href="https://indexes.nasdaq.com/Index/Overview/COMP">Nasdaq Composite</a></p>
+</section>
+<section id="en-cycles" aria-labelledby="en-cycles-title"><h2 id="en-cycles-title">2022, 2026, and the dot-com comparison</h2>
+<p>Among the deck’s selected stocks, 2022 drawdowns were broadly deep. Meta and Tesla fell more than 70% from their peaks and Apple fell 31.1%. In 2026 through the cutoff, semiconductor stocks showed wide differences, Apple fell 3.8% from its year-to-date peak, and Walmart gained 14.2% from the first trading day. These are price observations.</p>
+<div class="table-frame " tabindex="0" role="region" aria-label="Stock closing-price drawdowns"><table><caption>Stock closing-price drawdowns</caption><thead><tr><th scope="col">Ticker</th><th scope="col">2021 peak to 2022 trough</th><th scope="col">2026 peak close to Nov 20</th></tr></thead><tbody><tr><th scope="row">NVDA</th><td>−67.6%</td><td>−47.5%</td></tr><tr><th scope="row">META</th><td>−75.7%</td><td>−27.9%</td></tr><tr><th scope="row">TSLA</th><td>−73.4%</td><td>−23.4%</td></tr><tr><th scope="row">AMZN</th><td>−55.7%</td><td>−13.1%</td></tr><tr><th scope="row">GOOGL</th><td>−44.9%</td><td>−34.0%</td></tr><tr><th scope="row">MSFT</th><td>−38.8%</td><td>−12.7%</td></tr><tr><th scope="row">AAPL</th><td>−31.1%</td><td>−3.8%</td></tr><tr><th scope="row">AVGO</th><td>−41.0%</td><td>−36.6%</td></tr><tr><th scope="row">AMD</th><td>−65.4%</td><td>−34.7%</td></tr><tr><th scope="row">MU</th><td>−50.8%</td><td>−51.0%</td></tr></tbody></table></div>
+<p class=method>The deck uses forward-adjusted closes. The 2022 trough is the lowest qualifying close by that year’s final session. Consensus EPS revisions are a separate series.</p>
+<h3>The dot-com drawdown in stages</h3>
+<div class="table-frame " tabindex="0" role="region" aria-label="Closing milestones in the deck"><table><caption>Closing milestones in the deck</caption><thead><tr><th scope="col">Milestone</th><th scope="col">Date</th><th scope="col">Close</th><th scope="col">Versus peak</th><th scope="col">Sessions from peak</th></tr></thead><tbody><tr><th scope="row">Cycle peak</th><td>2000-03-10</td><td>5,048.62</td><td>—</td><td>0</td></tr><tr><th scope="row">Below −20%</th><td>2000-04-12</td><td>3,769.63</td><td>−25.3%</td><td>23</td></tr><tr><th scope="row">Below −30%</th><td>2000-04-14</td><td>3,321.29</td><td>−34.2%</td><td>25</td></tr><tr><th scope="row">Below −35%</th><td>2000-05-23</td><td>3,164.55</td><td>−37.3%</td><td>51</td></tr><tr><th scope="row">Rebound high</th><td>2000-09-01</td><td>4,234.33</td><td>−16.1%</td><td>122</td></tr><tr><th scope="row">Second selloff</th><td>2001-04-04</td><td>1,638.80</td><td>−67.5%</td><td>269</td></tr><tr><th scope="row">Final trough</th><td>2002-10-09</td><td>1,114.11</td><td>−77.9%</td><td>647</td></tr></tbody></table></div>
+<p>At the milestones in the deck, the April 14, 2000 close was 34.2% below the March 10 peak after 25 sessions. A September rebound preceded a second leg down. From the 2002 trough to recovery in 2015 took about 12 years and six months, bringing the index back to roughly 4.53 times its trough level.</p>
+<p class="refs">Sources <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED daily close series</a></p>
+</section>
+<section id="en-holdings" aria-labelledby="en-holdings-title"><h2 id="en-holdings-title">Nasdaq-100 composition and the day’s losses</h2>
+<p class=lead>These figures use the Slickcharts snapshot recorded in the deck on November 20, 2026. The semiconductor chain includes equipment, EDA, memory, and optics. The deck estimates chip design alone at about 15%. Cloud providers are an author-defined group. The snapshot’s reported weights sum to about 99.93%.</p>
+<div class="viz-pair">
+<figure class="chart"><h3>Three groups defined by the author</h3>
+<div class="sector-ring" aria-hidden="true"></div>
+<ul class="bars"><li><span>Semiconductor chain</span><span class="track" aria-hidden="true"><i class="" style="width:55.506%"></i></span><strong>24.7%</strong></li><li><span>Cloud providers</span><span class="track" aria-hidden="true"><i class="" style="width:69.213%"></i></span><strong>30.8%</strong></li><li><span>Other</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>44.5%</strong></li></ul>
+<figcaption>The chart’s rounded group shares total 100%.</figcaption></figure>
+<figure class="chart"><h3>Eight largest security weights</h3>
+<ul class="bars"><li><span>AAPL</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>13.99%</strong></li><li><span>MSFT</span><span class="track" aria-hidden="true"><i class="" style="width:72.266%"></i></span><strong>10.11%</strong></li><li><span>NVDA</span><span class="track" aria-hidden="true"><i class="" style="width:60.901%"></i></span><strong>8.52%</strong></li><li><span>AMZN</span><span class="track" aria-hidden="true"><i class="" style="width:53.610%"></i></span><strong>7.5%</strong></li><li><span>SPCX</span><span class="track" aria-hidden="true"><i class="" style="width:34.882%"></i></span><strong>4.88%</strong></li><li><span>GOOGL</span><span class="track" aria-hidden="true"><i class="" style="width:33.667%"></i></span><strong>4.71%</strong></li><li><span>GOOG</span><span class="track" aria-hidden="true"><i class="" style="width:31.737%"></i></span><strong>4.44%</strong></li><li><span>AVGO</span><span class="track" aria-hidden="true"><i class="" style="width:29.164%"></i></span><strong>4.08%</strong></li></ul>
+<figcaption>The deck reports 66.1% for the top ten and 79.8% for the top twenty. Alphabet’s two share classes appear separately.</figcaption></figure></div>
+<p>SpaceX listed in June 2026. Nasdaq’s inclusion notice was effective July 7. The deck’s snapshot reports SPCX at 4.88% and MU at 1.89%. Weights change with prices and index maintenance.</p>
+<p class="refs">Sources <a href="https://www.slickcharts.com/nasdaq100">Slickcharts · weights and daily changes</a> · <a href="https://www.slickcharts.com/nasdaq100/analysis">Slickcharts · constituent and cumulative weights</a> · <a href="https://ir.nasdaq.com/news-releases/news-release-details/space-exploration-technologies-corporation-join-nasdaq-100">Nasdaq · SpaceX inclusion notice</a></p>
+<div class="table-frame wide" tabindex="0" role="region" aria-label="Selected stocks on November 20, 2026"><table><caption>Selected stocks on November 20, 2026</caption><thead><tr><th scope="col">Ticker</th><th scope="col">Deck group</th><th scope="col">Weight</th><th scope="col">Daily change</th><th scope="col">From 2026 peak close</th><th scope="col">From first 2026 close</th></tr></thead><tbody><tr><th scope="row">NVDA</th><td>Semiconductors</td><td>8.52%</td><td>−14.01%</td><td>−47.5%</td><td>−33.3%</td></tr><tr><th scope="row">MU</th><td>Semiconductors</td><td>1.89%</td><td>−13.89%</td><td>−51.0%</td><td>+88.8%</td></tr><tr><th scope="row">AMD</th><td>Semiconductors</td><td>1.97%</td><td>−13.25%</td><td>−34.7%</td><td>+89.9%</td></tr><tr><th scope="row">AVGO</th><td>Semiconductors</td><td>4.08%</td><td>−12.19%</td><td>−36.6%</td><td>−11.9%</td></tr><tr><th scope="row">INTC</th><td>Semiconductors</td><td>0.77%</td><td>−7.97%</td><td>−63.6%</td><td>+30.2%</td></tr><tr><th scope="row">META</th><td>Cloud</td><td>4.03%</td><td>−5.93%</td><td>−27.9%</td><td>−13.6%</td></tr><tr><th scope="row">AMZN</th><td>Cloud</td><td>7.50%</td><td>−4.10%</td><td>−13.1%</td><td>+9.0%</td></tr><tr><th scope="row">MSFT</th><td>Cloud</td><td>10.11%</td><td>−2.77%</td><td>−12.7%</td><td>+3.3%</td></tr><tr><th scope="row">GOOGL</th><td>Cloud</td><td>4.71%</td><td>−2.70%</td><td>−34.0%</td><td>−15.6%</td></tr><tr><th scope="row">AAPL</th><td>Other</td><td>13.99%</td><td>−1.90%</td><td>−3.8%</td><td>+26.9%</td></tr><tr><th scope="row">WMT</th><td>Other</td><td>2.85%</td><td>+1.52%</td><td>−4.5%</td><td>+14.2%</td></tr></tbody></table></div>
+<p class=method>The deck argues that cheaper chips could help cloud purchasing costs while valuations remain exposed across both groups. GOOGL and META fell 34.0% and 27.9% from their 2026 highs. Their changes from the first trading session were −15.6% and −13.6%, respectively.</p>
+<p class="refs">Sources <a href="https://www.slickcharts.com/nasdaq100">Slickcharts · weights and daily changes</a></p>
+</section>
+<section id="en-returns" aria-labelledby="en-returns-title"><h2 id="en-returns-title">How the starting point changes long-run returns</h2>
+<figure class="chart"><h3>Annual price changes, 2015–26</h3>
+<ul class="bars"><li><span>2015</span><span class="track" aria-hidden="true"><i class="" style="width:13.130%"></i></span><strong>+5.73%</strong></li><li><span>2016</span><span class="track" aria-hidden="true"><i class="" style="width:17.186%"></i></span><strong>+7.50%</strong></li><li><span>2017</span><span class="track" aria-hidden="true"><i class="" style="width:64.711%"></i></span><strong>+28.24%</strong></li><li><span>2018</span><span class="track" aria-hidden="true"><i class="negative" style="width:8.891%"></i></span><strong>−3.88%</strong></li><li><span>2019</span><span class="track" aria-hidden="true"><i class="" style="width:80.729%"></i></span><strong>+35.23%</strong></li><li><span>2020</span><span class="track" aria-hidden="true"><i class="" style="width:100.000%"></i></span><strong>+43.64%</strong></li><li><span>2021</span><span class="track" aria-hidden="true"><i class="" style="width:49.015%"></i></span><strong>+21.39%</strong></li><li><span>2022</span><span class="track" aria-hidden="true"><i class="negative" style="width:75.848%"></i></span><strong>−33.10%</strong></li><li><span>2023</span><span class="track" aria-hidden="true"><i class="" style="width:99.496%"></i></span><strong>+43.42%</strong></li><li><span>2024</span><span class="track" aria-hidden="true"><i class="" style="width:65.628%"></i></span><strong>+28.64%</strong></li><li><span>2025</span><span class="track" aria-hidden="true"><i class="" style="width:46.654%"></i></span><strong>+20.36%</strong></li><li><span>2026</span><span class="track" aria-hidden="true"><i class="negative" style="width:6.095%"></i></span><strong>−2.66%</strong></li></ul>
+<figcaption>Annual returns from the source deck. 2026 runs from the first trading session to November 20. Other rows are full calendar years. Signs and bar colors show direction.</figcaption></figure>
+<div class="table-frame " tabindex="0" role="region" aria-label="Different starting points, same endpoint"><table><caption>Different starting points, same endpoint</caption><thead><tr><th scope="col">Starting point</th><th scope="col">Annualized</th><th scope="col">Years</th><th scope="col">Cumulative</th></tr></thead><tbody><tr><th scope="row">Aug 1991</th><td>11.35%</td><td>35.3</td><td>+4,335%</td></tr><tr><th scope="row">Mar 2000 · dot-com peak</th><td>4.48%</td><td>26.7</td><td>+348%</td></tr><tr><th scope="row">Mar 2009 · crisis low</th><td>17.67%</td><td>17.7</td><td>+1,683%</td></tr><tr><th scope="row">Jan 2016</th><td>15.09%</td><td>10.9</td><td>+361%</td></tr><tr><th scope="row">Dec 2022 · previous trough</th><td>22.64%</td><td>3.9</td><td>+121%</td></tr></tbody></table></div>
+<p>The deck estimates 11.35% annualized from August 1991 and 4.48% from the dot-com peak. It reports an arithmetic annual mean of 14.4% and a median of 15.2%. These are price-index returns, excluding dividends. At constant valuation and an assumed dividend yield of about 0.7%, a 10% annualized total return would require roughly 9% annual earnings growth. That is an illustration.</p>
+<p class="refs">Sources <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED daily close series</a> · <a href="https://www.statmuse.com/money/ask?q=what+was+the+nasdaq+on+january+2%2C+2026">2026 first-session close</a></p>
+</section>
+<section id="en-csi" aria-labelledby="en-csi-title"><h2 id="en-csi-title">Recovery paths for the Nasdaq and CSI 300</h2>
+<figure class="chart"><h3>Each February 2021 peak equals 100</h3>
+<div class="line-scroll" tabindex="0" role="region" aria-label="Quarterly index chart"><svg viewBox="0 0 700 394" role="img" aria-label="Source chart, normalized Nasdaq ends at 161.9 and CSI 300 at 68.1"><rect x="0" y="0" width="700" height="394" fill="#FCFCFA" /><line x1="58" y1="336.0" x2="656" y2="336.0" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="340.0" font-size="11" fill="#9AA3AA" text-anchor="end">50</text><line x1="58" y1="282.3" x2="656" y2="282.3" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="286.3" font-size="11" fill="#9AA3AA" text-anchor="end">75</text><line x1="58" y1="228.7" x2="656" y2="228.7" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="232.7" font-size="11" fill="#9AA3AA" text-anchor="end">100</text><line x1="58" y1="175.0" x2="656" y2="175.0" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="179.0" font-size="11" fill="#9AA3AA" text-anchor="end">125</text><line x1="58" y1="121.3" x2="656" y2="121.3" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="125.3" font-size="11" fill="#9AA3AA" text-anchor="end">150</text><line x1="58" y1="67.7" x2="656" y2="67.7" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="71.7" font-size="11" fill="#9AA3AA" text-anchor="end">175</text><line x1="58" y1="14.0" x2="656" y2="14.0" stroke="#EBEDEA" stroke-width="1" /><text x="48" y="18.0" font-size="11" fill="#9AA3AA" text-anchor="end">200</text><line x1="240.0" y1="14" x2="240.0" y2="336" stroke="#DCC9A0" stroke-width="1" /><text x="247.0" y="29" font-size="12" font-family="Songti SC" fill="#B8860B">Dec 2022 lows</text><text x="58.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">21Q1</text><text x="162.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">22Q1</text><text x="266.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">23Q1</text><text x="370.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">24Q1</text><text x="474.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">25Q1</text><text x="578.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">26Q1</text><text x="656.0" y="358" font-size="11" fill="#9AA3AA" text-anchor="middle">26-11</text><line x1="58" y1="336" x2="656" y2="336" stroke="#C9CFD4" stroke-width="1" /><polyline points="58.0,239.8 84.0,220.5 110.0,221.4 136.0,202.9 162.0,224.8 188.0,274.0 214.0,280.8 240.0,282.5 266.0,255.5 292.0,231.5 318.0,240.3 344.0,212.8 370.0,191.7 396.0,170.9 422.0,163.8 448.0,146.7 474.0,177.6 500.0,130.3 526.0,95.1 552.0,86.3 578.0,111.7 604.0,40.6 630.0,30.7 656.0,95.8" fill="none" stroke="#1B2A45" stroke-width="2.2" /><polyline points="58.0,256.8 84.0,250.3 110.0,263.4 136.0,260.7 162.0,287.3 188.0,277.6 214.0,302.7 240.0,300.2 266.0,293.5 292.0,301.2 318.0,307.0 344.0,316.5 370.0,312.6 396.0,315.4 422.0,294.8 448.0,297.8 474.0,299.7 500.0,297.8 526.0,271.8 552.0,272.2 578.0,278.9 604.0,259.4 630.0,282.3 656.0,297.1" fill="none" stroke="#087567" stroke-width="2.2" /><circle cx="656.0" cy="95.8" r="3.4" fill="#1B2A45" /><circle cx="656.0" cy="297.1" r="3.4" fill="#087567" /><text x="650.0" y="83.8" font-size="12" fill="#1B2A45" text-anchor="end">161.9</text><text x="650.0" y="317.1" font-size="12" fill="#087567" text-anchor="end">68.1</text><line x1="58" y1="378" x2="92" y2="378" stroke="#1B2A45" stroke-width="2.2" /><text x="92" y="382" font-size="10" fill="#6B7A8C">Nasdaq Composite</text><line x1="198" y1="378" x2="232" y2="378" stroke="#087567" stroke-width="2.2" /><text x="228" y="382" font-size="12" fill="#6B7A8C">CSI 300</text></svg></div>
+<figcaption>The chart is reproduced from the deck using quarter-end closes and November 20, 2026 as the final point. Both are locally denominated price indexes normalized to their own peaks, excluding dividends and foreign-exchange effects.</figcaption></figure>
+<div class="table-frame " tabindex="0" role="region" aria-label="Four normalized reference points"><table><caption>Four normalized reference points</caption><thead><tr><th scope="col">Date</th><th scope="col">Nasdaq Composite</th><th scope="col">CSI 300</th></tr></thead><tbody><tr><th scope="row">Feb 2021 · respective highs</th><td>100.0</td><td>100.0</td></tr><tr><th scope="row">Dec 2022 · trough</th><td>74.9</td><td>66.7</td></tr><tr><th scope="row">Dec 2024</th><td>138.2</td><td>67.8</td></tr><tr><th scope="row">Nov 20, 2026</th><td>161.9</td><td>68.1</td></tr></tbody></table></div>
+<p>From each respective peak, the endpoint represents +61.9% and −31.9%. Since the end of 2022, the Nasdaq rose from 74.9 to 161.9 (about +116.2%) and CSI 300 from 66.7 to 68.1 (about +2.1%). The deck associates the divergence with earnings, while the price chart alone cannot isolate earnings, valuation, and currency effects.</p>
+<p class="refs">Sources <a href="https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000300_Index_Methodology_cn.pdf">CSI · CSI 300 methodology</a> · <a href="https://finance.yahoo.com/quote/000300.SS/history/">CSI 300 historical prices</a> · <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED daily close series</a></p>
+</section>
+<section id="en-scenarios" aria-labelledby="en-scenarios-title"><h2 id="en-scenarios-title">Four scenarios and the author’s probabilities</h2>
+<p class=lead>The probabilities are the author’s judgments and sum to 100%. Index ranges are calculated from the 27,599.89 closing peak and rounded.</p>
+<div class="probability" aria-hidden="true"><span class="scenario-A" style="flex-basis:30%">30%</span><span class="scenario-B" style="flex-basis:35%">35%</span><span class="scenario-C" style="flex-basis:27%">27%</span><span class="scenario-D" style="flex-basis:8%">8%</span></div><div class="cards">
+<article class="card scenario"><h3>A · Shallow correction</h3><strong class="prob">30%</strong>
+<p><b>−20% → −25%</b> · 20,700–22,100 points</p>
+<p>Valuations fall while earnings expectations hold up. AI orders materialize in 2027 and the index stabilizes near its moving average.</p>
+<p class="small">Historical parallel · 2018 at −23.6% and 2025 at −24.3%.</p></article>
+<article class="card scenario"><h3>B · Prolonged bottoming</h3><strong class="prob">35%</strong>
+<p><b>−25% → −35%</b> · 17,900–20,700 points</p>
+<p>Consensus EPS estimates fall for two quarters and rate cuts are delayed. The deck assumes 6–12 months in an 18,000–20,000 range.</p>
+<p class="small">Historical parallel · 1998 at −29.6% and 2020 at −30.1%.</p></article>
+<article class="card scenario"><h3>C · Deep bear market</h3><strong class="prob">27%</strong>
+<p><b>−35% → −50%</b> · 13,800–17,900 points</p>
+<p>AI capital spending returns disappoint, prompting a semiconductor repricing. The drawdown approaches or exceeds 2022’s depth.</p>
+<p class="small">Historical parallel · 2021–22 at −36.4%.</p></article>
+<article class="card scenario"><h3>D · Systemic shock</h3><strong class="prob">8%</strong>
+<p><b>More than 50% down</b> · Below 13,800 points</p>
+<p>A funding breakdown coincides with a hard landing. The deck assigns the lowest probability because it did not observe clear leverage overheating.</p>
+<p class="small">Historical parallel · 2000–02 at −77.9%.</p></article>
+</div>
+<p class=method>The deck groups the six historical drawdowns into two shallow corrections, two prolonged bottomings, one deep bear, and one systemic shock. The author also weighs concentration and funding conditions.</p>
+</section>
+<section id="en-watch" aria-labelledby="en-watch-title"><h2 id="en-watch-title">What would invalidate the view</h2>
+<div class="table-frame watch" tabindex="0" role="region" aria-label="Seven monitoring signals from the deck"><table><caption>Seven monitoring signals from the deck</caption><thead><tr><th scope="col">Indicator</th><th scope="col">Reading on Nov 20, 2026</th><th scope="col">Trigger</th><th scope="col">Deck’s proposed revision</th></tr></thead><tbody><tr><th scope="row">200-day moving average</th><td>25,157; spot roughly 10.1% below</td><td>Reclaim 25,157 and hold for three weeks</td><td>Raise A and lower B</td></tr><tr><th scope="row">Top-ten concentration</th><td>66.1%; top 20 at 79.8%</td><td>Falls below 60% as heavyweight stocks reprice</td><td>Treat it as structural repricing</td></tr><tr><th scope="row">Semiconductor-chain weight</th><td>24.7%; cloud providers at 30.8%</td><td>Below 20% alongside lower cloud expectations</td><td>Raise C above 40%</td></tr><tr><th scope="row">Weekly drops of at least 10%</th><td>Deck counts four since 2016, latest the week of Nov 20</td><td>At least two more in a month</td><td>Give C more weight</td></tr><tr><th scope="row">Peak drawdown</th><td>−18.05%; peak 27,599.89</td><td>More than 25% down, near 20,700</td><td>Shift weight from A to B</td></tr><tr><th scope="row">CSI 300 relative performance</th><td>68.1 vs. 161.9, respective peaks = 100</td><td>CSI 300 regains 100</td><td>Reassess rate, currency, and earnings contributions</td></tr><tr><th scope="row">2026 consensus EPS</th><td>No verifiable data in the deck</td><td>Two consecutive quarters of cuts</td><td>Shift weight from B to C</td></tr></tbody></table></div>
+<p>The deck treats consensus EPS as its most important missing input. Follow-up judgments also depend on cloud capital spending, semiconductor inventories, funding conditions, and market prices.</p>
+</section>
+<section id="en-sources" aria-labelledby="en-sources-title"><h2 id="en-sources-title">Sources and methods</h2>
+<div class="endnote">
+<p>The deck closes by urging readers to revise their judgment as data changes. Market levels, historical statistics, and scenarios are anchored to November 20, 2026. The scenarios are research judgments, not investment advice.</p>
+</div><ul class="source-list">
+<li><p>Source deck. Chen Hao, Nasdaq in 2026: Deep Analysis, November 22, 2026. It identifies Eastmoney historical prices and a Slickcharts weight snapshot.</p><p class="refs">Sources <a href="https://quote.eastmoney.com/">Eastmoney market data</a> · <a href="https://www.slickcharts.com/nasdaq100">Slickcharts · weights and daily changes</a></p></li>
+<li><p>Closing levels, index definitions, and ETF scope.</p><p class="refs">Sources <a href="https://indexes.nasdaq.com/Index/Overview/COMP">Nasdaq Composite</a> · <a href="https://indexes.nasdaq.com/Index/Overview/NDX">Nasdaq-100 Index</a> · <a href="https://www.reuters.com/markets/us/nasdaq-set-correction-investors-reassess-ai-spending-boom-2026-11-05/">Reuters · October 6 closing high</a> · <a href="https://www.invesco.com/qqq-etf/en/about.html">Invesco · QQQ fund profile</a> · <a href="https://finance.yahoo.com/quote/QQQ/history/">QQQ historical closes</a></p></li>
+<li><p>Historical data, constituents, and the China-market comparison.</p><p class="refs">Sources <a href="https://fred.stlouisfed.org/data/NASDAQCOM">FRED daily close series</a> · <a href="https://www.slickcharts.com/nasdaq100/analysis">Slickcharts · constituent and cumulative weights</a> · <a href="https://ir.nasdaq.com/news-releases/news-release-details/space-exploration-technologies-corporation-join-nasdaq-100">Nasdaq · SpaceX inclusion notice</a> · <a href="https://oss-ch.csindex.com.cn/static/html/csindex/public/uploads/indices/detail/files/zh_CN/000300_Index_Methodology_cn.pdf">CSI · CSI 300 methodology</a> · <a href="https://finance.yahoo.com/quote/000300.SS/history/">CSI 300 historical prices</a></p></li>
+</ul>
+<p class=method>Editorial notes. The web edition recalculates elapsed days from source dates and distinguishes COMP, NDX, and QQQ. The main closing levels and selected weights were cross-checked. The historical counts, adjusted stock series, and author-defined groups are reproduced from the deck. Sources were checked on November 23, 2026.</p>
+</section></main></div>
+<script>
+(() => {
+  const root = document.documentElement;
+  const controls = document.querySelector('.language-bar');
+  const editions = [...document.querySelectorAll('.edition')];
+  const buttons = [...controls.querySelectorAll('button')];
+  const key = 'nasdaq-market-analysis-language';
+  const targets = new Set([...editions[0].querySelectorAll('main section')].map(section => section.id));
+  let active = 'zh-CN';
+
+  function currentTarget() {
+    const id = location.hash.slice(1);
+    const target = id.replace(/^en-/, '');
+    return targets.has(target) ? { target, language: id === target ? 'zh-CN' : 'en' } : null;
+  }
+  function show(language) {
+    active = language;
+    root.lang = language;
+    for (const edition of editions) edition.hidden = edition.lang !== language;
+    for (const button of buttons) button.setAttribute('aria-pressed', String(button.lang === language));
+  }
+  let stored = '';
+  try { stored = localStorage.getItem(key); } catch {}
+  show(currentTarget()?.language || (stored === 'en' ? 'en' : 'zh-CN'));
+  controls.hidden = false;
+
+  for (const button of buttons) button.addEventListener('click', () => {
+    const anchor = currentTarget();
+    show(button.lang);
+    if (anchor) {
+      const id = (active === 'en' ? 'en-' : '') + anchor.target;
+      try { history.replaceState(null, '', '#' + id); } catch {}
+      document.getElementById(id)?.scrollIntoView();
+    }
+    try { localStorage.setItem(key, active); } catch {}
+  });
+  window.addEventListener('hashchange', () => {
+    const anchor = currentTarget();
+    if (anchor && anchor.language !== active) {
+      show(anchor.language);
+      document.getElementById(location.hash.slice(1))?.scrollIntoView();
+    }
+  });
+})();
+</script>
+</body>
+</html>
