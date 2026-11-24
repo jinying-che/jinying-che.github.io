@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Snowflake（SNOW）投研一页纸，图解产品收入、经营利润率、可转债融资和估值。产品收入再加速，股权稀释和高估值仍压缩安全边际。">
+<meta name="keywords" content="Snowflake, 美股, 企业数据平台, AI, 估值">
+<meta property="article:published_time" content="2026-11-24">
+<title>Snowflake（SNOW）投研一页纸</title>
+<style>
+:root{color-scheme:light;--paper:#f5f3eb;--card:#fffdf7;--ink:#182c29;--dark:#163b33;--soft:#4e635d;--line:#d8dfd4;--mint:#e3efe4;--green:#237254;--bright:#d8ef9e;--rust:#a44932;--track:#ebeee6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 "Inter","Noto Sans CJK SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+a{color:var(--green);text-underline-offset:.2em}
+button,input{font:inherit}
+button,summary{cursor:pointer}
+:focus-visible{outline:2px solid #a44932;outline-offset:3px}
+[hidden]{display:none!important}
+.shell{max-width:1232px;margin:auto;padding:0 28px 30px}
+.mast{min-height:65px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap;font-weight:750;font-size:.86rem;color:var(--ink);text-decoration:none}
+.brand::before{content:"";width:13px;height:13px;background:var(--green);border-radius:2px 2px 8px 2px}
+.toolbar{display:flex;align-items:center;gap:12px}
+.segment{display:flex;gap:2px;border:1px solid #c3cfc3;border-radius:7px;padding:2px}
+.toolbar button{background:transparent;border:0;color:var(--ink);font-size:.78rem;font-weight:650;border-radius:4px;padding:5px 9px;white-space:nowrap}
+.toolbar button[aria-pressed=true]{background:var(--dark);color:#fff}
+.toolbar .print{border:1px solid #c3cfc3;border-radius:7px;padding:7px 10px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(205px,25%);align-items:end;gap:26px;padding:27px 33px;color:#fff;background:var(--dark);border-radius:12px}
+.eyebrow{font-size:.76rem;font-weight:750;letter-spacing:.09em;color:var(--bright)}
+.eyebrow span{margin-left:9px;color:#d6e1ce}
+h1{font-family:Georgia,serif;font-size:clamp(3.3rem,7vw,5.6rem);line-height:.97;letter-spacing:-.065em;margin:6px 0 7px}
+.hero p{margin:6px 0 0;color:#e3eee5;max-width:69ch}
+.hero .headline{font-size:clamp(1.08rem,2.2vw,1.61rem);line-height:1.2;font-weight:750;color:#fff}
+.market{border-left:1px solid #5a786b;padding:4px 0 3px 20px;display:grid;gap:4px;font-size:.8rem;color:#e3eee5}
+.market strong{font-size:clamp(2.5rem,4.5vw,3.8rem);color:var(--bright);line-height:1.04;letter-spacing:-.06em}
+.hero .cite a,.watch .cite a{color:var(--bright)}
+nav{display:flex;flex-wrap:wrap;gap:5px 20px;border-bottom:1px solid var(--line);padding:9px 0}
+nav a{font-weight:700;font-size:.82rem;text-decoration:none}
+nav a:hover,.brand:hover{text-decoration:underline}
+section{margin-top:17px;scroll-margin-top:12px}
+.section-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:1px 12px;justify-content:space-between;margin-bottom:7px}
+h2,h3,p,figure{margin:0}
+h2{font-size:clamp(1.16rem,2.4vw,1.5rem);line-height:1.25;letter-spacing:-.025em}
+h3{font-size:1.04rem;line-height:1.32}
+.section-head>span,figcaption>span,.note,.growth-metrics span,.flow span{font-size:.8rem;color:var(--soft)}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:14px 16px;min-width:0}
+.cite{margin-left:.22em;font-size:.61em;line-height:0;white-space:nowrap}
+.cite a{padding:0 .2em;font-weight:750}
+.columns{height:137px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:7px 0 8px}
+.quarter{display:grid;grid-template-rows:16px 20px 1fr 23px;text-align:center;justify-items:center;min-width:0}
+.yoy{color:var(--green);font-size:.75rem;font-weight:750}
+.column{height:var(--size);width:min(65%,54px);align-self:end;background:#97b89f;border-radius:4px 4px 0 0}
+.quarter:last-child .column{background:var(--green)}
+.quarter-name{border-top:1px solid #aab7a9;width:100%;font-size:.63rem;line-height:1.08;padding-top:3px;color:var(--soft)}
+.growth-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;border-top:1px solid var(--line);padding-top:6px}
+.growth-metrics b{display:block;color:var(--green);font-size:1.25rem;line-height:1.16}
+.growth-metrics span{display:block;line-height:1.35;margin-top:2px}
+.profit,.capital{margin:8px 0}
+.profit-group+.profit-group,.capital-group+.capital-group{margin-top:7px}
+.profit-group strong,.capital-title{font-size:.8rem}
+.metric-row{display:grid;grid-template-columns:4.1rem 1fr 3.25rem;gap:8px;align-items:center;font-size:.78rem;padding:2px 0}
+.metric-row b{text-align:right;white-space:nowrap}
+.track{display:block;height:9px;background:var(--track);position:relative;border-radius:3px}
+.track i{position:absolute;left:var(--start,0%);width:var(--size);height:100%;border-radius:2px;background:var(--green)}
+.track .loss{background:var(--rust)}
+.track.diverging::after{content:"";position:absolute;left:50%;height:100%;border-left:1px solid #73867d}
+.prior .track i{opacity:.58}
+.callout{background:var(--mint);border-left:3px solid var(--green);border-radius:0 5px 5px 0;padding:7px 9px;font-size:.81rem}
+.flow{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:19px}
+.flow li{position:relative;background:var(--mint);border-radius:6px;padding:7px 10px}
+.flow li:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:50%;translate:0 -50%;color:var(--green);font-weight:750}
+.flow b,.flow span{display:block}
+.business-copy{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px;font-size:.84rem}
+.capital-title{display:flex;justify-content:space-between;gap:4px;padding-bottom:1px}
+.capital-title b{color:var(--green)}
+.capital .metric-row{grid-template-columns:minmax(6.8rem,32%) 1fr 3.85rem}
+.scenarios{display:grid;gap:3px;margin:7px 0}
+.scenario{display:grid;grid-template-columns:minmax(4rem,19%) 1fr 3.2rem;gap:8px;align-items:center;border:1px solid transparent;background:transparent;color:inherit;border-radius:5px;text-align:left;padding:3px 6px;width:100%;font-size:.82rem}
+.scenario:hover{border-color:#92b3a0}
+.scenario[aria-pressed=true]{border-color:#a0bfa6;background:var(--mint)}
+.scenario small{display:block;color:var(--soft);font-size:.7rem;white-space:nowrap;line-height:1.2}
+.scenario .quote{text-align:right}
+.marker::after{content:"";position:absolute;left:67.8175%;height:calc(100% + 8px);top:-4px;border-left:2px dashed var(--ink)}
+.scenario:not([aria-pressed=true]) .track i{background:#769e83}
+.model{margin:6px 0;font-size:.8rem}
+.model summary{color:var(--green);font-weight:700}
+.sliders{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:6px}
+.sliders label{min-width:0}
+.sliders output{display:block;font-weight:700}
+.sliders input{width:100%;margin:2px 0;accent-color:var(--green)}
+.model-result{padding:3px 0}
+.model-result strong{font-size:1.06rem;margin-left:4px}
+.watch{background:var(--dark);color:#fff;border-radius:9px;padding:13px 16px}
+.watch .section-head>span{color:var(--bright)}
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;font-size:.82rem;color:#e3eee5}
+.checks b{display:block;color:#fff;margin-bottom:1px}
+footer{border-top:1px solid var(--line);margin-top:14px;padding-top:8px;color:var(--soft);font-size:.76rem}
+footer h2{font-size:.93rem;color:var(--ink)}
+.sources{display:flex;flex-wrap:wrap;gap:3px 24px;padding-left:1.2rem;margin:5px 0 4px}
+.sources li{padding-right:4px;scroll-margin-top:10px}
+.sources li:target{background:var(--bright)}
+@media(max-width:850px){.shell{padding-inline:18px}.hero{padding:22px;gap:15px}.card{padding:12px}.business-copy{gap:12px}}
+@media(max-width:620px){.shell{padding-inline:12px}.mast{min-height:52px;margin-bottom:10px}.toolbar{gap:5px}.toolbar button{padding-inline:6px}.toolbar .print{padding-inline:7px}.hero,.grid,.business-copy,.checks{grid-template-columns:1fr}.hero{padding:17px;gap:12px}.market{border-left:0;border-top:1px solid #5a786b;padding:8px 0 0;grid-template-columns:auto 1fr;align-items:center;gap:4px 10px}.market strong{text-align:right;grid-column:2;grid-row:1 / 3}.market span:last-child{grid-column:1}.flow{grid-template-columns:1fr;gap:5px}.flow li{padding:5px 8px}.flow li:not(:last-child)::after{content:none}.checks,.business-copy{gap:7px}.sources{column-gap:21px}}
+@page{size:A4;margin:8mm}
+@media print{
+  *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
+  body{background:white;font-size:12px;line-height:1.4}
+  .shell{padding:0;max-width:none}.mast{min-height:0;padding-bottom:4px;margin-bottom:5px}
+  .brand,.section-head>span,figcaption>span,.note,.growth-metrics span,.flow span,footer{font-size:10.5px}
+  .toolbar,.model,nav{display:none!important}
+  .hero{grid-template-columns:1fr 24%;gap:13px;padding:9px 13px}.market{display:grid;grid-template-columns:1fr;border-top:0;border-left:1px solid #5a786b;padding:0 0 0 8px;gap:2px;font-size:8px}.market strong{font-size:27px;text-align:left;grid-area:auto}.market span:last-child{grid-column:auto}
+  .eyebrow{font-size:8px}h1{font-size:41px;margin:2px 0}.hero .headline{font-size:13px}.hero p{margin-top:3px;max-width:none}
+  section{margin-top:6px;break-inside:avoid}.section-head{margin-bottom:4px}h2{font-size:16px}h3{font-size:13px}
+  .grid,.business-copy{grid-template-columns:1fr 1fr;gap:7px}.card,.watch{padding:5px 7px}
+  .columns{height:98px;margin:4px 0}.quarter{grid-template-rows:14px 16px 1fr 20px}.quarter-name,.yoy{font-size:9px}.growth-metrics{padding-top:3px}.growth-metrics b{font-size:12px}
+  .profit,.capital{margin:3px 0}.profit-group+.profit-group,.capital-group+.capital-group{margin-top:3px}.profit-group strong,.capital-title,.metric-row,.callout,.business-copy,.checks,.scenario{font-size:10.5px}.callout{padding:3px 4px}
+  .metric-row{padding:0}.track{height:6px}.flow,.checks{grid-template-columns:repeat(3,1fr)}.flow{gap:17px}.flow li{padding:3px 5px}.flow li:not(:last-child)::after{content:"→";right:-14px}.business-copy{margin-top:4px}
+  .scenarios{margin:3px 0;gap:2px}.scenario{padding:2px 4px}.scenario small{font-size:9px}footer{margin-top:5px;padding-top:3px}footer h2{font-size:9px}.sources{gap:1px 15px;margin:2px 0}
+}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="mast">
+    <a class="brand" href="/x/">Jinying’s Notebook</a>
+    <div class="toolbar" hidden>
+      <div class="segment" role="group" aria-label="语言 / Language">
+        <button type="button" data-language="zh" lang="zh-CN" aria-pressed="true">中文</button>
+        <button type="button" data-language="en" lang="en" aria-pressed="false">English</button>
+      </div>
+      <button type="button" class="print">打印</button>
+    </div>
+  </header>
+<article class="edition" id="edition-zh" lang="zh-CN" data-title="Snowflake（SNOW）投研一页纸">
+  <header class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">NYSE · SNOW <span>公司研究</span></div>
+      <h1>Snowflake</h1>
+      <p class="headline">增长再加速，估值已计入高预期</p>
+      <p>核心数据业务与 AI 用量推动增长。每股回报取决于 GAAP 亏损能否继续收窄、股权稀释能否放缓。当前判断：等财报验证，再评估入场价。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></p>
+    </div>
+    <div class="market">
+      <span>11 月 23 日美股收盘<sup class="cite"><a href="#source-zh-5" aria-label="来源 5">5</a></sup></span>
+      <strong>$271.27</strong>
+      <span>约 15.6× EV / FY27 产品收入指引<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a></sup></span>
+    </div>
+  </header>
+  <nav aria-label="报告目录"><a href="#growth-zh">增长与盈利</a><a href="#business-zh">业务与竞争</a><a href="#valuation-zh">资产负债与估值</a><a href="#watch-zh">下一季</a></nav>
+  <section id="growth-zh" aria-labelledby="growth-title-zh">
+    <div class="section-head"><h2 id="growth-title-zh">增长加快，GAAP 仍亏损</h2><span>FY27 Q2 · 截至 2026-07-31<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></span></div>
+    <div class="grid">
+      <figure class="card">
+        <figcaption><h3>产品收入连续三季加速</h3><span>柱高：十亿美元 · 上排：同比<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-10" aria-label="来源 10">10</a></sup></span></figcaption>
+        <div class="columns"><div class="quarter"><span class="yoy">+32%</span><strong>1.09</strong><div class="column" style="--size:68.16%" aria-hidden="true"></div><span class="quarter-name">FY26<br>Q2</span></div><div class="quarter"><span class="yoy">+29%</span><strong>1.16</strong><div class="column" style="--size:72.40%" aria-hidden="true"></div><span class="quarter-name">FY26<br>Q3</span></div><div class="quarter"><span class="yoy">+30%</span><strong>1.23</strong><div class="column" style="--size:76.66%" aria-hidden="true"></div><span class="quarter-name">FY26<br>Q4</span></div><div class="quarter"><span class="yoy">+34%</span><strong>1.33</strong><div class="column" style="--size:83.40%" aria-hidden="true"></div><span class="quarter-name">FY27<br>Q1</span></div><div class="quarter"><span class="yoy">+37%</span><strong>1.49</strong><div class="column" style="--size:93.24%" aria-hidden="true"></div><span class="quarter-name">FY27<br>Q2</span></div></div>
+        <div class="growth-metrics">
+          <div><b>126%</b><span>过去 12 个月净收入留存率，去年同期 125%</span></div>
+          <div><b>$9.00B</b><span>剩余履约义务（同比 +30%），预计 54% 在 12 个月内确认</span></div>
+        </div>
+      </figure>
+      <figure class="card">
+        <figcaption><h3>经营利润率同比改善</h3><span>同季比较 · 以总收入为分母<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></span></figcaption>
+        <div class="profit"><div class="profit-group"><strong>GAAP 经营利润率</strong><div class="metric-row prior"><span>FY26 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:7.57%;--size:42.43%" class="loss"></i></div><b>−29.7%</b></div><div class="metric-row "><span>FY27 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:25.71%;--size:24.29%" class="loss"></i></div><b>−17.0%</b></div></div><div class="profit-group"><strong>调整后经营利润率</strong><div class="metric-row prior"><span>FY26 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:50.00%;--size:15.86%" class="gain"></i></div><b>+11.1%</b></div><div class="metric-row "><span>FY27 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:50.00%;--size:21.86%" class="gain"></i></div><b>+15.3%</b></div></div></div>
+        <div class="callout"><b>27.4%</b> 股权激励占总收入，去年同期为 35.3%。Q2 基本加权股数仍同比增 <b>4.2%</b>，自由现金流 <b>8,380 万美元</b>未扣除非现金股权激励。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></div>
+      </figure>
+    </div>
+  </section>
+  <section id="business-zh" aria-labelledby="business-title-zh">
+    <div class="section-head"><h2 id="business-title-zh">AI 如何变成收入</h2></div>
+    <div class="card business">
+      <ol class="flow">
+        <li><b>汇集企业数据</b><span>整合业务系统与数据管道</span></li>
+        <li><b>权限与治理</b><span>共享数据并沿用访问规则</span></li>
+        <li><b>分析与 AI 消耗</b><span>按计算、存储、传输用量收费</span></li>
+      </ol>
+      <div class="business-copy">
+        <p><b>护城河</b>来自迁移数据管道、报表和权限规则的成本。Q2 最后四周，CoCo / CoWork 平均每周使用账户分别为 <b>9,100+</b> / <b>5,800</b>，这是采用指标。11 月 3 日新品扩大了可执行任务的范围，仍需验证付费用量。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-6" aria-label="来源 6">6</a></sup></p>
+        <p><b>竞争</b>来自 Databricks 和云厂商。Databricks 8 月自报收入年化运行率超过 <b>70 亿美元</b>，11 月升级 Genie。该指标与 Snowflake 财报收入采用不同口径。<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-7" aria-label="来源 7">7</a><a href="#source-zh-8" aria-label="来源 8">8</a></sup></p>
+      </div>
+    </div>
+  </section>
+  <section id="valuation-zh" aria-labelledby="value-title-zh">
+    <div class="section-head"><h2 id="value-title-zh">融资增加现金，也增加债务</h2></div>
+    <div class="grid">
+      <figure class="card">
+        <figcaption><h3>融资后净现金缓冲估计缩小</h3><span>美元 · B = 十亿<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a></sup></span></figcaption>
+        <div class="capital"><div class="capital-group"><div class="capital-title"><strong>7 月末披露</strong><span>净额 <b>$2.03B</b></span></div><div class="metric-row"><span>现金＋投资</span><div class="track" aria-hidden="true"><i style="--size:54.12%" class="gain"></i></div><b>$4.33B</b></div><div class="metric-row"><span>可转债本金</span><div class="track" aria-hidden="true"><i style="--size:28.75%" class="loss"></i></div><b>$2.30B</b></div></div><div class="capital-group"><div class="capital-title"><strong>仅调整已披露融资</strong><span>净额 <b>$1.31B</b></span></div><div class="metric-row"><span>现金＋投资</span><div class="track" aria-hidden="true"><i style="--size:88.75%" class="gain"></i></div><b>$7.10B</b></div><div class="metric-row"><span>可转债本金</span><div class="track" aria-hidden="true"><i style="--size:72.38%" class="loss"></i></div><b>$5.79B</b></div></div></div>
+        <p class="note">10 月 2 日 8-K 披露新发 <b>37.5 亿美元</b>零息可转债。图中估计以 7 月底为起点，只计基础发行净募资 37 亿美元、封顶看涨期权成本 3.835 亿美元，以及现金 5.483 亿美元回购旧债本金 2.618 亿美元。估算未计额外认购权及其他季度变动。另有截至 2031 年 3 月的 60 亿美元云采购承诺。<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a></sup></p>
+      </figure>
+      <figure class="card valuation-card">
+        <figcaption><h3>基准情景低于当前参考价</h3><span>FY28 情景 · 产品收入增速 / EV 倍数 · 虚线为 $271.27<sup class="cite"><a href="#source-zh-5" aria-label="来源 5">5</a></sup></span></figcaption>
+        <div class="scenarios" aria-label="估值情景"><button type="button" class="scenario" data-growth="20" data-multiple="8" aria-pressed="false">
+            <span><b>谨慎</b><small>+20% · 8×</small></span>
+            <span class="track marker" aria-hidden="true"><i style="--size:40.81%"></i></span>
+            <span class="quote"><b>$163</b><small>-40%</small></span>
+          </button><button type="button" class="scenario" data-growth="30" data-multiple="12" aria-pressed="true">
+            <span><b>基准</b><small>+30% · 12×</small></span>
+            <span class="track marker" aria-hidden="true"><i style="--size:65.75%"></i></span>
+            <span class="quote"><b>$263</b><small>-3%</small></span>
+          </button><button type="button" class="scenario" data-growth="37" data-multiple="16" aria-pressed="false">
+            <span><b>乐观</b><small>+37% · 16×</small></span>
+            <span class="track marker" aria-hidden="true"><i style="--size:92.03%"></i></span>
+            <span class="quote"><b>$368</b><small>+36%</small></span>
+          </button></div>
+        <details class="model">
+          <summary>调整估值假设</summary>
+          <div class="sliders">
+            <label>FY28 产品收入增速 <output data-readout="growth">30%</output><input type="range" data-input="growth" min="10" max="50" value="30"></label>
+            <label>EV / 产品收入 <output data-readout="multiple">12×</output><input type="range" data-input="multiple" min="5" max="20" step=".5" value="12"></label>
+            <label>估算股数（百万股） <output data-readout="shares">365</output><input type="range" data-input="shares" min="350" max="400" value="365"></label>
+          </div>
+          <div class="model-result" aria-live="polite">情景隐含股价 <strong data-result>$263</strong> <span data-change>−3%</span></div>
+        </details>
+        <p class="note">情景价 =（FY27 指引 $6.07B × (1 + 增速) × 倍数 + 估计净现金 $1.31B）÷ 假设股数 3.65 亿。情景假设可转债保留为债务。15.6× 现价估值采用 8 月 21 日披露的 3.528 亿股与融资调整净现金，均为简化估算。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a><a href="#source-zh-5" aria-label="来源 5">5</a></sup></p>
+      </figure>
+    </div>
+  </section>
+  <section class="watch" id="watch-zh" aria-labelledby="watch-title-zh">
+    <div class="section-head"><h2 id="watch-title-zh">下一次财报看三件事</h2><span>2026-12-02 · 美股盘后<sup class="cite"><a href="#source-zh-9" aria-label="来源 9">9</a></sup></span></div>
+    <div class="checks">
+      <p><b>增长</b>Q3 产品收入能否达到指引 $1.588–1.593B（+37% 至 +38%），全年 $6.07B 指引是否维持或上调。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a></sup></p>
+      <p><b>毛利与稀释</b>GAAP 产品毛利率能否守住 Q2 的 70.9%，股权激励占比和股数增速能否继续改善。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></p>
+      <p><b>AI 变现</b>使用账户能否转为持续付费用量，新增用量的毛利能否覆盖推理和云成本。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-6" aria-label="来源 6">6</a></sup></p>
+    </div>
+  </section>
+  <footer>
+    <h2>资料来源</h2><ol class="sources"><li id="source-zh-1"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm">FY27 Q2 财报</a></li><li id="source-zh-2"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm">FY27 Q2 10-Q</a></li><li id="source-zh-3"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/snow-20260928.htm">可转债 8-K</a></li><li id="source-zh-4"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/exhibit992-pricingpressrel.htm">发行定价与回购</a></li><li id="source-zh-5"><a href="https://stockanalysis.com/stocks/snow/history/">SNOW 历史行情</a></li><li id="source-zh-6"><a href="https://www.snowflake.com/en/news/press-releases/expedition-2026-coco-cowork/">Snowflake Expedition</a></li><li id="source-zh-7"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-grows-80-yoy-surpasses-7b-revenue-run-rate-scales">Databricks 8 月披露</a></li><li id="source-zh-8"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-launches-new-always-on-genie-autonomous-ai-complex">Databricks Genie</a></li><li id="source-zh-9"><a href="https://www.snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement/">FY27 Q3 财报日程</a></li><li id="source-zh-10"><a href="https://investors.snowflake.com/financials/quarterly-results/default.aspx">历季财报</a></li></ol>
+    <p>数据核验日期 2026-11-24。公司财年于 1 月 31 日结束。估值情景均为研究假设。</p>
+  </footer>
+</article>
+<article class="edition" id="edition-en" lang="en" data-title="Snowflake (SNOW) Investment One-Pager" hidden>
+  <header class="hero">
+    <div class="hero-main">
+      <div class="eyebrow">NYSE · SNOW <span>EQUITY RESEARCH</span></div>
+      <h1>Snowflake</h1>
+      <p class="headline">Growth is accelerating. Expectations are already high.</p>
+      <p>Core data workloads and AI consumption are driving growth. Per-share returns depend on narrower GAAP losses and slower dilution. View: reassess entry valuation after earnings.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></p>
+    </div>
+    <div class="market">
+      <span>NOV 23 U.S. CLOSE<sup class="cite"><a href="#source-en-5" aria-label="Source 5">5</a></sup></span>
+      <strong>$271.27</strong>
+      <span>~15.6× EV / FY27 product revenue guidance<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a></sup></span>
+    </div>
+  </header>
+  <nav aria-label="Report sections"><a href="#growth-en">Growth & profit</a><a href="#business-en">Business & competition</a><a href="#valuation-en">Balance sheet & valuation</a><a href="#watch-en">Next earnings</a></nav>
+  <section id="growth-en" aria-labelledby="growth-title-en">
+    <div class="section-head"><h2 id="growth-title-en">Growth accelerates and GAAP losses narrow</h2><span>FY27 Q2 · ended Jul 31, 2026<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></span></div>
+    <div class="grid">
+      <figure class="card">
+        <figcaption><h3>Product growth accelerated for three straight quarters</h3><span>Bars in US$bn · top row shows YoY<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-10" aria-label="Source 10">10</a></sup></span></figcaption>
+        <div class="columns"><div class="quarter"><span class="yoy">+32%</span><strong>1.09</strong><div class="column" style="--size:68.16%" aria-hidden="true"></div><span class="quarter-name">FY26<br>Q2</span></div><div class="quarter"><span class="yoy">+29%</span><strong>1.16</strong><div class="column" style="--size:72.40%" aria-hidden="true"></div><span class="quarter-name">FY26<br>Q3</span></div><div class="quarter"><span class="yoy">+30%</span><strong>1.23</strong><div class="column" style="--size:76.66%" aria-hidden="true"></div><span class="quarter-name">FY26<br>Q4</span></div><div class="quarter"><span class="yoy">+34%</span><strong>1.33</strong><div class="column" style="--size:83.40%" aria-hidden="true"></div><span class="quarter-name">FY27<br>Q1</span></div><div class="quarter"><span class="yoy">+37%</span><strong>1.49</strong><div class="column" style="--size:93.24%" aria-hidden="true"></div><span class="quarter-name">FY27<br>Q2</span></div></div>
+        <div class="growth-metrics">
+          <div><b>126%</b><span>Trailing 12-month net revenue retention, vs. 125% a year ago</span></div>
+          <div><b>$9.00B</b><span>Remaining performance obligations (+30% YoY), 54% expected in 12 months</span></div>
+        </div>
+      </figure>
+      <figure class="card">
+        <figcaption><h3>Operating margins improved year over year</h3><span>Same quarter · % of total revenue<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></span></figcaption>
+        <div class="profit"><div class="profit-group"><strong>GAAP operating margin</strong><div class="metric-row prior"><span>FY26 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:7.57%;--size:42.43%" class="loss"></i></div><b>−29.7%</b></div><div class="metric-row "><span>FY27 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:25.71%;--size:24.29%" class="loss"></i></div><b>−17.0%</b></div></div><div class="profit-group"><strong>Adjusted operating margin</strong><div class="metric-row prior"><span>FY26 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:50.00%;--size:15.86%" class="gain"></i></div><b>+11.1%</b></div><div class="metric-row "><span>FY27 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:50.00%;--size:21.86%" class="gain"></i></div><b>+15.3%</b></div></div></div>
+        <div class="callout">Stock-based compensation fell to <b>27.4%</b> of revenue from 35.3%. Q2 basic weighted-average shares still rose <b>4.2%</b> YoY. <b>$83.8M</b> of free cash flow excludes noncash SBC.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></div>
+      </figure>
+    </div>
+  </section>
+  <section id="business-en" aria-labelledby="business-title-en">
+    <div class="section-head"><h2 id="business-title-en">How AI turns into revenue</h2></div>
+    <div class="card business">
+      <ol class="flow">
+        <li><b>Unify enterprise data</b><span>Connect business systems and pipelines</span></li>
+        <li><b>Govern access</b><span>Share data under existing access rules</span></li>
+        <li><b>Run analytics and AI</b><span>Bill for compute, storage and transfer</span></li>
+      </ol>
+      <div class="business-copy">
+        <p><b>Switching costs</b> come from moving pipelines, reports and access rules. CoCo and CoWork averaged <b>9,100+</b> and <b>5,800</b> weekly active accounts, respectively, over Q2’s final four weeks. Nov 3 releases broadened what agents can do. Paid consumption remains the test.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-6" aria-label="Source 6">6</a></sup></p>
+        <p><b>Competition</b> comes from Databricks and the cloud providers. Databricks reported a revenue run rate above <b>$7B</b> in August and upgraded Genie in November. Its run rate uses a different basis from Snowflake’s reported revenue.<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-7" aria-label="Source 7">7</a><a href="#source-en-8" aria-label="Source 8">8</a></sup></p>
+      </div>
+    </div>
+  </section>
+  <section id="valuation-en" aria-labelledby="value-title-en">
+    <div class="section-head"><h2 id="value-title-en">Financing adds cash and debt</h2></div>
+    <div class="grid">
+      <figure class="card">
+        <figcaption><h3>Financing narrows the estimated net cash cushion</h3><span>USD · B = billion<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a></sup></span></figcaption>
+        <div class="capital"><div class="capital-group"><div class="capital-title"><strong>Jul 31 reported</strong><span>Net <b>$2.03B</b></span></div><div class="metric-row"><span>Cash + investments</span><div class="track" aria-hidden="true"><i style="--size:54.12%" class="gain"></i></div><b>$4.33B</b></div><div class="metric-row"><span>Notes principal</span><div class="track" aria-hidden="true"><i style="--size:28.75%" class="loss"></i></div><b>$2.30B</b></div></div><div class="capital-group"><div class="capital-title"><strong>Financing-only estimate</strong><span>Net <b>$1.31B</b></span></div><div class="metric-row"><span>Cash + investments</span><div class="track" aria-hidden="true"><i style="--size:88.75%" class="gain"></i></div><b>$7.10B</b></div><div class="metric-row"><span>Notes principal</span><div class="track" aria-hidden="true"><i style="--size:72.38%" class="loss"></i></div><b>$5.79B</b></div></div></div>
+        <p class="note">The Oct 2 8-K disclosed <b>$3.75B</b> of new zero-coupon notes. The estimate adjusts July balances for the base offering only: $3.70B net proceeds, $383.5M capped-call cost, and $548.3M paid to retire $261.8M of old principal. The estimate excludes the additional purchase option and other quarterly changes. A separate $6B cloud purchase commitment runs through March 2031.<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a></sup></p>
+      </figure>
+      <figure class="card valuation-card">
+        <figcaption><h3>The base case sits below the reference close</h3><span>FY28 scenarios · product revenue growth / EV multiple · dashed line at $271.27<sup class="cite"><a href="#source-en-5" aria-label="Source 5">5</a></sup></span></figcaption>
+        <div class="scenarios" aria-label="Valuation scenarios"><button type="button" class="scenario" data-growth="20" data-multiple="8" aria-pressed="false">
+            <span><b>Bear</b><small>+20% · 8×</small></span>
+            <span class="track marker" aria-hidden="true"><i style="--size:40.81%"></i></span>
+            <span class="quote"><b>$163</b><small>-40%</small></span>
+          </button><button type="button" class="scenario" data-growth="30" data-multiple="12" aria-pressed="true">
+            <span><b>Base</b><small>+30% · 12×</small></span>
+            <span class="track marker" aria-hidden="true"><i style="--size:65.75%"></i></span>
+            <span class="quote"><b>$263</b><small>-3%</small></span>
+          </button><button type="button" class="scenario" data-growth="37" data-multiple="16" aria-pressed="false">
+            <span><b>Bull</b><small>+37% · 16×</small></span>
+            <span class="track marker" aria-hidden="true"><i style="--size:92.03%"></i></span>
+            <span class="quote"><b>$368</b><small>+36%</small></span>
+          </button></div>
+        <details class="model">
+          <summary>Adjust valuation inputs</summary>
+          <div class="sliders">
+            <label>FY28 product revenue growth <output data-readout="growth">30%</output><input type="range" data-input="growth" min="10" max="50" value="30"></label>
+            <label>EV / product revenue <output data-readout="multiple">12×</output><input type="range" data-input="multiple" min="5" max="20" step=".5" value="12"></label>
+            <label>Estimated shares (millions) <output data-readout="shares">365</output><input type="range" data-input="shares" min="350" max="400" value="365"></label>
+          </div>
+          <div class="model-result" aria-live="polite">Implied share price <strong data-result>$263</strong> <span data-change>−3%</span></div>
+        </details>
+        <p class="note">Scenario price = (FY27 guidance of $6.07B × (1 + growth) × multiple + $1.31B estimated net cash) ÷ 365M assumed shares. Notes stay in debt in this model. The 15.6× spot multiple uses 352.8M shares disclosed as of Aug 21 and the financing-adjusted net cash estimate.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a><a href="#source-en-5" aria-label="Source 5">5</a></sup></p>
+      </figure>
+    </div>
+  </section>
+  <section class="watch" id="watch-en" aria-labelledby="watch-title-en">
+    <div class="section-head"><h2 id="watch-title-en">Three things to watch at earnings</h2><span>Dec 2, 2026 · after U.S. close<sup class="cite"><a href="#source-en-9" aria-label="Source 9">9</a></sup></span></div>
+    <div class="checks">
+      <p><b>Growth</b>Does Q3 product revenue meet guidance of $1.588–1.593B (+37% to +38% YoY), and is the $6.07B full-year guide held or raised?<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a></sup></p>
+      <p><b>Margins & dilution</b>Does GAAP product gross margin hold at Q2’s 70.9%, and do SBC as a share of revenue and share-count growth ease?<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></p>
+      <p><b>AI monetization</b>Does usage translate into recurring paid consumption with enough gross profit to cover inference and cloud costs?<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-6" aria-label="Source 6">6</a></sup></p>
+    </div>
+  </section>
+  <footer>
+    <h2>Sources</h2><ol class="sources"><li id="source-en-1"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm">FY27 Q2 earnings</a></li><li id="source-en-2"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm">FY27 Q2 10-Q</a></li><li id="source-en-3"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/snow-20260928.htm">Convertible notes 8-K</a></li><li id="source-en-4"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/exhibit992-pricingpressrel.htm">Offering pricing and repurchase</a></li><li id="source-en-5"><a href="https://stockanalysis.com/stocks/snow/history/">SNOW historical prices</a></li><li id="source-en-6"><a href="https://www.snowflake.com/en/news/press-releases/expedition-2026-coco-cowork/">Snowflake Expedition</a></li><li id="source-en-7"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-grows-80-yoy-surpasses-7b-revenue-run-rate-scales">Databricks August release</a></li><li id="source-en-8"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-launches-new-always-on-genie-autonomous-ai-complex">Databricks Genie</a></li><li id="source-en-9"><a href="https://www.snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement/">FY27 Q3 earnings date</a></li><li id="source-en-10"><a href="https://investors.snowflake.com/financials/quarterly-results/default.aspx">Quarterly results</a></li></ol>
+    <p>Data checked Nov 24, 2026. Fiscal years end January 31. Valuation scenarios use research assumptions.</p>
+  </footer>
+</article>
+</main>
+<script>
+const editions = [...document.querySelectorAll(".edition")];
+const buttons = [...document.querySelectorAll("[data-language]")];
+const print = document.querySelector(".print");
+
+function selectLanguage(language) {
+  const active = document.getElementById("edition-" + language);
+  const fragment = location.hash.replace(/-(zh|en)(?=-|$)/, "-" + language);
+  editions.forEach(edition => { edition.hidden = edition !== active; });
+  buttons.forEach(button => { button.setAttribute("aria-pressed", button.dataset.language === language); });
+  document.documentElement.lang = active.lang;
+  document.title = active.dataset.title;
+  print.textContent = language === "en" ? "Print" : "打印";
+  if (fragment !== location.hash) history.replaceState(null, "", fragment);
+  const target = document.getElementById(fragment.slice(1));
+  if (target) target.scrollIntoView();
+}
+buttons.forEach(button => button.addEventListener("click", () => selectLanguage(button.dataset.language)));
+print.addEventListener("click", () => window.print());
+document.querySelector(".toolbar").hidden = false;
+if (/-en(?:-|$)/.test(location.hash)) selectLanguage("en");
+
+const referencePrice = 271.27;
+const netCash = 1.309177;
+const revenueGuide = 6.07;
+const money = new Intl.NumberFormat("en-US", {style:"currency", currency:"USD", maximumFractionDigits:0});
+const percent = new Intl.NumberFormat("en-US", {style:"percent", maximumFractionDigits:0, signDisplay:"exceptZero"});
+for (const card of document.querySelectorAll(".valuation-card")) {
+  const scenarios = [...card.querySelectorAll(".scenario")];
+  const inputs = Object.fromEntries([...card.querySelectorAll("[data-input]")].map(input => [input.dataset.input, input]));
+  const readouts = Object.fromEntries([...card.querySelectorAll("[data-readout]")].map(output => [output.dataset.readout, output]));
+  const model = card.querySelector(".model");
+  const result = card.querySelector("[data-result]");
+  const change = card.querySelector("[data-change]");
+
+  function updateModel() {
+    const growth = inputs.growth.valueAsNumber;
+    const multiple = inputs.multiple.valueAsNumber;
+    const shares = inputs.shares.valueAsNumber;
+    const price = (revenueGuide * (1 + growth / 100) * multiple + netCash) * 1000 / shares;
+    readouts.growth.value = growth + "%";
+    readouts.multiple.value = multiple + "×";
+    readouts.shares.value = shares;
+    result.textContent = money.format(price);
+    change.textContent = percent.format(price / referencePrice - 1);
+    for (const scenario of scenarios) {
+      const selected = growth === Number(scenario.dataset.growth) && multiple === Number(scenario.dataset.multiple) && shares === 365;
+      scenario.setAttribute("aria-pressed", selected);
+    }
+  }
+  for (const scenario of scenarios) {
+    scenario.addEventListener("click", () => {
+      inputs.growth.value = scenario.dataset.growth;
+      inputs.multiple.value = scenario.dataset.multiple;
+      inputs.shares.value = 365;
+      model.open = true;
+      updateModel();
+    });
+  }
+  Object.values(inputs).forEach(input => input.addEventListener("input", updateModel));
+}
+</script>
+</body>
+</html>
