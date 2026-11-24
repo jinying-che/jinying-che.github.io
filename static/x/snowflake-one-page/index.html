@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Snowflake（SNOW）投研一页纸，图解产品收入、经营利润率、可转债融资和估值。产品收入再加速，股权稀释和高估值仍压缩安全边际。">
+<meta name="description" content="从零售案例看 Snowflake 如何帮企业整理数据、运行报表与 AI，并按资源用量收费。再看它的竞争优势、经营表现和当前估值。">
 <meta name="keywords" content="Snowflake, 美股, 企业数据平台, AI, 估值">
 <meta property="article:published_time" content="2026-11-24">
 <title>Snowflake（SNOW）投研一页纸</title>
@@ -25,14 +25,37 @@ button,summary{cursor:pointer}
 .toolbar button{background:transparent;border:0;color:var(--ink);font-size:.78rem;font-weight:650;border-radius:4px;padding:5px 9px;white-space:nowrap}
 .toolbar button[aria-pressed=true]{background:var(--dark);color:#fff}
 .toolbar .print{border:1px solid #c3cfc3;border-radius:7px;padding:7px 10px}
-.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(205px,25%);align-items:end;gap:26px;padding:27px 33px;color:#fff;background:var(--dark);border-radius:12px}
+.intro{margin-top:0}
+.hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);align-items:center;gap:28px;padding:27px 30px;color:#fff;background:var(--dark);border-radius:12px}
 .eyebrow{font-size:.76rem;font-weight:750;letter-spacing:.09em;color:var(--bright)}
 .eyebrow span{margin-left:9px;color:#d6e1ce}
 h1{font-family:Georgia,serif;font-size:clamp(3.3rem,7vw,5.6rem);line-height:.97;letter-spacing:-.065em;margin:6px 0 7px}
 .hero p{margin:6px 0 0;color:#e3eee5;max-width:69ch}
 .hero .headline{font-size:clamp(1.08rem,2.2vw,1.61rem);line-height:1.2;font-weight:750;color:#fff}
-.market{border-left:1px solid #5a786b;padding:4px 0 3px 20px;display:grid;gap:4px;font-size:.8rem;color:#e3eee5}
-.market strong{font-size:clamp(2.5rem,4.5vw,3.8rem);color:var(--bright);line-height:1.04;letter-spacing:-.06em}
+.story{border:1px solid #698779;background:#20483e;padding:13px 16px;border-radius:8px}
+.story figcaption{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-weight:750;color:#fff}
+.story figcaption span{font-size:.67rem;letter-spacing:.06em;color:#d6e1ce;white-space:nowrap}
+.story ol{list-style:none;padding:0;margin:7px 0 0}
+.story li{position:relative;padding:4px 0 4px 16px;border-left:1px solid #729283;margin-left:4px}
+.story li:last-child{border-color:transparent}
+.story li::before{content:"";position:absolute;left:-4px;top:10px;width:7px;height:7px;border-radius:50%;background:var(--bright)}
+.story li b,.story li span{display:block}
+.story li b{color:#fff;font-size:.86rem}
+.story li span{color:#e3eee5;font-size:.81rem}
+.explainer{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:10px}
+.explainer h2{font-size:1rem;margin-bottom:3px}
+.explainer p,.competition p,.rivals{font-size:.85rem}
+.competition p{margin-top:5px}
+.rivals{margin:2px 0 0}
+.rivals div{display:grid;grid-template-columns:minmax(7.4rem,27%) 1fr;gap:7px;padding:5px 0}
+.rivals div+div{border-top:1px solid var(--line)}
+.rivals dt{font-weight:750}
+.rivals dd{margin:0}
+.adoption{font-size:.83rem;color:var(--soft);margin-top:6px}
+.market{display:flex;align-items:center;gap:10px;font-size:.76rem;color:var(--soft);line-height:1.35;background:var(--mint);border-radius:6px;margin-bottom:8px;padding:6px 8px}
+.market strong{font-size:1.82rem;color:var(--dark);line-height:1;letter-spacing:-.04em}
+.verdict{border-bottom:1px solid #5a786b;padding-bottom:6px;margin-bottom:6px;color:#e3eee5;font-size:.87rem}
+.verdict b{color:var(--bright)}
 .hero .cite a,.watch .cite a{color:var(--bright)}
 nav{display:flex;flex-wrap:wrap;gap:5px 20px;border-bottom:1px solid var(--line);padding:9px 0}
 nav a{font-weight:700;font-size:.82rem;text-decoration:none}
@@ -42,7 +65,7 @@ section{margin-top:17px;scroll-margin-top:12px}
 h2,h3,p,figure{margin:0}
 h2{font-size:clamp(1.16rem,2.4vw,1.5rem);line-height:1.25;letter-spacing:-.025em}
 h3{font-size:1.04rem;line-height:1.32}
-.section-head>span,figcaption>span,.note,.growth-metrics span,.flow span{font-size:.8rem;color:var(--soft)}
+.section-head>span,figcaption>span,.note,.growth-metrics span{font-size:.8rem;color:var(--soft)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .card{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:14px 16px;min-width:0}
 .cite{margin-left:.22em;font-size:.61em;line-height:0;white-space:nowrap}
@@ -67,11 +90,6 @@ h3{font-size:1.04rem;line-height:1.32}
 .track.diverging::after{content:"";position:absolute;left:50%;height:100%;border-left:1px solid #73867d}
 .prior .track i{opacity:.58}
 .callout{background:var(--mint);border-left:3px solid var(--green);border-radius:0 5px 5px 0;padding:7px 9px;font-size:.81rem}
-.flow{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:19px}
-.flow li{position:relative;background:var(--mint);border-radius:6px;padding:7px 10px}
-.flow li:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:50%;translate:0 -50%;color:var(--green);font-weight:750}
-.flow b,.flow span{display:block}
-.business-copy{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px;font-size:.84rem}
 .capital-title{display:flex;justify-content:space-between;gap:4px;padding-bottom:1px}
 .capital-title b{color:var(--green)}
 .capital .metric-row{grid-template-columns:minmax(6.8rem,32%) 1fr 3.85rem}
@@ -100,23 +118,25 @@ footer h2{font-size:.93rem;color:var(--ink)}
 .sources{display:flex;flex-wrap:wrap;gap:3px 24px;padding-left:1.2rem;margin:5px 0 4px}
 .sources li{padding-right:4px;scroll-margin-top:10px}
 .sources li:target{background:var(--bright)}
-@media(max-width:850px){.shell{padding-inline:18px}.hero{padding:22px;gap:15px}.card{padding:12px}.business-copy{gap:12px}}
-@media(max-width:620px){.shell{padding-inline:12px}.mast{min-height:52px;margin-bottom:10px}.toolbar{gap:5px}.toolbar button{padding-inline:6px}.toolbar .print{padding-inline:7px}.hero,.grid,.business-copy,.checks{grid-template-columns:1fr}.hero{padding:17px;gap:12px}.market{border-left:0;border-top:1px solid #5a786b;padding:8px 0 0;grid-template-columns:auto 1fr;align-items:center;gap:4px 10px}.market strong{text-align:right;grid-column:2;grid-row:1 / 3}.market span:last-child{grid-column:1}.flow{grid-template-columns:1fr;gap:5px}.flow li{padding:5px 8px}.flow li:not(:last-child)::after{content:none}.checks,.business-copy{gap:7px}.sources{column-gap:21px}}
-@page{size:A4;margin:8mm}
+@media(max-width:850px){.shell{padding-inline:18px}.hero{padding:21px;gap:15px}.card{padding:12px}.rivals div{grid-template-columns:1fr;gap:1px}}
+@media(max-width:620px){.shell{padding-inline:12px}.mast{min-height:52px;margin-bottom:10px}.toolbar{gap:5px}.toolbar button{padding-inline:6px}.toolbar .print{padding-inline:7px}.hero,.grid,.explainer,.checks{grid-template-columns:1fr}.hero{padding:16px;gap:12px}.story{padding:9px 11px}.checks,.explainer{gap:7px}.rivals div{grid-template-columns:minmax(7.2rem,36%) 1fr;gap:6px}.sources{column-gap:21px}}
+@page{size:A4;margin:7mm}
 @media print{
   *{print-color-adjust:exact;-webkit-print-color-adjust:exact}
-  body{background:white;font-size:12px;line-height:1.4}
-  .shell{padding:0;max-width:none}.mast{min-height:0;padding-bottom:4px;margin-bottom:5px}
-  .brand,.section-head>span,figcaption>span,.note,.growth-metrics span,.flow span,footer{font-size:10.5px}
+  body{background:white;font-size:10.5px;line-height:1.33}
+  .shell{padding:0;max-width:none}.mast{min-height:0;padding-bottom:3px;margin-bottom:4px}
+  .brand,.section-head>span,figcaption>span,.note,.growth-metrics span,footer{font-size:9px}
   .toolbar,.model,nav{display:none!important}
-  .hero{grid-template-columns:1fr 24%;gap:13px;padding:9px 13px}.market{display:grid;grid-template-columns:1fr;border-top:0;border-left:1px solid #5a786b;padding:0 0 0 8px;gap:2px;font-size:8px}.market strong{font-size:27px;text-align:left;grid-area:auto}.market span:last-child{grid-column:auto}
-  .eyebrow{font-size:8px}h1{font-size:41px;margin:2px 0}.hero .headline{font-size:13px}.hero p{margin-top:3px;max-width:none}
-  section{margin-top:6px;break-inside:avoid}.section-head{margin-bottom:4px}h2{font-size:16px}h3{font-size:13px}
-  .grid,.business-copy{grid-template-columns:1fr 1fr;gap:7px}.card,.watch{padding:5px 7px}
-  .columns{height:98px;margin:4px 0}.quarter{grid-template-rows:14px 16px 1fr 20px}.quarter-name,.yoy{font-size:9px}.growth-metrics{padding-top:3px}.growth-metrics b{font-size:12px}
-  .profit,.capital{margin:3px 0}.profit-group+.profit-group,.capital-group+.capital-group{margin-top:3px}.profit-group strong,.capital-title,.metric-row,.callout,.business-copy,.checks,.scenario{font-size:10.5px}.callout{padding:3px 4px}
-  .metric-row{padding:0}.track{height:6px}.flow,.checks{grid-template-columns:repeat(3,1fr)}.flow{gap:17px}.flow li{padding:3px 5px}.flow li:not(:last-child)::after{content:"→";right:-14px}.business-copy{margin-top:4px}
-  .scenarios{margin:3px 0;gap:2px}.scenario{padding:2px 4px}.scenario small{font-size:9px}footer{margin-top:5px;padding-top:3px}footer h2{font-size:9px}.sources{gap:1px 15px;margin:2px 0}
+  .hero{grid-template-columns:1fr 1fr;gap:11px;padding:8px 10px}.eyebrow{font-size:8px}h1{font-size:37px;margin:2px 0}.hero .headline{font-size:13px}.hero p{margin-top:3px;max-width:none}
+  .story{padding:4px 7px}.story figcaption{font-size:9.5px}.story figcaption span{font-size:7px}.story ol{margin:2px 0 0}.story li{padding:1px 0 2px 9px}.story li::before{width:5px;height:5px;left:-3px;top:5px}.story li b,.story li span{font-size:8.5px}
+  section{margin-top:5px;break-inside:avoid}.section-head{margin-bottom:3px}h2{font-size:13px}h3{font-size:11px}
+  .grid,.explainer{grid-template-columns:1fr 1fr;gap:5px}.explainer{margin-top:4px}.explainer h2{font-size:10px;margin-bottom:1px}.card,.watch{padding:4px 6px}
+  .competition p{margin-top:2px}.explainer p,.competition p,.rivals,.adoption,.verdict{font-size:9px}.rivals div{grid-template-columns:minmax(4.5rem,26%) 1fr;gap:3px;padding:2px 0}.adoption{margin-top:3px}
+  .columns{height:80px;margin:2px 0}.quarter{grid-template-rows:12px 13px 1fr 16px}.quarter-name,.yoy{font-size:8px}.growth-metrics{padding-top:2px}.growth-metrics b{font-size:11px}
+  .profit,.capital{margin:2px 0}.profit-group+.profit-group,.capital-group+.capital-group{margin-top:2px}.profit-group strong,.capital-title,.metric-row,.callout,.checks,.scenario{font-size:9px}.callout{padding:2px 3px}
+  .metric-row{padding:0}.track{height:5px}.checks{grid-template-columns:repeat(3,1fr);gap:6px}
+  .market{padding:3px 5px;margin-bottom:3px;font-size:8px}.market strong{font-size:16px}.market span{font-size:8px}.scenarios{margin:2px 0;gap:1px}.scenario{padding:1px 3px}.scenario small{font-size:8px}.verdict{padding-bottom:3px;margin-bottom:3px}
+  footer{margin-top:3px;padding-top:2px}footer h2{font-size:9px}.sources{gap:0 14px;margin:2px 0}
 }
 </style>
 </head>
@@ -133,20 +153,53 @@ footer h2{font-size:.93rem;color:var(--ink)}
     </div>
   </header>
 <article class="edition" id="edition-zh" lang="zh-CN" data-title="Snowflake（SNOW）投研一页纸">
-  <header class="hero">
-    <div class="hero-main">
-      <div class="eyebrow">NYSE · SNOW <span>公司研究</span></div>
-      <h1>Snowflake</h1>
-      <p class="headline">增长再加速，估值已计入高预期</p>
-      <p>核心数据业务与 AI 用量推动增长。每股回报取决于 GAAP 亏损能否继续收窄、股权稀释能否放缓。当前判断：等财报验证，再评估入场价。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></p>
+  <section class="intro" id="business-zh" aria-labelledby="intro-title-zh">
+    <header class="hero">
+      <div class="hero-main">
+        <div class="eyebrow">公司研究 <span>NYSE · SNOW</span></div>
+        <h1 id="intro-title-zh">Snowflake</h1>
+        <p class="headline">企业用它把分散的数据变成可用的分析与 AI</p>
+        <p>Snowflake 是一家面向企业的云数据平台公司。数据工程团队用它整理数据，分析师用 SQL 做报表，开发者在同一套权限规则下构建 AI 应用。Snowflake 运行在 AWS、Azure 和 Google Cloud 的基础设施上。<sup class="cite"><a href="#source-zh-11" aria-label="来源 11">11</a></sup></p>
+      </div>
+      <figure class="story">
+        <figcaption>一家零售商如何使用 Snowflake <span>示例</span></figcaption>
+        <ol>
+          <li><b>汇集数据</b><span>接入门店交易、电商订单和仓库库存。</span></li>
+          <li><b>整理数据、管理权限</b><span>统一商品编号，只给授权团队查看顾客明细。</span></li>
+          <li><b>用同一套数据做报表和问答</b><span>分析师比较门店销量，店长用 AI 问哪些商品快缺货。</span></li>
+        </ol>
+      </figure>
+    </header>
+    <div class="explainer">
+      <div class="card">
+        <h2>它卖什么</h2>
+        <p>核心是托管数据仓库。存储保存数据，独立计算集群处理查询。报表和批处理可以各自扩容，数据继续共用。<sup class="cite"><a href="#source-zh-11" aria-label="来源 11">11</a></sup></p>
+      </div>
+      <div class="card">
+        <h2>它怎么收费</h2>
+        <p>按计算、存储和适用的数据传输用量收费。更多查询、数据管道或 AI 任务可能拉动消耗。优化查询也能减少完成同一任务所需的计算量。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-12" aria-label="来源 12">12</a></sup></p>
+      </div>
     </div>
-    <div class="market">
-      <span>11 月 23 日美股收盘<sup class="cite"><a href="#source-zh-5" aria-label="来源 5">5</a></sup></span>
-      <strong>$271.27</strong>
-      <span>约 15.6× EV / FY27 产品收入指引<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a></sup></span>
+  </section>
+  <nav aria-label="报告目录"><a href="#business-zh">认识 Snowflake</a><a href="#competition-zh">竞争与 AI</a><a href="#growth-zh">经营表现</a><a href="#valuation-zh">融资与估值</a><a href="#watch-zh">研究判断</a></nav>
+  <section id="competition-zh" aria-labelledby="competition-title-zh">
+    <div class="section-head"><h2 id="competition-title-zh">客户为什么留下，谁在争这笔预算</h2></div>
+    <div class="grid competition">
+      <div class="card">
+        <h3>工作流积累了迁移成本</h3>
+        <p>企业把数据管道、报表和权限接进平台后，迁移需要重写和验证。安全共享还能让其他账户直接查询获准的数据。Iceberg 等开放格式让同一份数据可以交给其他计算引擎，降低了部分迁移成本。<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-13" aria-label="来源 13">13</a><a href="#source-zh-18" aria-label="来源 18">18</a></sup></p>
+        <p><b>AI 扩张</b> CoCo 面向数据开发，CoWork 面向业务用户。11 月的更新扩大了智能体能执行的任务范围，付费用量取决于这些任务能否进入日常工作。<sup class="cite"><a href="#source-zh-6" aria-label="来源 6">6</a></sup></p>
+      </div>
+      <div class="card">
+        <h3>三类替代路径</h3>
+        <dl class="rivals">
+          <div><dt>Databricks</dt><dd>从湖仓、数据工程和机器学习切入，也竞逐 SQL 分析与企业 AI。11 月升级了 Genie。<sup class="cite"><a href="#source-zh-8" aria-label="来源 8">8</a><a href="#source-zh-14" aria-label="来源 14">14</a></sup></dd></div>
+          <div><dt>Microsoft Fabric</dt><dd>以 OneLake 和 Power BI 覆盖存储、分析与报表工作流。<sup class="cite"><a href="#source-zh-15" aria-label="来源 15">15</a></sup></dd></div>
+          <div><dt>BigQuery / Redshift</dt><dd>分别是 Google Cloud 和 AWS 的原生分析服务，争夺各自云上的工作负载。<sup class="cite"><a href="#source-zh-16" aria-label="来源 16">16</a><a href="#source-zh-17" aria-label="来源 17">17</a></sup></dd></div>
+        </dl>
+      </div>
     </div>
-  </header>
-  <nav aria-label="报告目录"><a href="#growth-zh">增长与盈利</a><a href="#business-zh">业务与竞争</a><a href="#valuation-zh">资产负债与估值</a><a href="#watch-zh">下一季</a></nav>
+  </section>
   <section id="growth-zh" aria-labelledby="growth-title-zh">
     <div class="section-head"><h2 id="growth-title-zh">增长加快，GAAP 仍亏损</h2><span>FY27 Q2 · 截至 2026-07-31<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></span></div>
     <div class="grid">
@@ -164,23 +217,10 @@ footer h2{font-size:.93rem;color:var(--ink)}
         <div class="callout"><b>27.4%</b> 股权激励占总收入，去年同期为 35.3%。Q2 基本加权股数仍同比增 <b>4.2%</b>，自由现金流 <b>8,380 万美元</b>未扣除非现金股权激励。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></div>
       </figure>
     </div>
-  </section>
-  <section id="business-zh" aria-labelledby="business-title-zh">
-    <div class="section-head"><h2 id="business-title-zh">AI 如何变成收入</h2></div>
-    <div class="card business">
-      <ol class="flow">
-        <li><b>汇集企业数据</b><span>整合业务系统与数据管道</span></li>
-        <li><b>权限与治理</b><span>共享数据并沿用访问规则</span></li>
-        <li><b>分析与 AI 消耗</b><span>按计算、存储、传输用量收费</span></li>
-      </ol>
-      <div class="business-copy">
-        <p><b>护城河</b>来自迁移数据管道、报表和权限规则的成本。Q2 最后四周，CoCo / CoWork 平均每周使用账户分别为 <b>9,100+</b> / <b>5,800</b>，这是采用指标。11 月 3 日新品扩大了可执行任务的范围，仍需验证付费用量。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-6" aria-label="来源 6">6</a></sup></p>
-        <p><b>竞争</b>来自 Databricks 和云厂商。Databricks 8 月自报收入年化运行率超过 <b>70 亿美元</b>，11 月升级 Genie。该指标与 Snowflake 财报收入采用不同口径。<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-7" aria-label="来源 7">7</a><a href="#source-zh-8" aria-label="来源 8">8</a></sup></p>
-      </div>
-    </div>
+    <p class="adoption"><b>AI 采用信号</b>　FY27 Q2 最后四周，CoCo 和 CoWork 平均每周使用账户分别为 9,100+ 和 5,800。账户使用量衡量采用程度，付费贡献仍需用收入与毛利验证。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a></sup></p>
   </section>
   <section id="valuation-zh" aria-labelledby="value-title-zh">
-    <div class="section-head"><h2 id="value-title-zh">融资增加现金，也增加债务</h2></div>
+    <div class="section-head"><h2 id="value-title-zh">融资之后，当前价格隐含什么</h2></div>
     <div class="grid">
       <figure class="card">
         <figcaption><h3>融资后净现金缓冲估计缩小</h3><span>美元 · B = 十亿<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a></sup></span></figcaption>
@@ -188,6 +228,7 @@ footer h2{font-size:.93rem;color:var(--ink)}
         <p class="note">10 月 2 日 8-K 披露新发 <b>37.5 亿美元</b>零息可转债。图中估计以 7 月底为起点，只计基础发行净募资 37 亿美元、封顶看涨期权成本 3.835 亿美元，以及现金 5.483 亿美元回购旧债本金 2.618 亿美元。估算未计额外认购权及其他季度变动。另有截至 2031 年 3 月的 60 亿美元云采购承诺。<sup class="cite"><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a></sup></p>
       </figure>
       <figure class="card valuation-card">
+        <div class="market"><strong>$271.27</strong><span>11 月 23 日美股收盘<sup class="cite"><a href="#source-zh-5" aria-label="来源 5">5</a></sup><br>约 15.6× EV / FY27 产品收入指引<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a><a href="#source-zh-3" aria-label="来源 3">3</a><a href="#source-zh-4" aria-label="来源 4">4</a></sup></span></div>
         <figcaption><h3>基准情景低于当前参考价</h3><span>FY28 情景 · 产品收入增速 / EV 倍数 · 虚线为 $271.27<sup class="cite"><a href="#source-zh-5" aria-label="来源 5">5</a></sup></span></figcaption>
         <div class="scenarios" aria-label="估值情景"><button type="button" class="scenario" data-growth="20" data-multiple="8" aria-pressed="false">
             <span><b>谨慎</b><small>+20% · 8×</small></span>
@@ -216,7 +257,8 @@ footer h2{font-size:.93rem;color:var(--ink)}
     </div>
   </section>
   <section class="watch" id="watch-zh" aria-labelledby="watch-title-zh">
-    <div class="section-head"><h2 id="watch-title-zh">下一次财报看三件事</h2><span>2026-12-02 · 美股盘后<sup class="cite"><a href="#source-zh-9" aria-label="来源 9">9</a></sup></span></div>
+    <div class="section-head"><h2 id="watch-title-zh">研究判断与下一次财报</h2><span>2026-12-02 · 美股盘后<sup class="cite"><a href="#source-zh-9" aria-label="来源 9">9</a></sup></span></div>
+    <p class="verdict"><b>当前判断</b>　产品需求在加速。现价下，基准情景隐含股价约 $263，等待财报验证增长能否转化为 GAAP 利润和每股价值，再评估入场价。</p>
     <div class="checks">
       <p><b>增长</b>Q3 产品收入能否达到指引 $1.588–1.593B（+37% 至 +38%），全年 $6.07B 指引是否维持或上调。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a></sup></p>
       <p><b>毛利与稀释</b>GAAP 产品毛利率能否守住 Q2 的 70.9%，股权激励占比和股数增速能否继续改善。<sup class="cite"><a href="#source-zh-1" aria-label="来源 1">1</a><a href="#source-zh-2" aria-label="来源 2">2</a></sup></p>
@@ -224,25 +266,58 @@ footer h2{font-size:.93rem;color:var(--ink)}
     </div>
   </section>
   <footer>
-    <h2>资料来源</h2><ol class="sources"><li id="source-zh-1"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm">FY27 Q2 财报</a></li><li id="source-zh-2"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm">FY27 Q2 10-Q</a></li><li id="source-zh-3"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/snow-20260928.htm">可转债 8-K</a></li><li id="source-zh-4"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/exhibit992-pricingpressrel.htm">发行定价与回购</a></li><li id="source-zh-5"><a href="https://stockanalysis.com/stocks/snow/history/">SNOW 历史行情</a></li><li id="source-zh-6"><a href="https://www.snowflake.com/en/news/press-releases/expedition-2026-coco-cowork/">Snowflake Expedition</a></li><li id="source-zh-7"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-grows-80-yoy-surpasses-7b-revenue-run-rate-scales">Databricks 8 月披露</a></li><li id="source-zh-8"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-launches-new-always-on-genie-autonomous-ai-complex">Databricks Genie</a></li><li id="source-zh-9"><a href="https://www.snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement/">FY27 Q3 财报日程</a></li><li id="source-zh-10"><a href="https://investors.snowflake.com/financials/quarterly-results/default.aspx">历季财报</a></li></ol>
+    <h2>资料来源</h2><ol class="sources"><li id="source-zh-1"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm">FY27 Q2 财报</a></li><li id="source-zh-2"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm">FY27 Q2 10-Q</a></li><li id="source-zh-3"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/snow-20260928.htm">可转债 8-K</a></li><li id="source-zh-4"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/exhibit992-pricingpressrel.htm">发行定价与回购</a></li><li id="source-zh-5"><a href="https://stockanalysis.com/stocks/snow/history/">SNOW 历史行情</a></li><li id="source-zh-6"><a href="https://www.snowflake.com/en/news/press-releases/expedition-2026-coco-cowork/">Snowflake Expedition</a></li><li id="source-zh-7"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-grows-80-yoy-surpasses-7b-revenue-run-rate-scales">Databricks 8 月披露</a></li><li id="source-zh-8"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-launches-new-always-on-genie-autonomous-ai-complex">Databricks Genie</a></li><li id="source-zh-9"><a href="https://www.snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement/">FY27 Q3 财报日程</a></li><li id="source-zh-10"><a href="https://investors.snowflake.com/financials/quarterly-results/default.aspx">历季财报</a></li><li id="source-zh-11"><a href="https://docs.snowflake.com/en/user-guide/intro-key-concepts">Snowflake 架构</a></li><li id="source-zh-12"><a href="https://docs.snowflake.com/en/user-guide/cost-understanding-overall">Snowflake 计费</a></li><li id="source-zh-13"><a href="https://docs.snowflake.com/en/user-guide/tables-iceberg-storage">Iceberg 存储</a></li><li id="source-zh-14"><a href="https://docs.databricks.com/aws/en/lakehouse/">Databricks 湖仓</a></li><li id="source-zh-15"><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/microsoft-fabric-overview">Microsoft Fabric</a></li><li id="source-zh-16"><a href="https://cloud.google.com/bigquery/docs/introduction">Google BigQuery</a></li><li id="source-zh-17"><a href="https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html">Amazon Redshift</a></li><li id="source-zh-18"><a href="https://docs.snowflake.com/en/user-guide/data-sharing-intro">安全数据共享</a></li></ol>
     <p>数据核验日期 2026-11-24。公司财年于 1 月 31 日结束。估值情景均为研究假设。</p>
   </footer>
 </article>
 <article class="edition" id="edition-en" lang="en" data-title="Snowflake (SNOW) Investment One-Pager" hidden>
-  <header class="hero">
-    <div class="hero-main">
-      <div class="eyebrow">NYSE · SNOW <span>EQUITY RESEARCH</span></div>
-      <h1>Snowflake</h1>
-      <p class="headline">Growth is accelerating. Expectations are already high.</p>
-      <p>Core data workloads and AI consumption are driving growth. Per-share returns depend on narrower GAAP losses and slower dilution. View: reassess entry valuation after earnings.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></p>
+  <section class="intro" id="business-en" aria-labelledby="intro-title-en">
+    <header class="hero">
+      <div class="hero-main">
+        <div class="eyebrow">COMPANY RESEARCH <span>NYSE · SNOW</span></div>
+        <h1 id="intro-title-en">Snowflake</h1>
+        <p class="headline">A cloud platform for turning scattered data into analytics and AI</p>
+        <p>Snowflake sells a managed cloud data platform to enterprises. Data engineers organize data, analysts run SQL reports, and developers build AI applications under the same access policies. The platform runs on AWS, Azure, and Google Cloud.<sup class="cite"><a href="#source-en-11" aria-label="Source 11">11</a></sup></p>
+      </div>
+      <figure class="story">
+        <figcaption>How a retailer uses Snowflake <span>ILLUSTRATIVE</span></figcaption>
+        <ol>
+          <li><b>Bring data together</b><span>Connect store transactions, online orders, and inventory.</span></li>
+          <li><b>Prepare data and set access</b><span>Standardize product IDs and restrict access to customer records.</span></li>
+          <li><b>Use the same data for reports and AI</b><span>Analysts compare store sales. Managers ask AI which items may run out.</span></li>
+        </ol>
+      </figure>
+    </header>
+    <div class="explainer">
+      <div class="card">
+        <h2>What Snowflake sells</h2>
+        <p>The core product is a managed data warehouse. Storage holds the data and independent compute clusters run queries. Reporting and batch jobs can scale separately while using the same data.<sup class="cite"><a href="#source-en-11" aria-label="Source 11">11</a></sup></p>
+      </div>
+      <div class="card">
+        <h2>How Snowflake gets paid</h2>
+        <p>Customers pay for compute, storage, and applicable data transfers. More queries, pipelines, or AI jobs can raise usage. More efficient queries can lower consumption for the same work.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-12" aria-label="Source 12">12</a></sup></p>
+      </div>
     </div>
-    <div class="market">
-      <span>NOV 23 U.S. CLOSE<sup class="cite"><a href="#source-en-5" aria-label="Source 5">5</a></sup></span>
-      <strong>$271.27</strong>
-      <span>~15.6× EV / FY27 product revenue guidance<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a></sup></span>
+  </section>
+  <nav aria-label="Report sections"><a href="#business-en">What it does</a><a href="#competition-en">Competition & AI</a><a href="#growth-en">Financial performance</a><a href="#valuation-en">Financing & valuation</a><a href="#watch-en">Investment view</a></nav>
+  <section id="competition-en" aria-labelledby="competition-title-en">
+    <div class="section-head"><h2 id="competition-title-en">Why customers stay and who competes for the budget</h2></div>
+    <div class="grid competition">
+      <div class="card">
+        <h3>Workflows create switching costs</h3>
+        <p>Pipelines, reports, and access rules take work to move and validate. Secure sharing gives other accounts query access to selected data. Open formats such as Iceberg let other engines use the same data, lowering some switching costs.<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-13" aria-label="Source 13">13</a><a href="#source-en-18" aria-label="Source 18">18</a></sup></p>
+        <p><b>AI expansion</b> CoCo serves data developers and CoWork serves business users. November updates broadened what agents can do. Paid consumption depends on whether those tasks become routine.<sup class="cite"><a href="#source-en-6" aria-label="Source 6">6</a></sup></p>
+      </div>
+      <div class="card">
+        <h3>Where buyers can turn</h3>
+        <dl class="rivals">
+          <div><dt>Databricks</dt><dd>Starts with lakehouse, engineering, and machine learning. Also competes in SQL analytics and enterprise AI, with a November Genie upgrade.<sup class="cite"><a href="#source-en-8" aria-label="Source 8">8</a><a href="#source-en-14" aria-label="Source 14">14</a></sup></dd></div>
+          <div><dt>Microsoft Fabric</dt><dd>OneLake and Power BI connect storage, analytics, and reporting workflows.<sup class="cite"><a href="#source-en-15" aria-label="Source 15">15</a></sup></dd></div>
+          <div><dt>BigQuery / Redshift</dt><dd>Google Cloud and AWS native analytics services compete for workloads on their respective clouds.<sup class="cite"><a href="#source-en-16" aria-label="Source 16">16</a><a href="#source-en-17" aria-label="Source 17">17</a></sup></dd></div>
+        </dl>
+      </div>
     </div>
-  </header>
-  <nav aria-label="Report sections"><a href="#growth-en">Growth & profit</a><a href="#business-en">Business & competition</a><a href="#valuation-en">Balance sheet & valuation</a><a href="#watch-en">Next earnings</a></nav>
+  </section>
   <section id="growth-en" aria-labelledby="growth-title-en">
     <div class="section-head"><h2 id="growth-title-en">Growth accelerates and GAAP losses narrow</h2><span>FY27 Q2 · ended Jul 31, 2026<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></span></div>
     <div class="grid">
@@ -257,26 +332,13 @@ footer h2{font-size:.93rem;color:var(--ink)}
       <figure class="card">
         <figcaption><h3>Operating margins improved year over year</h3><span>Same quarter · % of total revenue<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></span></figcaption>
         <div class="profit"><div class="profit-group"><strong>GAAP operating margin</strong><div class="metric-row prior"><span>FY26 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:7.57%;--size:42.43%" class="loss"></i></div><b>−29.7%</b></div><div class="metric-row "><span>FY27 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:25.71%;--size:24.29%" class="loss"></i></div><b>−17.0%</b></div></div><div class="profit-group"><strong>Adjusted operating margin</strong><div class="metric-row prior"><span>FY26 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:50.00%;--size:15.86%" class="gain"></i></div><b>+11.1%</b></div><div class="metric-row "><span>FY27 Q2</span><div class="track diverging" aria-hidden="true"><i style="--start:50.00%;--size:21.86%" class="gain"></i></div><b>+15.3%</b></div></div></div>
-        <div class="callout">Stock-based compensation fell to <b>27.4%</b> of revenue from 35.3%. Q2 basic weighted-average shares still rose <b>4.2%</b> YoY. <b>$83.8M</b> of free cash flow excludes noncash SBC.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></div>
+        <div class="callout">Stock-based compensation fell to <b>27.4%</b> of revenue from 35.3%. Q2 basic weighted-average shares still rose <b>4.2%</b> YoY. <b>$83.8M</b> of free cash flow does not deduct noncash SBC.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></div>
       </figure>
     </div>
-  </section>
-  <section id="business-en" aria-labelledby="business-title-en">
-    <div class="section-head"><h2 id="business-title-en">How AI turns into revenue</h2></div>
-    <div class="card business">
-      <ol class="flow">
-        <li><b>Unify enterprise data</b><span>Connect business systems and pipelines</span></li>
-        <li><b>Govern access</b><span>Share data under existing access rules</span></li>
-        <li><b>Run analytics and AI</b><span>Bill for compute, storage and transfer</span></li>
-      </ol>
-      <div class="business-copy">
-        <p><b>Switching costs</b> come from moving pipelines, reports and access rules. CoCo and CoWork averaged <b>9,100+</b> and <b>5,800</b> weekly active accounts, respectively, over Q2’s final four weeks. Nov 3 releases broadened what agents can do. Paid consumption remains the test.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-6" aria-label="Source 6">6</a></sup></p>
-        <p><b>Competition</b> comes from Databricks and the cloud providers. Databricks reported a revenue run rate above <b>$7B</b> in August and upgraded Genie in November. Its run rate uses a different basis from Snowflake’s reported revenue.<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-7" aria-label="Source 7">7</a><a href="#source-en-8" aria-label="Source 8">8</a></sup></p>
-      </div>
-    </div>
+    <p class="adoption"><b>AI adoption</b> · In the last four weeks of FY27 Q2, CoCo and CoWork averaged 9,100+ and 5,800 weekly active accounts, respectively. Account activity measures adoption. Revenue and margins will show the economics.<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a></sup></p>
   </section>
   <section id="valuation-en" aria-labelledby="value-title-en">
-    <div class="section-head"><h2 id="value-title-en">Financing adds cash and debt</h2></div>
+    <div class="section-head"><h2 id="value-title-en">What the price implies after financing</h2></div>
     <div class="grid">
       <figure class="card">
         <figcaption><h3>Financing narrows the estimated net cash cushion</h3><span>USD · B = billion<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a></sup></span></figcaption>
@@ -284,6 +346,7 @@ footer h2{font-size:.93rem;color:var(--ink)}
         <p class="note">The Oct 2 8-K disclosed <b>$3.75B</b> of new zero-coupon notes. The estimate adjusts July balances for the base offering only: $3.70B net proceeds, $383.5M capped-call cost, and $548.3M paid to retire $261.8M of old principal. The estimate excludes the additional purchase option and other quarterly changes. A separate $6B cloud purchase commitment runs through March 2031.<sup class="cite"><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a></sup></p>
       </figure>
       <figure class="card valuation-card">
+        <div class="market"><strong>$271.27</strong><span>Nov 23 U.S. close<sup class="cite"><a href="#source-en-5" aria-label="Source 5">5</a></sup><br>~15.6× EV / FY27 product revenue guidance<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a><a href="#source-en-3" aria-label="Source 3">3</a><a href="#source-en-4" aria-label="Source 4">4</a></sup></span></div>
         <figcaption><h3>The base case sits below the reference close</h3><span>FY28 scenarios · product revenue growth / EV multiple · dashed line at $271.27<sup class="cite"><a href="#source-en-5" aria-label="Source 5">5</a></sup></span></figcaption>
         <div class="scenarios" aria-label="Valuation scenarios"><button type="button" class="scenario" data-growth="20" data-multiple="8" aria-pressed="false">
             <span><b>Bear</b><small>+20% · 8×</small></span>
@@ -312,7 +375,8 @@ footer h2{font-size:.93rem;color:var(--ink)}
     </div>
   </section>
   <section class="watch" id="watch-en" aria-labelledby="watch-title-en">
-    <div class="section-head"><h2 id="watch-title-en">Three things to watch at earnings</h2><span>Dec 2, 2026 · after U.S. close<sup class="cite"><a href="#source-en-9" aria-label="Source 9">9</a></sup></span></div>
+    <div class="section-head"><h2 id="watch-title-en">Investment view and next earnings</h2><span>Dec 2, 2026 · after U.S. close<sup class="cite"><a href="#source-en-9" aria-label="Source 9">9</a></sup></span></div>
+    <p class="verdict"><b>Current view.</b> Product demand is accelerating. The base case implies about $263 per share. Reassess entry valuation after earnings show whether growth is translating into better GAAP margins and per-share value.</p>
     <div class="checks">
       <p><b>Growth</b>Does Q3 product revenue meet guidance of $1.588–1.593B (+37% to +38% YoY), and is the $6.07B full-year guide held or raised?<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a></sup></p>
       <p><b>Margins & dilution</b>Does GAAP product gross margin hold at Q2’s 70.9%, and do SBC as a share of revenue and share-count growth ease?<sup class="cite"><a href="#source-en-1" aria-label="Source 1">1</a><a href="#source-en-2" aria-label="Source 2">2</a></sup></p>
@@ -320,7 +384,7 @@ footer h2{font-size:.93rem;color:var(--ink)}
     </div>
   </section>
   <footer>
-    <h2>Sources</h2><ol class="sources"><li id="source-en-1"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm">FY27 Q2 earnings</a></li><li id="source-en-2"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm">FY27 Q2 10-Q</a></li><li id="source-en-3"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/snow-20260928.htm">Convertible notes 8-K</a></li><li id="source-en-4"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/exhibit992-pricingpressrel.htm">Offering pricing and repurchase</a></li><li id="source-en-5"><a href="https://stockanalysis.com/stocks/snow/history/">SNOW historical prices</a></li><li id="source-en-6"><a href="https://www.snowflake.com/en/news/press-releases/expedition-2026-coco-cowork/">Snowflake Expedition</a></li><li id="source-en-7"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-grows-80-yoy-surpasses-7b-revenue-run-rate-scales">Databricks August release</a></li><li id="source-en-8"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-launches-new-always-on-genie-autonomous-ai-complex">Databricks Genie</a></li><li id="source-en-9"><a href="https://www.snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement/">FY27 Q3 earnings date</a></li><li id="source-en-10"><a href="https://investors.snowflake.com/financials/quarterly-results/default.aspx">Quarterly results</a></li></ol>
+    <h2>Sources</h2><ol class="sources"><li id="source-en-1"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm">FY27 Q2 earnings</a></li><li id="source-en-2"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000037/snow-20260731.htm">FY27 Q2 10-Q</a></li><li id="source-en-3"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/snow-20260928.htm">Convertible notes 8-K</a></li><li id="source-en-4"><a href="https://www.sec.gov/Archives/edgar/data/1640147/000164014726000043/exhibit992-pricingpressrel.htm">Offering pricing and repurchase</a></li><li id="source-en-5"><a href="https://stockanalysis.com/stocks/snow/history/">SNOW historical prices</a></li><li id="source-en-6"><a href="https://www.snowflake.com/en/news/press-releases/expedition-2026-coco-cowork/">Snowflake Expedition</a></li><li id="source-en-7"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-grows-80-yoy-surpasses-7b-revenue-run-rate-scales">Databricks August release</a></li><li id="source-en-8"><a href="https://www.databricks.com/company/newsroom/press-releases/databricks-launches-new-always-on-genie-autonomous-ai-complex">Databricks Genie</a></li><li id="source-en-9"><a href="https://www.snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement/">FY27 Q3 earnings date</a></li><li id="source-en-10"><a href="https://investors.snowflake.com/financials/quarterly-results/default.aspx">Quarterly results</a></li><li id="source-en-11"><a href="https://docs.snowflake.com/en/user-guide/intro-key-concepts">Snowflake architecture</a></li><li id="source-en-12"><a href="https://docs.snowflake.com/en/user-guide/cost-understanding-overall">Snowflake pricing</a></li><li id="source-en-13"><a href="https://docs.snowflake.com/en/user-guide/tables-iceberg-storage">Iceberg storage</a></li><li id="source-en-14"><a href="https://docs.databricks.com/aws/en/lakehouse/">Databricks lakehouse</a></li><li id="source-en-15"><a href="https://learn.microsoft.com/en-us/fabric/fundamentals/microsoft-fabric-overview">Microsoft Fabric</a></li><li id="source-en-16"><a href="https://cloud.google.com/bigquery/docs/introduction">Google BigQuery</a></li><li id="source-en-17"><a href="https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html">Amazon Redshift</a></li><li id="source-en-18"><a href="https://docs.snowflake.com/en/user-guide/data-sharing-intro">Secure Data Sharing</a></li></ol>
     <p>Data checked Nov 24, 2026. Fiscal years end January 31. Valuation scenarios use research assumptions.</p>
   </footer>
 </article>
