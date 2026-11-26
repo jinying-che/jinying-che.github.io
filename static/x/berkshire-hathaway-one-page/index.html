@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="一页看懂伯克希尔·哈撒韦的实业、保险浮存金和资本配置，结合 2026 年三季报拆解经营利润、股票持仓及 A/B 股区别。">
+  <meta name="keywords" content="伯克希尔·哈撒韦, 美股, 保险浮存金, 资本配置, A/B股">
+  <meta property="article:published_time" content="2026-11-26">
+  <meta name="color-scheme" content="light">
+  <title>伯克希尔·哈撒韦｜公司一页纸</title>
+  <style>
+    :root {
+      --paper:#f7f8f3; --white:#fff; --ink:#142c26; --muted:#4d635a; --green:#245d49;
+      --line:#d5dfd6; --light:#e9f0e7; --dark:#12382e; --mint:#cbe7ac; --old:#a7b9ad;
+      --serif:Georgia,"Noto Serif CJK SC","Songti SC",SimSun,serif;
+    }
+    * { box-sizing:border-box }
+    html { scroll-behavior:smooth }
+    body { margin:0; color:var(--ink); background:var(--paper); font:1rem/1.65 "Inter","PingFang SC","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif; font-variant-numeric:tabular-nums }
+    a { color:var(--green); text-underline-offset:.2em }
+    :focus-visible { outline:2px solid #a0412b; outline-offset:3px }
+    button,input { font:inherit }
+    [hidden] { display:none!important }
+    h1,h2,h3,p,figure,dl,dd { margin:0 }
+    h1,h2,h3 { line-height:1.18 }
+    h2 { font-size:clamp(1.65rem,3.3vw,2.5rem); letter-spacing:-.035em }
+    h3 { font-size:1.13rem }
+    .shell { width:min(100% - 3.5rem,1180px); margin-inline:auto }
+    .mast { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:1rem 0; border-bottom:1px solid var(--line) }
+    .brand { display:flex; gap:.6rem; align-items:center; font-size:.87rem; font-weight:750; color:var(--ink); white-space:nowrap }
+    .brand::before { content:""; width:.82rem; height:.82rem; border:3px solid var(--green); transform:rotate(45deg); flex:none }
+    .mast nav { display:flex; flex-wrap:wrap; gap:.4rem 1rem; font-size:.875rem; font-weight:700 }
+    .mast nav a { text-decoration:none; white-space:nowrap }
+    .mast nav a:hover { text-decoration:underline }
+    .language { display:flex; flex:none; gap:2px; padding:2px; border-radius:7px; border:1px solid #b8c8bb }
+    .language button { border:0; border-radius:4px; background:transparent; color:var(--ink); font-size:.875rem; padding:.22rem .55rem; min-height:32px; cursor:pointer }
+    .language button[aria-pressed="true"] { background:var(--dark); color:var(--white) }
+    .hero { display:grid; grid-template-columns:1.2fr 1fr; align-items:stretch; gap:clamp(1.5rem,4vw,3.9rem); padding:clamp(2rem,6vw,4.45rem) 0 clamp(1.8rem,5vw,3.6rem) }
+    .eyebrow { color:var(--green); font-size:.875rem; font-weight:750; letter-spacing:.04em }
+    h1 { font:700 clamp(2.3rem,5.8vw,5.15rem)/1.03 var(--serif); letter-spacing:-.065em; margin:.65rem 0 .85rem }
+    [lang="zh-CN"] h1 { font-size:clamp(2.15rem,4.8vw,4.2rem); letter-spacing:-.075em }
+    .english-name { color:var(--muted); font:1.35rem/1.2 var(--serif); margin:-.15rem 0 1rem }
+    .lede { font-size:clamp(1rem,1.5vw,1.14rem); max-width:58ch }
+    .identity { color:var(--muted); margin-top:1.05rem; font-size:.89rem }
+    .snapshot { display:grid; gap:.85rem; align-content:center; padding:1.25rem clamp(1rem,3vw,2rem); border-radius:12px; color:#f5f8ee; background:var(--dark); border:1px solid #174638 }
+    .snapshot figcaption { display:flex; justify-content:space-between; flex-wrap:wrap; column-gap:1rem; border-bottom:1px solid #57766b; padding-bottom:.55rem; font-weight:750 }
+    .snapshot figcaption span,.snapshot .note { color:#d0e0d3 }
+    .snapshot figcaption span { font-size:.83rem; font-weight:500 }
+    .asset { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.2rem .65rem; align-items:baseline }
+    .asset dt { font-size:.875rem }
+    .asset b { color:var(--mint); font:700 clamp(1.72rem,3.65vw,2.7rem)/1.1 var(--serif); white-space:nowrap }
+    .asset dd:last-child { grid-column:1/-1 }
+    .asset-track { display:block; height:5px; background:#476359; border-radius:3px }
+    .asset-track i { display:block; height:100%; width:var(--size); background:#b3d493; border-radius:3px }
+    .metrics { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); background:var(--light); border:1px solid var(--line); border-radius:10px }
+    .metric { padding:.95rem clamp(.8rem,2vw,1.6rem); min-width:0 }
+    .metric+.metric { border-left:1px solid #c8d5c9 }
+    .metric dt { font-size:.875rem; font-weight:700 }
+    .metric b { font:700 clamp(1.65rem,3.1vw,2.7rem)/1.16 var(--serif); letter-spacing:-.045em; color:var(--green) }
+    .metric dd { margin-top:.2rem }
+    .metric small { display:block; color:var(--muted); font-size:.84rem }
+    section { margin:clamp(2.35rem,5vw,4rem) 0; scroll-margin-top:1.25rem }
+    .section-head { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:.35rem 1.25rem; border-top:1px solid var(--line); padding-top:.9rem; margin-bottom:1rem }
+    .source-link,.note { font-size:.85rem; color:var(--muted) }
+    .snapshot a { color:var(--mint) }
+    .businesses { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.72rem }
+    .business,.panel { border:1px solid var(--line); border-radius:8px; padding:1rem 1.1rem; background:var(--white); min-width:0 }
+    .business > p { margin-top:.38rem; font-size:.92rem }
+    .business .names { display:block; min-height:2.7em; color:var(--green); font-weight:750; font-size:.86rem }
+    .flow { margin-top:.7rem; padding:.8rem 1.1rem; background:var(--light); border-radius:8px }
+    .flow strong { color:var(--green) }
+    .split { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:.8rem; align-items:start }
+    .side { display:grid; gap:.75rem }
+    .panel>p,.panel>dl,.panel>table,.panel>form { margin-top:.55rem }
+    .chart { list-style:none; padding:0; margin:.8rem 0 .65rem; display:grid; gap:.66rem }
+    .chart li { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:.2rem .6rem; font-size:.88rem; line-height:1.4 }
+    .chart li>span:nth-child(2) { text-align:right; white-space:nowrap }
+    .chart li strong { color:var(--green) }
+    .bars { grid-column:1/-1; display:grid; gap:3px; background:#f2f5ef; border-radius:2px }
+    .bars i { width:var(--new); height:5px; background:var(--green); border-radius:2px; display:block }
+    .bars i+i { width:var(--prior); background:var(--old) }
+    .legend { font-size:.85rem; color:var(--muted) }
+    .legend { display:flex; flex-wrap:wrap; gap:.2rem 1rem; margin-top:.3rem }
+    .legend span::before { content:""; display:inline-block; width:.8em; height:.6em; border-radius:2px; background:var(--green); margin-right:.35em }
+    .legend span+span::before { background:var(--old) }
+    .highlights { padding:0; margin:.38rem 0 0; list-style:none }
+    .highlights li { padding:.53rem 0 }
+    .highlights li+li { border-top:1px solid var(--line) }
+    .highlights li:last-child { padding-bottom:0 }
+    .tags { display:flex; flex-wrap:wrap; gap:.32rem; margin:.65rem 0 .45rem; padding:0; list-style:none }
+    .tags li { padding:.15rem .48rem; border-radius:4px; background:var(--light); color:var(--green); font-size:.875rem; font-weight:700 }
+    table { width:100%; border-collapse:collapse; font-size:.94rem; line-height:1.45; table-layout:fixed }
+    th,td { text-align:left; vertical-align:top; padding:.65rem .35rem; border-bottom:1px solid var(--line); overflow-wrap:anywhere }
+    thead th { color:var(--green) }
+    table th:first-child { width:39% }
+    tbody tr:last-child>* { border-bottom:0 }
+    .quotes { background:var(--light) }
+    .controls { display:grid; grid-template-columns:1fr 1fr; gap:.5rem }
+    .controls label { min-width:0; font-size:.875rem; font-weight:700 }
+    .controls input { width:100%; background:var(--white); color:var(--ink); border:1px solid #a9bdb0; border-radius:5px; padding:.35rem .5rem; display:block; min-height:42px }
+    .comparison { display:grid; gap:.35rem; margin-top:.75rem; border-top:1px solid #c4d3c5; padding-top:.65rem }
+    .comparison output { color:var(--green); font-weight:750 }
+    .references { margin:0 0 .6rem; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:.4rem 1.5rem; font-size:.9rem }
+    footer { border-top:1px solid var(--line); color:var(--muted); padding:1rem 0 1.8rem; font-size:.85rem }
+    @media(max-width:860px) {
+      .shell { width:calc(100% - 2.5rem) }
+      .mast { flex-wrap:wrap; gap:.55rem }
+      .mast nav { order:3; flex-basis:100%; gap:.3rem 1rem }
+      .businesses { grid-template-columns:repeat(2,minmax(0,1fr)) }
+      .business .names { min-height:0 }
+    }
+    @media(max-width:620px) {
+      .shell { width:calc(100% - 2rem) }
+      .hero,.split { grid-template-columns:1fr }
+      .hero { padding-top:1.7rem; gap:1.25rem }
+      .metric { padding:.62rem .56rem }
+      .metric dt,.metric small { font-size:.82rem }
+      .metric b { font-size:clamp(1.2rem,5.5vw,1.9rem) }
+      .business,.panel { padding:.8rem }
+      th,td { padding:.56rem .25rem }
+    }
+    @media(max-width:370px) {
+      .businesses { grid-template-columns:1fr }
+      .metrics { grid-template-columns:1fr }
+      .metric+.metric { border-left:0; border-top:1px solid #c8d5c9 }
+    }
+    @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto } }
+    @media print {
+      .shell { width:100% }
+      .mast nav,.language { display:none }
+      body { background:white }
+      .snapshot { print-color-adjust:exact }
+      section { margin:1.25rem 0 }
+      .panel,.business,.metrics { break-inside:avoid }
+    }
+  </style>
+</head>
+<body>
+<div class="shell">
+  <header class="mast">
+    <span class="brand">Berkshire Hathaway</span>
+    <nav aria-label="页面目录" data-nav="zh-CN">
+      <a href="#business">业务</a><a href="#earnings">经营利润</a><a href="#capital">资本配置</a><a href="#shares">A/B 股</a><a href="#sources">来源</a>
+    </nav>
+    <nav aria-label="Page sections" data-nav="en" lang="en" hidden>
+      <a href="#business-en">Businesses</a><a href="#earnings-en">Earnings</a><a href="#capital-en">Capital</a><a href="#shares-en">A/B shares</a><a href="#sources-en">Sources</a>
+    </nav>
+    <div class="language" role="group" aria-label="语言 / Language" hidden>
+      <button type="button" data-language="zh-CN" aria-pressed="true" lang="zh-CN">中文</button>
+      <button type="button" data-language="en" aria-pressed="false" lang="en">English</button>
+    </div>
+  </header>
+  <main data-edition="zh-CN" lang="zh-CN" aria-labelledby="title">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">纽交所 BRK.A / BRK.B · 美国奥马哈</p>
+        <h1 id="title">伯克希尔·哈撒韦</h1>
+        <p class="english-name" lang="en">Berkshire Hathaway Inc.</p>
+        <p class="lede">伯克希尔经营保险、货运铁路、公用事业和多元实业，同时持有大型股票组合。理解这家公司，要看各业务赚了多少钱，以及总部如何把资金投向子公司、收购、证券或股票回购。</p>
+        <p class="identity">CEO：Greg Abel · 董事长：Howard G. Buffett <a href="#governance">管理层交接</a></p>
+      </div>
+      <figure class="snapshot">
+        <figcaption>流动资产与股票投资 <span>截至 2026-09-30</span></figcaption>
+        <dl class="asset">
+          <dt>现金、现金等价物和美国短期国库券</dt>
+          <dd><b>3,523</b> 亿美元</dd>
+          <dd class="asset-track" aria-hidden="true"><i style="--size:100%"></i></dd>
+        </dl>
+        <dl class="asset">
+          <dt>股权证券公允价值</dt>
+          <dd><b>3,355</b> 亿美元</dd>
+          <dd class="asset-track" aria-hidden="true"><i style="--size:95.23%"></i></dd>
+        </dl>
+        <p class="note">现金口径为“保险及其他”板块，扣除未结算国库券采购款。股权证券按附注 4 口径。<br><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">2026 年三季报 10-Q</a></p>
+      </figure>
+    </div>
+    <dl class="metrics" aria-label="关键财务数据">
+      <div class="metric"><dt>三季度经营利润</dt><dd><b>127.05</b> 亿美元<small>2026 Q3 · 同比 −5.8%</small></dd></div>
+      <div class="metric"><dt>前三季经营利润</dt><dd><b>370.34</b> 亿美元<small>2026 年前九个月 · 同比 +8.0%</small></dd></div>
+      <div class="metric"><dt>保险浮存金</dt><dd><b>1,785</b> 亿美元<small>截至 2026-09-30</small></dd></div>
+    </dl>
+    <section id="business" aria-labelledby="business-title">
+      <div class="section-head"><h2 id="business-title">伯克希尔的四大业务</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 年报 · 业务概览</a></div>
+      <div class="businesses">
+        <article class="business"><h3>保险与再保险</h3><p class="names">GEICO · General Re</p><p>通过车险、商业险和再保险赚取承保利润，并将暂时持有的浮存金用于投资。</p></article>
+        <article class="business"><h3>货运铁路</h3><p class="names">BNSF Railway</p><p>承运集装箱、农产品、工业品和煤炭。运量、费率与铁路维护支出影响盈利。</p></article>
+        <article class="business"><h3>能源与公用事业</h3><p class="names">Berkshire Hathaway Energy</p><p>经营供电与输电、天然气管道等业务。监管回报、资本开支和山火责任会影响盈利。</p></article>
+        <article class="business"><h3>制造、服务与零售</h3><p class="names">Precision Castparts · NetJets · Clayton Homes</p><p>业务覆盖航空零部件、公务航空和住宅等行业。2026 年收购 OxyChem 和 Taylor Morrison 后，化工和住宅业务进一步扩大。</p></article>
+      </div>
+      <p class="flow"><strong>保险浮存金如何发挥作用？</strong> 保险公司先收保费、后赔付，可以投资暂时持有的资金。浮存金对应未来赔付等保险负债。2026 年前三季承保整体盈利，报告期内浮存金平均成本为负。<a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">三季报</a></p>
+    </section>
+    <section id="earnings" aria-labelledby="earnings-title">
+      <div class="section-head"><h2 id="earnings-title">经营利润从哪里来</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452530/brka-ex99_1.htm">2026 年三季度业绩公告</a></div>
+      <div class="split">
+        <figure class="panel">
+          <figcaption><h3>前三季税后经营利润</h3><p class="legend"><span>2026 年</span><span>2025 年</span>单位：亿美元</p></figcaption>
+          <ul class="chart">
+            <li><span>制造、服务与零售</span><span><strong>117.11</strong> / 102.77</span><span class="bars" aria-hidden="true" style="--new:97.59%;--prior:85.64%"><i></i><i></i></span></li>
+            <li><span>保险投资收益</span><span><strong>84.72</strong> / 94.41</span><span class="bars" aria-hidden="true" style="--new:70.60%;--prior:78.68%"><i></i><i></i></span></li>
+            <li><span>保险承保</span><span><strong>48.00</strong> / 56.97</span><span class="bars" aria-hidden="true" style="--new:40.00%;--prior:47.48%"><i></i><i></i></span></li>
+            <li><span>BNSF 铁路</span><span><strong>46.64</strong> / 41.29</span><span class="bars" aria-hidden="true" style="--new:38.87%;--prior:34.41%"><i></i><i></i></span></li>
+            <li><span>伯克希尔能源</span><span><strong>36.17</strong> / 32.88</span><span class="bars" aria-hidden="true" style="--new:30.14%;--prior:27.40%"><i></i><i></i></span></li>
+            <li><span>其他</span><span><strong>37.70</strong> / 14.54</span><span class="bars" aria-hidden="true" style="--new:31.42%;--prior:12.12%"><i></i><i></i></span></li>
+          </ul>
+          <p class="note">公司披露口径。每组两根条形使用同一个零点和比例尺。</p>
+        </figure>
+        <div class="side">
+          <article class="panel"><h3>前三季增长，单季下滑</h3><p>前三季经营利润同比增加 27.48 亿美元，其中“其他”增加 23.16 亿美元，包含部分外币债务汇兑损益变动。三季度经营利润同比下降，保险承保和保险投资收益均低于上年同期。</p></article>
+          <article class="panel"><h3>经营利润与 GAAP 净利润</h3><p>2026 年三季度归属股东净利润为 <strong>221.12 亿美元</strong>，包含 <strong>94.07 亿美元</strong>投资净利得。该净利得包含股票未实现盈亏的变动。经营利润是公司用于观察业务表现的非 GAAP 指标，仍包含保险投资收入。</p></article>
+        </div>
+      </div>
+    </section>
+    <section id="capital" aria-labelledby="capital-title">
+      <div class="section-head"><h2 id="capital-title">资本配置与风险</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">三季报 · 投资和流动性</a></div>
+      <div class="split">
+        <article class="panel">
+          <h3>钱投到了哪里</h3>
+          <ul class="highlights">
+            <li><strong>收购实业。</strong> 2026 年，OxyChem 交易约 94 亿美元，Taylor Morrison 现金对价约 68 亿美元。</li>
+            <li><strong>持有股权证券。</strong> 截至 2026-09-30，以下五大持仓合计占股权证券公允价值的 65%。<ul class="tags"><li>Alphabet</li><li>美国运通</li><li>苹果</li><li>美国银行</li><li>可口可乐</li></ul></li>
+            <li><strong>回购股份。</strong> 2026 年三季度回购约 96 亿美元，前三季合计约 144 亿美元，采用业绩公告口径。公司也将资金留在短期国库券中，可用于赔付、收购和其他资金需求。</li>
+          </ul>
+        </article>
+        <div class="side">
+          <article class="panel" id="governance"><h3>管理层交接</h3><p>Greg Abel 于 2026 年 1 月 1 日接任 CEO。9 月 18 日，Howard G. Buffett 当选董事长，Warren Buffett 转任荣誉董事长并继续担任董事。<a href="https://www.berkshirehathaway.com/news/sep1826.pdf">董事长交接公告</a></p></article>
+          <article class="panel"><h3>哪些变量会影响回报</h3><p>重大灾害会推高保险赔付，利率下行会压低短债再投资收益，股票持仓集中会放大净利润波动。铁路和公用事业持续需要投入资本，收购和回购的价格也会影响长期回报。</p></article>
+        </div>
+      </div>
+    </section>
+    <section id="shares" aria-labelledby="shares-title">
+      <div class="section-head"><h2 id="shares-title">BRK.A 和 BRK.B 有什么区别？</h2><a class="source-link" href="https://www.berkshirehathaway.com/compab.pdf">公司 A/B 股权利说明</a></div>
+      <div class="split">
+        <article class="panel">
+          <h3>同一家公司的两类普通股</h3>
+          <table aria-label="A/B 股股东权利比较">
+            <thead><tr><th scope="col">每股口径</th><th scope="col">BRK.A</th><th scope="col">BRK.B</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">股息及分配权</th><td>1</td><td>A 股的 1/1,500</td></tr>
+              <tr><th scope="row">投票权</th><td>1 票</td><td>1/10,000 票</td></tr>
+              <tr><th scope="row">股份转换</th><td>1 股可转成 1,500 股 B</td><td>无法转成 A 股</td></tr>
+            </tbody>
+          </table>
+          <p class="note">按整股交易，B 股便于小额调仓。按相同经济权益计算，A 股投票权约为 B 股的 6.67 倍。</p>
+        </article>
+        <article class="panel quotes">
+          <h3>A/B 股价格换算</h3>
+          <p class="note">以下为对话截图报价，单位为美元。</p>
+          <form data-calculator>
+            <div class="controls" hidden>
+              <label>BRK.A 股价<input name="a" type="number" min="0.01" step="any" inputmode="decimal" value="865490" required disabled></label>
+              <label>BRK.B 股价<input name="b" type="number" min="0.01" step="any" inputmode="decimal" value="577.21" required disabled></label>
+            </div>
+            <div class="comparison">
+              <span>A 股折合每股 B <output data-result="equivalent">$576.99</output></span>
+              <span>B 股相对价差 <output data-result="spread">+0.038%</output></span>
+            </div>
+            <p class="note">价差按 B 股价格 ÷（A 股价格 ÷ 1,500）− 1 计算。</p>
+          </form>
+        </article>
+      </div>
+    </section>
+    <section id="sources" aria-labelledby="sources-title">
+      <div class="section-head"><h2 id="sources-title">原始资料</h2><span class="note">整理于 2026-11-26</span></div>
+      <ul class="references">
+        <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 年报 10-K</a></li>
+        <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">2026 三季报 10-Q</a></li>
+        <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452530/brka-ex99_1.htm">2026 三季度业绩公告</a></li>
+        <li><a href="https://www.berkshirehathaway.com/news/may0525.pdf">CEO 任命公告</a></li>
+        <li><a href="https://www.berkshirehathaway.com/news/sep1826.pdf">董事长交接公告</a></li>
+        <li><a href="https://www.berkshirehathaway.com/compab.pdf">A/B 股权利说明</a></li>
+      </ul>
+    </section>
+    <footer>伯克希尔·哈撒韦 · 公司一页纸</footer>
+  </main>
+  <main data-edition="en" lang="en" aria-labelledby="title-en" hidden>
+    <div class="hero">
+      <div>
+        <p class="eyebrow">NYSE BRK.A / BRK.B · Omaha, Nebraska</p>
+        <h1 id="title-en">Berkshire Hathaway</h1>
+        <p class="lede">Berkshire operates insurers, a freight railroad, utilities and a range of other businesses. It also owns a large stock portfolio. Its results depend on what those businesses earn and how headquarters deploys capital across subsidiaries, acquisitions, securities and share repurchases.</p>
+        <p class="identity">Greg Abel, CEO · Howard G. Buffett, chairman<br><a href="#governance-en">Leadership transition</a></p>
+      </div>
+      <figure class="snapshot">
+        <figcaption>Liquidity and equity holdings <span>As of Sep 30, 2026</span></figcaption>
+        <dl class="asset">
+          <dt>Cash, cash equivalents and U.S. Treasury bills</dt>
+          <dd><b>$352.3B</b></dd>
+          <dd class="asset-track" aria-hidden="true"><i style="--size:100%"></i></dd>
+        </dl>
+        <dl class="asset">
+          <dt>Equity securities at fair value</dt>
+          <dd><b>$335.5B</b></dd>
+          <dd class="asset-track" aria-hidden="true"><i style="--size:95.23%"></i></dd>
+        </dl>
+        <p class="note">Cash and bills are for Insurance and Other, net of unsettled bill purchases. Equity securities follow Note 4 of the filing.<br><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 2026 Form 10-Q</a></p>
+      </figure>
+    </div>
+    <dl class="metrics" aria-label="Key financial figures">
+      <div class="metric"><dt>Q3 operating earnings</dt><dd><b>$12.705B</b><small>Q3 2026 · down 5.8% year over year</small></dd></div>
+      <div class="metric"><dt>Nine-month operating earnings</dt><dd><b>$37.034B</b><small>First nine months of 2026 · up 8.0%</small></dd></div>
+      <div class="metric"><dt>Insurance float</dt><dd><b>$178.5B</b><small>As of Sep 30, 2026</small></dd></div>
+    </dl>
+    <section id="business-en" aria-labelledby="business-title-en">
+      <div class="section-head"><h2 id="business-title-en">Four main lines of business</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 Form 10-K · Business overview</a></div>
+      <div class="businesses">
+        <article class="business"><h3>Insurance and reinsurance</h3><p class="names">GEICO · General Re</p><p>Auto, commercial and reinsurance policies generate underwriting results. Insurers also invest the float they hold.</p></article>
+        <article class="business"><h3>Freight rail</h3><p class="names">BNSF Railway</p><p>BNSF hauls containers, agricultural products, industrial goods and coal. Volumes, rates and track maintenance affect earnings.</p></article>
+        <article class="business"><h3>Energy and utilities</h3><p class="names">Berkshire Hathaway Energy</p><p>The business operates power and transmission networks and natural gas pipelines. Regulated returns, capital spending and wildfire liability matter to earnings.</p></article>
+        <article class="business"><h3>Manufacturing, services and retail</h3><p class="names">Precision Castparts · NetJets · Clayton Homes</p><p>The businesses include aerospace components, private aviation and housing. The OxyChem and Taylor Morrison deals expanded chemicals and housing in 2026.</p></article>
+      </div>
+      <p class="flow"><strong>How does insurance float work?</strong> Insurers collect premiums before paying claims and can invest the funds in the meantime. Float represents net insurance liabilities. Berkshire earned an underwriting profit in the first nine months of 2026, giving it a negative average cost of float for the period. <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 Form 10-Q</a></p>
+    </section>
+    <section id="earnings-en" aria-labelledby="earnings-title-en">
+      <div class="section-head"><h2 id="earnings-title-en">Where operating earnings come from</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452530/brka-ex99_1.htm">Q3 2026 earnings release</a></div>
+      <div class="split">
+        <figure class="panel">
+          <figcaption><h3>Nine-month operating earnings, after tax</h3><p class="legend"><span>2026</span><span>2025</span>US$ billions</p></figcaption>
+          <ul class="chart">
+            <li><span>Manufacturing, services and retail</span><span><strong>11.711</strong> / 10.277</span><span class="bars" aria-hidden="true" style="--new:97.59%;--prior:85.64%"><i></i><i></i></span></li>
+            <li><span>Insurance investment income</span><span><strong>8.472</strong> / 9.441</span><span class="bars" aria-hidden="true" style="--new:70.60%;--prior:78.68%"><i></i><i></i></span></li>
+            <li><span>Insurance underwriting</span><span><strong>4.800</strong> / 5.697</span><span class="bars" aria-hidden="true" style="--new:40.00%;--prior:47.48%"><i></i><i></i></span></li>
+            <li><span>BNSF Railway</span><span><strong>4.664</strong> / 4.129</span><span class="bars" aria-hidden="true" style="--new:38.87%;--prior:34.41%"><i></i><i></i></span></li>
+            <li><span>Berkshire Hathaway Energy</span><span><strong>3.617</strong> / 3.288</span><span class="bars" aria-hidden="true" style="--new:30.14%;--prior:27.40%"><i></i><i></i></span></li>
+            <li><span>Other</span><span><strong>3.770</strong> / 1.454</span><span class="bars" aria-hidden="true" style="--new:31.42%;--prior:12.12%"><i></i><i></i></span></li>
+          </ul>
+          <p class="note">Figures follow Berkshire’s reporting. Bars share a common zero and scale.</p>
+        </figure>
+        <div class="side">
+          <article class="panel"><h3>Nine-month earnings rose and Q3 fell</h3><p>Nine-month operating earnings grew by $2.748B year over year. Other earnings contributed $2.316B of that gain, partly from currency effects on foreign-currency debt. In Q3, lower insurance underwriting earnings and investment income weighed on operating earnings.</p></article>
+          <article class="panel"><h3>Operating earnings and GAAP net income</h3><p>Q3 2026 net earnings attributable to shareholders were <strong>$22.112B</strong>, including <strong>$9.407B</strong> of investment gains that reflect changes in unrealized stock gains and losses. Operating earnings are Berkshire’s non-GAAP measure of business performance and include insurance investment income.</p></article>
+        </div>
+      </div>
+    </section>
+    <section id="capital-en" aria-labelledby="capital-title-en">
+      <div class="section-head"><h2 id="capital-title-en">Capital allocation and risks</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 Form 10-Q · Investments and liquidity</a></div>
+      <div class="split">
+        <article class="panel">
+          <h3>Where the money goes</h3>
+          <ul class="highlights">
+            <li><strong>Buying businesses.</strong> Berkshire acquired OxyChem for about $9.4B and paid roughly $6.8B in cash for Taylor Morrison in 2026.</li>
+            <li><strong>Holding equity securities.</strong> As of Sep 30, 2026, the five largest holdings below represented 65% of the reported fair value of equity securities.<ul class="tags"><li>Alphabet</li><li>American Express</li><li>Apple</li><li>Bank of America</li><li>Coca-Cola</li></ul></li>
+            <li><strong>Buying back shares.</strong> Berkshire reported about $9.6B of repurchases in Q3 and $14.4B in the first nine months of 2026. It also holds short-term Treasury bills to help meet claims and fund acquisitions and other needs.</li>
+          </ul>
+        </article>
+        <div class="side">
+          <article class="panel" id="governance-en"><h3>Leadership transition</h3><p>Greg Abel became CEO on Jan 1, 2026. On Sep 18, Howard G. Buffett was elected chairman, and Warren Buffett became chairman emeritus and remained a director. <a href="https://www.berkshirehathaway.com/news/sep1826.pdf">Chairman transition announcement</a></p></article>
+          <article class="panel"><h3>What can affect returns</h3><p>Catastrophes raise insurance claims, falling rates reduce yields on reinvested Treasury bills, and concentrated equity holdings add volatility to net earnings. Rail and utilities need ongoing capital investment, and acquisition and repurchase prices affect long-term returns.</p></article>
+        </div>
+      </div>
+    </section>
+    <section id="shares-en" aria-labelledby="shares-title-en">
+      <div class="section-head"><h2 id="shares-title-en">How do BRK.A and BRK.B differ?</h2><a class="source-link" href="https://www.berkshirehathaway.com/compab.pdf">Berkshire’s share class comparison</a></div>
+      <div class="split">
+        <article class="panel">
+          <h3>Two classes of common stock in one company</h3>
+          <table aria-label="Class A and Class B shareholder rights">
+            <thead><tr><th scope="col">Per share</th><th scope="col">BRK.A</th><th scope="col">BRK.B</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Dividends and distributions</th><td>1</td><td>1/1,500 of Class A</td></tr>
+              <tr><th scope="row">Voting rights</th><td>1 vote</td><td>1/10,000 of a vote</td></tr>
+              <tr><th scope="row">Conversion</th><td>1 share converts into 1,500 B shares</td><td>No conversion into Class A</td></tr>
+            </tbody>
+          </table>
+          <p class="note">Class B allows smaller position adjustments in whole shares. For the same economic interest, Class A carries about 6.67 times the voting power.</p>
+        </article>
+        <article class="panel quotes">
+          <h3>Compare A and B share prices</h3>
+          <p class="note">The initial prices are from the screenshot, in U.S. dollars.</p>
+          <form data-calculator>
+            <div class="controls" hidden>
+              <label>BRK.A price<input name="a" type="number" min="0.01" step="any" inputmode="decimal" value="865490" required disabled></label>
+              <label>BRK.B price<input name="b" type="number" min="0.01" step="any" inputmode="decimal" value="577.21" required disabled></label>
+            </div>
+            <div class="comparison">
+              <span>A price per B-equivalent share <output data-result="equivalent">$576.99</output></span>
+              <span>Class B relative price difference <output data-result="spread">+0.038%</output></span>
+            </div>
+            <p class="note">Difference = B price ÷ (A price ÷ 1,500) − 1.</p>
+          </form>
+        </article>
+      </div>
+    </section>
+    <section id="sources-en" aria-labelledby="sources-title-en">
+      <div class="section-head"><h2 id="sources-title-en">Primary sources</h2><span class="note">Compiled Nov 26, 2026</span></div>
+      <ul class="references">
+        <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 Form 10-K</a></li>
+        <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 2026 Form 10-Q</a></li>
+        <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452530/brka-ex99_1.htm">Q3 2026 earnings release</a></li>
+        <li><a href="https://www.berkshirehathaway.com/news/may0525.pdf">CEO appointment</a></li>
+        <li><a href="https://www.berkshirehathaway.com/news/sep1826.pdf">Chairman transition</a></li>
+        <li><a href="https://www.berkshirehathaway.com/compab.pdf">Class A and B share rights</a></li>
+      </ul>
+    </section>
+    <footer>Berkshire Hathaway · Company one-pager</footer>
+  </main>
+</div>
+<script>
+  const editions = document.querySelectorAll('[data-edition]');
+  const navs = document.querySelectorAll('[data-nav]');
+  const languageButtons = document.querySelectorAll('[data-language]');
+  const calculators = [...document.querySelectorAll('[data-calculator]')];
+  const shareRatio = 1500;
+  const priceFormatter = new Intl.NumberFormat('en-US', {
+    style: 'currency', currency: 'USD', maximumFractionDigits: 2,
+  });
+  const spreadFormatter = new Intl.NumberFormat('en-US', {
+    style: 'percent', signDisplay: 'exceptZero', maximumFractionDigits: 3,
+  });
+
+  function showEdition(language) {
+    document.documentElement.lang = language;
+    document.title = language === 'en' ? 'Berkshire Hathaway | Company One-Pager' : '伯克希尔·哈撒韦｜公司一页纸';
+    editions.forEach(edition => { edition.hidden = edition.dataset.edition !== language; });
+    navs.forEach(nav => { nav.hidden = nav.dataset.nav !== language; });
+    languageButtons.forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.language === language));
+    });
+  }
+
+  function updateQuotes(activeForm) {
+    const a = activeForm.elements.namedItem('a');
+    const b = activeForm.elements.namedItem('b');
+    const equivalent = a.valueAsNumber / shareRatio;
+    const spread = b.valueAsNumber / equivalent - 1;
+    calculators.forEach(form => {
+      if (form !== activeForm) {
+        form.elements.namedItem('a').value = a.value;
+        form.elements.namedItem('b').value = b.value;
+      }
+      form.querySelector('[data-result="equivalent"]').value = a.validity.valid ? priceFormatter.format(equivalent) : '—';
+      form.querySelector('[data-result="spread"]').value = a.validity.valid && b.validity.valid && Number.isFinite(spread) ? spreadFormatter.format(spread) : '—';
+    });
+  }
+
+  document.querySelector('.language').hidden = false;
+  languageButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const currentId = location.hash.slice(1);
+      const currentSection = document.getElementById(currentId)?.closest('section, #governance, #governance-en');
+      const language = button.dataset.language;
+      showEdition(language);
+      if (currentSection) {
+        const baseId = currentSection.id.replace(/-en$/, '');
+        const translatedId = language === 'en' ? `${baseId}-en` : baseId;
+        history.replaceState(null, '', `#${translatedId}`);
+      }
+    });
+  });
+  function followFragment() {
+    const target = document.getElementById(location.hash.slice(1));
+    const edition = target?.closest('[data-edition]');
+    if (edition?.hidden) {
+      showEdition(edition.dataset.edition);
+      target.scrollIntoView();
+    }
+  }
+  window.addEventListener('hashchange', followFragment);
+  followFragment();
+  calculators.forEach(form => {
+    form.querySelector('.controls').hidden = false;
+    form.querySelectorAll('input').forEach(input => { input.disabled = false; });
+    form.addEventListener('input', () => updateQuotes(form));
+    form.addEventListener('submit', event => { event.preventDefault(); });
+  });
+</script>
+</body>
+</html>
