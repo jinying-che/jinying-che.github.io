@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>新加坡房地产与 SRT ETF</title>
-<meta name="description" content="拆解新加坡住宅、办公、零售与工业地产，以及 SRT 新加坡 REIT ETF 的持仓、分派与估值。以 2026 年 11 月数据为基准，交互比较不同利率与分派情景下的持有、加仓和减仓条件。">
-<meta name="keywords" content="新加坡房地产,SRT ETF,新加坡REIT,利率,现金分派,估值">
+<meta name="description" content="分析新加坡房地产及 SRT ETF，追踪美债、新加坡利率、分派和物业对价格的影响。结合历史回报与五年情景，说明持有、加仓和减仓的条件。">
+<meta name="keywords" content="新加坡房地产,SRT ETF,新加坡REIT,美国国债,SORA,长期收益,现金分派,估值">
 <meta property="article:published_time" content="2026-11-27">
 <meta name="theme-color" content="#f7f6fb">
 <style>
@@ -156,6 +156,42 @@ img{display:block;width:100%;height:100%;object-fit:cover}
 @media(max-width:850px){.hero{grid-template-columns:1fr 1fr;gap:20px}.hero h1{letter-spacing:-.065em}.hero-photo{aspect-ratio:1.13}.brand-mark{display:none}.etf-panel,.light-panel,.simulator{padding:17px}.holdings dt{font-size:.95rem}}
 @media(max-width:680px){html{scroll-padding-top:111px}.wrap{width:calc(100% - 32px)}.header-inner{display:grid;grid-template-columns:1fr auto;gap:0;min-height:0;padding-top:9px}.header-inner>.brand{grid-row:1}.brand-mark{display:grid;width:27px;height:27px}.header-inner>nav{grid-row:2;grid-column:1/-1}.language{grid-column:2;grid-row:1;justify-self:end}.nav-links{justify-content:space-between;gap:9px;padding-block:10px 7px}.nav-links a{font-size:.84rem}.hero{grid-template-columns:1fr;padding-block:28px 20px;gap:18px}.hero h1{margin:13px 0 12px;font-size:clamp(2.55rem,11vw,4rem)}.hero h1 [lang="en"]{font-size:.94em}.hero-actions{margin-top:17px}.hero-photo{aspect-ratio:1.69}.hero-photo figcaption{left:12px;bottom:8px}.metrics{grid-template-columns:1fr 1fr}.metric{padding:10px 12px 11px}.metric+.metric{border-left:none}.metric:nth-child(even){border-left:1px solid var(--line)}.metric:nth-child(n+3){border-top:1px solid var(--line)}.thesis{flex-direction:column;gap:3px;padding:12px}.section{padding-block:40px}.section-head{margin-bottom:16px}.market-grid,.etf-details,.fund-notes,.valuation-grid,.simulator,.decision-grid,.source-list{grid-template-columns:1fr}.market-card{padding:15px}.simulator{gap:11px}.sim-results{padding:16px}.scenarios{font-size:.84rem}.scenarios th,.scenarios td{padding:8px 5px}}
 @media(max-width:360px){.wrap{width:calc(100% - 22px)}.nav-links a{font-size:.79rem}.language button{padding-inline:.58rem}.metric dd a{font-size:.77rem}.legend{grid-template-columns:1fr}}
+
+.macro-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin-bottom:16px;background:#d8d1e8;border:1px solid var(--line);border-radius:13px;overflow:hidden}
+.macro-flow>div{background:var(--wash);padding:16px 18px;display:grid;gap:2px}
+.macro-flow strong{color:var(--accent-dark)}
+.macro-flow span{color:var(--muted);font-size:.93rem}
+.macro-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.evidence-note{margin-top:15px;background:#f0ebfa;border-left:4px solid var(--accent);border-radius:8px;padding:18px 20px}
+.evidence-note h3{margin-bottom:6px}
+.history-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;border:1px solid var(--line);border-radius:13px;background:var(--line);overflow:hidden}
+.history-strip>div{background:#fff;display:grid;padding:14px 19px}
+.history-strip strong{font-size:1.42rem;letter-spacing:-.03em}
+.history-strip span{color:var(--muted);font-size:.9rem}
+.scenario-intro{margin-top:25px}
+.scenario-intro h3{margin-bottom:7px}
+.long-table{min-width:790px}
+.long-simulator{margin-top:18px}
+.long-simulator form>h3{margin-bottom:12px}
+.long-inputs{display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid var(--line);padding-top:12px}
+.long-inputs label{display:grid;gap:4px;font-weight:680;font-size:.92rem}
+.long-inputs input{width:100%;min-width:0;border:1px solid #c6bcd9;border-radius:8px;padding:.34rem .5rem;background:var(--paper);color:var(--ink)}
+.validation-message{font-size:.9rem;margin-top:7px}
+.decision-list{display:grid;gap:12px}
+.decision-list .decision{border-top:1px solid var(--line);border-left:4px solid var(--tone);padding:19px 21px}
+.decision-list .decision p+p{margin-top:9px}
+@media(max-width:680px){
+.header-inner>nav{overflow-x:auto}.nav-links{min-width:max-content;justify-content:space-between;gap:18px}
+.macro-flow,.macro-grid{grid-template-columns:1fr}.macro-flow>div{padding:12px}
+.history-strip{grid-template-columns:1fr 1fr}.long-inputs{grid-template-columns:1fr 1fr}
+.long-table{min-width:0;display:block}.long-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}.long-table tbody{display:block}
+.long-table tbody tr{display:grid;grid-template-columns:1fr 1fr}
+.long-table tbody tr>th{grid-column:1/-1;background:var(--wash);color:var(--accent-dark);padding:9px 12px}
+.long-table tbody tr>td{display:grid;gap:3px;padding:9px 12px}
+.long-table td::before{content:attr(data-zh);white-space:normal;color:var(--muted);font-weight:500}
+html[lang="en"] .long-table td::before{content:attr(data-en)}
+}
+
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 @media print{.site-header,.hero-actions,.simulator form,.skip{display:none}.section{padding-block:22px}.wrap{width:100%}.dark-section{background:#fff;color:#201a32}.etf-panel,.sim-results{break-inside:avoid;print-color-adjust:exact}}
 </style>
@@ -168,7 +204,8 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     <nav aria-label="章节" data-label-zh="章节" data-label-en="Sections"><ul class="nav-links">
       <li><a href="#market"><span lang="zh-Hans">物业市场</span><span lang="en">Markets</span></a></li>
       <li><a href="#fund"><span lang="zh-Hans">ETF 持仓</span><span lang="en">Holdings</span></a></li>
-      <li><a href="#valuation"><span lang="zh-Hans">分派与估值</span><span lang="en">Valuation</span></a></li>
+      <li><a href="#macro"><span lang="zh-Hans">宏观因素</span><span lang="en">Macro</span></a></li>
+      <li><a href="#long-term"><span lang="zh-Hans">长期收益</span><span lang="en">Returns</span></a></li>
       <li><a href="#decision"><span lang="zh-Hans">操作判断</span><span lang="en">Decisions</span></a></li>
     </ul></nav>
     <div class="language" id="language" role="group" aria-label="语言" data-label-zh="语言" data-label-en="Language" hidden>
@@ -198,15 +235,15 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     </section>
 
     <dl class="metrics">
-      <div class="metric"><dt><span lang="zh-Hans">SRT 报价</span><span lang="en">SRT quote</span></dt><dd><strong class="number">S$0.665</strong><a href="https://stockanalysis.com/quote/sgx/SRT/history/"><span lang="zh-Hans">11 月 27 日 11:36 新加坡时间</span><span lang="en">27 Nov, 11:36 a.m. SGT</span></a></dd></div>
+      <div class="metric"><dt><span lang="zh-Hans">SRT 报价</span><span lang="en">SRT quote</span></dt><dd><strong class="number">S$0.667</strong><a href="https://stockanalysis.com/quote/sgx/SRT/"><span lang="zh-Hans">11 月 27 日 15:29 新加坡时间</span><span lang="en">27 Nov, 3:29 p.m. SGT</span></a></dd></div>
       <div class="metric"><dt><span lang="zh-Hans">历史现金分派率</span><span lang="en">Trailing cash yield</span></dt><dd><strong class="number">6.45%</strong><a href="#valuation"><span lang="zh-Hans">S$0.043 ÷ 参考价 S$0.667</span><span lang="en">S$0.043 ÷ S$0.667 reference price</span></a></dd></div>
       <div class="metric"><dt><span lang="zh-Hans">新加坡 10 年期国债</span><span lang="en">Singapore 10-year bond</span></dt><dd><strong class="number">2.15%</strong><a href="https://eservices.mas.gov.sg/Statistics/fdanet/SgsBenchmarkIssuePrices.aspx"><span lang="zh-Hans">MAS · 11 月 26 日</span><span lang="en">MAS · 26 Nov</span></a></dd></div>
       <div class="metric"><dt><span lang="zh-Hans">S-REIT 板块远期市净率</span><span lang="en">S-REIT sector forward P/B</span></dt><dd><strong class="number">0.84×</strong><a href="https://fsm.global/sg/article/rcms409221/s-reits-3q26-earnings-review-positive-reversions-uneven-distributions"><span lang="zh-Hans">FSM Global · 11 月 23 日</span><span lang="en">FSM Global · 23 Nov</span></a></dd></div>
     </dl>
     <div class="thesis">
       <strong><span lang="zh-Hans">当前判断</span><span lang="en">Investment view</span></strong>
-      <p lang="zh-Hans">约 S$0.667，已有适中仓位以持有为主。分派若能维持，S$0.61–0.63 更适合提高仓位。资金用途和已有地产敞口会改变这个判断。</p>
-      <p lang="en">At about S$0.667, holding a moderate position looks reasonable. S$0.61–0.63 is more attractive for adding, provided distributions hold up. Time horizon and existing property exposure matter.</p>
+      <p lang="zh-Hans">约 S$0.667、仓位适中且长期分派稳定时以持有为主。在年分派 S$0.042、国债 2.15% 的假设下，约 S$0.627 或以下可考虑分批加仓。</p>
+      <p lang="en">At about S$0.667, hold a moderate position if long-term payouts remain stable. With a S$0.042 annual payout and 2.15% bond yield, consider adding gradually around S$0.627 or below.</p>
     </div>
   </div>
 
@@ -309,6 +346,51 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     </div>
   </section>
 
+  <section class="section" id="macro" aria-labelledby="macro-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span lang="zh-Hans">宏观传导 · 截至 2026 年 11 月</span><span lang="en">MACRO DRIVERS · NOVEMBER 2026</span></p>
+        <h2 id="macro-title"><span lang="zh-Hans">什么在推动 SRT 价格？</span><span lang="en">What moves the price of SRT?</span></h2>
+        <p lang="zh-Hans">一条线看估值，一条线看现金流。美国利率和国债影响全球资金价格，新加坡国债、SORA、海外借款、租金和汇率，决定这种影响传到 SRT 有多大。</p>
+        <p lang="en">Follow the valuation channel and the cash-flow channel. US rates and Treasuries affect global capital costs. Singapore bond yields, SORA, foreign borrowings, rents and currencies determine how much reaches SRT.</p>
+      </div>
+      <div class="macro-flow" aria-label="利率传导路径" data-label-zh="利率传导路径" data-label-en="Interest-rate transmission">
+        <div><strong><span lang="zh-Hans">全球利率</span><span lang="en">Global rates</span></strong><span><span lang="zh-Hans">美债、通胀与美联储预期</span><span lang="en">US Treasuries, inflation and Fed expectations</span></span></div>
+        <div><strong><span lang="zh-Hans">新加坡市场</span><span lang="en">Singapore markets</span></strong><span><span lang="zh-Hans">国债、SORA 与信贷利差</span><span lang="en">SGS, SORA and credit spreads</span></span></div>
+        <div><strong><span lang="zh-Hans">REIT 与 SRT</span><span lang="en">REITs and SRT</span></strong><span><span lang="zh-Hans">融资成本、每单位分派与估值</span><span lang="en">Debt costs, payout per unit and valuation</span></span></div>
+      </div>
+      <div class="macro-grid">
+        <article class="light-panel">
+          <h3><span lang="zh-Hans">美国国债与美联储</span><span lang="en">US Treasuries and the Fed</span></h3>
+          <p lang="zh-Hans">美国 10 年期国债收益率从 2025 年底的 <strong>4.17%</strong> 升至 2026 年 11 月 24 日的 <strong>4.91%</strong>，上升 0.74 个百分点。美联储 10 月维持政策利率目标区间 <strong>3.75%–4.00%</strong>。前者是市场形成的长期收益率，后者是短期政策目标，变化并不总是同步。美债收益率上行会影响全球资产的机会成本，也可能提高持有美国物业的 REIT 的美元融资成本。 <a href="https://home.treasury.gov/system/files/221/CombinedChargesforArchivesQ32026.pdf">2025 年底美债</a> · <a href="https://www.federalreserve.gov/releases/h15/">美联储 H.15</a> · <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm">FOMC 会议声明</a></p>
+          <p lang="en">The US 10-year Treasury yield rose from <strong>4.17%</strong> at end-2025 to <strong>4.91%</strong> on 24 Nov 2026, an increase of 0.74 percentage points. In October, the Fed held its policy target at <strong>3.75%–4.00%</strong>. One is a market-determined long rate, the other a short-rate policy target, and they need not move together. Higher Treasury yields affect the opportunity cost of global assets and can raise USD borrowing costs for REITs with US properties. <a href="https://home.treasury.gov/system/files/221/CombinedChargesforArchivesQ32026.pdf">Treasury end-2025 rates</a> · <a href="https://www.federalreserve.gov/releases/h15/">Federal Reserve H.15</a> · <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm">FOMC statement</a></p>
+        </article>
+        <article class="light-panel">
+          <h3><span lang="zh-Hans">新加坡国债 · 估值参照</span><span lang="en">Singapore bonds · Valuation benchmark</span></h3>
+          <p lang="zh-Hans">11 月 26 日新加坡 10 年期国债为 <strong>2.15%</strong>。投资人通常要求 REIT 分派率高于国债，以补偿物业和权益风险。国债收益率或要求利差上升，分派不变时，模型估值会下降。SGD 利率受全球利率和新元汇率预期影响，幅度与美国未必一致。 <a href="https://eservices.mas.gov.sg/Statistics/fdanet/SgsBenchmarkIssuePrices.aspx">MAS 国债数据</a> · <a href="https://www.mas.gov.sg/monetary-policy/Singapores-Monetary-Policy-Framework/faqs/section-2">MAS 货币政策解释</a></p>
+          <p lang="en">Singapore’s 10-year government yield was <strong>2.15%</strong> on 26 Nov. Investors generally demand a yield premium for property and equity risk. If either the bond yield or required spread rises while payouts stay constant, the model value falls. SGD rates respond to global rates and SGD expectations, with their own magnitude. <a href="https://eservices.mas.gov.sg/Statistics/fdanet/SgsBenchmarkIssuePrices.aspx">MAS bond data</a> · <a href="https://www.mas.gov.sg/monetary-policy/Singapores-Monetary-Policy-Framework/faqs/section-2">MAS policy framework</a></p>
+        </article>
+        <article class="light-panel">
+          <h3><span lang="zh-Hans">SORA 与再融资 · 现金流</span><span lang="en">SORA and refinancing · Cash flow</span></h3>
+          <p lang="zh-Hans">三个月复合 SORA 从 2025 年底约 <strong>1.19%</strong> 升至 2026 年 11 月 25 日约 <strong>1.39%</strong>。它影响新元浮息借款和到期债务的重新定价。固定利率及利率对冲会延迟影响，海外债务还取决于当地利率。Phillip 预计其覆盖的多数 REIT 在 FY2027 的平均融资成本上升 0.20–0.40 个百分点，这是分析师预测。 <a href="https://links.sgx.com/FileOpen/CSOP%20SG%20ETF%20Series%20I_AR25%20Final.ashx?App=Announcement&amp;FileID=880705">CSOP 2025 年报</a> · <a href="https://ssbtbill.com/en/sora-rate/">SORA 数据</a> · <a href="https://www.poems.com.sg/stock-research/sector-report/singapore-reits-monthly-resilient-fundamentals-rising-rates-a-drag/">Phillip 研究</a></p>
+          <p lang="en">Three-month compounded SORA rose from about <strong>1.19%</strong> at end-2025 to about <strong>1.39%</strong> on 25 Nov 2026. It influences floating SGD loans and debt refinancing. Fixed rates and hedges delay the effect, while foreign loans depend on local rates. Phillip forecasts a 0.20–0.40 percentage-point increase in average FY2027 borrowing costs for most REITs it covers. <a href="https://links.sgx.com/FileOpen/CSOP%20SG%20ETF%20Series%20I_AR25%20Final.ashx?App=Announcement&amp;FileID=880705">CSOP 2025 annual report</a> · <a href="https://ssbtbill.com/en/sora-rate/">SORA data</a> · <a href="https://www.poems.com.sg/stock-research/sector-report/singapore-reits-monthly-resilient-fundamentals-rising-rates-a-drag/">Phillip research</a></p>
+        </article>
+        <article class="light-panel">
+          <h3><span lang="zh-Hans">经济、租金、汇率与情绪</span><span lang="en">Economy, rents, FX and sentiment</span></h3>
+          <p lang="zh-Hans">经济走弱会影响出租率与续租，通胀会推高维修、公用事业和融资成本，海外收入换算成新元也会波动。物业价值下调会推高杠杆率，增发可能摊薄每单位分派。资金流向、市场要求的风险溢价及 ETF 折溢价还会影响短期价格。 <a href="https://fsm.global/sg/article/rcms409221/s-reits-3q26-earnings-review-positive-reversions-uneven-distributions">FSM 三季度行业回顾</a></p>
+          <p lang="en">A weaker economy can reduce occupancy and renewal rents. Inflation raises operating and financing costs, and foreign income changes when translated into SGD. Lower property values raise leverage, while new units can dilute DPU. Fund flows, the risk premium and the ETF’s premium or discount also affect short-term prices. <a href="https://fsm.global/sg/article/rcms409221/s-reits-3q26-earnings-review-positive-reversions-uneven-distributions">FSM Q3 sector review</a></p>
+        </article>
+      </div>
+      <div class="evidence-note">
+        <h3><span lang="zh-Hans">这轮下跌，利率解释了多少？</span><span lang="en">How much of the decline do rates explain?</span></h3>
+        <p lang="zh-Hans">机构研究认为融资与利率预期是 2026 年板块走弱的重要因素，但无法把 SRT 跌幅精确归因给某一个指标。反例很直观：<strong>11 月 19 日至 24 日</strong>，美国 10 年期国债从 5.04% 降至 4.91%，新加坡 10 年期从 2.28% 降至 2.24%，SRT 收盘却从 S$0.675 跌至 S$0.658，约 <strong>−2.5%</strong>。同一时间还存在分派预期、持仓表现和资金流变化。 <a href="https://www.federalreserve.gov/releases/h15/">美联储</a> · <a href="https://eservices.mas.gov.sg/Statistics/fdanet/SgsBenchmarkIssuePrices.aspx">MAS</a> · <a href="https://finance.yahoo.com/quote/SRT.SI/history/">SRT 历史价格</a> · <a href="https://fsm.global/sg/article/rcms409221/s-reits-3q26-earnings-review-positive-reversions-uneven-distributions">FSM 研究</a></p>
+        <p lang="en">Sector research identifies funding costs and rate expectations as important pressures in 2026, but the price decline cannot be precisely attributed to one variable. From <strong>19 to 24 Nov</strong>, the US 10-year yield fell from 5.04% to 4.91% and Singapore’s fell from 2.28% to 2.24%, while SRT closed down from S$0.675 to S$0.658, about <strong>−2.5%</strong>. Payout expectations, holdings and fund flows also change. <a href="https://www.federalreserve.gov/releases/h15/">Federal Reserve</a> · <a href="https://eservices.mas.gov.sg/Statistics/fdanet/SgsBenchmarkIssuePrices.aspx">MAS</a> · <a href="https://finance.yahoo.com/quote/SRT.SI/history/">SRT price history</a> · <a href="https://fsm.global/sg/article/rcms409221/s-reits-3q26-earnings-review-positive-reversions-uneven-distributions">FSM research</a></p>
+      </div>
+      <p class="assumptions" lang="zh-Hans"><strong>估值传导示例。</strong> 假设年分派 S$0.042，要求收益率 6.15%，估算价为 S$0.683。要求收益率升至 6.65%，估算价降至 S$0.632，约跌 7.5%。这是分派不变的模型敏感度，实际价格还会反映预期和基本面。</p>
+      <p class="assumptions" lang="en"><strong>Valuation example.</strong> A S$0.042 annual payout at a 6.15% required yield implies S$0.683. At 6.65%, it implies S$0.632, about 7.5% lower. This sensitivity keeps payouts constant. Actual prices also reflect expectations and fundamentals.</p>
+    </div>
+  </section>
+
   <section class="section" id="valuation" aria-labelledby="valuation-title">
     <div class="wrap">
       <div class="section-head">
@@ -361,8 +443,8 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   <section class="section" id="calculator" aria-labelledby="calculator-title">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow"><span lang="zh-Hans">交互估值 · 新元</span><span lang="en">INTERACTIVE VALUATION · SGD</span></p>
-        <h2 id="calculator-title"><span lang="zh-Hans">同时改变利率和分派</span><span lang="en">Change rates and distributions</span></h2>
+        <p class="eyebrow"><span lang="zh-Hans">一年期交互估值 · 新元</span><span lang="en">ONE-YEAR INTERACTIVE VALUATION · SGD</span></p>
+        <h2 id="calculator-title"><span lang="zh-Hans">一年期估值 · 改变利率和分派</span><span lang="en">One-year value · Change rates and payouts</span></h2>
         <p lang="zh-Hans">选择情景或调整参数，观察估算价格与含息回报。基准年分派 S$0.042 取最近一次半年分派的两倍。</p>
         <p lang="en">Choose a scenario or change the inputs to see the estimated price and total return. The S$0.042 base case annualises the latest semiannual payout.</p>
       </div>
@@ -426,30 +508,132 @@ img{display:block;width:100%;height:100%;object-fit:cover}
     </div>
   </section>
 
+  <section class="section" id="long-term" aria-labelledby="long-title">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow"><span lang="zh-Hans">过去业绩与五年情景 · 新元</span><span lang="en">HISTORY AND FIVE-YEAR SCENARIOS · SGD</span></p>
+        <h2 id="long-title"><span lang="zh-Hans">长期持有，可能赚多少？</span><span lang="en">What might a long holding earn?</span></h2>
+        <p lang="zh-Hans">现金分派只是总回报的一部分。持有期内获得的现金，加上卖出时的份额价值，才决定最终收益。下面分别列出历史基金回报和未来五年的假设。</p>
+        <p lang="en">Cash distributions are one part of total return. Cash received during ownership plus the final value of the units determines the outcome. The history and five-year scenarios use the methods stated below.</p>
+      </div>
+      <div class="history-strip">
+        <div><span lang="zh-Hans">2022 年</span><span lang="en">2022</span><strong class="loss">−12.11%</strong></div>
+        <div><span lang="zh-Hans">2023 年</span><span lang="en">2023</span><strong class="gain">+5.30%</strong></div>
+        <div><span lang="zh-Hans">2024 年</span><span lang="en">2024</span><strong class="loss">−7.38%</strong></div>
+        <div><span lang="zh-Hans">2025 年</span><span lang="en">2025</span><strong class="gain">+15.04%</strong></div>
+      </div>
+      <p class="assumptions" lang="zh-Hans">CSOP 截至 2026 年 9 月 30 日的基金月报显示，过去三年累计回报 <strong>+5.01%</strong>，约年化 <strong>+1.64%</strong>。自 2021 年 11 月 18 日成立以来累计 <strong>−11.03%</strong>。以上是新元净值到净值、假设分派再投资的基金业绩。基金层面费用已反映，个人交易成本和税务另计。 <a href="https://fsm.global/sg/fsm/admin/etf/factsheet/factsheet_SGX_SRT.pdf">CSOP 基金月报</a></p>
+      <p class="assumptions" lang="en">CSOP’s factsheet to 30 Sep 2026 reports a <strong>+5.01%</strong> cumulative three-year return, approximately <strong>+1.64%</strong> annualised, and <strong>−11.03%</strong> cumulative since inception on 18 Nov 2021. These are SGD NAV-to-NAV fund returns with distributions reinvested. Fund-level costs are reflected; personal trading costs and taxes are separate. <a href="https://fsm.global/sg/fsm/admin/etf/factsheet/factsheet_SGX_SRT.pdf">CSOP factsheet</a></p>
+      <div class="scenario-intro">
+        <h3><span lang="zh-Hans">从 S$10,000 出发的五年情景</span><span lang="en">Five-year outcomes for S$10,000</span></h3>
+        <p lang="zh-Hans">假设以 S$0.667 买入，每年收取分派并保留现金，第五年末卖出。期末价格由第五年每单位分派除以届时市场要求的分派率估算。下表是人为假设的路径，无概率预测。</p>
+        <p lang="en">Assume a S$0.667 entry price, annual cash distributions held in cash and a sale at the end of year five. The exit price is the fifth-year payout per unit divided by the required yield at that time. These paths are assumptions without assigned probabilities.</p>
+      </div>
+      <div class="table-box" tabindex="0" role="region" aria-label="五年持有情景" data-label-zh="五年持有情景" data-label-en="Five-year holding scenarios">
+        <table class="scenarios long-table">
+          <thead><tr>
+            <th scope="col"><span lang="zh-Hans">情景</span><span lang="en">Case</span></th>
+            <th scope="col"><span lang="zh-Hans">首年分派 / 后续增长</span><span lang="en">Year-one payout / growth</span></th>
+            <th scope="col"><span lang="zh-Hans">期末要求收益率</span><span lang="en">Exit required yield</span></th>
+            <th scope="col"><span lang="zh-Hans">五年现金</span><span lang="en">5-year cash</span></th>
+            <th scope="col"><span lang="zh-Hans">期末价格</span><span lang="en">Exit price</span></th>
+            <th scope="col"><span lang="zh-Hans">合计价值</span><span lang="en">Final wealth</span></th>
+            <th scope="col"><span lang="zh-Hans">年化收益</span><span lang="en">Annualised</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><th scope="row"><span lang="zh-Hans">偏弱</span><span lang="en">Bear</span></th><td class="number" data-zh="首年分派 / 后续增长" data-en="Year-one payout / growth">S$0.038 / −2%</td><td class="number" data-zh="期末要求收益率" data-en="Exit required yield">7.20%</td><td class="number" data-zh="五年现金分派" data-en="Five-year cash">S$2,737</td><td class="number" data-zh="期末每单位价格" data-en="Exit price per unit">S$0.487</td><td class="number" data-zh="第五年末合计价值" data-en="Final wealth">S$10,035</td><td class="number" data-zh="年化收益" data-en="Annualised return">+0.1%</td></tr>
+            <tr><th scope="row"><span lang="zh-Hans">基准</span><span lang="en">Base</span></th><td class="number" data-zh="首年分派 / 后续增长" data-en="Year-one payout / growth">S$0.042 / 0%</td><td class="number" data-zh="期末要求收益率" data-en="Exit required yield">6.15%</td><td class="number" data-zh="五年现金分派" data-en="Five-year cash">S$3,148</td><td class="number" data-zh="期末每单位价格" data-en="Exit price per unit">S$0.683</td><td class="number" data-zh="第五年末合计价值" data-en="Final wealth">S$13,387</td><td class="number gain" data-zh="年化收益" data-en="Annualised return">+6.0%</td></tr>
+            <tr><th scope="row"><span lang="zh-Hans">偏强</span><span lang="en">Bull</span></th><td class="number" data-zh="首年分派 / 后续增长" data-en="Year-one payout / growth">S$0.045 / +2%</td><td class="number" data-zh="期末要求收益率" data-en="Exit required yield">5.65%</td><td class="number" data-zh="五年现金分派" data-en="Five-year cash">S$3,511</td><td class="number" data-zh="期末每单位价格" data-en="Exit price per unit">S$0.862</td><td class="number" data-zh="第五年末合计价值" data-en="Final wealth">S$16,436</td><td class="number gain" data-zh="年化收益" data-en="Annualised return">+10.4%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="assumptions" lang="zh-Hans">增长率从第二年开始，期末要求收益率分别对应前述一年情景中 7.20%、6.15%、5.65% 的国债与利差之和。合计价值＝期末份额市值＋五年现金，按精确未舍入价格计算，份额数允许小数以便比较。年化收益＝（合计价值 ÷ 初始投资）<sup>1/5</sup> − 1，现金未再投资，也未计现金利息、税、交易费和汇率。假设分派为基金费用后的现金流，不重复扣除管理费。</p>
+      <p class="assumptions" lang="en">Growth begins in year two. The exit yields match the 7.20%, 6.15% and 5.65% bond-plus-spread assumptions in the one-year scenarios. Final wealth equals unit value plus five years of cash. Calculations use unrounded prices and fractional units for comparison. Annualised return = (final wealth ÷ initial investment)<sup>1/5</sup> − 1. Cash is not reinvested and earns no interest. Taxes, trading costs and FX are excluded. Assumed payouts are after fund-level expenses, so management fees are not deducted a second time.</p>
+      <div class="simulator long-simulator" id="long-simulator" hidden>
+        <form id="long-model">
+          <h3><span lang="zh-Hans">按你的假设试算</span><span lang="en">Try your assumptions</span></h3>
+          <div class="preset" role="group" aria-label="长期情景" data-label-zh="长期情景" data-label-en="Long-term scenarios">
+            <button type="button" data-long-case="weak" aria-pressed="false"><span lang="zh-Hans">偏弱</span><span lang="en">Bear</span></button>
+            <button type="button" data-long-case="base" aria-pressed="true"><span lang="zh-Hans">基准</span><span lang="en">Base</span></button>
+            <button type="button" data-long-case="strong" aria-pressed="false"><span lang="zh-Hans">偏强</span><span lang="en">Bull</span></button>
+          </div>
+          <div class="slider-field">
+            <label for="long-payout"><span lang="zh-Hans">首年每单位分派</span><span lang="en">First-year payout per unit</span></label>
+            <output id="long-payout-label" for="long-payout">S$0.042</output>
+            <input id="long-payout" type="range" min=".020" max=".065" step=".001" value=".042">
+          </div>
+          <div class="slider-field">
+            <label for="long-growth"><span lang="zh-Hans">第二年起每年分派增长率</span><span lang="en">Annual payout growth from year two</span></label>
+            <output id="long-growth-label" for="long-growth">0.0%</output>
+            <input id="long-growth" type="range" min="-10" max="10" step=".5" value="0">
+          </div>
+          <div class="slider-field">
+            <label for="long-yield"><span lang="zh-Hans">第五年末要求分派率</span><span lang="en">Required yield at end of year five</span></label>
+            <output id="long-yield-label" for="long-yield">6.15%</output>
+            <input id="long-yield" type="range" min="4" max="10" step=".05" value="6.15">
+          </div>
+          <div class="long-inputs">
+            <label for="long-entry"><span lang="zh-Hans">买入价（S$）</span><span lang="en">Entry price (S$)</span><input id="long-entry" type="number" inputmode="decimal" min=".001" max="100" step=".001" value=".667" required></label>
+            <label for="long-capital"><span lang="zh-Hans">初始投资（S$）</span><span lang="en">Initial investment (S$)</span><input id="long-capital" type="number" inputmode="numeric" min="100" max="100000000" step="1" value="10000" required></label>
+          </div>
+          <p class="loss validation-message" id="long-error" hidden><span lang="zh-Hans">请输入 S$0.001–100 的买入价和 S$100–100,000,000 的整数投资额。</span><span lang="en">Enter an entry price of S$0.001–100 and a whole-dollar investment of S$100–100,000,000.</span></p>
+        </form>
+        <div class="sim-results">
+          <dl aria-live="polite">
+            <div class="main-output"><dt><span lang="zh-Hans">第五年末合计价值</span><span lang="en">Final wealth after five years</span></dt><dd class="number" id="long-wealth">S$13,387</dd></div>
+            <div><dt><span lang="zh-Hans">五年现金分派</span><span lang="en">Five-year cash received</span></dt><dd class="number" id="long-cash">S$3,148</dd></div>
+            <div><dt><span lang="zh-Hans">年化总收益</span><span lang="en">Annualised total return</span></dt><dd class="number" id="long-return">+6.0%</dd></div>
+            <div><dt><span lang="zh-Hans">期末份额价值</span><span lang="en">Final unit value</span></dt><dd class="number" id="long-holdings">S$10,239</dd></div>
+            <div><dt><span lang="zh-Hans">期末每单位价格</span><span lang="en">Final price per unit</span></dt><dd class="number" id="long-exit">S$0.683</dd></div>
+          </dl>
+          <p lang="zh-Hans">假设每年分派持有为现金，按第五年估算价格卖出。结果为假设计算，实际路径可能不同。</p>
+          <p lang="en">Distributions are held as cash each year; units are sold at the estimated year-five price. These are illustrative calculations and actual outcomes can differ.</p>
+        </div>
+      </div>
+      <p class="assumptions" lang="zh-Hans"><strong>如何理解。</strong> 基准情景每年派 S$0.042、五年合计派 S$0.210。即使价格回到模型值 S$0.683，五年年化约 6.0%。若出租、融资或资产价格恶化更严重，最终价格可以低于偏弱情景，回报也可能为负。持有期间的最大跌幅无法从终值倒推。</p>
+      <p class="assumptions" lang="en"><strong>How to read this.</strong> The base case pays S$0.042 each year, S$0.210 over five years. At the modelled S$0.683 exit price, the annualised return is about 6.0%. More severe deterioration in leasing, financing or property values can push the exit price below the bear case and returns below zero. The final value does not reveal the deepest drawdown along the way.</p>
+    </div>
+  </section>
+
   <section class="section" id="decision" aria-labelledby="decision-title">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="decision-title"><span lang="zh-Hans">持有、加仓，还是减仓</span><span lang="en">Hold, add or trim</span></h2>
-        <p lang="zh-Hans">以新元计价、持有 3–5 年为假设。基准情景估算价 S$0.683，比 S$0.667 高约 2.4%，因此基准回报主要来自现金分派。Phillip 10 月估值报告的目标价是 S$0.715。 <a href="https://api2.sgx.com/sites/default/files/2026-10/SRT-20261019.pdf">Phillip 估值报告</a></p>
-        <p lang="en">This framework assumes an SGD investor with a three-to-five-year horizon. The S$0.683 base-case value is about 2.4% above S$0.667, so cash distributions account for most of the base-case return. Phillip’s October target was S$0.715. <a href="https://api2.sgx.com/sites/default/files/2026-10/SRT-20261019.pdf">Phillip valuation report</a></p>
+        <p class="eyebrow"><span lang="zh-Hans">依次检查资金用途、分派和价格</span><span lang="en">CHECK HORIZON, PAYOUTS AND PRICE IN ORDER</span></p>
+        <h2 id="decision-title"><span lang="zh-Hans">什么情况下持有、加仓或卖出？</span><span lang="en">When to hold, add or sell</span></h2>
+        <p lang="zh-Hans">以下是用页面数据制定的示例纪律，假设以新元投资、可持有 3–5 年。数字是研究假设，会随着下一次分派、持仓和利率变化而调整。</p>
+        <p lang="en">This example discipline uses the data on this page and assumes an SGD investor with a three-to-five-year horizon. The thresholds are research assumptions to update as payouts, holdings and rates change.</p>
       </div>
-      <div class="decision-grid">
+      <div class="decision-list">
+        <article class="decision" style="--tone:#963354">
+          <h3><span lang="zh-Hans">先看资金用途 · 需要现金或仓位过大，减仓</span><span lang="en">First, assess cash needs · Trim if the position is too large</span></h3>
+          <p lang="zh-Hans">未来一两年需要用这笔钱，或 SRT 加上其他 REIT、房产已经超过你愿意承受的地产敞口时，先减到自己能接受的比例。短期需要全部资金时，可以卖出所需份额。实际仓位和资金期限由你决定。</p>
+          <p lang="en">If you need the money within one or two years, or SRT plus other REITs and property exceed the exposure you can tolerate, reduce the position to your chosen size. Sell the units needed if the full amount is required soon. Your actual allocation and timeline govern this step.</p>
+        </article>
         <article class="decision" style="--tone:#5540b6">
-          <h3><span lang="zh-Hans">持有 · 现价附近</span><span lang="en">Hold · Near the reference price</span></h3>
-          <p lang="zh-Hans">仓位适中、需要长期新元现金流，并能承受价格回撤。下一次公告关注分派金额、资本成分，以及重仓 REIT 的 DPU、利息覆盖率和债务到期。</p>
-          <p lang="en">A moderate holding may suit long-term SGD income needs and tolerance for drawdowns. Watch the next distribution and its capital component, plus DPU, interest coverage and debt maturities at the largest holdings.</p>
+          <h3><span lang="zh-Hans">可以长期持有 · 基本面稳定，先持有</span><span lang="en">Can hold long term · Hold while fundamentals remain stable</span></h3>
+          <p lang="zh-Hans">仓位符合目标、能承受波动，预计未来一年每单位分派约 <strong>S$0.042</strong>，且主要持仓的出租、利息覆盖和债务续借整体稳定时，在 S$0.667 附近持有。对应预期分派率约 <strong>6.30%</strong>，比 2.15% 的新加坡 10 年期国债高约 <strong>4.15 个百分点</strong>。这是未来分派假设，最近 12 个月实际分派率为 6.45%。</p>
+          <p lang="en">If the position fits your plan, you can tolerate volatility, the next year’s payout is expected around <strong>S$0.042</strong> per unit and major holdings’ occupancy, interest coverage and refinancing remain broadly stable, hold near S$0.667. The assumed yield is <strong>6.30%</strong>, about <strong>4.15 percentage points</strong> above the 2.15% Singapore 10-year bond. This is a forward payout assumption; the trailing cash yield was 6.45%.</p>
         </article>
         <article class="decision" style="--tone:#23604e">
-          <h3><span lang="zh-Hans">加仓 · S$0.61–0.63</span><span lang="en">Add · S$0.61–0.63</span></h3>
-          <p lang="zh-Hans">如果年分派有望维持 S$0.042，且重仓 REIT 利息覆盖稳定，这一区间对应约 6.7%–6.9% 的假设分派率。若分派预期同步下修，先重算估值。</p>
-          <p lang="en">If annual payouts can hold near S$0.042 and interest coverage remains stable, this range implies roughly a 6.7%–6.9% yield. Recalculate if payout expectations fall alongside the price.</p>
+          <h3><span lang="zh-Hans">分派能维持、价格更便宜 · 分批加仓</span><span lang="en">Payouts hold up and the price is lower · Add gradually</span></h3>
+          <p lang="zh-Hans">示例要求未来分派率至少 <strong>6.70%</strong>，同时高于新加坡 10 年期国债至少 <strong>4.55 个百分点</strong>。当预计分派 S$0.042、国债收益率 2.15% 时，两项条件对应买入价约 <strong>S$0.627 或以下</strong>。4.55 个百分点约比 Phillip 估计的 SRT 历史平均利差 3.79 高 0.76 个百分点，是额外安全余量的主观假设。仓位较轻时也可先少量建立，再分批观察。 <a href="https://api2.sgx.com/sites/default/files/2026-10/SRT-20261019.pdf">Phillip 估值报告</a></p>
+          <p lang="en">This example requires a forward payout yield of at least <strong>6.70%</strong> and a spread of at least <strong>4.55 percentage points</strong> over the Singapore 10-year bond. At an expected S$0.042 payout and a 2.15% bond yield, both conditions imply an entry price around <strong>S$0.627 or below</strong>. The 4.55-point spread is about 0.76 points above Phillip’s estimated 3.79-point historical average, a subjective margin of safety. A small initial purchase can make sense for an underweight position, followed by reassessment. <a href="https://api2.sgx.com/sites/default/files/2026-10/SRT-20261019.pdf">Phillip valuation report</a></p>
+          <p lang="zh-Hans">重新计算：加仓价格上限＝预计年分派 ÷ 两个要求收益率中较高者。若预计年分派降到 S$0.038、要求收益率仍为 6.70%，上限随之降到约 <strong>S$0.567</strong>。价格下跌时，也先更新分派与风险判断。</p>
+          <p lang="en">Recalculate the entry ceiling as expected annual payout divided by the higher of the two required yields. If expected payout falls to S$0.038 and the required yield stays at 6.70%, the ceiling falls to about <strong>S$0.567</strong>. Update the payout and risk assessment when price falls.</p>
         </article>
         <article class="decision" style="--tone:#963354">
-          <h3><span lang="zh-Hans">减仓 · 资金需求或分派走弱</span><span lang="en">Trim · Cash needs or weaker payouts</span></h3>
-          <p lang="zh-Hans">未来一两年要用钱、地产敞口已集中，或分派预期降到 S$0.038–0.039 且融资与利息覆盖同时走弱。以参考价计，这样的分派约对应 5.7%–5.8% 的收益率。</p>
-          <p lang="en">Consider trimming if you need the cash within a year or two, already have concentrated property exposure, or expect payouts of S$0.038–0.039 alongside worsening funding and coverage. That payout would yield roughly 5.7%–5.8% at the reference price.</p>
+          <h3><span lang="zh-Hans">经营与分派持续恶化 · 重新评估减仓或卖出</span><span lang="en">Payouts and operations weaken persistently · Reassess a sale</span></h3>
+          <p lang="zh-Hans">如果剔除一次性因素后，未来一年分派预期降至 <strong>S$0.038 或更低</strong>，比基准下降约 9.5%，同时主要持仓的利息覆盖下降、空置率上升或再融资压力持续，应重新估值并考虑减仓。若收入目标或承受能力已无法满足，可以卖出。单次分派变化应先检查资本成分、时间差和出售资产等因素。</p>
+          <p lang="en">If the next-year payout estimate falls to <strong>S$0.038 or less</strong> after adjusting for one-off items, about 9.5% below the base case, and major holdings also face weaker interest coverage, higher vacancy or sustained refinancing pressure, recalculate value and consider trimming. Sell if the investment no longer fits your income needs or risk tolerance. Check capital components, timing and asset sales before interpreting a single payout.</p>
+        </article>
+        <article class="decision" style="--tone:#9b6730">
+          <h3><span lang="zh-Hans">价格上涨、收益率变薄 · 视仓位再平衡</span><span lang="en">Price rises and yield compresses · Rebalance if appropriate</span></h3>
+          <p lang="zh-Hans">例如价格升到 <strong>S$0.74</strong>，若预计分派仍为 S$0.042、10 年期国债仍为 2.15%，预期分派率约 5.68%，利差约 3.53 个百分点，低于报告中的 3.79 个百分点历史平均。若仓位也偏高，可考虑减回目标比例。分派或国债变化后，这组数字应重算。</p>
+          <p lang="en">For example, at <strong>S$0.74</strong>, an unchanged S$0.042 expected payout and 2.15% 10-year bond yield imply a 5.68% payout yield and a 3.53-point spread, below the report’s 3.79-point historical average. If the position is also oversized, consider rebalancing to your target. Recalculate when payouts or bond yields change.</p>
         </article>
       </div>
+      <p class="assumptions" lang="zh-Hans">每半年结合基金分派公告复核，每季度查看主要 REIT 经营和融资更新。确认税务组成、海外货币和资本支出后，再判断分派是否可持续。</p>
+      <p class="assumptions" lang="en">Review the fund’s distribution announcements semiannually and the major REITs’ operating and financing updates quarterly. Assess payout sustainability alongside tax components, foreign currencies and capital expenditure.</p>
     </div>
   </section>
 
@@ -461,6 +645,8 @@ img{display:block;width:100%;height:100%;object-fit:cover}
         <p lang="en">Property data cover Q3 2026. Fund holdings, market valuations and prices use the snapshot dates shown above.</p>
       </div>
       <ul class="source-list">
+        <li><a href="https://www.federalreserve.gov/releases/h15/"><span lang="zh-Hans">美联储美国国债收益率</span><span lang="en">Federal Reserve Treasury yields</span></a></li>
+        <li><a href="https://www.mas.gov.sg/monetary-policy/Singapores-Monetary-Policy-Framework/faqs/section-2"><span lang="zh-Hans">MAS 货币政策框架</span><span lang="en">MAS monetary policy framework</span></a></li>
         <li><a href="https://www.ura.gov.sg/news/media/pr26-73/"><span lang="zh-Hans">URA 三季度房地产统计</span><span lang="en">URA Q3 property statistics</span></a></li>
         <li><a href="https://www.hdb.gov.sg/hdb-pulse/news/2026/3rd-quarter-2026-public-housing-data-and-upcoming-flat-supply"><span lang="zh-Hans">HDB 三季度住宅数据</span><span lang="en">HDB Q3 housing data</span></a></li>
         <li><a href="https://eservices.mas.gov.sg/Statistics/fdanet/SgsBenchmarkIssuePrices.aspx"><span lang="zh-Hans">MAS 每日新加坡国债收益率</span><span lang="en">MAS daily Singapore bond yields</span></a></li>
@@ -560,7 +746,84 @@ img{display:block;width:100%;height:100%;object-fit:cover}
   form.addEventListener('submit', (event) => event.preventDefault());
   update();
   document.querySelector('#simulator').hidden = false;
+
+  const longForm = document.querySelector('#long-model');
+  const longPayout = longForm.querySelector('#long-payout');
+  const longGrowth = longForm.querySelector('#long-growth');
+  const longYield = longForm.querySelector('#long-yield');
+  const longEntry = longForm.querySelector('#long-entry');
+  const longCapital = longForm.querySelector('#long-capital');
+  const longError = longForm.querySelector('#long-error');
+  const longPresets = [...longForm.querySelectorAll('[data-long-case]')];
+  const longCases = {
+    weak: [.038, -2, 7.2],
+    base: [.042, 0, 6.15],
+    strong: [.045, 2, 5.65]
+  };
+  const longResults = {
+    wealth: document.querySelector('#long-wealth'),
+    cash: document.querySelector('#long-cash'),
+    annual: document.querySelector('#long-return'),
+    holdings: document.querySelector('#long-holdings'),
+    exit: document.querySelector('#long-exit')
+  };
+  const amountFormat = new Intl.NumberFormat('en-SG', { maximumFractionDigits: 0 });
+
+  function updateLongTerm() {
+    const inputs = [longPayout, longGrowth, longYield];
+    const values = inputs.map(input => input.valueAsNumber);
+    const labels = [formatMoney(values[0]), values[1].toFixed(1) + '%', formatPercent(values[2])];
+    inputs.forEach((input, index) => {
+      longForm.querySelector('#' + input.id + '-label').value = labels[index];
+      input.setAttribute('aria-valuetext', labels[index]);
+    });
+    for (const button of longPresets) {
+      const selected = longCases[button.dataset.longCase].every((value, index) => value === values[index]);
+      button.setAttribute('aria-pressed', String(selected));
+    }
+
+    const valid = [longEntry, longCapital].every(input => input.validity.valid && Number.isFinite(input.valueAsNumber));
+    [longEntry, longCapital].forEach(input => input.setAttribute('aria-invalid', String(!input.validity.valid)));
+    longError.hidden = valid;
+    if (!valid) {
+      Object.values(longResults).forEach(result => { result.textContent = '—'; });
+      return;
+    }
+
+    const [firstPayout, growth, requiredYield] = values;
+    const growthFactor = 1 + growth / 100;
+    let cumulativePayout = 0;
+    for (let year = 0; year < 5; year += 1) {
+      cumulativePayout += firstPayout * growthFactor ** year;
+    }
+    const finalPayout = firstPayout * growthFactor ** 4;
+    const finalPrice = finalPayout / (requiredYield / 100);
+    const units = longCapital.valueAsNumber / longEntry.valueAsNumber;
+    const cash = units * cumulativePayout;
+    const holdings = units * finalPrice;
+    const wealth = holdings + cash;
+    const annualReturn = (wealth / longCapital.valueAsNumber) ** (1 / 5) - 1;
+    const roundAnnual = Math.round(annualReturn * 1000) / 10;
+    const sign = roundAnnual > 0 ? '+' : roundAnnual < 0 ? '−' : '';
+    longResults.wealth.textContent = 'S$' + amountFormat.format(wealth);
+    longResults.cash.textContent = 'S$' + amountFormat.format(cash);
+    longResults.holdings.textContent = 'S$' + amountFormat.format(holdings);
+    longResults.exit.textContent = formatMoney(finalPrice);
+    longResults.annual.textContent = sign + Math.abs(roundAnnual).toFixed(1) + '%';
+  }
+
+  for (const button of longPresets) {
+    button.addEventListener('click', () => {
+      [longPayout.value, longGrowth.value, longYield.value] = longCases[button.dataset.longCase];
+      updateLongTerm();
+    });
+  }
+  longForm.addEventListener('input', updateLongTerm);
+  longForm.addEventListener('submit', event => event.preventDefault());
+  updateLongTerm();
+  document.querySelector('#long-simulator').hidden = false;
 })();
+
 </script>
 </body>
 </html>
