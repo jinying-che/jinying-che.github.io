@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="一页看懂伯克希尔·哈撒韦的实业、保险浮存金和资本配置，结合 2026 年三季报拆解经营利润、股票持仓及 A/B 股区别。">
-  <meta name="keywords" content="伯克希尔·哈撒韦, 美股, 保险浮存金, 资本配置, A/B股">
+  <meta name="description" content="从纺织厂到多元控股集团，一页看懂伯克希尔·哈撒韦的发展史和管理层交接。结合年报和 2026 年三季报，拆解保险、铁路和能源的盈利驱动、现金流及 A/B 股区别。">
+  <meta name="keywords" content="伯克希尔·哈撒韦, 巴菲特, 美股, 保险浮存金, 资本配置, A/B股">
   <meta property="article:published_time" content="2026-11-26">
+  <meta property="article:modified_time" content="2026-11-27">
   <meta name="color-scheme" content="light">
   <title>伯克希尔·哈撒韦｜公司一页纸</title>
   <style>
@@ -63,6 +64,16 @@
     .section-head { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:.35rem 1.25rem; border-top:1px solid var(--line); padding-top:.9rem; margin-bottom:1rem }
     .source-link,.note { font-size:.85rem; color:var(--muted) }
     .snapshot a { color:var(--mint) }
+    .timeline { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; padding:0; margin:0; list-style:none }
+    .timeline li { border-top:3px solid #a7bfac; padding:.65rem .2rem 0; min-width:0 }
+    .timeline time,.timeline .period { display:block; color:var(--green); font:700 1.45rem/1.2 var(--serif); margin-bottom:.3rem }
+    .timeline h3+p { margin-top:.35rem }
+    .timeline p,.leaders dd { font-size:.94rem }
+    .timeline a,.leaders a { font-size:.85rem; white-space:normal }
+    .leaders { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); column-gap:1.3rem }
+    .leaders>div { border-top:1px solid var(--line); padding:.72rem 0; min-width:0 }
+    .leaders dt { font-weight:750; line-height:1.3; margin-bottom:.28rem }
+    .leaders .role { display:block; margin:.15rem 0 0; font-size:.86rem; color:var(--green); font-weight:650 }
     .businesses { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.72rem }
     .business,.panel { border:1px solid var(--line); border-radius:8px; padding:1rem 1.1rem; background:var(--white); min-width:0 }
     .business > p { margin-top:.38rem; font-size:.92rem }
@@ -94,6 +105,11 @@
     thead th { color:var(--green) }
     table th:first-child { width:39% }
     tbody tr:last-child>* { border-bottom:0 }
+    .financial-table th,.financial-table td { padding:.48rem .25rem }
+    .financial-table :is(th,td):not(:first-child) { text-align:right; overflow-wrap:normal }
+    .financial-table th:first-child { width:36% }
+    .cash-flow th:first-child { width:51% }
+    .fundamentals .side { gap:.8rem }
     .quotes { background:var(--light) }
     .controls { display:grid; grid-template-columns:1fr 1fr; gap:.5rem }
     .controls label { min-width:0; font-size:.875rem; font-weight:700 }
@@ -107,11 +123,13 @@
       .mast { flex-wrap:wrap; gap:.55rem }
       .mast nav { order:3; flex-basis:100%; gap:.3rem 1rem }
       .businesses { grid-template-columns:repeat(2,minmax(0,1fr)) }
+      .timeline { grid-template-columns:repeat(2,minmax(0,1fr)) }
       .business .names { min-height:0 }
     }
     @media(max-width:620px) {
       .shell { width:calc(100% - 2rem) }
       .hero,.split { grid-template-columns:1fr }
+      .timeline,.leaders { grid-template-columns:1fr }
       .hero { padding-top:1.7rem; gap:1.25rem }
       .metric { padding:.62rem .56rem }
       .metric dt,.metric small { font-size:.82rem }
@@ -131,7 +149,7 @@
       body { background:white }
       .snapshot { print-color-adjust:exact }
       section { margin:1.25rem 0 }
-      .panel,.business,.metrics { break-inside:avoid }
+      .panel,.business,.metrics,.timeline li,.leaders>div { break-inside:avoid }
     }
   </style>
 </head>
@@ -140,10 +158,10 @@
   <header class="mast">
     <span class="brand">Berkshire Hathaway</span>
     <nav aria-label="页面目录" data-nav="zh-CN">
-      <a href="#business">业务</a><a href="#earnings">经营利润</a><a href="#capital">资本配置</a><a href="#shares">A/B 股</a><a href="#sources">来源</a>
+      <a href="#history">发展史</a><a href="#governance">管理层</a><a href="#business">业务</a><a href="#earnings">经营利润</a><a href="#fundamentals">基本面</a><a href="#capital">资本配置</a><a href="#shares">A/B 股</a><a href="#sources">来源</a>
     </nav>
     <nav aria-label="Page sections" data-nav="en" lang="en" hidden>
-      <a href="#business-en">Businesses</a><a href="#earnings-en">Earnings</a><a href="#capital-en">Capital</a><a href="#shares-en">A/B shares</a><a href="#sources-en">Sources</a>
+      <a href="#history-en">History</a><a href="#governance-en">Leadership</a><a href="#business-en">Businesses</a><a href="#earnings-en">Earnings</a><a href="#fundamentals-en">Fundamentals</a><a href="#capital-en">Capital</a><a href="#shares-en">A/B shares</a><a href="#sources-en">Sources</a>
     </nav>
     <div class="language" role="group" aria-label="语言 / Language" hidden>
       <button type="button" data-language="zh-CN" aria-pressed="true" lang="zh-CN">中文</button>
@@ -179,6 +197,31 @@
       <div class="metric"><dt>前三季经营利润</dt><dd><b>370.34</b> 亿美元<small>2026 年前九个月 · 同比 +8.0%</small></dd></div>
       <div class="metric"><dt>保险浮存金</dt><dd><b>1,785</b> 亿美元<small>截至 2026-09-30</small></dd></div>
     </dl>
+    <section id="history" aria-labelledby="history-title">
+      <div class="section-head"><h2 id="history-title">从纺织厂到多元控股集团</h2></div>
+      <ol class="timeline">
+        <li><span class="period">1955–1965</span><h3>纺织公司合并，巴菲特取得控制权</h3><p>两家新英格兰纺织企业在 1955 年合并，沿用至今的公司名称由此而来。1965 年，巴菲特合伙企业取得控制权。<br><a href="https://www.berkshirehathaway.com/2014ar/2014ar.pdf">五十周年回顾</a></p></li>
+        <li><time datetime="1967">1967</time><h3>收购 National Indemnity</h3><p>伯克希尔用纺织业务产生的资金进入财产与意外险。保险浮存金此后成为集团能够长期运用的一项资金来源。<br><a href="https://www.berkshirehathaway.com/letters/1985.html">1985 年股东信</a></p></li>
+        <li><span class="period">1972–1985</span><h3>收购 See’s，退出纺织</h3><p>1972 年，巴菲特和查理·芒格控制的 Blue Chip Stamps 收购 See’s Candies。See’s 所需营运资本较少，集团可以把盈余投向其他业务。1985 年，伯克希尔关闭纺织业务。<br><a href="https://www.berkshirehathaway.com/letters/2007ltr.pdf">See’s 收购回顾</a> · <a href="https://www.berkshirehathaway.com/letters/1985.html">纺织业务回顾</a></p></li>
+        <li><span class="period">1996–1998</span><h3>扩张直保与再保险</h3><p>1996 年完成对 GEICO 的全资收购，扩大车险直销业务。同年发行 B 股。1998 年并入 General Re，扩大再保险业务。<br><a href="https://www.berkshirehathaway.com/1998ar/1998final.html">1998 年股东信</a> · <a href="https://www.berkshirehathaway.com/owners.html">股东手册</a></p></li>
+        <li><span class="period">2000–2010</span><h3>能源与铁路成为支柱</h3><p>2000 年投资 MidAmerican Energy，为今天的伯克希尔能源业务奠定基础。2010 年收购尚未持有的 BNSF 股份，把大型货运铁路纳入集团。<br><a href="https://www.berkshirehathaway.com/qtrly/3rdqtr00.html">MidAmerican 交易</a> · <a href="https://www.berkshirehathaway.com/qtrly/2ndqtr10.pdf">BNSF 收购</a></p></li>
+        <li><time datetime="2026">2026</time><h3>管理层交接，继续收购实业</h3><p>Greg Abel 接任 CEO，Howard G. Buffett 随后接任董事长。集团同年收购 OxyChem 和 Taylor Morrison，扩大化工与住宅开发业务。<br><a href="https://www.berkshirehathaway.com/news/sep1826.pdf">董事长交接公告</a> · <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">收购披露</a></p></li>
+      </ol>
+    </section>
+    <section id="governance" aria-labelledby="governance-title">
+      <div class="section-head"><h2 id="governance-title">管理层与分工</h2><span class="note">截至 2026-11-27</span></div>
+      <div class="panel">
+        <p>各子公司负责日常经营，总部负责重大投资与资本配置。2026 年，首席执行官、董事长与首席财务官三个职位先后完成交接。<a href="https://www.berkshirehathaway.com/letters/2025ltr.pdf">Greg Abel 首封年度股东信</a></p>
+        <dl class="leaders">
+          <div><dt>Greg Abel<span class="role">总裁兼首席执行官</span></dt><dd>自 2026 年 1 月起负责集团经营与重大资本配置。此前担任主管非保险业务的副董事长。 <a href="https://www.berkshirehathaway.com/news/may0525.pdf">任命公告</a></dd></div>
+          <div><dt>Howard G. Buffett<span class="role">董事长</span></dt><dd>1993 年加入董事会，2026 年 9 月 18 日当选董事长。董事会由 Susan L. Decker 继续担任首席独立董事。 <a href="https://www.berkshirehathaway.com/news/sep1826.pdf">交接公告</a></dd></div>
+          <div><dt>Ajit Jain<span class="role">主管保险业务的副董事长</span></dt><dd>领导集团保险业务，直接向 Abel 汇报。承保定价、巨灾风险与赔付准备金是观察这项业务的重点。 <a href="https://www.berkshirehathaway.com/2025ar/2025ar.pdf">年报 · 管理层分工</a></dd></div>
+          <div><dt>Charles C. Chang<span class="role">首席财务官</span></dt><dd>2026 年 6 月 1 日接替 Marc Hamburg，负责集团财务，并以首席财务官身份签署三季报。 <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526212148/d74313d8k.htm">任命披露</a></dd></div>
+          <div><dt>Adam Johnson<span class="role">消费品、服务与零售业务总裁</span></dt><dd>负责上述非保险子公司，并担任 NetJets 首席执行官，直接向 Abel 汇报。 <a href="https://www.berkshirehathaway.com/letters/2025ltr.pdf">股东信 · 业务分工</a></dd></div>
+          <div><dt>Warren Buffett<span class="role">荣誉董事长、董事</span></dt><dd>2026 年 1 月卸任 CEO，9 月转任荣誉董事长并继续担任董事。 <a href="https://www.berkshirehathaway.com/news/sep1826.pdf">交接公告</a></dd></div>
+        </dl>
+      </div>
+    </section>
     <section id="business" aria-labelledby="business-title">
       <div class="section-head"><h2 id="business-title">伯克希尔的四大业务</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 年报 · 业务概览</a></div>
       <div class="businesses">
@@ -210,6 +253,45 @@
         </div>
       </div>
     </section>
+    <section id="fundamentals" class="fundamentals" aria-labelledby="fundamentals-title">
+      <div class="section-head"><h2 id="fundamentals-title">基本面与现金流</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">2026 年三季报 · 财务报表与经营讨论</a></div>
+      <div class="split">
+        <div class="side">
+          <article class="panel">
+            <h3>三年业绩对照</h3><p class="note">单位为亿美元</p>
+            <table class="financial-table" aria-label="2023 至 2025 财年业绩对照">
+              <thead><tr><th scope="col">财年</th><th scope="col">2023</th><th scope="col">2024</th><th scope="col">2025</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">营收</th><td>3,644.82</td><td>3,714.33</td><td>3,714.44</td></tr>
+                <tr><th scope="row">税后经营利润</th><td>373.50</td><td>474.37</td><td>444.86</td></tr>
+                <tr><th scope="row">归属股东净利润</th><td>962.23</td><td>889.95</td><td>669.68</td></tr>
+              </tbody>
+            </table>
+            <p class="note">2025 年营收基本持平，经营利润同比下降 6.2%。归属股东净利润受投资净利得减少及合计 82.55 亿美元的卡夫亨氏、西方石油投资减值影响。经营利润采用公司披露的非 GAAP 口径。 <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 年报</a> · <a href="https://www.berkshirehathaway.com/news/feb2826.pdf">2025 年业绩公告</a> · <a href="https://www.berkshirehathaway.com/2024ar/2024ar.pdf">2024 年股东信</a></p>
+          </article>
+          <article class="panel">
+            <h3>前三季现金转化</h3><p class="note">单位为亿美元，每股指标除外</p>
+            <table class="financial-table cash-flow" aria-label="2025 和 2026 年前三季经营和现金流对照">
+              <thead><tr><th scope="col">前九个月</th><th scope="col">2025</th><th scope="col">2026</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">营收</th><td>2,772.12</td><td>3,011.30</td></tr>
+                <tr><th scope="row">经营现金流</th><td>347.77</td><td>339.14</td></tr>
+                <tr><th scope="row">资本开支</th><td>147.25</td><td>161.37</td></tr>
+                <tr><th scope="row">经营现金流减资本开支</th><td>200.52</td><td>177.77</td></tr>
+                <tr><th scope="row">每 B 股经营利润（美元）</th><td>15.89</td><td>17.22</td></tr>
+              </tbody>
+            </table>
+            <p class="note">资本开支包含购置固定资产及出租设备。现金流减资本开支为本文计算，未扣除并购及回购支出。每股经营利润按同期平均 B 股等效股数计算。 <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452530/brka-ex99_1.htm">业绩公告 · 经营利润及股数</a></p>
+          </article>
+        </div>
+        <div class="side">
+          <article class="panel"><h3>GEICO 承保利润承压</h3><p>前三季已赚保费同比增长 2.4%，税前承保利润降至 <strong>33.92 亿美元</strong>，同比下降 41.2%。按赔付及理赔费用加承保费用除以已赚保费计算，综合成本率由 82.6% 升至 90.0%。更高的出险频率和案均赔付、较低的单均保费，以及佣金和广告费用上升挤压了利润。</p></article>
+          <article class="panel"><h3>BNSF 运量和运营效率改善</h3><p>前三季运量同比增长 4.2%，每车或每单位收入增长 7.1%，部分来自燃油附加费。按铁路运营费用除以运营收入计算，运营比率由 65.6% 降至 64.9%。同期 BNSF 和伯克希尔能源合计投入约 <strong>102 亿美元</strong>资本开支，占集团约 63%。</p></article>
+          <article class="panel"><h3>能源利润增长，山火责任仍有不确定性</h3><p>伯克希尔能源前三季归属母公司股东利润为 <strong>36.17 亿美元</strong>，同比增长 10.0%，主要增长来自美国公用事业和天然气管道。PacifiCorp 截至 9 月底就相关山火累计计提约 28.5 亿美元损失，最终损失仍可能高于已计提金额。</p></article>
+          <article class="panel"><h3>流动性、负债与每股表现</h3><p>2026 年 9 月底，归属伯克希尔股东权益为 <strong>7,613.68 亿美元</strong>，票据及其他借款合计 1,307.83 亿美元，其中铁路、公用事业和能源板块为 850.16 亿美元。公司披露不为 BNSF 与伯克希尔能源及其子公司的借款提供担保。前三季每股经营利润上升，但经营现金流减资本开支同比下降 11.3%，两项指标应结合观察。</p></article>
+        </div>
+      </div>
+    </section>
     <section id="capital" aria-labelledby="capital-title">
       <div class="section-head"><h2 id="capital-title">资本配置与风险</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">三季报 · 投资和流动性</a></div>
       <div class="split">
@@ -217,12 +299,12 @@
           <h3>钱投到了哪里</h3>
           <ul class="highlights">
             <li><strong>收购实业。</strong> 2026 年，OxyChem 交易约 94 亿美元，Taylor Morrison 现金对价约 68 亿美元。</li>
-            <li><strong>持有股权证券。</strong> 截至 2026-09-30，以下五大持仓合计占股权证券公允价值的 65%。<ul class="tags"><li>Alphabet</li><li>美国运通</li><li>苹果</li><li>美国银行</li><li>可口可乐</li></ul></li>
+            <li><strong>持有股权证券。</strong> 按现金流量表买卖差额计算，2026 年前三季净买入 111.99 亿美元，上年同期净卖出 105.99 亿美元。截至 2026-09-30，以下五大持仓合计占股权证券公允价值的 65%。<ul class="tags"><li>Alphabet</li><li>美国运通</li><li>苹果</li><li>美国银行</li><li>可口可乐</li></ul></li>
             <li><strong>回购股份。</strong> 2026 年三季度回购约 96 亿美元，前三季合计约 144 亿美元，采用业绩公告口径。公司也将资金留在短期国库券中，可用于赔付、收购和其他资金需求。</li>
           </ul>
         </article>
         <div class="side">
-          <article class="panel" id="governance"><h3>管理层交接</h3><p>Greg Abel 于 2026 年 1 月 1 日接任 CEO。9 月 18 日，Howard G. Buffett 当选董事长，Warren Buffett 转任荣誉董事长并继续担任董事。<a href="https://www.berkshirehathaway.com/news/sep1826.pdf">董事长交接公告</a></p></article>
+          <article class="panel"><h3>集团如何决定回购</h3><p>CEO 与董事长协商后，若保守估计的内在价值高于股价，可回购 A 股或 B 股。公司规定回购后合并现金、现金等价物及美国国库券持有额须至少为 300 亿美元。<a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">三季报 · 股份回购政策</a></p></article>
           <article class="panel"><h3>哪些变量会影响回报</h3><p>重大灾害会推高保险赔付，利率下行会压低短债再投资收益，股票持仓集中会放大净利润波动。铁路和公用事业持续需要投入资本，收购和回购的价格也会影响长期回报。</p></article>
         </div>
       </div>
@@ -260,7 +342,7 @@
       </div>
     </section>
     <section id="sources" aria-labelledby="sources-title">
-      <div class="section-head"><h2 id="sources-title">原始资料</h2><span class="note">整理于 2026-11-26</span></div>
+      <div class="section-head"><h2 id="sources-title">原始资料</h2><span class="note">更新于 2026-11-27</span></div>
       <ul class="references">
         <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 年报 10-K</a></li>
         <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">2026 三季报 10-Q</a></li>
@@ -300,6 +382,31 @@
       <div class="metric"><dt>Nine-month operating earnings</dt><dd><b>$37.034B</b><small>First nine months of 2026 · up 8.0%</small></dd></div>
       <div class="metric"><dt>Insurance float</dt><dd><b>$178.5B</b><small>As of Sep 30, 2026</small></dd></div>
     </dl>
+    <section id="history-en" aria-labelledby="history-title-en">
+      <div class="section-head"><h2 id="history-title-en">From textile mills to a diversified holding company</h2></div>
+      <ol class="timeline">
+        <li><span class="period">1955–1965</span><h3>A textile merger and a change of control</h3><p>Two New England textile businesses merged in 1955 to form Berkshire Hathaway. Buffett Partnership took control in 1965.<br><a href="https://www.berkshirehathaway.com/2014ar/2014ar.pdf">50th-anniversary retrospective</a></p></li>
+        <li><time datetime="1967">1967</time><h3>National Indemnity acquisition</h3><p>Berkshire used cash from textiles to enter property and casualty insurance. Insurance float became a lasting source of funds the group could invest.<br><a href="https://www.berkshirehathaway.com/letters/1985.html">1985 shareholder letter</a></p></li>
+        <li><span class="period">1972–1985</span><h3>See’s acquisition and the exit from textiles</h3><p>Warren Buffett and Charlie Munger controlled Blue Chip Stamps when it bought See’s Candies in 1972. See’s needed little working capital, leaving cash available for investment elsewhere. Berkshire shut down its textile operations in 1985.<br><a href="https://www.berkshirehathaway.com/letters/2007ltr.pdf">See’s acquisition retrospective</a> · <a href="https://www.berkshirehathaway.com/letters/1985.html">Textile operations retrospective</a></p></li>
+        <li><span class="period">1996–1998</span><h3>Expansion in direct insurance and reinsurance</h3><p>Berkshire took full ownership of GEICO in 1996, expanding its direct auto insurance business. It issued Class B shares that year and added General Re in 1998.<br><a href="https://www.berkshirehathaway.com/1998ar/1998final.html">1998 shareholder letter</a> · <a href="https://www.berkshirehathaway.com/owners.html">Owner’s Manual</a></p></li>
+        <li><span class="period">2000–2010</span><h3>Energy and rail become core businesses</h3><p>The 2000 investment in MidAmerican Energy laid the foundation for Berkshire Hathaway Energy. Berkshire bought the remaining BNSF shares in 2010, bringing a major freight railroad into the group.<br><a href="https://www.berkshirehathaway.com/qtrly/3rdqtr00.html">MidAmerican transaction</a> · <a href="https://www.berkshirehathaway.com/qtrly/2ndqtr10.pdf">BNSF acquisition</a></p></li>
+        <li><time datetime="2026">2026</time><h3>Leadership transition and new acquisitions</h3><p>Greg Abel became CEO, and Howard G. Buffett later became chairman. Berkshire acquired OxyChem and Taylor Morrison, expanding its chemicals and homebuilding businesses.<br><a href="https://www.berkshirehathaway.com/news/sep1826.pdf">Chairman transition announcement</a> · <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Acquisition disclosures</a></p></li>
+      </ol>
+    </section>
+    <section id="governance-en" aria-labelledby="governance-title-en">
+      <div class="section-head"><h2 id="governance-title-en">Leadership and responsibilities</h2><span class="note">As of Nov 27, 2026</span></div>
+      <div class="panel">
+        <p>Subsidiaries run day-to-day operations. Headquarters oversees major investments and capital allocation. The CEO, chairman and CFO roles all changed hands in 2026. <a href="https://www.berkshirehathaway.com/letters/2025ltr.pdf">Greg Abel’s first annual shareholder letter</a></p>
+        <dl class="leaders">
+          <div><dt>Greg Abel<span class="role">President and chief executive officer</span></dt><dd>Leads operations and major capital allocation decisions as CEO since January 2026. He was previously vice chairman for non-insurance operations. <a href="https://www.berkshirehathaway.com/news/may0525.pdf">Appointment announcement</a></dd></div>
+          <div><dt>Howard G. Buffett<span class="role">Chairman of the board</span></dt><dd>Joined the board in 1993 and became chairman on Sep 18, 2026. Susan L. Decker continues as lead independent director. <a href="https://www.berkshirehathaway.com/news/sep1826.pdf">Transition announcement</a></dd></div>
+          <div><dt>Ajit Jain<span class="role">Vice chairman, insurance operations</span></dt><dd>Leads insurance operations and reports to Abel. Underwriting discipline, catastrophe exposure and claims reserves are key measures for this business. <a href="https://www.berkshirehathaway.com/2025ar/2025ar.pdf">Annual report · Management responsibilities</a></dd></div>
+          <div><dt>Charles C. Chang<span class="role">Chief financial officer</span></dt><dd>Succeeded Marc Hamburg on Jun 1, 2026, and signed the third-quarter filing as principal financial officer. <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526212148/d74313d8k.htm">Appointment filing</a></dd></div>
+          <div><dt>Adam Johnson<span class="role">President, consumer products, service and retailing</span></dt><dd>Oversees those non-insurance businesses, serves as NetJets CEO and reports directly to Abel. <a href="https://www.berkshirehathaway.com/letters/2025ltr.pdf">Shareholder letter · Operating responsibilities</a></dd></div>
+          <div><dt>Warren Buffett<span class="role">Chairman emeritus and director</span></dt><dd>Stepped down as CEO in January 2026 and remained on the board when he became chairman emeritus in September. <a href="https://www.berkshirehathaway.com/news/sep1826.pdf">Transition announcement</a></dd></div>
+        </dl>
+      </div>
+    </section>
     <section id="business-en" aria-labelledby="business-title-en">
       <div class="section-head"><h2 id="business-title-en">Four main lines of business</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 Form 10-K · Business overview</a></div>
       <div class="businesses">
@@ -331,6 +438,45 @@
         </div>
       </div>
     </section>
+    <section id="fundamentals-en" class="fundamentals" aria-labelledby="fundamentals-title-en">
+      <div class="section-head"><h2 id="fundamentals-title-en">Fundamentals and cash flow</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 2026 Form 10-Q · Financial statements and discussion</a></div>
+      <div class="split">
+        <div class="side">
+          <article class="panel">
+            <h3>Three-year results</h3><p class="note">US$ billions</p>
+            <table class="financial-table" aria-label="Fiscal 2023 to 2025 results comparison">
+              <thead><tr><th scope="col">Fiscal year</th><th scope="col">2023</th><th scope="col">2024</th><th scope="col">2025</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Revenue</th><td>364.482</td><td>371.433</td><td>371.444</td></tr>
+                <tr><th scope="row">After-tax operating earnings</th><td>37.350</td><td>47.437</td><td>44.486</td></tr>
+                <tr><th scope="row">Net earnings attributable to shareholders</th><td>96.223</td><td>88.995</td><td>66.968</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Revenue was roughly flat in 2025 and operating earnings fell 6.2%. Lower investment gains and $8.255B of impairments on Kraft Heinz and Occidental reduced net earnings. Operating earnings use Berkshire’s non-GAAP definition. <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 Form 10-K</a> · <a href="https://www.berkshirehathaway.com/news/feb2826.pdf">2025 earnings release</a> · <a href="https://www.berkshirehathaway.com/2024ar/2024ar.pdf">2024 shareholder letter</a></p>
+          </article>
+          <article class="panel">
+            <h3>Nine-month cash conversion</h3><p class="note">US$ billions, except per-share amounts</p>
+            <table class="financial-table cash-flow" aria-label="Nine-month operating and cash flow comparison in 2025 and 2026">
+              <thead><tr><th scope="col">First nine months</th><th scope="col">2025</th><th scope="col">2026</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Revenue</th><td>277.212</td><td>301.130</td></tr>
+                <tr><th scope="row">Operating cash flow</th><td>34.777</td><td>33.914</td></tr>
+                <tr><th scope="row">Capital expenditures</th><td>14.725</td><td>16.137</td></tr>
+                <tr><th scope="row">Operating cash flow less capex</th><td>20.052</td><td>17.777</td></tr>
+                <tr><th scope="row">Operating earnings per B share (US$)</th><td>15.89</td><td>17.22</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Capex includes purchases of property, plant, equipment and equipment held for lease. The cash flow calculation is before acquisitions and buybacks. Per-share operating earnings use the average equivalent Class B share count. <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452530/brka-ex99_1.htm">Earnings release · Operating earnings and share counts</a></p>
+          </article>
+        </div>
+        <div class="side">
+          <article class="panel"><h3>GEICO underwriting margins narrowed</h3><p>Nine-month earned premiums rose 2.4% year over year, while pre-tax underwriting earnings fell 41.2% to <strong>$3.392B</strong>. The combined ratio, losses and loss adjustment expenses plus underwriting expenses divided by earned premiums, rose from 82.6% to 90.0%. More frequent and severe claims, lower premiums per policy, and higher commission and advertising costs squeezed earnings.</p></article>
+          <article class="panel"><h3>BNSF improved volumes and operating efficiency</h3><p>Nine-month freight volumes rose 4.2% year over year and revenue per car or unit rose 7.1%, partly from fuel surcharges. BNSF’s operating ratio, railroad operating expenses divided by operating revenue, fell from 65.6% to 64.9%. BNSF and Berkshire Hathaway Energy together spent about <strong>$10.2B</strong> on capex, roughly 63% of the group total.</p></article>
+          <article class="panel"><h3>Energy earnings rose and wildfire exposure remains</h3><p>Berkshire Hathaway Energy’s nine-month earnings attributable to Berkshire shareholders rose 10.0% to <strong>$3.617B</strong>, led by U.S. utilities and natural gas pipelines. At the end of September, PacifiCorp had accrued about $2.85B in cumulative estimated losses for the wildfires. Ultimate losses could exceed that amount.</p></article>
+          <article class="panel"><h3>Liquidity, debt and per-share results</h3><p>At Sep 30, 2026, equity attributable to Berkshire shareholders was <strong>$761.368B</strong>. Notes payable and other borrowings totaled $130.783B, including $85.016B in Railroad, Utilities and Energy. Berkshire reports that it does not guarantee borrowings of BNSF, Berkshire Hathaway Energy or their subsidiaries. Nine-month operating earnings per share rose while operating cash flow less capex fell 11.3% year over year.</p></article>
+        </div>
+      </div>
+    </section>
     <section id="capital-en" aria-labelledby="capital-title-en">
       <div class="section-head"><h2 id="capital-title-en">Capital allocation and risks</h2><a class="source-link" href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 Form 10-Q · Investments and liquidity</a></div>
       <div class="split">
@@ -338,12 +484,12 @@
           <h3>Where the money goes</h3>
           <ul class="highlights">
             <li><strong>Buying businesses.</strong> Berkshire acquired OxyChem for about $9.4B and paid roughly $6.8B in cash for Taylor Morrison in 2026.</li>
-            <li><strong>Holding equity securities.</strong> As of Sep 30, 2026, the five largest holdings below represented 65% of the reported fair value of equity securities.<ul class="tags"><li>Alphabet</li><li>American Express</li><li>Apple</li><li>Bank of America</li><li>Coca-Cola</li></ul></li>
+            <li><strong>Holding equity securities.</strong> Cash spent on equity purchases less proceeds from sales was $11.199B in the first nine months of 2026, versus net sales of $10.599B a year earlier. As of Sep 30, 2026, the five largest holdings below represented 65% of the reported fair value of equity securities.<ul class="tags"><li>Alphabet</li><li>American Express</li><li>Apple</li><li>Bank of America</li><li>Coca-Cola</li></ul></li>
             <li><strong>Buying back shares.</strong> Berkshire reported about $9.6B of repurchases in Q3 and $14.4B in the first nine months of 2026. It also holds short-term Treasury bills to help meet claims and fund acquisitions and other needs.</li>
           </ul>
         </article>
         <div class="side">
-          <article class="panel" id="governance-en"><h3>Leadership transition</h3><p>Greg Abel became CEO on Jan 1, 2026. On Sep 18, Howard G. Buffett was elected chairman, and Warren Buffett became chairman emeritus and remained a director. <a href="https://www.berkshirehathaway.com/news/sep1826.pdf">Chairman transition announcement</a></p></article>
+          <article class="panel"><h3>How Berkshire decides to repurchase shares</h3><p>The CEO may repurchase Class A or Class B shares below conservatively estimated intrinsic value, after consulting the chairman. Berkshire requires at least $30B of consolidated cash, cash equivalents and U.S. Treasury bills after repurchases. <a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 Form 10-Q · Repurchase policy</a></p></article>
           <article class="panel"><h3>What can affect returns</h3><p>Catastrophes raise insurance claims, falling rates reduce yields on reinvested Treasury bills, and concentrated equity holdings add volatility to net earnings. Rail and utilities need ongoing capital investment, and acquisition and repurchase prices affect long-term returns.</p></article>
         </div>
       </div>
@@ -381,7 +527,7 @@
       </div>
     </section>
     <section id="sources-en" aria-labelledby="sources-title-en">
-      <div class="section-head"><h2 id="sources-title-en">Primary sources</h2><span class="note">Compiled Nov 26, 2026</span></div>
+      <div class="section-head"><h2 id="sources-title-en">Primary sources</h2><span class="note">Updated Nov 27, 2026</span></div>
       <ul class="references">
         <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm">2025 Form 10-K</a></li>
         <li><a href="https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-20260930.htm">Q3 2026 Form 10-Q</a></li>
@@ -436,7 +582,7 @@
   languageButtons.forEach(button => {
     button.addEventListener('click', () => {
       const currentId = location.hash.slice(1);
-      const currentSection = document.getElementById(currentId)?.closest('section, #governance, #governance-en');
+      const currentSection = document.getElementById(currentId)?.closest('section');
       const language = button.dataset.language;
       showEdition(language);
       if (currentSection) {
