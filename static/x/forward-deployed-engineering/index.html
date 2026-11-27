@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>什么是 FDE？AI 时代的前沿部署工程师</title>
+<meta name="description" content="从 Palantir 的嵌入式交付到生成式 AI 的生产部署，理解 FDE（前沿部署工程师）的职责、岗位边界、真实案例与职业路径。报告拆解如何评估成效，以及何时值得为企业部署配置 FDE。">
+<meta name="keywords" content="FDE, 前沿部署工程, 企业 AI, AI 工程, 模型评估">
+<meta property="article:published_time" content="2026-11-27">
+<link rel="canonical" href="https://chejinying.com/x/forward-deployed-engineering/">
+<style>
+:root {
+  color-scheme: light;
+  --paper: #f6f7fb;
+  --white: #fff;
+  --ink: #172235;
+  --muted: #495971;
+  --line: #d9e0eb;
+  --brand: #4e3cc3;
+  --deep: #121932;
+  --bright: #c6f49b;
+  --max: 76rem;
+  font-family: system-ui, -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); line-height: 1.75; }
+[hidden] { display: none !important; }
+a { color: var(--brand); text-underline-offset: .2em; }
+button { font: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid #7761f4; outline-offset: 3px; }
+.wrap { width: min(calc(100% - 3rem), var(--max)); margin-inline: auto; }
+.top { background: var(--deep); color: white; border-bottom: 1px solid #3d4560; }
+.top .wrap { min-height: 4.3rem; display: flex; align-items: center; justify-content: space-between; gap: .65rem; }
+.home { font-weight: 680; font-size: .95rem; color: #e5eafb; text-decoration: none; }
+.lang { display: flex; padding: .2rem; gap: .2rem; border-radius: .65rem; background: #232d4f; }
+.lang button { color: #ecf1ff; border: 0; border-radius: .45rem; background: transparent; padding: .27rem .7rem; cursor: pointer; font-size: .875rem; }
+.lang button[aria-pressed="true"] { background: #edf0ff; color: #151d39; font-weight: 750; }
+.hero { background: radial-gradient(ellipse at 85% 15%, #30265b 0%, var(--deep) 64%); color: white; }
+.hero .wrap { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: clamp(1.8rem, 6vw, 6rem); padding-block: clamp(2.6rem, 6vw, 5.5rem); }
+.eyebrow { margin: 0 0 .55rem; color: var(--bright); font-size: .875rem; font-weight: 720; letter-spacing: .065em; }
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin-bottom: .8rem; font-size: clamp(2.6rem, 5.8vw, 5.1rem); letter-spacing: -.045em; line-height: 1.12; }
+.subhead { margin: 0 0 1rem; font-size: clamp(1.1rem, 2vw, 1.5rem); color: #e1ddff; font-weight: 630; line-height: 1.4; }
+.lead { margin-bottom: 1.15rem; font-size: 1.065rem; color: #dde4fa; max-width: 40rem; }
+.date { color: #c5cee7; font-size: .875rem; margin: 0; }
+figure { margin: 0; }
+.map { border: 1px solid #6b638e; border-radius: 1.1rem; padding: 1.2rem; background: #1b2240; }
+.map figcaption { color: #e1ddff; font-size: .9rem; font-weight: 700; padding-bottom: .8rem; }
+.map ol { list-style: none; padding: 0; margin: 0; display: grid; gap: .65rem; }
+.map li { position: relative; display: grid; grid-template-columns: .7rem 1fr; gap: .75rem; padding: .65rem .8rem; border: 1px solid #58607e; border-radius: .55rem; background: #222b4a; }
+.map li::before { content: ""; width: .55rem; height: .55rem; margin-top: .52rem; border-radius: 50%; background: #bcb0ff; }
+.map li:nth-child(3)::before { background: var(--bright); }
+.map strong, .map small { display: block; }
+.map small { font-size: .875rem; color: #d4dcf2; }
+.map .loop { margin: .85rem 0 0; padding-top: .7rem; border-top: 1px dashed #6b638e; color: var(--bright); font-size: .875rem; }
+.layout { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: clamp(1.5rem, 5vw, 5rem); align-items: start; }
+.toc { position: sticky; top: 1.5rem; margin-block: 2.6rem; padding-left: .8rem; border-left: 2px solid #b4a8fa; }
+.toc strong { display: block; padding: .15rem .45rem .4rem; }
+.toc a { display: block; border-radius: .35rem; padding: .22rem .45rem; color: var(--muted); font-size: .9rem; text-decoration: none; }
+.toc a:hover { background: #e8e4ff; color: var(--brand); }
+.article { min-width: 0; }
+section { scroll-margin-top: 1rem; padding: 2.6rem 0 2.4rem; border-bottom: 1px solid var(--line); }
+section:last-child { border-bottom: 0; }
+h2 { font-size: clamp(1.62rem, 3vw, 2.35rem); line-height: 1.25; letter-spacing: -.035em; margin-bottom: 1rem; }
+h3 { font-size: 1.12rem; line-height: 1.35; margin-bottom: .55rem; }
+p { margin-bottom: .9rem; }
+p:last-child { margin-bottom: 0; }
+.cite { white-space: nowrap; font-size: .875rem; font-weight: 700; }
+.split { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: .85rem; margin-block: 1rem; }
+.card { background: var(--white); border: 1px solid var(--line); border-radius: .75rem; padding: 1rem 1.1rem; }
+.strip { margin-block: 1rem; padding: .9rem 1rem; border-inline-start: 3px solid var(--brand); background: #edeaff; border-radius: .25rem .6rem .6rem .25rem; }
+.list { margin: 0; padding-inline-start: 1.35rem; }
+.list li + li { margin-top: .45rem; }
+.rows { margin: 1rem 0; }
+.rows > div { display: grid; grid-template-columns: minmax(8rem, .32fr) 1fr; gap: 1rem; border-bottom: 1px solid var(--line); padding: .8rem .15rem; }
+.rows > div:first-child { border-top: 1px solid var(--line); }
+.rows dt { font-weight: 750; }
+.rows dd { margin: 0; }
+.timeline { margin: 1rem 0; padding: 0; list-style: none; }
+.timeline li { padding: 0 0 1rem 1.15rem; border-left: 2px solid #c5bafa; position: relative; }
+.timeline li:last-child { padding-bottom: 0; }
+.timeline li::before { content: ""; position: absolute; width: .62rem; height: .62rem; background: var(--brand); border: 2px solid var(--paper); border-radius: 50%; left: -.42rem; top: .35rem; }
+.timeline strong { color: var(--brand); }
+.steps { margin: 1rem 0; padding-inline-start: 1.45rem; }
+.steps li { padding: .75rem .15rem; border-bottom: 1px solid var(--line); }
+.steps li::marker { color: var(--brand); font-weight: 750; }
+.steps strong { display: block; }
+.metric { display: block; color: var(--brand); font-size: 1.8rem; font-weight: 780; line-height: 1.2; margin-bottom: .45rem; }
+.refs { padding-inline-start: 1.55rem; }
+.refs li { margin-bottom: .75rem; padding-inline-start: .25rem; scroll-margin-top: 1.5rem; overflow-wrap: anywhere; }
+.refs li:target { background: #edeaff; }
+.note { color: var(--muted); font-size: .925rem; }
+footer { border-top: 1px solid var(--line); padding-block: 1.2rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem; color: var(--muted); font-size: .9rem; }
+@media (max-width: 820px) {
+  .hero .wrap { gap: 1.5rem; }
+  .layout { display: block; }
+  .toc { position: static; margin: 1.35rem 0 0; padding: .6rem .75rem; display: flex; flex-wrap: wrap; gap: .15rem .4rem; align-items: center; background: #eeedf6; }
+  .toc strong, .toc a { padding: .23rem .4rem; }
+}
+@media (max-width: 590px) {
+  .wrap { width: calc(100% - 2rem); }
+  .hero .wrap, .split { grid-template-columns: 1fr; }
+  .hero .wrap { padding-block: 2.3rem; }
+  .rows > div { grid-template-columns: 1fr; gap: .25rem; }
+  section { padding-block: 1.9rem; }
+}
+@media print {
+  .top, .toc, footer { display: none; }
+  .layout, .hero .wrap { display: block; }
+  .hero, .map, .map li { background: white; }
+  .hero, .hero * { color: #172235 !important; }
+  .map { margin-top: 1rem; }
+  section { padding-block: 1rem; }
+}
+</style>
+</head>
+<body id="top">
+<header class="top">
+  <div class="wrap">
+    <a class="home" href="https://chejinying.com/x/">Jinying’s Notebook</a>
+    <div class="lang" id="language" role="group" aria-label="阅读语言" hidden>
+      <button type="button" data-lang="zh-CN" lang="zh-CN" aria-pressed="true">中文</button>
+      <button type="button" data-lang="en" lang="en" aria-pressed="false">English</button>
+    </div>
+  </div>
+</header>
+
+<main id="zh-edition" lang="zh-CN">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">企业 AI · 研究报告</p>
+        <h1>什么是 FDE？</h1>
+        <p class="subhead">AI 时代的前沿部署工程师</p>
+        <p class="lead">FDE 深入客户团队，把数据平台或模型能力接入真实业务，交付可以评估、上线和维护的软件，再把反复出现的问题带回产品与研究团队。</p>
+        <p class="date">资料核对至 <time datetime="2026-11-27">2026 年 11 月 27 日</time></p>
+      </div>
+      <figure class="map">
+        <figcaption>FDE 如何把模型能力变成生产系统</figcaption>
+        <ol>
+          <li><div><strong>理解客户工作</strong><small>找到瓶颈，确认流程负责人和基线</small></div></li>
+          <li><div><strong>共同开发与评估</strong><small>连接数据、权限和工具，用真实样本测质量</small></div></li>
+          <li><div><strong>上线、运行与交接</strong><small>灰度发布，观察采用、成本与例外处理</small></div></li>
+        </ol>
+        <p class="loop">现场反馈回流到平台、模型和下一次部署</p>
+      </figure>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+    <nav class="toc" aria-label="中文目录">
+      <strong>目录</strong>
+      <a href="#zh-role">定义与沿革</a>
+      <a href="#zh-ai">为何重要</a>
+      <a href="#zh-delivery">如何交付</a>
+      <a href="#zh-boundaries">岗位边界</a>
+      <a href="#zh-cases">真实案例</a>
+      <a href="#zh-org">组织与指标</a>
+      <a href="#zh-career">技能与职业</a>
+      <a href="#zh-sources">参考资料</a>
+    </nav>
+    <div class="article">
+      <section id="zh-role">
+        <h2>定义与沿革</h2>
+        <p><strong>FDE</strong> 可以指人（<span lang="en">Forward Deployed Engineer</span>，本文译作“前沿部署工程师”），也可以指团队或交付模式（<span lang="en">Forward Deployed Engineering</span>）。典型的 FDE 由供应商或交付组织派驻到项目一线，与客户的使用者、工程师和业务负责人组成联合团队。这里的“嵌入”指参与实际工作、共享交付目标与反馈节奏，合作可以远程或现场进行。岗位名称和参与深度随公司与项目而变。<a class="cite" href="#zh-ref-1">[1]</a> <a class="cite" href="#zh-ref-4">[4]</a> <a class="cite" href="#zh-ref-6">[6]</a></p>
+        <ol class="timeline">
+          <li><strong>2020 · Palantir</strong> 已公开描述嵌入式 FDSE（亦称 Delta），通过配置和扩展现有平台解决客户问题。同期 S-1 披露了从试点获客、扩大合作到规模化的经营阶段，并说明早期试点可能需要供应商承担成本。<a class="cite" href="#zh-ref-1">[1]</a> <a class="cite" href="#zh-ref-2">[2]</a></li>
+          <li><strong>2025–2026 · OpenAI</strong> 据团队负责人披露，FDE 团队在 2025 年初组建，重点是把模型能力转化为可靠工作流。2026 年 5 月，OpenAI 宣布成立 Deployment Company，以扩充组织内的工程交付能力。<a class="cite" href="#zh-ref-3">[3]</a> <a class="cite" href="#zh-ref-4">[4]</a></li>
+          <li><strong>2026 · Databricks 与 Anthropic</strong> Databricks 在 6 月宣布成立 FDE 组织，覆盖数据迁移到生产级 AI 应用。Anthropic 的公开招聘也出现 FDE 及相关技术部署岗位。<a class="cite" href="#zh-ref-5">[5]</a> <a class="cite" href="#zh-ref-7">[7]</a></li>
+        </ol>
+        <p class="note">这些公开材料记录了企业采用这种组织方式的时间点。它们不足以确定岗位的最早起源或估算行业招聘增速。</p>
+      </section>
+      <section id="zh-ai">
+        <h2>为什么生成式 AI 放大了这个岗位的价值</h2>
+        <div class="split">
+          <div class="card"><h3>效果取决于客户现场</h3><p>客户各有专用术语、隐性流程、历史系统和例外规则。公开模型基准提供能力线索，生产验收需要用客户样本判断一份答案能否支撑下一步决策。<a class="cite" href="#zh-ref-4">[4]</a></p></div>
+          <div class="card"><h3>同一个任务可能有多条执行路径</h3><p>模型更新、检索结果和工具响应都会改变最终行为。FDE 要把任务结果、工具调用轨迹、异常处理和人工升级写进可重复的评估。</p></div>
+          <div class="card"><h3>写入业务系统需要权限与责任人</h3><p>查询文档、起草回复和真正退款具有不同风险。生产部署需要把身份、授权、审批、追溯和回滚落实到具体动作。</p></div>
+          <div class="card"><h3>编写原型更快，验证价值仍需跨团队</h3><p>上线依赖数据负责人、安全团队、业务主管和运营人员共同改变流程。采用数据和失败样本还能帮助供应商决定哪些能力应该做进通用产品。<a class="cite" href="#zh-ref-4">[4]</a> <a class="cite" href="#zh-ref-5">[5]</a></p></div>
+        </div>
+        <p>McKinsey 2026 年全球调查中，44% 的受访者称所在组织正在企业层面扩大 AI 应用，上年同口径回顾为 38%。这是受访者的组织状态自报，可用于观察扩张趋势。FDE 岗位需求和投入回报需要另外的证据。<a class="cite" href="#zh-ref-8">[8]</a></p>
+      </section>
+      <section id="zh-delivery">
+        <h2>从发现问题到生产交接</h2>
+        <ol class="steps">
+          <li><strong>发现与取舍</strong>观察用户如何完成任务，选一个高频且可验证的流程，记录人工基线、故障代价、数据可用性和负责人。输出范围、基线和试点退出条件。</li>
+          <li><strong>实现最小可用系统</strong>先试结构化规则、查询和单次模型调用，再按任务需要增加检索增强生成（RAG）、工具和有界的代理流程。保留文档来源，沿用用户权限，明确人工复核入口。<a class="cite" href="#zh-ref-9">[9]</a></li>
+          <li><strong>建立评估与上线门槛</strong>从历史任务和边缘样本制作保留集，按任务类型和风险切片。用明确标准检查事实正确性、证据、工具执行结果和拒绝质量。关键错误单独计数，模型、提示和工具版本纳入回归测试。<a class="cite" href="#zh-ref-10">[10]</a> <a class="cite" href="#zh-ref-11">[11]</a></li>
+          <li><strong>影子运行、小流量上线</strong>先观察结果，再分批开放实际操作。记录结果、成本、延迟和工具错误，按权限保护日志。预设暂停、回滚与人工接管条件。<a class="cite" href="#zh-ref-10">[10]</a> <a class="cite" href="#zh-ref-12">[12]</a></li>
+          <li><strong>交接并抽取可复用资产</strong>交付代码、评估集、仪表板、事故处置手册和维护归属。把可泛化的连接器、权限模式和模型失败样本反馈给产品及研究团队。<a class="cite" href="#zh-ref-4">[4]</a> <a class="cite" href="#zh-ref-5">[5]</a></li>
+        </ol>
+        <div class="strip"><strong>假设示例 · 客服工单助手</strong><p>第一版让模型引用内部政策起草回复，由客服确认发送。用历史工单覆盖过期政策、例外条款和缺失数据，比较原流程与试点的处理时间、正确解决率、升级率和每单成本。若加入退款，将金额校验和审批留给业务系统，并记录执行结果。</p></div>
+      </section>
+      <section id="zh-boundaries">
+        <h2>FDE 与相邻岗位怎么分工</h2>
+        <p>职位描述里的交付责任、代码归属、上线权限与客户合作周期，比头衔更能说明实际工作。以下是常见分工，同一团队可以由一人承担多项责任。<a class="cite" href="#zh-ref-6">[6]</a> <a class="cite" href="#zh-ref-7">[7]</a></p>
+        <dl class="rows">
+          <div><dt>FDE</dt><dd>围绕具体客户的业务结果编写生产代码，负责集成、评估和交接，并将可复用问题反馈给平台团队。</dd></div>
+          <div><dt>解决方案工程师／架构师</dt><dd>通常侧重技术选型、售前验证与架构设计。部分岗位也持续参与实施和上线。</dd></div>
+          <div><dt>产品软件工程师</dt><dd>负责多客户共享的代码、接口和长期演进，通常用通用性与平台可靠性衡量产出。</dd></div>
+          <div><dt>应用 AI／ML 工程师</dt><dd>侧重建模、评估、推理或应用工程。若同时承担客户现场的工作流重构和生产交付，职责可与 FDE 高度重合。</dd></div>
+          <div><dt>交付顾问／实施工程师</dt><dd>侧重需求梳理、系统配置、迁移或变更管理。差别主要在于定制代码、长期运行责任和与产品研发的反馈机制。</dd></div>
+          <div><dt>客户成功／SRE</dt><dd>客户成功侧重采用与业务关系，SRE 侧重运行可靠性与事故响应；两者都可能参与 FDE 项目的上线和交接。</dd></div>
+        </dl>
+      </section>
+      <section id="zh-cases">
+        <h2>公开案例里，FDE 实际做了什么</h2>
+        <div class="split">
+          <div class="card"><h3>半导体验证 · OpenAI</h3><p><span class="metric">约 48%</span>据 OpenAI 2026 年 10 月复盘，团队与芯片验证工程师共同定义评估，构建测试生成与诊断系统。供应商报告称，定向测试生成环节节省约 48% 的时间。随后多个用例整合到共享运行框架。在同一篇复盘举出的 2026 年 8 月项目里，首次部署用时两个月，扩展到第二支团队用时一天，反映了特定项目的复用效果。<a class="cite" href="#zh-ref-4">[4]</a></p></div>
+          <div class="card"><h3>体育搜索 · FOX 与 Databricks</h3><p><span class="metric">约 2 倍</span>Databricks 于 2026 年 6 月披露，双方工程师共同开发体育内容搜索，搜索成功率翻倍。公开材料没有给出该指标的完整口径或对照设计。<a class="cite" href="#zh-ref-5">[5]</a></p></div>
+          <div class="card"><h3>财富管理 · Morgan Stanley</h3><p>OpenAI 客户报告记载，Morgan Stanley 用专家评审和针对具体任务的评估推动知识助手上线，Morgan Stanley 于 2024 年 6 月披露，98% 的财务顾问团队已采用该助手。“顾问团队”是采用率的分母。这个案例展示评估如何嵌入部署。<a class="cite" href="#zh-ref-13">[13]</a> <a class="cite" href="#zh-ref-16">[16]</a></p></div>
+          <div class="card"><h3>独立研究 · 客服辅助</h3><p>《经济学季刊》2025 年论文研究了 5,172 名客服人员的分阶段部署，每小时解决的问题数平均提高 15%，收益随经验而异。论文估计的是该场景中 AI 辅助的效果。<a class="cite" href="#zh-ref-14">[14]</a></p></div>
+        </div>
+        <p class="note">前三项是供应商披露，指标和适用范围各异。四项资料都无法单独识别由 FDE 岗位带来的增量收益。</p>
+      </section>
+      <section id="zh-org">
+        <h2>组织为什么配置 FDE，怎样衡量成效</h2>
+        <p>当用例价值高、流程高度依赖客户环境，而且已有业务负责人、数据访问路径和维护预算时，嵌入式工程能缩短需求澄清与现场验证的周期。成熟标准功能可由产品、伙伴或实施团队交付。长期定制会增加并行维护、权限维护与支持成本。客户和供应商应在启动时明确项目结束后由谁值守、谁批准业务动作、谁处理安全事件。<a class="cite" href="#zh-ref-2">[2]</a> <a class="cite" href="#zh-ref-5">[5]</a> <a class="cite" href="#zh-ref-12">[12]</a></p>
+        <dl class="rows">
+          <div><dt>业务与采用</dt><dd>首个生产用例耗时、合格任务覆盖率、目标用户每周采用率、处理时间、一次解决率。用相同任务口径比较基线与试点，并记录人工复核时间。</dd></div>
+          <div><dt>质量与风险</dt><dd>关键错误率、证据支持率、工具任务完成率、非授权动作、人工接管结果。按风险和用户群切片，并在扩流前预先约定停止条件。</dd></div>
+          <div><dt>系统与成本</dt><dd>关注端到端 P95 延迟、可用性、回滚耗时，以及每个合格任务的总成本，计入推理、基础设施、复核和运行维护。</dd></div>
+          <div><dt>可复制性</dt><dd>衡量第二支团队的接入耗时、复用组件比例及客户独立运维能力。客户特定规则可以保留配置化，共性需求可以沉淀为产品能力。</dd></div>
+        </dl>
+        <p><strong>区分定制、产品缺口与模型缺口。</strong>单一客户的政策差异适合沉淀为配置。多家客户反复遇到相同的集成难题时，可以把连接器与测试提升到平台。若系统结构已稳定，模型仍在真实任务中反复失误，就应向研究团队提交可复现的失败案例，同时收窄当前部署范围。<a class="cite" href="#zh-ref-4">[4]</a> <a class="cite" href="#zh-ref-5">[5]</a></p>
+        <p class="note">以上指标为本文综合框架。对于 ROI，先用有对照的试点估计任务耗时和质量变化，再把节省工时、实际业务增量、返工与错误损失和全量运行成本放入同一计算口径。</p>
+      </section>
+      <section id="zh-career">
+        <h2>技能、面试与职业路径</h2>
+        <ul class="list">
+          <li><strong>软件与数据底座。</strong>掌握 API、SQL、数据管道、权限、自动化测试、部署和排障，以便在不熟悉的客户技术栈中交付完整功能。</li>
+          <li><strong>应用 AI。</strong>能在规则、检索、工作流和代理之间做取舍，建立评估集、分析失败轨迹，追踪模型变化对成本、延迟和质量的影响。</li>
+          <li><strong>业务与沟通。</strong>能访谈一线使用者、厘清谁对结果负责、解释取舍、协调安全与运营团队，并把问题写成研发可复现的样本。</li>
+        </ul>
+        <p>一个作品集可以用公开或合成数据，展示同一工作流的人工基线、系统设计、评估集、错误分类、发布条件与运行手册。面试时准备讲清一个“从模糊问题到生产交接”的实例，并说明质量如何衡量、哪部分值得产品化。</p>
+        <p>常见入口包括后端／全栈、数据平台、应用 AI、实施工程和技术咨询。岗位资历也有梯度。OpenAI 新加坡的岗位列出 5 年以上工程或技术部署经验，Databricks 的 Associate FDE 列出 2 年以上相关经验。Anthropic 的一个 Staff 岗位预期约 25% 的时间出差。阅读职位描述时，可核对出差频率、售前和售后的时间比例、同时服务的客户数量、生产值班与产品反馈方式。<a class="cite" href="#zh-ref-6">[6]</a> <a class="cite" href="#zh-ref-7">[7]</a> <a class="cite" href="#zh-ref-15">[15]</a></p>
+      </section>
+      <section id="zh-sources">
+        <h2>参考资料</h2>
+        <p class="note">研究以公司原始披露、岗位说明、行业调查、同行评审论文和技术文件为主。岗位网页为查阅时的快照。</p>
+        <ol class="refs">
+          <li id="zh-ref-1"><a lang="en" href="https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1">Palantir · A day in the life of a Forward Deployed Software Engineer</a><br><span class="note">2020 年的 FDSE 岗位实践。</span></li>
+          <li id="zh-ref-2"><a lang="en" href="https://www.sec.gov/Archives/edgar/data/1321655/000119312520230013/d904406ds1.htm">Palantir · Form S-1</a><br><span class="note">2020 年 8 月 25 日，客户试点及 Acquire、Expand、Scale 经营阶段。</span></li>
+          <li id="zh-ref-3"><a lang="en" href="https://openai.com/index/openai-launches-the-deployment-company/">OpenAI · Launching the OpenAI Deployment Company</a><br><span class="note">2026 年 5 月 11 日，嵌入式部署业务公告。</span></li>
+          <li id="zh-ref-4"><a lang="en" href="https://openai.com/index/forward-deployed-engineering-means/">Colin Jarvis · What FDE means at OpenAI</a><br><span class="note">2026 年 10 月 22 日，团队成立时间、半导体案例和产品化复盘。</span></li>
+          <li id="zh-ref-5"><a lang="en" href="https://www.databricks.com/blog/forward-deployed-engineering-delivering-business-outcomes-ai">Databricks · Forward Deployed Engineering: Delivering Business Outcomes with AI</a><br><span class="note">2026 年 6 月 11 日，组织公告与 FOX 等客户案例。</span></li>
+          <li id="zh-ref-6"><a lang="en" href="https://openai.com/careers/forward-deployed-engineer-singapore-singapore/">OpenAI · Forward Deployed Engineer, Singapore</a><br><span class="note">岗位说明，涵盖客户交付、生产采用与研发反馈。</span></li>
+          <li id="zh-ref-7"><a lang="en" href="https://job-boards.greenhouse.io/anthropic/jobs/5449229008">Anthropic · Staff Forward Deployed Engineer</a><br><span class="note">岗位说明，涵盖需求发现、生产构建、伙伴交付与客户交接。</span></li>
+          <li id="zh-ref-8"><a lang="en" href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">McKinsey · The state of AI in 2026: On the road to ROI</a><br><span class="note">2026 年 8 月 25 日发布。5 月至 6 月采集来自 97 个国家的 1,719 份答卷，按国家 GDP 贡献加权。</span></li>
+          <li id="zh-ref-9"><a lang="en" href="https://www.anthropic.com/research/building-effective-agents">Anthropic · Building effective agents</a><br><span class="note">2024 年 12 月 19 日，工作流、代理与适度复杂性。</span></li>
+          <li id="zh-ref-10"><a lang="en" href="https://www.anthropic.com/research/demystifying-evals-for-ai-agents">Anthropic · Demystifying evals for AI agents</a><br><span class="note">2026 年 1 月 9 日，任务、评分器、执行轨迹和结果评估。</span></li>
+          <li id="zh-ref-11"><a lang="en" href="https://developers.openai.com/api/docs/guides/evaluation-best-practices">OpenAI · Evaluation best practices</a><br><span class="note">任务特定评估、人工校准与持续评估实践。</span></li>
+          <li id="zh-ref-12"><a lang="en" href="https://doi.org/10.6028/NIST.AI.600-1">NIST AI 600-1 · Generative Artificial Intelligence Profile</a><br><span class="note">2024 年 7 月，生成式 AI 风险管理、部署前测试与事件治理。</span></li>
+          <li id="zh-ref-13"><a lang="en" href="https://openai.com/index/morgan-stanley/">OpenAI · Morgan Stanley uses AI evals to shape the future of financial services</a><br><span class="note">财富管理知识助手的评估、权限与推广。</span></li>
+          <li id="zh-ref-14"><a lang="en" href="https://doi.org/10.1093/qje/qjae044">Brynjolfsson, Li &amp; Raymond · Generative AI at Work</a><br><span class="note">《经济学季刊》2025 年 5 月卷期，使用正式发表版本的统计。</span></li>
+          <li id="zh-ref-15"><a lang="en" href="https://www.databricks.com/company/careers/professional-services-operations/associate-forward-deployed-engineer-8907988002">Databricks · Associate Forward Deployed Engineer</a><br><span class="note">较早期 FDE 岗位的公开招聘说明。</span></li>
+          <li id="zh-ref-16"><a lang="en" href="https://www.morganstanley.com/press-releases/ai-at-morgan-stanley-debrief-launch">Morgan Stanley · Launch of AI @ Morgan Stanley Debrief</a><br><span class="note">2024 年 6 月，披露财富管理知识助手的团队采用率和全面推出时间。</span></li>
+        </ol>
+      </section>
+    </div>
+  </div>
+</main>
+
+<main id="en-edition" lang="en" hidden>
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Enterprise AI · Research brief</p>
+        <h1>What is an FDE?</h1>
+        <p class="subhead">Forward Deployed Engineering in the AI era</p>
+        <p class="lead">An FDE works inside a customer engagement to turn a data platform or model into software people can evaluate, deploy, and maintain. Recurring problems from the field inform the vendor’s product and research.</p>
+        <p class="date">Sources checked through <time datetime="2026-11-27">November 27, 2026</time></p>
+      </div>
+      <figure class="map">
+        <figcaption>How an FDE moves model capabilities into production</figcaption>
+        <ol>
+          <li><div><strong>Understand the work</strong><small>Identify bottlenecks, a workflow owner, and a baseline</small></div></li>
+          <li><div><strong>Build and evaluate together</strong><small>Connect data, permissions, and tools, then test realistic cases</small></div></li>
+          <li><div><strong>Deploy, operate, and hand over</strong><small>Roll out gradually and track adoption, costs, and exceptions</small></div></li>
+        </ol>
+        <p class="loop">Field feedback informs the platform, models, and future deployments</p>
+      </figure>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+    <nav class="toc" aria-label="Table of contents">
+      <strong>Contents</strong>
+      <a href="#en-role">Definition and history</a>
+      <a href="#en-ai">Why it matters</a>
+      <a href="#en-delivery">Delivery lifecycle</a>
+      <a href="#en-boundaries">Related roles</a>
+      <a href="#en-cases">Case studies</a>
+      <a href="#en-org">Teams and metrics</a>
+      <a href="#en-career">Skills and careers</a>
+      <a href="#en-sources">References</a>
+    </nav>
+    <div class="article">
+      <section id="en-role">
+        <h2>Definition and history</h2>
+        <p><strong>FDE</strong> can mean a <em>Forward Deployed Engineer</em> or the team and delivery model of <em>Forward Deployed Engineering</em>. Typically, a vendor or delivery organization embeds an engineer with a customer’s users, engineers, and business owners. Being embedded means participating in the work and sharing delivery goals and feedback, whether remotely or on site. The title and depth of involvement vary by company and engagement. <a class="cite" href="#en-ref-1">[1]</a> <a class="cite" href="#en-ref-4">[4]</a> <a class="cite" href="#en-ref-6">[6]</a></p>
+        <ol class="timeline">
+          <li><strong>2020 · Palantir</strong> publicly described an embedded Forward Deployed Software Engineer (FDSE), also called a Delta, who configured and extended platforms to solve customer problems. Its S-1 filing set out the Acquire, Expand, and Scale phases and described how early pilots could be funded by the vendor. <a class="cite" href="#en-ref-1">[1]</a> <a class="cite" href="#en-ref-2">[2]</a></li>
+          <li><strong>2025–2026 · OpenAI</strong> started its FDE team in early 2025, according to the team’s lead, with a focus on making model capabilities reliable in customer workflows. In May 2026, OpenAI announced its Deployment Company to expand embedded engineering capacity. <a class="cite" href="#en-ref-3">[3]</a> <a class="cite" href="#en-ref-4">[4]</a></li>
+          <li><strong>2026 · Databricks and Anthropic</strong> Databricks announced an FDE organization in June, covering data migration through production AI. Anthropic’s careers board also lists FDE and related technical deployment roles. <a class="cite" href="#en-ref-5">[5]</a> <a class="cite" href="#en-ref-7">[7]</a></li>
+        </ol>
+        <p class="note">These records date visible examples of adoption. Establishing the first use of the title or estimating industry-wide hiring growth would require other evidence.</p>
+      </section>
+      <section id="en-ai">
+        <h2>Why generative AI increases the value of the role</h2>
+        <div class="split">
+          <div class="card"><h3>Performance depends on local context</h3><p>Customers bring domain vocabulary, implicit processes, legacy systems, and exceptions. Public benchmarks indicate model capabilities. Production acceptance depends on judging whether answers support the next decision on real customer tasks. <a class="cite" href="#en-ref-4">[4]</a></p></div>
+          <div class="card"><h3>A task can take many paths</h3><p>Model updates, retrieved context, and tool responses affect behavior. FDEs turn task outcomes, tool traces, exception handling, and human escalation into repeatable evaluations.</p></div>
+          <div class="card"><h3>Operational actions require ownership</h3><p>Looking up a policy, drafting a reply, and issuing a refund carry different risks. Deployment requires translating identity, authorization, approvals, auditability, and rollback into controls for individual actions.</p></div>
+          <div class="card"><h3>Prototyping speeds up, validation spans teams</h3><p>Data owners, security, business leads, and operations may all need to change how work gets done. Adoption data and field failures also help the vendor decide what should become part of the shared product. <a class="cite" href="#en-ref-4">[4]</a> <a class="cite" href="#en-ref-5">[5]</a></p></div>
+        </div>
+        <p>In McKinsey’s 2026 global survey, 44% of respondents said their organizations were scaling AI across the enterprise, up from the 38% prior-year comparison in the report. These are respondent reports about their organizations. FDE labor demand and returns on investment require separate evidence. <a class="cite" href="#en-ref-8">[8]</a></p>
+      </section>
+      <section id="en-delivery">
+        <h2>From discovery to production handover</h2>
+        <ol class="steps">
+          <li><strong>Discover and scope</strong> Observe how users actually do the work. Pick a frequent, testable workflow and document the human baseline, failure costs, data availability, and responsible owner. Agree on scope and pilot exit criteria.</li>
+          <li><strong>Build the smallest useful system</strong> Start with structured rules, queries, and single model calls. Add retrieval-augmented generation (RAG), tools, or a bounded agent workflow where the task warrants it. Preserve evidence provenance, enforce existing user entitlements, and make human review available. <a class="cite" href="#en-ref-9">[9]</a></li>
+          <li><strong>Build evaluations and release gates</strong> Create a held-out set of historical tasks and edge cases, grouped by task and risk. Define criteria for correctness, supporting evidence, tool outcomes, and appropriate refusals. Count critical errors separately and regression-test model, prompt, and tool changes. <a class="cite" href="#en-ref-10">[10]</a> <a class="cite" href="#en-ref-11">[11]</a></li>
+          <li><strong>Run in shadow mode, then release gradually</strong> Observe results before enabling real actions for limited cohorts. Log outcomes, cost, latency, and tool errors with appropriate access controls. Decide in advance when to pause, roll back, or hand control to a human. <a class="cite" href="#en-ref-10">[10]</a> <a class="cite" href="#en-ref-12">[12]</a></li>
+          <li><strong>Hand over and extract reusable assets</strong> Transfer code, evaluations, dashboards, runbooks, and operating ownership. Take reusable connectors, authorization patterns, and reproducible model failures back to Product or Research. <a class="cite" href="#en-ref-4">[4]</a> <a class="cite" href="#en-ref-5">[5]</a></li>
+        </ol>
+        <div class="strip"><strong>Illustrative example · Support ticket assistant</strong><p>The first version drafts policy-cited replies for agents to approve and send. Historical tickets cover obsolete policies, exceptions, and missing data. Compare the pilot and current workflow on handling time, correct resolution, escalation rate, and cost per ticket. If the workflow adds refunds, the business system validates amounts and approvals and records execution results.</p></div>
+      </section>
+      <section id="en-boundaries">
+        <h2>How related roles divide the work</h2>
+        <p>Delivery accountability, code ownership, production authority, and engagement length convey more about the job than a title. These are common divisions of labor, and one person can cover multiple roles. <a class="cite" href="#en-ref-6">[6]</a> <a class="cite" href="#en-ref-7">[7]</a></p>
+        <dl class="rows">
+          <div><dt>FDE</dt><dd>Writes production code around a customer outcome, owns integration, evaluation, and handover, and takes recurring needs back to the platform team.</dd></div>
+          <div><dt>Solutions engineer or architect</dt><dd>Typically focuses on technical selection, presales validation, and architecture. Some roles continue through implementation and launch.</dd></div>
+          <div><dt>Product software engineer</dt><dd>Owns shared code and interfaces over time, with emphasis on applicability across customers and platform reliability.</dd></div>
+          <div><dt>Applied AI or ML engineer</dt><dd>Focuses on modeling, evaluation, inference, or application engineering. The work can overlap substantially when it also covers customer workflow redesign and production delivery.</dd></div>
+          <div><dt>Delivery consultant or implementation engineer</dt><dd>Often focuses on discovery, configuration, migration, or change management. Custom code, ongoing operating responsibility, and access to product teams vary.</dd></div>
+          <div><dt>Customer success or SRE</dt><dd>Customer success emphasizes adoption and relationships. Site reliability engineering emphasizes reliability and incidents. Both can participate in launch and handover.</dd></div>
+        </dl>
+      </section>
+      <section id="en-cases">
+        <h2>What the public cases show</h2>
+        <div class="split">
+          <div class="card"><h3>Chip verification · OpenAI</h3><p><span class="metric">About 48%</span>In its October 2026 retrospective, OpenAI reported that engineers co-developed evaluations with chip verification teams and built test generation and diagnostic systems. It reported about 48% time savings on directed test generation. Several use cases moved to a shared harness. In one August 2026 example from the same retrospective, the initial deployment took two months and extending it to a second team took one day, illustrating reuse in that particular engagement. <a class="cite" href="#en-ref-4">[4]</a></p></div>
+          <div class="card"><h3>Sports search · FOX and Databricks</h3><p><span class="metric">About 2×</span>In June 2026, Databricks reported that the teams co-built sports search features and doubled search success. The announcement gives limited detail on the metric definition or control design. <a class="cite" href="#en-ref-5">[5]</a></p></div>
+          <div class="card"><h3>Wealth management · Morgan Stanley</h3><p>OpenAI’s customer story describes task-specific evaluations and expert review for a knowledge assistant. In June 2024, Morgan Stanley reported that 98% of financial advisor teams had adopted it. The unit of adoption is the advisor team. The case illustrates how evaluation supports deployment. <a class="cite" href="#en-ref-13">[13]</a> <a class="cite" href="#en-ref-16">[16]</a></p></div>
+          <div class="card"><h3>Independent study · Customer support</h3><p>A 2025 <em>Quarterly Journal of Economics</em> article studied a staggered deployment covering 5,172 support agents. Access to AI assistance increased issues resolved per hour by 15% on average, with differences by experience. The paper estimates the effect of AI assistance in that setting. <a class="cite" href="#en-ref-14">[14]</a></p></div>
+        </div>
+        <p class="note">The first three are vendor disclosures with different metrics and scopes. None of the four isolates the incremental effect of an FDE role.</p>
+      </section>
+      <section id="en-org">
+        <h2>When to staff FDEs and how to measure their work</h2>
+        <p>Embedded engineering can shorten discovery and validation for valuable, context-heavy workflows with a business owner, a route to data access, and a maintenance budget. Mature standard capabilities can be delivered by the product team, partners, or implementation teams. Sustained custom work adds maintenance, access management, and support costs. Agree early on who operates the system after handover, who approves business actions, and who responds to security incidents. <a class="cite" href="#en-ref-2">[2]</a> <a class="cite" href="#en-ref-5">[5]</a> <a class="cite" href="#en-ref-12">[12]</a></p>
+        <dl class="rows">
+          <div><dt>Outcomes and adoption</dt><dd>Time to first production use case, share of eligible tasks covered, weekly adoption among target users, handling time, and first-contact resolution. Use matching task definitions for baseline and pilot and track review time.</dd></div>
+          <div><dt>Quality and risk</dt><dd>Critical error rate, evidence support rate, tool task completion, unauthorized actions, and human handover outcomes. Group results by risk and user cohort and agree on stop criteria before expanding.</dd></div>
+          <div><dt>System and cost</dt><dd>End-to-end p95 latency, availability, rollback time, and full cost per qualifying task, including inference, infrastructure, review, and maintenance.</dd></div>
+          <div><dt>Repeatability</dt><dd>Time to onboard the second team, share of reusable components, and the customer’s ability to operate independently. Keep customer rules configurable and bring common requirements into the product.</dd></div>
+        </dl>
+        <p><strong>Distinguish customer customization, product gaps, and model gaps.</strong> A single customer’s policy differences can live in configuration. When multiple customers encounter the same integration hurdle, promote the connector and tests to the platform. If the system design has stabilized and the model still fails on real tasks, send reproducible failures to Research and narrow the current deployment scope. <a class="cite" href="#en-ref-4">[4]</a> <a class="cite" href="#en-ref-5">[5]</a></p>
+        <p class="note">These metrics are a synthesis. For ROI, use a comparison group where feasible to estimate changes in time and quality, then account for labor, incremental business value, rework, errors, and full operating cost on a common basis.</p>
+      </section>
+      <section id="en-career">
+        <h2>Skills, interviews, and career paths</h2>
+        <ul class="list">
+          <li><strong>Software and data engineering.</strong> Work with APIs, SQL, pipelines, permissions, automated testing, deployment, and debugging to ship within an unfamiliar stack.</li>
+          <li><strong>Applied AI.</strong> Choose among rules, retrieval, workflows, and agents. Build evaluation sets, analyze failed runs, and track how model changes affect cost, latency, and quality.</li>
+          <li><strong>Business discovery and communication.</strong> Interview practitioners, identify accountable owners, explain tradeoffs, coordinate security and operations, and provide replicable evidence for engineering teams.</li>
+        </ul>
+        <p>A portfolio project can use public or synthetic data to show a human baseline, architecture, evaluations, failure categories, release criteria, and a runbook for a single workflow. For interviews, prepare an example from ambiguous problem to production handover. Explain how you measured quality and what you would make reusable.</p>
+        <p>Typical entry points include backend or full-stack work, data platforms, applied AI, implementation, and technical consulting. Job levels vary. OpenAI’s Singapore role lists five or more years of engineering or technical deployment experience, and the Databricks Associate FDE role lists two or more years of relevant experience. One Anthropic Staff listing calls for about 25% travel. Check the job description for travel, the presales and post-sales split, concurrent customers, on-call responsibilities, and the product feedback process. <a class="cite" href="#en-ref-6">[6]</a> <a class="cite" href="#en-ref-7">[7]</a> <a class="cite" href="#en-ref-15">[15]</a></p>
+      </section>
+      <section id="en-sources">
+        <h2>References</h2>
+        <p class="note">Sources include company disclosures, job descriptions, a global survey, a peer-reviewed study, and technical guidance. Job listings reflect the time of review.</p>
+        <ol class="refs">
+          <li id="en-ref-1"><a lang="en" href="https://blog.palantir.com/a-day-in-the-life-of-a-palantir-forward-deployed-software-engineer-45ef2de257b1">Palantir · A day in the life of a Forward Deployed Software Engineer</a><br><span class="note">A first-person account of the FDSE role, 2020.</span></li>
+          <li id="en-ref-2"><a lang="en" href="https://www.sec.gov/Archives/edgar/data/1321655/000119312520230013/d904406ds1.htm">Palantir · Form S-1</a><br><span class="note">August 25, 2020. Customer pilots and the Acquire, Expand, and Scale business model.</span></li>
+          <li id="en-ref-3"><a lang="en" href="https://openai.com/index/openai-launches-the-deployment-company/">OpenAI · Launching the OpenAI Deployment Company</a><br><span class="note">May 11, 2026. Announcement of the embedded deployment business.</span></li>
+          <li id="en-ref-4"><a lang="en" href="https://openai.com/index/forward-deployed-engineering-means/">Colin Jarvis · What FDE means at OpenAI</a><br><span class="note">October 22, 2026. Team origins, the chip case, and productization.</span></li>
+          <li id="en-ref-5"><a lang="en" href="https://www.databricks.com/blog/forward-deployed-engineering-delivering-business-outcomes-ai">Databricks · Forward Deployed Engineering: Delivering Business Outcomes with AI</a><br><span class="note">June 11, 2026. Team announcement and customer cases including FOX.</span></li>
+          <li id="en-ref-6"><a lang="en" href="https://openai.com/careers/forward-deployed-engineer-singapore-singapore/">OpenAI · Forward Deployed Engineer, Singapore</a><br><span class="note">Job description covering customer delivery, production adoption, and research feedback.</span></li>
+          <li id="en-ref-7"><a lang="en" href="https://job-boards.greenhouse.io/anthropic/jobs/5449229008">Anthropic · Staff Forward Deployed Engineer</a><br><span class="note">Job description covering discovery, production builds, partner delivery, and handover.</span></li>
+          <li id="en-ref-8"><a lang="en" href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-state-of-ai">McKinsey · The state of AI in 2026: On the road to ROI</a><br><span class="note">Published August 25, 2026. Surveyed 1,719 participants in 97 nations from May to June, with responses weighted by national GDP contribution.</span></li>
+          <li id="en-ref-9"><a lang="en" href="https://www.anthropic.com/research/building-effective-agents">Anthropic · Building effective agents</a><br><span class="note">December 19, 2024. Workflows, agents, and choosing appropriate complexity.</span></li>
+          <li id="en-ref-10"><a lang="en" href="https://www.anthropic.com/research/demystifying-evals-for-ai-agents">Anthropic · Demystifying evals for AI agents</a><br><span class="note">January 9, 2026. Tasks, graders, traces, and outcome evaluation.</span></li>
+          <li id="en-ref-11"><a lang="en" href="https://developers.openai.com/api/docs/guides/evaluation-best-practices">OpenAI · Evaluation best practices</a><br><span class="note">Task-specific evaluation, human calibration, and continuous evaluation.</span></li>
+          <li id="en-ref-12"><a lang="en" href="https://doi.org/10.6028/NIST.AI.600-1">NIST AI 600-1 · Generative Artificial Intelligence Profile</a><br><span class="note">July 2024. Generative AI risk management, pre-deployment testing, and incident governance.</span></li>
+          <li id="en-ref-13"><a lang="en" href="https://openai.com/index/morgan-stanley/">OpenAI · Morgan Stanley uses AI evals to shape the future of financial services</a><br><span class="note">Evaluations, controls, and rollout of a wealth management knowledge assistant.</span></li>
+          <li id="en-ref-14"><a lang="en" href="https://doi.org/10.1093/qje/qjae044">Brynjolfsson, Li &amp; Raymond · Generative AI at Work</a><br><span class="note">Quarterly Journal of Economics, May 2025 issue. Figures are from the published article.</span></li>
+          <li id="en-ref-15"><a lang="en" href="https://www.databricks.com/company/careers/professional-services-operations/associate-forward-deployed-engineer-8907988002">Databricks · Associate Forward Deployed Engineer</a><br><span class="note">A public job description for an earlier-career FDE role.</span></li>
+          <li id="en-ref-16"><a lang="en" href="https://www.morganstanley.com/press-releases/ai-at-morgan-stanley-debrief-launch">Morgan Stanley · Launch of AI @ Morgan Stanley Debrief</a><br><span class="note">June 2024. Team adoption and the full rollout date for the wealth management knowledge assistant.</span></li>
+        </ol>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="https://chejinying.com/x/">Jinying’s Notebook</a>
+    <a href="#top"><span lang="zh-CN" data-label="zh-CN">回到顶部</span><span lang="en" data-label="en" hidden>Back to top</span></a>
+  </div>
+</footer>
+<script>
+(() => {
+  const switcher = document.getElementById('language');
+  const buttons = [...switcher.querySelectorAll('button')];
+  const labels = [...document.querySelectorAll('[data-label]')];
+  const editions = {
+    'zh-CN': document.getElementById('zh-edition'),
+    en: document.getElementById('en-edition')
+  };
+  const titles = {
+    'zh-CN': document.title,
+    en: 'What is an FDE? Forward Deployed Engineering in the AI era'
+  };
+
+  function show(language) {
+    for (const [key, edition] of Object.entries(editions)) {
+      edition.hidden = key !== language;
+    }
+    for (const button of buttons) {
+      button.setAttribute('aria-pressed', String(button.dataset.lang === language));
+    }
+    for (const label of labels) {
+      label.hidden = label.dataset.label !== language;
+    }
+    document.documentElement.lang = language;
+    document.title = titles[language];
+    switcher.setAttribute('aria-label', language === 'en' ? 'Reading language' : '阅读语言');
+  }
+
+  function followFragment() {
+    const id = location.hash.slice(1);
+    const target = document.getElementById(id);
+    const edition = target?.closest('main');
+    if (edition && edition.hidden) {
+      show(edition.lang);
+      target.scrollIntoView();
+    }
+    if (!id && document.documentElement.lang !== 'zh-CN') show('zh-CN');
+  }
+
+  for (const button of buttons) {
+    button.addEventListener('click', () => {
+      const language = button.dataset.lang;
+      if (document.documentElement.lang === language) return;
+      const previousId = location.hash.slice(1);
+      const prefix = language === 'en' ? 'en-' : 'zh-';
+      const translatedId = previousId.replace(/^(zh|en)-/, prefix);
+      const translated = translatedId.startsWith(prefix) && document.getElementById(translatedId);
+      show(language);
+      if (translated && translated !== editions[language]) {
+        history.replaceState(null, '', '#' + translated.id);
+        translated.scrollIntoView();
+      } else {
+        history.replaceState(null, '', language === 'en' ? '#en-edition' : location.pathname + location.search);
+        window.scrollTo(0, 0);
+      }
+    });
+  }
+  switcher.hidden = false;
+  window.addEventListener('hashchange', followFragment);
+  followFragment();
+})();
+</script>
+</body>
+</html>
