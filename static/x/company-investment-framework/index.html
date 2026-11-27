@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="从商业模式、财务质量、管理层、估值与风险出发，建立一套可以实际使用的公司投资分析框架。">
+  <meta name="keywords" content="投资分析, 基本面分析, 企业估值, 财务报表, 风险管理">
+  <meta property="article:published_time" content="2026-11-27">
+  <meta name="theme-color" content="#102824">
+  <title>如何分析一家公司是否值得投资？｜公司研究手册</title>
+  <style>
+    :root { color-scheme: light; --ink:#182a26; --muted:#5d6d68; --green:#0b4b3d; --dark:#102824; --deep:#0b1d1a; --mint:#c9f08b; --paper:#f5f8f6; --white:#fff; --line:#dbe5df; --pale:#edf4ef; --red:#a13d36; --shadow:0 14px 45px rgba(22,55,42,.07); }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:28px; }
+    body { margin:0; background:var(--paper); color:var(--ink); font-family:Inter, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, -apple-system, sans-serif; font-size:16px; line-height:1.75; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; }
+    button, input { font:inherit; }
+    button, a, input { -webkit-tap-highlight-color:transparent; }
+    :focus-visible { outline:3px solid #b6e66e; outline-offset:3px; }
+    .shell { width:min(100% - 64px, 1200px); margin-inline:auto; }
+    .hero-wrap { background:var(--dark); color:#f7fbf7; overflow:hidden; position:relative; }
+    .hero-wrap:before { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at 85% 20%, rgba(91,165,120,.19), transparent 38%); }
+    .topbar { min-height:82px; display:flex; align-items:center; justify-content:space-between; gap:24px; border-bottom:1px solid rgba(231,249,235,.16); position:relative; }
+    .brand { display:flex; align-items:center; gap:12px; text-decoration:none; font-weight:750; letter-spacing:.03em; white-space:nowrap; }
+    .brand-mark { width:34px; height:34px; border:1px solid #bfe897; display:grid; place-items:center; color:var(--mint); border-radius:9px; font-family:Georgia,serif; font-size:19px; line-height:1; }
+    .top-links { display:flex; align-items:center; gap:27px; color:#c7d7cf; font-size:14px; }
+    .top-links a { text-decoration:none; }
+    .top-links a:hover { color:#fff; }
+    .top-links .top-action { color:var(--mint); font-weight:700; border:1px solid rgba(201,240,139,.45); padding:7px 13px; border-radius:6px; }
+    .hero { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(330px,.76fr); gap:clamp(55px,8vw,120px); align-items:center; padding:84px 0 92px; position:relative; }
+    .eyebrow { display:flex; align-items:center; gap:9px; color:#bfe897; font-size:13px; font-weight:750; letter-spacing:.13em; text-transform:uppercase; }
+    .eyebrow:before { content:""; width:23px; height:1px; background:currentColor; }
+    h1,h2,h3,h4,p { margin-top:0; }
+    h1 { margin:24px 0 24px; font-size:clamp(43px,5.5vw,71px); line-height:1.2; letter-spacing:-.045em; font-weight:780; }
+    h1 em { font-style:normal; color:var(--mint); }
+    .hero-lead { max-width:610px; color:#c9d8d0; font-size:17px; line-height:1.95; margin-bottom:30px; }
+    .hero-actions { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+    .button { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:49px; padding:11px 20px; border-radius:7px; border:1px solid transparent; text-decoration:none; font-size:15px; font-weight:750; cursor:pointer; transition:background .15s,transform .15s,border-color .15s; }
+    .button:hover { transform:translateY(-2px); }
+    .button-primary { color:#173326; background:var(--mint); }
+    .button-primary:hover { background:#d7f8a5; }
+    .button-ghost { color:#e4eee8; background:transparent; border-color:#607970; }
+    .button-ghost:hover { border-color:#c1d5c8; }
+    .hero-note { color:#9cb0a6; margin:27px 0 0; font-size:13px; }
+    .hero-card { padding:27px 30px 24px; border-radius:12px; background:linear-gradient(155deg,rgba(255,255,255,.10),rgba(255,255,255,.035)); border:1px solid rgba(228,250,231,.18); box-shadow:0 22px 60px rgba(0,0,0,.14); }
+    .card-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding-bottom:19px; border-bottom:1px solid rgba(255,255,255,.15); }
+    .card-top span { color:#bbd0c4; font-size:13px; }
+    .card-top strong { font-size:16px; letter-spacing:.02em; }
+    .lens { display:grid; grid-template-columns:34px 1fr auto; align-items:center; gap:13px; padding:15px 0; border-bottom:1px solid rgba(255,255,255,.10); }
+    .lens:last-of-type { border:0; }
+    .lens-icon { width:31px; height:31px; border-radius:50%; display:grid; place-items:center; border:1px solid rgba(201,240,139,.38); color:var(--mint); font-size:13px; font-weight:800; }
+    .lens b { font-size:15px; }
+    .lens small { color:#a9bdb1; font-size:13px; text-align:right; }
+    .card-bottom { margin:9px 0 0; padding-top:16px; border-top:1px solid rgba(255,255,255,.15); font-size:13px; color:#c6d6cc; }
+    .card-bottom strong { color:var(--mint); }
+    .intro-band { background:#dcebdd; border-bottom:1px solid #d0e1d4; }
+    .intro-inner { min-height:96px; display:flex; align-items:center; gap:28px; justify-content:space-between; padding-block:19px; }
+    .intro-inner strong { font-size:17px; white-space:nowrap; }
+    .intro-inner p { margin:0; max-width:810px; font-size:15px; color:#415b4f; }
+    .layout { display:grid; grid-template-columns:190px minmax(0,1fr); gap:clamp(42px,6vw,84px); align-items:start; padding-block:70px 88px; }
+    .sidebar { position:sticky; top:28px; padding-top:5px; }
+    .side-label, .kicker { text-transform:uppercase; color:#5d8171; font-size:12px; font-weight:800; letter-spacing:.12em; }
+    .side-label { display:block; margin:0 0 16px 11px; }
+    .sidebar a { display:block; padding:8px 10px; border-left:2px solid transparent; text-decoration:none; color:#65766e; font-size:14px; }
+    .sidebar a:hover { color:var(--green); border-left-color:#81b89a; }
+    .side-divider { height:1px; margin:20px 0; background:var(--line); }
+    .side-foot { padding:0 10px; color:#819088; font-size:12px; line-height:1.8; }
+    .content { min-width:0; }
+    section.block { padding-bottom:70px; margin-bottom:70px; border-bottom:1px solid var(--line); }
+    section.block:last-child { border:0; padding:0; margin:0; }
+    .section-head { margin-bottom:27px; }
+    .kicker { display:block; margin-bottom:12px; color:#51866d; }
+    h2 { font-size:clamp(28px,3.1vw,40px); line-height:1.3; letter-spacing:-.035em; margin-bottom:13px; }
+    .section-head p { max-width:690px; color:var(--muted); margin:0; }
+    h3 { font-size:19px; line-height:1.45; letter-spacing:-.015em; margin-bottom:9px; }
+    h4 { font-size:16px; margin-bottom:5px; }
+    p { margin-bottom:16px; }
+    .small { font-size:14px; }
+    .muted { color:var(--muted); }
+    .overview-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+    .overview-card { min-height:155px; display:flex; flex-direction:column; justify-content:space-between; gap:16px; padding:18px 15px; border:1px solid var(--line); border-radius:8px; background:#fff; text-decoration:none; transition:border-color .15s,transform .15s; }
+    .overview-card:hover { transform:translateY(-3px); border-color:#80ac91; }
+    .overview-card .tag { color:#5a9070; font-size:12px; font-weight:800; letter-spacing:.07em; }
+    .overview-card strong { display:block; font-size:16px; }
+    .overview-card span:last-child { color:var(--muted); font-size:13px; line-height:1.5; }
+    .takeaway { margin-top:18px; padding:18px 21px; background:#e4f1e5; border-left:3px solid #5c9e70; color:#335646; font-size:15px; }
+    .takeaway strong { color:#174b34; }
+    .grid-two { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .info-card { background:white; padding:23px; border:1px solid var(--line); border-radius:9px; }
+    .info-card p { color:var(--muted); font-size:14px; margin:0; }
+    .info-card .mini { display:block; color:#4a8766; font-size:12px; font-weight:800; letter-spacing:.06em; margin-bottom:12px; }
+    .callout { margin-top:17px; padding:20px 23px; background:#163c32; border-radius:8px; color:#dcebe1; }
+    .callout strong { color:#d6f4a4; }
+    .callout p { font-size:14px; margin:4px 0 0; }
+    .metric-list { border-top:1px solid var(--line); }
+    .metric { display:grid; grid-template-columns:185px minmax(0,1fr); gap:25px; padding:20px 0; border-bottom:1px solid var(--line); }
+    .metric h3 { font-size:16px; margin:0; }
+    .metric h3 span { display:block; font-size:12px; color:#7a8b80; font-weight:500; margin-top:3px; }
+    .metric p { font-size:14px; color:#52665b; margin:0; }
+    .formula { display:block; color:#1c4a36; font-weight:700; margin-bottom:4px; }
+    .note { margin-top:18px; color:#60746a; font-size:13px; }
+    .evidence { display:grid; grid-template-columns:1fr 1fr; gap:17px; }
+    .evidence-panel { padding:24px; background:white; border:1px solid var(--line); border-radius:9px; }
+    .evidence-panel h3 { margin-bottom:15px; }
+    .clean-list { margin:0; padding:0; list-style:none; }
+    .clean-list li { position:relative; padding-left:17px; margin:10px 0; color:#51635a; font-size:14px; }
+    .clean-list li:before { content:""; position:absolute; left:0; top:.7em; width:6px; height:6px; border-radius:50%; background:#70a77d; }
+    .red-list li:before { background:#d18072; }
+    .quote { margin:21px 0 0; font-size:15px; color:#456453; }
+    .methods { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .method { border:1px solid var(--line); border-radius:9px; padding:24px; background:white; }
+    .method p { font-size:14px; color:#5b6c62; margin:0; }
+    .method .math { margin:14px 0; color:#174b37; font-size:15px; font-weight:750; line-height:1.75; }
+    .calc { margin-top:22px; border:1px solid #d6e5db; background:#edf5ef; border-radius:10px; padding:27px; }
+    .calc-heading { display:flex; justify-content:space-between; gap:20px; align-items:start; margin-bottom:21px; }
+    .calc-heading h3 { margin:0 0 4px; font-size:21px; }
+    .calc-heading p { margin:0; color:#607468; font-size:14px; }
+    .badge { flex:none; padding:4px 10px; border-radius:100px; color:#326145; background:#d9ead9; font-size:12px; font-weight:750; }
+    .inputs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px 13px; }
+    .field label { display:block; color:#345447; font-size:13px; font-weight:700; margin-bottom:6px; }
+    .input-wrap { position:relative; }
+    .input-wrap input { width:100%; min-width:0; height:45px; background:#fff; border:1px solid #cbdcd1; border-radius:6px; color:#173c2d; padding:8px 39px 8px 11px; font-weight:700; }
+    .input-wrap .unit { position:absolute; right:11px; top:50%; transform:translateY(-50%); color:#85958a; font-size:13px; pointer-events:none; }
+    .calc-results { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:19px; overflow:hidden; border-radius:7px; background:#d3e3d6; }
+    .result { background:#fff; padding:16px 14px; }
+    .result span { display:block; font-size:12px; color:#71867a; }
+    .result strong { display:block; color:#135239; font-size:23px; line-height:1.3; margin:4px 0; font-variant-numeric:tabular-nums; }
+    .result small { font-size:12px; color:#71867a; }
+    .calc-explain { margin:14px 0 0; color:#5e7466; font-size:13px; line-height:1.7; }
+    .error { color:#a42d27; font-size:13px; margin:12px 0 0; }
+    .safety { padding:22px 24px; background:#163c32; border-radius:9px; color:#d9e9df; margin-top:18px; }
+    .safety h3 { color:white; margin-bottom:7px; }
+    .safety p { font-size:14px; margin:0; }
+    .risk-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+    .risk { border-top:3px solid #9fc4a6; background:#fff; padding:20px; border-radius:3px 3px 8px 8px; }
+    .risk h3 { font-size:16px; }
+    .risk p { color:var(--muted); font-size:14px; margin:0; }
+    .decision { margin-top:20px; padding:23px; border:1px solid #d5e3da; border-radius:9px; }
+    .decision h3 { margin-bottom:8px; }
+    .decision p { color:#586e60; font-size:14px; margin-bottom:0; }
+    .check-header { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-bottom:16px; }
+    .check-header p { color:var(--muted); margin:0; font-size:14px; }
+    .progress-label { color:#2e6846; font-weight:800; font-size:14px; white-space:nowrap; }
+    .progress { height:5px; border-radius:3px; background:#dfebe1; margin-bottom:12px; overflow:hidden; }
+    .progress > div { height:100%; width:0; border-radius:3px; background:#52996b; transition:width .2s; }
+    .checks { display:grid; grid-template-columns:1fr 1fr; gap:0 26px; }
+    .check { display:flex; align-items:flex-start; gap:11px; padding:14px 0; border-bottom:1px solid var(--line); color:#344c40; font-size:14px; cursor:pointer; }
+    .check input { accent-color:#347c52; flex:none; width:18px; height:18px; margin:3px 0 0; }
+    .worksheet { background:white; border:1px solid var(--line); border-radius:9px; margin-top:25px; padding:23px; }
+    .worksheet h3 { margin-bottom:13px; }
+    .worksheet-lines { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+    .worksheet-lines div { background:#f4f8f5; padding:14px; border-radius:6px; color:#576d5e; font-size:14px; }
+    .worksheet-lines b { display:block; color:#264b37; margin-bottom:3px; }
+    .sources { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+    .sources a { border:1px solid var(--line); color:#2a6848; text-decoration:none; padding:7px 12px; border-radius:6px; background:#fff; font-size:13px; }
+    .sources a:hover { border-color:#6ca784; }
+    .footer { color:#b6cbc0; background:#102824; padding:37px 0; }
+    .footer-inner { display:flex; justify-content:space-between; gap:30px; align-items:start; }
+    .footer strong { display:block; color:#f0f8f1; margin-bottom:6px; }
+    .footer p { max-width:760px; font-size:13px; margin:0; }
+    .footer button { flex:none; color:#dbecdf; background:none; border:1px solid #718d7d; border-radius:6px; padding:8px 13px; cursor:pointer; font-size:13px; }
+    @media (max-width:1000px) { .overview-grid { grid-template-columns:repeat(3,1fr); } .overview-card { min-height:130px; } .layout { gap:38px; grid-template-columns:165px minmax(0,1fr); } .hero { gap:45px; } }
+    @media (max-width:850px) { .shell { width:min(100% - 36px, 600px); } .topbar { min-height:68px; } .top-links a:not(.top-action) { display:none; } .hero { grid-template-columns:1fr; gap:35px; padding:58px 0; } h1 { font-size:clamp(39px,10vw,55px); } .hero-card { max-width:none; } .intro-inner { align-items:flex-start; gap:6px; flex-direction:column; } .layout { display:block; padding-block:50px 65px; } .sidebar { position:static; display:flex; flex-wrap:wrap; gap:7px; padding:0 0 34px; } .side-label { width:100%; margin:0 0 3px; } .sidebar a { background:#e8f0ea; border:0; border-radius:5px; font-size:13px; padding:5px 9px; } .sidebar a:hover { background:#dcebdd; } .side-divider, .side-foot { display:none; } section.block { margin-bottom:52px; padding-bottom:52px; } .overview-grid { grid-template-columns:repeat(2,1fr); } .overview-card { min-height:122px; } .metric { grid-template-columns:1fr; gap:7px; } .metric h3 span { display:inline; margin-left:8px; } .risk-grid { grid-template-columns:1fr; } .footer-inner { display:block; } .footer button { margin-top:20px; } }
+    @media (max-width:490px) { .hero { padding-top:48px; } .hero-lead { font-size:16px; } .hero-card { padding:20px; } .grid-two,.evidence,.methods,.checks,.worksheet-lines { grid-template-columns:1fr; } .inputs { grid-template-columns:repeat(2,1fr); } .calc { padding:20px; } .calc-results { grid-template-columns:1fr; } .result { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:12px; } .result strong { margin:0; font-size:20px; } .result small { display:none; } .calc-heading { display:block; } .badge { display:inline-block; margin-top:10px; } .overview-card { padding:15px; } .lens small { font-size:12px; } }
+    @media print { html { scroll-padding:0; } body { background:white; font-size:11pt; } .top-links,.hero-actions,.sidebar,.footer button { display:none; } .shell { width:100%; } .hero-wrap,.footer { print-color-adjust:exact; -webkit-print-color-adjust:exact; } .hero { padding:35px 20px; gap:30px; } .topbar { padding:0 20px; } h1 { font-size:34pt; } .layout { display:block; padding:30px 0; } section.block { break-inside:auto; padding-bottom:25px; margin-bottom:25px; } .info-card,.metric,.method,.risk,.worksheet,.calc { break-inside:avoid; } .overview-grid { grid-template-columns:repeat(5,1fr); } .footer { padding:20px; } }
+    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *,*:before,*:after { transition:none!important; } }
+
+    [hidden] { display:none !important; }
+    .top-links { gap:17px; }
+    .field { display:flex; flex-direction:column; }
+    .field label { flex:1; }
+    .lang-switch { display:inline-flex; flex:none; border:1px solid #718d7d; border-radius:6px; padding:2px; gap:2px; }
+    .lang-switch button { border:0; border-radius:4px; color:#d7e5da; background:transparent; cursor:pointer; padding:4px 8px; font-size:13px; font-weight:700; line-height:1.5; }
+    .lang-switch button[aria-pressed="true"] { background:#d0efaa; color:#183b2b; }
+    @media (max-width:1000px) { .top-links a:not(.top-action) { display:none; } }
+    @media (max-width:490px) { .top-links .top-action { display:none; } .lens { grid-template-columns:31px minmax(0,1fr); gap:4px 12px; } .lens small { grid-column:2; text-align:left; } }
+  </style>
+</head>
+<body>
+<div id="edition-zh" lang="zh-CN">
+  <header class="hero-wrap" id="top">
+    <div class="shell topbar">
+      <a class="brand" href="#top" aria-label="公司研究手册首页"><span class="brand-mark">研</span><span>公司研究手册</span></a>
+      <nav class="top-links" aria-label="顶部导航"><a href="#framework">分析框架</a><a href="#valuation">估值练习</a><a href="#checklist">研究清单</a><div class="lang-switch" role="group" aria-label="Language / 语言"><button type="button" data-language="zh-CN" aria-pressed="true">中文</button><button type="button" data-language="en" aria-pressed="false">English</button></div><a class="top-action" href="#framework">开始阅读</a></nav>
+    </div>
+    <div class="shell hero">
+      <div>
+        <div class="eyebrow">A practical guide to investing</div>
+        <h1>好公司，<br><em>也要好价格。</em></h1>
+        <p class="hero-lead">投资一家公司，既要理解它如何赚钱、能赚多久，也要判断现在的价格包含了怎样的期待。这份手册帮你把复杂问题拆成可验证的步骤。</p>
+        <div class="hero-actions"><a class="button button-primary" href="#framework">探索分析框架</a><a class="button button-ghost" href="#calculator">试试估值练习</a></div>
+        <p class="hero-note">适合入门与研究复盘 · 以非金融类上市公司为主要例子</p>
+      </div>
+      <div class="hero-card" aria-label="研究框架概览">
+        <div class="card-top"><strong>一份完整的投资判断</strong><span>五个关键问题</span></div>
+        <div class="lens"><span class="lens-icon">商</span><b>商业模式</b><small>靠什么持续赚钱？</small></div>
+        <div class="lens"><span class="lens-icon">财</span><b>财务质量</b><small>利润能变成现金吗？</small></div>
+        <div class="lens"><span class="lens-icon">人</span><b>管理层与治理</b><small>是否可信、善用资本？</small></div>
+        <div class="lens"><span class="lens-icon">价</span><b>估值</b><small>当前价格是否合理？</small></div>
+        <div class="lens"><span class="lens-icon">险</span><b>风险与决策</b><small>什么可能让判断出错？</small></div>
+        <p class="card-bottom">最终目标：找到 <strong>质量、价格与风险</strong> 之间的平衡。</p>
+      </div>
+    </div>
+  </header>
+  <div class="intro-band"><div class="shell intro-inner"><strong>先记住一个核心关系</strong><p>投资回报不仅取决于公司未来的经营表现，也取决于买入价格、未来估值变化和持有期间的分红。</p></div></div>
+  <div class="shell layout">
+    <aside class="sidebar" aria-label="页面目录">
+      <span class="side-label">阅读目录 / Contents</span>
+      <a href="#framework">框架总览</a><a href="#business">商业模式</a><a href="#financials">财务质量</a><a href="#management">管理层与治理</a><a href="#valuation">估值与价格</a><a href="#risks">风险与决策</a><a href="#checklist">研究清单</a>
+      <div class="side-divider"></div><p class="side-foot">研究是不断验证假设的过程。<br>先找证据，再下结论。</p>
+    </aside>
+    <main class="content">
+      <section class="block" id="framework">
+        <div class="section-head"><span class="kicker">The framework</span><h2>从五个问题开始</h2><p>先判断企业值不值得长期关注，再判断买入价格是否留出了足够的余地。每个问题都需要证据，而不仅是一个好故事。</p></div>
+        <div class="overview-grid">
+          <a class="overview-card" href="#business"><span class="tag">BUSINESS</span><div><strong>生意</strong><span>增长与竞争优势</span></div></a>
+          <a class="overview-card" href="#financials"><span class="tag">FINANCIALS</span><div><strong>财务</strong><span>盈利、现金与负债</span></div></a>
+          <a class="overview-card" href="#management"><span class="tag">MANAGEMENT</span><div><strong>管理层</strong><span>诚信与资本配置</span></div></a>
+          <a class="overview-card" href="#valuation"><span class="tag">VALUATION</span><div><strong>估值</strong><span>预期、价格与回报</span></div></a>
+          <a class="overview-card" href="#risks"><span class="tag">RISK</span><div><strong>风险</strong><span>下行空间与仓位</span></div></a>
+        </div>
+        <div class="takeaway"><strong>判断顺序：</strong>看得懂生意 → 检查财务与管理 → 估计价值区间 → 评估风险与价格。遇到无法解释的重大疑点，可以先停下来继续研究。</div>
+      </section>
+      <section class="block" id="business">
+        <div class="section-head"><span class="kicker">Business quality</span><h2>先弄清楚，公司如何赚钱</h2><p>不急着看股价。先用自己的话解释：客户为什么付钱，这门生意未来是否仍有需求，以及竞争对手为什么难以抢走它。</p></div>
+        <div class="grid-two">
+          <article class="info-card"><span class="mini">PROFIT MODEL</span><h3>收入从哪里来？</h3><p>产品与客户是谁？收入来自一次性销售、持续订阅还是交易抽成？哪些业务贡献了收入与利润，客户是否过度集中？</p></article>
+          <article class="info-card"><span class="mini">INDUSTRY</span><h3>行业空间有多大？</h3><p>需求是长期增长、周期波动还是逐渐萎缩？增长来自用户增加、提价、市场份额提升，还是一次性并购？</p></article>
+          <article class="info-card"><span class="mini">COMPETITION</span><h3>优势能持续多久？</h3><p>留意品牌、成本、网络效应、转换成本、技术与渠道。用毛利率、留存、份额和提价能力等证据检验优势。</p></article>
+          <article class="info-card"><span class="mini">UNIT ECONOMICS</span><h3>增长是否创造价值？</h3><p>多卖一份产品能留下多少利润？获得新客户的成本是否合理？如果增长需要不断补贴或投入大量资本，回报可能有限。</p></article>
+        </div>
+        <div class="callout"><strong>一个简单检验：</strong><p>假设股市明天关闭三年，你是否仍愿意持有这门生意？如果连主要客户、盈利来源和竞争威胁都说不清，先把它放进“继续研究”。</p></div>
+      </section>
+      <section class="block" id="financials">
+        <div class="section-head"><span class="kicker">Financial quality</span><h2>利润之外，更要看现金</h2><p>把财报当成一组相互印证的证据。尽量看过去 3—5 年及最新财报，结合行业周期和同行比较，而不是盯住单一指标。</p></div>
+        <div class="metric-list">
+          <div class="metric"><h3>收入与增长<span>Revenue growth</span></h3><p><span class="formula">收入增长率 = 本期收入 ÷ 上期收入 − 1</span>拆分销量、价格、并购与汇率影响；增长是否可持续，客户或单一产品是否过于集中？</p></div>
+          <div class="metric"><h3>盈利能力<span>Margins</span></h3><p><span class="formula">毛利率 = 毛利润 ÷ 收入；营业利润率 = 营业利润 ÷ 收入</span>观察趋势和同行差异，弄清利润变化来自定价、成本、费用控制还是一次性项目。</p></div>
+          <div class="metric"><h3>资本回报<span>ROIC</span></h3><p><span class="formula">投入资本回报率 ≈ 税后营业利润 ÷ 平均投入资本</span>衡量投入经营的资本创造了多少回报，并与资本成本及同行比较；计算口径需保持一致。</p></div>
+          <div class="metric"><h3>现金创造<span>Cash flow</span></h3><p><span class="formula">简化自由现金流 ≈ 经营现金流 − 资本开支</span>结合净利润、应收账款和存货看现金转化。现金流可能受营运资金与投资周期影响，不宜仅看一年。</p></div>
+          <div class="metric"><h3>资产负债表<span>Balance sheet</span></h3><p><span class="formula">净债务 ≈ 有息债务 − 可动用现金</span>关注债务到期时间、利息覆盖、再融资能力和受限现金；净债务 / EBITDA 可辅助比较，但不适用于所有公司。</p></div>
+          <div class="metric"><h3>每股价值<span>Per share</span></h3><p><span class="formula">每股收益 = 归属普通股股东的净利润 ÷ 加权平均普通股股数</span>关注股权激励、增发、可转债和回购对稀释后股数的影响。公司增长，不一定等于每股价值同步增长。</p></div>
+        </div>
+        <p class="note">口径提醒：这里的“经营现金流减资本开支”是简化观察口径；做企业自由现金流折现时，应使用与资本成本匹配、剔除融资影响的现金流。银行、保险等金融企业应另看资本充足率、资产质量等行业指标。</p>
+      </section>
+      <section class="block" id="management">
+        <div class="section-head"><span class="kicker">People & governance</span><h2>好生意，也需要可靠的掌舵人</h2><p>管理层的价值不只体现在讲述愿景，更体现在过去如何对待股东、使用现金以及解释错误。</p></div>
+        <div class="evidence">
+          <div class="evidence-panel"><h3>重点观察什么</h3><ul class="clean-list"><li><b>诚信与透明：</b>承诺能否兑现？遇到问题是否及时、清楚地披露？</li><li><b>资本配置：</b>投资、并购、回购和分红是否有清晰逻辑及可检验的结果？</li><li><b>激励与利益：</b>薪酬考核是否关注长期回报？管理层持股和股东利益是否一致？</li><li><b>治理结构：</b>董事会是否有效监督？控股股东、关联交易与少数股东权益如何？</li></ul></div>
+          <div class="evidence-panel"><h3>值得追问的信号</h3><ul class="clean-list red-list"><li>业绩目标反复更改，解释前后不一致。</li><li>频繁高价并购，却难以证明并购回报。</li><li>关联交易、资金占用或股权质押存在疑点。</li><li>股权激励规模很大，每股价值却长期没有改善。</li><li>审计意见异常、关键人员频繁离职或披露不透明。</li></ul></div>
+        </div>
+        <p class="quote">从哪里找证据？年报中的公司治理与薪酬章节、审计意见、历史公告、业绩会记录，以及过去承诺与实际结果的对照。</p>
+      </section>
+      <section class="block" id="valuation">
+        <div class="section-head"><span class="kicker">Valuation & expectations</span><h2>好公司，不代表任何价格都值得买</h2><p>估值是将未来假设转换成今天的价格区间。与其寻找唯一的“正确价格”，不如明确市场期待、关键假设和它们出错后的影响。</p></div>
+        <div class="methods">
+          <article class="method"><span class="kicker">相对估值</span><h3>市盈率 / PE</h3><p>适合利润相对稳定、同行可比较的公司。</p><p class="math">市盈率 = 当前股价 ÷ 每股收益<br>估算股价 = 预期每股收益 × 假设市盈率</p><p>比较同行与自身历史时，要统一利润口径、时间和币种。周期高点利润、一次性收益或亏损可能让 PE 失真；低 PE 本身不等于便宜。</p></article>
+          <article class="method"><span class="kicker">绝对估值</span><h3>现金流折现 / DCF</h3><p>适合能对长期现金流作出合理区间估计的公司。</p><p class="math">企业价值 = 预测企业自由现金流与终值的现值<br>股权价值 ≈ 企业价值 − 净债务 − 少数股东权益等</p><p>再除以稀释后股数得到每股价值。企业自由现金流通常使用加权平均资本成本折现。增长、折现率和终值都很敏感；若直接折现股权自由现金流，得到的是股权价值，不应再扣一次净债务。</p></article>
+        </div>
+        <p class="note">方法要与公司匹配：周期性企业可研究跨周期的正常化利润；亏损企业可结合市销率、单位经济与盈利路径；银行、保险等需结合市净率、资本充足率和资产质量。任何单一倍数都不能独立决定买卖。</p>
+        <div class="calc" id="calculator">
+          <div class="calc-heading"><div><h3>动手试试：增长与估值如何影响回报</h3><p>一个虚构示例，修改假设即可看到结果变化。</p></div><span class="badge">情景推演 · 非预测</span></div>
+          <div class="inputs">
+            <div class="field"><label for="price">当前股价</label><div class="input-wrap"><input id="price" type="number" value="100" min="0.01" step="any" inputmode="decimal"><span class="unit">元</span></div></div>
+            <div class="field"><label for="eps">当前每股收益</label><div class="input-wrap"><input id="eps" type="number" value="5" min="0.01" step="any" inputmode="decimal"><span class="unit">元</span></div></div>
+            <div class="field"><label for="growth">每股收益年增长</label><div class="input-wrap"><input id="growth" type="number" value="8" min="-99" max="200" step="any" inputmode="decimal"><span class="unit">%</span></div></div>
+            <div class="field"><label for="years">持有年数</label><div class="input-wrap"><input id="years" type="number" value="5" min="1" max="30" step="1" inputmode="numeric"><span class="unit">年</span></div></div>
+            <div class="field"><label for="multiple">期末假设市盈率</label><div class="input-wrap"><input id="multiple" type="number" value="16" min="0" step="any" inputmode="decimal"><span class="unit">倍</span></div></div>
+            <div class="field"><label for="dividend">每年每股分红</label><div class="input-wrap"><input id="dividend" type="number" value="2" min="0" step="any" inputmode="decimal"><span class="unit">元</span></div></div>
+          </div>
+          <p class="error" id="calc-error" role="status" hidden></p>
+          <div class="calc-results" aria-live="polite" aria-atomic="true">
+            <div class="result"><span>期末每股收益</span><strong id="out-eps">7.35 元</strong><small>当前每股收益按假设增长</small></div>
+            <div class="result"><span>期末假设股价</span><strong id="out-price">117.55 元</strong><small>期末每股收益 × 期末 PE</small></div>
+            <div class="result"><span>简化年化回报</span><strong id="out-return">4.99%</strong><small>包含累计分红</small></div>
+          </div>
+          <p class="calc-explain">计算：期末股价 = 当前每股收益 × (1 + 年增长率)<sup>年数</sup> × 期末 PE；简化年化回报 = [(期末股价 + 年分红 × 年数) ÷ 当前股价]<sup>1/年数</sup> − 1。假定分红每年固定、不再投资，并将累计分红视为期末取得；未考虑税费、股数变化及分红时点，因此不等同于实际内部收益率。假设和结果均非预测。以默认数值为起点，将年增长改为 3%、期末 PE 改为 13 倍，其他条件不变时，简化年化回报约为 −3.12%；你可以借此比较保守情景。</p>
+          <noscript><p class="error">启用 JavaScript 后可修改假设并实时计算。</p></noscript>
+        </div>
+        <div class="safety"><h3>用“安全边际”应对不确定性</h3><p>将当前价格与基于保守、基准和乐观假设得出的价值区间比较，并考虑估计可能出错。当估计的每股价值大于零时，可用（估计价值 − 当前股价）÷ 估计价值表示价格相对估值的折价。但折价越大未必越安全：先确认估值假设可信、企业没有被忽视的重大风险。不存在适用于所有公司的固定折价比例。</p></div>
+      </section>
+      <section class="block" id="risks">
+        <div class="section-head"><span class="kicker">Risk & decision</span><h2>投资前，先想清楚什么会错</h2><p>把风险写成具体情景，估计发生后对盈利、现金流和估值的影响。信息缺口本身也会增加不确定性。</p></div>
+        <div class="risk-grid">
+          <article class="risk"><h3>经营风险</h3><p>需求下滑、竞争加剧、产品替代、客户流失或成本上升，可能让增长和利润低于预期。</p></article>
+          <article class="risk"><h3>财务与治理风险</h3><p>高债务、现金周转恶化、融资受阻、财务披露异常或侵害中小股东权益。</p></article>
+          <article class="risk"><h3>外部与估值风险</h3><p>监管、利率、汇率、技术变化或估值倍数下降，即使盈利增长也可能影响回报。</p></article>
+        </div>
+        <div class="decision"><h3>把结论落实到行动</h3><p>写下买入逻辑、关键假设、合理价值区间、最重要的反证及持续观察指标。仓位应结合自身承受亏损的能力、持有期限与组合分散情况；当关键假设失效或价格明显偏离价值时，重新评估。</p></div>
+      </section>
+      <section class="block" id="checklist">
+        <div class="section-head"><span class="kicker">Put it into practice</span><h2>一份可以重复使用的研究清单</h2><p>每完成一项就勾选。它记录研究进度，不是打分系统；任何一个重大风险都值得单独处理。勾选状态不会主动保存。</p></div>
+        <div class="check-header"><p>建议为每项写下结论，并保留信息来源。</p><span class="progress-label" id="progress-label">已完成 0 / 10</span></div>
+        <div class="progress" role="progressbar" aria-label="研究清单完成进度" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="progress"><div id="progress-bar"></div></div>
+        <div class="checks" id="checks">
+          <label class="check"><input type="checkbox"><span>能用自己的话说明业务、客户和盈利模式。</span></label>
+          <label class="check"><input type="checkbox"><span>了解行业空间、竞争格局和主要替代品。</span></label>
+          <label class="check"><input type="checkbox"><span>找到竞争优势的证据，也知道它可能如何消失。</span></label>
+          <label class="check"><input type="checkbox"><span>检查至少 3—5 年的增长、利润率与资本回报。</span></label>
+          <label class="check"><input type="checkbox"><span>理解现金流、负债、到期安排及潜在稀释。</span></label>
+          <label class="check"><input type="checkbox"><span>核对管理层记录、关联交易和公司治理。</span></label>
+          <label class="check"><input type="checkbox"><span>列出估值假设，并与同行及历史口径比较。</span></label>
+          <label class="check"><input type="checkbox"><span>推演保守、基准、乐观情景与可能回报。</span></label>
+          <label class="check"><input type="checkbox"><span>写出关键风险、反证和需要跟踪的指标。</span></label>
+          <label class="check"><input type="checkbox"><span>结合自身期限、风险承受力和组合决定下一步。</span></label>
+        </div>
+        <div class="worksheet"><h3>最后，用四句话整理你的判断</h3><div class="worksheet-lines"><div><b>我的投资逻辑</b>我认为公司能持续创造价值，因为……</div><div><b>当前价格与假设</b>估值依赖的关键增长、利润或倍数假设是……</div><div><b>最重要的反证</b>如果发生……，我的判断可能是错的。</div><div><b>接下来要跟踪</b>我会定期查看……，并在……时重新评估。</div></div></div>
+        <p class="note">查资料时优先使用公司年报、季度报告、交易所公告和监管文件，再用行业报告、竞争对手披露及其他独立资料交叉验证。</p>
+        <div class="sources" aria-label="公开披露资料入口"><a href="https://www.cninfo.com.cn/" target="_blank" rel="noopener noreferrer">巨潮资讯</a><a href="https://www.sse.com.cn/disclosure/" target="_blank" rel="noopener noreferrer">上交所披露</a><a href="https://www.hkexnews.hk/" target="_blank" rel="noopener noreferrer">港交所披露易</a><a href="https://www.sec.gov/edgar/search/" target="_blank" rel="noopener noreferrer">美国 SEC EDGAR</a></div>
+        <p class="note"><strong>参考资料与延伸阅读：</strong>以下资料介绍财报研究、市盈率，以及企业和股权自由现金流的区别。</p>
+        <div class="sources" aria-label="参考资料与延伸阅读"><a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/how-read" target="_blank" rel="noopener noreferrer">美国 SEC：如何阅读 10-K / 10-Q</a><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/price-earnings-pe-ratio" target="_blank" rel="noopener noreferrer">美国 SEC：市盈率</a><a href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/lectures/fcff.html" target="_blank" rel="noopener noreferrer">纽约大学：现金流折现与估值</a></div>
+
+      </section>
+    </main>
+  </div>
+  <footer class="footer"><div class="shell footer-inner"><div><strong>公司研究手册</strong><p>本页面用于投资知识学习与研究框架演示，不构成针对任何个人或证券的投资建议。所有示例均为虚构；分析结论依赖假设与数据，投资可能产生损失。</p></div><button type="button" id="print-button">打印 / 保存为 PDF</button></div></footer>
+</div>
+<div id="edition-en" lang="en" hidden>
+  <header class="hero-wrap" id="top-en">
+    <div class="shell topbar">
+      <a class="brand" href="#top-en" aria-label="Company research guide home"><span class="brand-mark">研</span><span>Company Research</span></a>
+      <nav class="top-links" aria-label="Top navigation"><a href="#framework-en">Framework</a><a href="#valuation-en">Valuation</a><a href="#checklist-en">Checklist</a><div class="lang-switch" role="group" aria-label="Language / 语言"><button type="button" data-language="zh-CN" aria-pressed="true">中文</button><button type="button" data-language="en" aria-pressed="false">English</button></div><a class="top-action" href="#framework-en">Start reading</a></nav>
+    </div>
+    <div class="shell hero">
+      <div>
+        <div class="eyebrow">A practical guide to investing</div>
+        <h1>A good company<br><em>needs a good price.</em></h1>
+        <p class="hero-lead">To invest in a company, understand how it makes money, how durable that earning power is, and what expectations are already reflected in its price. This guide breaks the work into testable steps.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#framework-en">Explore the framework</a><a class="button button-ghost" href="#calculator-en">Try the valuation exercise</a></div>
+        <p class="hero-note">For beginners and research reviews · Focused on non-financial public companies</p>
+      </div>
+      <div class="hero-card" aria-label="Research framework overview">
+        <div class="card-top"><strong>A complete investment decision</strong><span>Five key questions</span></div>
+        <div class="lens"><span class="lens-icon">B</span><b>Business model</b><small>How does it keep earning?</small></div>
+        <div class="lens"><span class="lens-icon">F</span><b>Financial quality</b><small>Do profits become cash?</small></div>
+        <div class="lens"><span class="lens-icon">M</span><b>Management &amp; governance</b><small>Trustworthy and capable?</small></div>
+        <div class="lens"><span class="lens-icon">V</span><b>Valuation</b><small>Is the price reasonable?</small></div>
+        <div class="lens"><span class="lens-icon">R</span><b>Risk &amp; decision</b><small>What could go wrong?</small></div>
+        <p class="card-bottom">The goal: balance <strong>quality, price and risk</strong>.</p>
+      </div>
+    </div>
+  </header>
+  <div class="intro-band"><div class="shell intro-inner"><strong>A relationship to remember</strong><p>Returns depend on the company's future performance, the purchase price, changes in valuation and dividends received along the way.</p></div></div>
+  <div class="shell layout">
+    <aside class="sidebar" aria-label="Contents">
+      <span class="side-label">Contents</span>
+      <a href="#framework-en">The framework</a><a href="#business-en">Business model</a><a href="#financials-en">Financial quality</a><a href="#management-en">Management &amp; governance</a><a href="#valuation-en">Valuation &amp; price</a><a href="#risks-en">Risk &amp; decision</a><a href="#checklist-en">Research checklist</a>
+      <div class="side-divider"></div><p class="side-foot">Research is an ongoing process of testing assumptions.<br>Find evidence before reaching a conclusion.</p>
+    </aside>
+    <main class="content">
+      <section class="block" id="framework-en">
+        <div class="section-head"><span class="kicker">The framework</span><h2>Start with five questions</h2><p>First decide whether the business deserves long-term attention. Then ask whether the purchase price leaves enough room for uncertainty. Each question needs evidence, not just a compelling story.</p></div>
+        <div class="overview-grid">
+          <a class="overview-card" href="#business-en"><span class="tag">BUSINESS</span><div><strong>Business</strong><span>Growth and competitive advantage</span></div></a>
+          <a class="overview-card" href="#financials-en"><span class="tag">FINANCIALS</span><div><strong>Financials</strong><span>Profit, cash and debt</span></div></a>
+          <a class="overview-card" href="#management-en"><span class="tag">MANAGEMENT</span><div><strong>Management</strong><span>Integrity and capital allocation</span></div></a>
+          <a class="overview-card" href="#valuation-en"><span class="tag">VALUATION</span><div><strong>Valuation</strong><span>Expectations, price and returns</span></div></a>
+          <a class="overview-card" href="#risks-en"><span class="tag">RISK</span><div><strong>Risk</strong><span>Downside and position size</span></div></a>
+        </div>
+        <div class="takeaway"><strong>Order of analysis:</strong> Understand the business → examine financials and management → estimate a range of values → assess the risks and price. When a major concern cannot be explained, pause and investigate further.</div>
+      </section>
+      <section class="block" id="business-en">
+        <div class="section-head"><span class="kicker">Business quality</span><h2>First, understand how it makes money</h2><p>Before looking at the share price, explain in your own words why customers pay, whether demand will persist, and why competitors cannot easily take the business away.</p></div>
+        <div class="grid-two">
+          <article class="info-card"><span class="mini">PROFIT MODEL</span><h3>Where does revenue come from?</h3><p>Who are the customers and what are the products? Are sales one-off, subscription-based or transaction fees? Which businesses generate revenue and profit, and is customer concentration excessive?</p></article>
+          <article class="info-card"><span class="mini">INDUSTRY</span><h3>How much opportunity is there?</h3><p>Is demand growing over the long term, cyclical or shrinking? Does growth come from more customers, higher prices, market-share gains or one-off acquisitions?</p></article>
+          <article class="info-card"><span class="mini">COMPETITION</span><h3>How durable is the advantage?</h3><p>Consider brand, cost, network effects, switching costs, technology and distribution. Test the case against margins, retention, market share and pricing power.</p></article>
+          <article class="info-card"><span class="mini">UNIT ECONOMICS</span><h3>Does growth create value?</h3><p>How much profit does an additional sale leave? Is customer acquisition economical? Growth that requires continual subsidies or large capital outlays may deliver limited returns.</p></article>
+        </div>
+        <div class="callout"><strong>A simple test:</strong><p>Imagine the stock market closes for three years. Would you still be comfortable owning this business? If you cannot explain its customers, earnings and competitive threats, keep researching.</p></div>
+      </section>
+      <section class="block" id="financials-en">
+        <div class="section-head"><span class="kicker">Financial quality</span><h2>Look beyond profits to cash</h2><p>Treat financial statements as evidence that should corroborate other evidence. Review the past three to five years and the latest results; compare peers and consider the industry cycle rather than relying on one metric.</p></div>
+        <div class="metric-list">
+          <div class="metric"><h3>Revenue and growth<span>Revenue growth</span></h3><p><span class="formula">Revenue growth = current revenue ÷ prior revenue − 1</span>Separate the effects of volume, price, acquisitions and exchange rates. Is growth sustainable? Is the company overly dependent on a customer or product?</p></div>
+          <div class="metric"><h3>Profitability<span>Margins</span></h3><p><span class="formula">Gross margin = gross profit ÷ revenue; operating margin = operating profit ÷ revenue</span>Study trends and peer differences. Distinguish pricing, costs and expense control from one-off items.</p></div>
+          <div class="metric"><h3>Return on capital<span>ROIC</span></h3><p><span class="formula">Return on invested capital ≈ after-tax operating profit ÷ average invested capital</span>Assess the return generated on operating capital against its cost and peers, using consistent definitions.</p></div>
+          <div class="metric"><h3>Cash generation<span>Cash flow</span></h3><p><span class="formula">Simplified free cash flow ≈ operating cash flow − capital expenditure</span>Compare cash flow with net income, receivables and inventory. Working-capital and investment cycles can distort a single year.</p></div>
+          <div class="metric"><h3>Balance sheet<span>Debt</span></h3><p><span class="formula">Net debt ≈ interest-bearing debt − available cash</span>Check maturities, interest coverage, refinancing capacity and restricted cash. Net debt / EBITDA can help comparisons but does not suit every company.</p></div>
+          <div class="metric"><h3>Per-share value<span>Per share</span></h3><p><span class="formula">EPS = net income attributable to common shareholders ÷ weighted-average common shares</span>Consider dilution from stock compensation, new shares and convertible debt, as well as buybacks. Company growth does not automatically translate into equal per-share growth.</p></div>
+        </div>
+        <p class="note">Definitions matter: operating cash flow less capital expenditure is a simplified measure. A firm DCF requires cash flow that excludes financing effects and matches the chosen discount rate. Banks and insurers require additional industry measures, such as capital adequacy and asset quality.</p>
+      </section>
+      <section class="block" id="management-en">
+        <div class="section-head"><span class="kicker">People &amp; governance</span><h2>A good business needs reliable leadership</h2><p>Management's value is demonstrated not only by its vision, but by how it has treated shareholders, deployed cash and explained mistakes.</p></div>
+        <div class="evidence">
+          <div class="evidence-panel"><h3>What to examine</h3><ul class="clean-list"><li><b>Integrity and transparency:</b> Were promises kept? Are problems disclosed promptly and clearly?</li><li><b>Capital allocation:</b> Do investment, acquisitions, buybacks and dividends have a clear rationale and measurable results?</li><li><b>Incentives and alignment:</b> Does compensation reward long-term returns? Do management ownership and shareholder interests align?</li><li><b>Governance:</b> Is board oversight effective? Examine controlling shareholders, related-party transactions and minority rights.</li></ul></div>
+          <div class="evidence-panel"><h3>Signals worth investigating</h3><ul class="clean-list red-list"><li>Targets repeatedly change or explanations contradict earlier statements.</li><li>Frequent expensive acquisitions without evidence of returns.</li><li>Questionable related-party transactions, use of company funds or pledged shares.</li><li>Large stock awards while per-share value fails to improve over time.</li><li>Unusual audit opinions, frequent departures of key staff or opaque disclosures.</li></ul></div>
+        </div>
+        <p class="quote">Evidence can include the governance and compensation sections of annual reports, audit opinions, announcements, earnings calls, and comparisons between past promises and outcomes.</p>
+      </section>
+      <section class="block" id="valuation-en">
+        <div class="section-head"><span class="kicker">Valuation &amp; expectations</span><h2>A good company is not attractive at every price</h2><p>Valuation translates assumptions about the future into a range of present values. Instead of seeking a single “correct” price, state market expectations, your assumptions and the consequences if those assumptions fail.</p></div>
+        <div class="methods">
+          <article class="method"><span class="kicker">Relative valuation</span><h3>Price / earnings (P/E)</h3><p>Most useful when profits are relatively stable and peers are comparable.</p><p class="math">P/E = current share price ÷ earnings per share<br>Estimated price = forecast EPS × assumed P/E</p><p>Use consistent earnings definitions, periods and currencies when comparing peers and history. Peak-cycle earnings, one-off gains or losses can distort P/E; a low ratio alone does not imply a bargain.</p></article>
+          <article class="method"><span class="kicker">Absolute valuation</span><h3>Discounted cash flow (DCF)</h3><p>Useful when a reasonable range for long-term cash flows can be estimated.</p><p class="math">Enterprise value = present value of forecast firm cash flows and terminal value<br>Equity value ≈ enterprise value − net debt − minority interests and other claims</p><p>Divide by diluted shares for value per share. Firm cash flows are commonly discounted at the weighted average cost of capital. Growth, discount rate and terminal value are highly sensitive; discounting equity cash flows directly gives equity value, so do not deduct net debt again.</p></article>
+        </div>
+        <p class="note">Match the method to the company: use normalized earnings across the cycle for cyclical businesses; consider price-to-sales, unit economics and a path to profitability for loss-makers; and include price-to-book, capital adequacy and asset quality for banks and insurers. No single multiple determines an investment decision.</p>
+        <div class="calc" id="calculator-en">
+          <div class="calc-heading"><div><h3>Try it: how growth and valuation affect returns</h3><p>A hypothetical example. Change the inputs to explore different assumptions.</p></div><span class="badge">Scenario · Not a forecast</span></div>
+          <div class="inputs">
+            <div class="field"><label for="price-en">Current share price</label><div class="input-wrap"><input id="price-en" type="number" value="100" min="0.01" step="any" inputmode="decimal"><span class="unit">CNY</span></div></div>
+            <div class="field"><label for="eps-en">Current earnings per share</label><div class="input-wrap"><input id="eps-en" type="number" value="5" min="0.01" step="any" inputmode="decimal"><span class="unit">CNY</span></div></div>
+            <div class="field"><label for="growth-en">Annual EPS growth</label><div class="input-wrap"><input id="growth-en" type="number" value="8" min="-99" max="200" step="any" inputmode="decimal"><span class="unit">%</span></div></div>
+            <div class="field"><label for="years-en">Holding period</label><div class="input-wrap"><input id="years-en" type="number" value="5" min="1" max="30" step="1" inputmode="numeric"><span class="unit">yr</span></div></div>
+            <div class="field"><label for="multiple-en">Assumed terminal P/E</label><div class="input-wrap"><input id="multiple-en" type="number" value="16" min="0" step="any" inputmode="decimal"><span class="unit">×</span></div></div>
+            <div class="field"><label for="dividend-en">Annual dividend per share</label><div class="input-wrap"><input id="dividend-en" type="number" value="2" min="0" step="any" inputmode="decimal"><span class="unit">CNY</span></div></div>
+          </div>
+          <p class="error" id="calc-error-en" role="status" hidden></p>
+          <div class="calc-results" aria-live="polite" aria-atomic="true">
+            <div class="result"><span>Terminal EPS</span><strong id="out-eps-en">7.35 CNY</strong><small>Current EPS grown at the assumed rate</small></div>
+            <div class="result"><span>Assumed terminal price</span><strong id="out-price-en">117.55 CNY</strong><small>Terminal EPS × terminal P/E</small></div>
+            <div class="result"><span>Simplified annualized return</span><strong id="out-return-en">4.99%</strong><small>Includes cumulative dividends</small></div>
+          </div>
+          <p class="calc-explain">Terminal price = current EPS × (1 + annual growth)<sup>years</sup> × terminal P/E. Simplified annualized return = [(terminal price + annual dividend × years) ÷ current price]<sup>1/years</sup> − 1. The dividend is assumed constant and not reinvested; all dividends are treated as received at the end. Taxes, fees, share-count changes and dividend timing are excluded, so this is not the actual internal rate of return. The assumptions and results are not forecasts. From the defaults, change growth to 3% and terminal P/E to 13, leaving other inputs unchanged: simplified annualized return becomes about −3.12%, an illustration of a conservative scenario.</p>
+          <noscript><p class="error">Enable JavaScript to change assumptions and recalculate.</p></noscript>
+        </div>
+        <div class="safety"><h3>Use a margin of safety for uncertainty</h3><p>Compare the current price with value ranges based on conservative, base and optimistic assumptions, allowing for estimation error. If estimated value per share is positive, (estimated value − current price) ÷ estimated value measures the discount to that estimate. A larger discount is not automatically safer: check the assumptions and overlooked material risks. No fixed discount suits every company.</p></div>
+      </section>
+      <section class="block" id="risks-en">
+        <div class="section-head"><span class="kicker">Risk &amp; decision</span><h2>Before investing, ask what could go wrong</h2><p>Write concrete scenarios and consider their effect on earnings, cash flow and valuation. Gaps in information also add uncertainty.</p></div>
+        <div class="risk-grid">
+          <article class="risk"><h3>Business risk</h3><p>Falling demand, stronger competition, product substitution, lost customers or rising costs can hurt growth and margins.</p></article>
+          <article class="risk"><h3>Financial and governance risk</h3><p>High debt, deteriorating cash conversion, restricted financing, unusual disclosures or harm to minority shareholders.</p></article>
+          <article class="risk"><h3>External and valuation risk</h3><p>Regulation, rates, currency, technology or a lower valuation multiple can affect returns even when earnings grow.</p></article>
+        </div>
+        <div class="decision"><h3>Turn conclusions into a decision</h3><p>Record the thesis, key assumptions, reasonable value range, most important disconfirming evidence and indicators to monitor. Position size should reflect your capacity for loss, time horizon and portfolio diversification. Reassess if a key assumption fails or price moves well away from value.</p></div>
+      </section>
+      <section class="block" id="checklist-en">
+        <div class="section-head"><span class="kicker">Put it into practice</span><h2>A reusable research checklist</h2><p>Tick each item as you complete it. This tracks research progress, not a score; any major risk deserves separate attention. Checkmarks are not saved automatically.</p></div>
+        <div class="check-header"><p>Record your conclusion and sources for each item.</p><span class="progress-label" id="progress-label-en">0 / 10 completed</span></div>
+        <div class="progress" role="progressbar" aria-label="Research checklist progress" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="progress-en"><div id="progress-bar-en"></div></div>
+        <div class="checks" id="checks-en">
+          <label class="check"><input type="checkbox"><span>Explain the business, customers and profit model in your own words.</span></label>
+          <label class="check"><input type="checkbox"><span>Understand the industry's opportunity, competition and main substitutes.</span></label>
+          <label class="check"><input type="checkbox"><span>Find evidence of competitive advantage and understand how it could disappear.</span></label>
+          <label class="check"><input type="checkbox"><span>Review at least three to five years of growth, margins and capital returns.</span></label>
+          <label class="check"><input type="checkbox"><span>Understand cash flow, debt maturities and potential dilution.</span></label>
+          <label class="check"><input type="checkbox"><span>Check management's record, related-party transactions and governance.</span></label>
+          <label class="check"><input type="checkbox"><span>Document valuation assumptions and compare consistent peer and historical measures.</span></label>
+          <label class="check"><input type="checkbox"><span>Model conservative, base and optimistic scenarios and possible returns.</span></label>
+          <label class="check"><input type="checkbox"><span>Write down key risks, disconfirming evidence and indicators to track.</span></label>
+          <label class="check"><input type="checkbox"><span>Decide next steps based on your horizon, risk capacity and portfolio.</span></label>
+        </div>
+        <div class="worksheet"><h3>Summarize your judgment in four sentences</h3><div class="worksheet-lines"><div><b>Investment thesis</b>I believe the company can create lasting value because …</div><div><b>Price and assumptions</b>My valuation depends on these assumptions about growth, profits or multiples …</div><div><b>Key disconfirming evidence</b>My thesis may be wrong if …</div><div><b>What to monitor</b>I will review … regularly and reassess if …</div></div></div>
+        <p class="note">Start with annual and quarterly reports, exchange announcements and regulatory filings. Cross-check with industry research, competitors' disclosures and independent sources.</p>
+        <div class="sources" aria-label="Public disclosure sources"><a href="https://www.cninfo.com.cn/" target="_blank" rel="noopener noreferrer">CNINFO</a><a href="https://www.sse.com.cn/disclosure/" target="_blank" rel="noopener noreferrer">Shanghai Stock Exchange</a><a href="https://www.hkexnews.hk/" target="_blank" rel="noopener noreferrer">HKEXnews</a><a href="https://www.sec.gov/edgar/search/" target="_blank" rel="noopener noreferrer">SEC EDGAR</a></div>
+        <p class="note"><strong>References and further reading:</strong> these explain financial statement research, P/E and the distinction between firm and equity cash flows.</p>
+        <div class="sources" aria-label="References and further reading"><a href="https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/how-read" target="_blank" rel="noopener noreferrer">SEC: How to read a 10-K / 10-Q</a><a href="https://www.investor.gov/introduction-investing/investing-basics/glossary/price-earnings-pe-ratio" target="_blank" rel="noopener noreferrer">SEC: P/E ratio</a><a href="https://pages.stern.nyu.edu/~adamodar/New_Home_Page/lectures/fcff.html" target="_blank" rel="noopener noreferrer">NYU: DCF and free cash flows</a></div>
+      </section>
+    </main>
+  </div>
+  <footer class="footer"><div class="shell footer-inner"><div><strong>Company Research Guide</strong><p>This page is for education and research, not personalized investment advice or a recommendation of any security. All examples are hypothetical; conclusions depend on assumptions and data, and investments can lose value.</p></div><button type="button" id="print-button-en">Print / Save as PDF</button></div></footer>
+</div>
+  <script>
+    (() => {
+      const ids = ['price','eps','growth','years','multiple','dividend'];
+      const languages = ['zh-CN', 'en'];
+      const suffix = language => language === 'en' ? '-en' : '';
+      const element = (id, language) => document.getElementById(id + suffix(language));
+      const checks = language => [...element('checks', language).querySelectorAll('input[type="checkbox"]')];
+      let activeLanguage = 'zh-CN';
+
+      function calculate(language) {
+        const fields = Object.fromEntries(ids.map(id => [id, element(id, language)]));
+        const values = Object.fromEntries(ids.map(id => [id, fields[id].value === '' ? NaN : Number(fields[id].value)]));
+        const error = element('calc-error', language);
+        const outputs = ['out-eps', 'out-price', 'out-return'].map(id => element(id, language));
+        const valid = Object.values(values).every(Number.isFinite) && values.price > 0 && values.eps > 0 && values.growth >= -99 && values.growth <= 200 && Number.isInteger(values.years) && values.years >= 1 && values.years <= 30 && values.multiple >= 0 && values.dividend >= 0;
+        if (!valid) {
+          error.hidden = false;
+          error.textContent = language === 'en' ? 'Enter valid numbers: price and EPS must be above zero; growth must be between −99% and 200%; years must be a whole number from 1 to 30; P/E and dividends cannot be negative.' : '请输入有效数字：股价和每股收益须大于 0；增长率为 −99% 至 200%；年数为 1 至 30 的整数；市盈率和分红不得为负。';
+          outputs.forEach(output => output.textContent = '—');
+          return;
+        }
+        const futureEps = values.eps * Math.pow(1 + values.growth / 100, values.years);
+        const futurePrice = futureEps * values.multiple;
+        const annualReturn = (Math.pow((futurePrice + values.dividend * values.years) / values.price, 1 / values.years) - 1) * 100;
+        if (![futureEps, futurePrice, annualReturn].every(Number.isFinite)) {
+          error.hidden = false;
+          error.textContent = language === 'en' ? 'The values are too large to calculate. Adjust the assumptions.' : '输入数值过大，无法计算；请调整假设。';
+          outputs.forEach(output => output.textContent = '—');
+          return;
+        }
+        error.hidden = true;
+        error.textContent = '';
+        const money = value => value.toLocaleString(language === 'en' ? 'en-US' : 'zh-CN', {minimumFractionDigits:2, maximumFractionDigits:2}) + (language === 'en' ? ' CNY' : ' 元');
+        outputs[0].textContent = money(futureEps);
+        outputs[1].textContent = money(futurePrice);
+        outputs[2].textContent = annualReturn.toFixed(2) + '%';
+      }
+
+      function updateProgress(language) {
+        const boxes = checks(language);
+        const count = boxes.filter(input => input.checked).length;
+        element('progress-label', language).textContent = language === 'en' ? `${count} / ${boxes.length} completed` : `已完成 ${count} / ${boxes.length}`;
+        element('progress', language).setAttribute('aria-valuenow', count);
+        element('progress-bar', language).style.width = `${count / boxes.length * 100}%`;
+      }
+
+      languages.forEach(language => {
+        ids.forEach(id => element(id, language).addEventListener('input', () => calculate(language)));
+        checks(language).forEach(input => input.addEventListener('change', () => updateProgress(language)));
+        element('print-button', language).addEventListener('click', () => window.print());
+        calculate(language);
+        updateProgress(language);
+      });
+
+      document.querySelectorAll('[data-language]').forEach(button => button.addEventListener('click', () => {
+        const next = button.dataset.language;
+        if (next === activeLanguage) return;
+        ids.forEach(id => { element(id, next).value = element(id, activeLanguage).value; });
+        const oldChecks = checks(activeLanguage);
+        checks(next).forEach((checkbox, index) => { checkbox.checked = oldChecks[index].checked; });
+        calculate(next);
+        updateProgress(next);
+        document.getElementById('edition-' + (activeLanguage === 'en' ? 'en' : 'zh')).hidden = true;
+        document.getElementById('edition-' + (next === 'en' ? 'en' : 'zh')).hidden = false;
+        document.documentElement.lang = next;
+        document.title = next === 'en' ? 'How to Analyze a Company for Investment | Company Research Guide' : '如何分析一家公司是否值得投资？｜公司研究手册';
+        document.querySelectorAll('[data-language]').forEach(control => control.setAttribute('aria-pressed', String(control.dataset.language === next)));
+        activeLanguage = next;
+        document.querySelector('#edition-' + (next === 'en' ? 'en' : 'zh') + ' [data-language="' + next + '"]').focus({preventScroll:true});
+      }));
+    })();
+  </script>
+</body>
+</html>
