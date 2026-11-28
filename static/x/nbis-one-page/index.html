@@ -4,9 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nebius Group (NBIS) 投资研究</title>
-  <meta name="description" content="Nebius Group（NBIS）投资研究。用 2026 年第三季财报、微软与 Meta 合同和可调估值模型检验 AI 算力扩张能否在重投入、高负债和潜在股权稀释下转化为每股回报。">
+  <meta name="description" content="Nebius Group（NBIS）投资研究。解释交付延期、资本开支上调与行业信贷收紧如何影响股价，拆解经营现金流对预付款的依赖，并测算 2027 年融资压力和每股估值。">
   <meta name="keywords" content="investing, NBIS, AI infrastructure, GPU cloud, valuation">
   <meta property="article:published_time" content="2026-11-27">
+  <meta property="article:modified_time" content="2026-11-28">
   <link rel="canonical" href="https://chejinying.com/x/nbis-one-page/">
   <style>
     :root {
@@ -267,6 +268,43 @@
     .outlook dd { margin: 0; }
     .outlook dd strong { display: block; color: var(--accent-dark); font-size: clamp(1.16rem, 2.2vw, 1.5rem); }
 
+    .price-path {
+      display: grid;
+      gap: 7px;
+      list-style: none;
+      padding: 0;
+      margin: 12px 0;
+    }
+    .price-path li {
+      display: grid;
+      grid-template-columns: minmax(4.9rem, auto) minmax(0, 1fr) 4.7rem;
+      align-items: center;
+      gap: 10px;
+    }
+    .price-path time { font-size: .875rem; color: var(--muted); }
+    .price-path strong { text-align: end; }
+    .price-track { background: var(--lavender); border-radius: 3px; }
+    .price-track span { display: block; width: var(--value); height: .5rem; border-radius: inherit; background: var(--blue); }
+    .price-path li:last-child .price-track span { background: var(--accent-dark); }
+    .price-path li:last-child strong { color: var(--accent-dark); }
+
+    .performance { width: 100%; margin: 9px 0; border-collapse: collapse; }
+    .performance th, .performance td { padding: 7px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+    .performance th { text-align: start; font-weight: 700; }
+    .performance th + th, .performance td { text-align: end; padding-inline-start: 7px; }
+    .performance thead th, .performance th span, .funding-table thead th { color: var(--muted); font-size: .875rem; }
+    .performance th span { display: block; font-weight: 500; }
+    .performance td { white-space: nowrap; font-weight: 750; }
+    .funding-table { margin: .45rem 0; }
+    .funding-table thead th:last-child { text-align: end; }
+    .funding-terms > div {
+      display: grid;
+      grid-template-columns: minmax(7rem, 23%) minmax(0, 1fr);
+      align-items: baseline;
+      gap: 4px 14px;
+    }
+    .funding-terms dd { margin: 0; }
+
     .valuation {
       border-radius: var(--radius);
       background: var(--navy);
@@ -345,6 +383,7 @@
       .comparison-cols article, .comparison-cols article + article { padding: 11px 0; border-inline-start: 0; }
       .comparison-cols article + article { border-top: 1px solid var(--line); }
       .source-list { columns: 1; }
+      .funding-terms > div { grid-template-columns: 1fr; }
     }
 
     @media print {
@@ -378,10 +417,10 @@
     <header>
       <div class="hero">
         <div class="hero-copy">
-          <p class="kicker"><span>NASDAQ · NBIS</span><time datetime="2026-11-27">研究更新于 2026 年 11 月 27 日</time></p>
+          <p class="kicker"><span>NASDAQ · NBIS</span><time datetime="2026-11-28">研究更新于 2026 年 11 月 28 日</time></p>
           <h1>Nebius Group</h1>
-          <h2>算力订单已经签下，回报取决于交付</h2>
-          <p class="lede">微软和 Meta 的多年合同为扩张提供了需求和融资基础。下一步要看 Nebius 能否按期交付 GPU 集群，并在资本开支、利息和股权稀释之后，把收入增长变成每股回报。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
+          <h2>算力先建，融资和回款必须跟上</h2>
+          <p class="lede">微软和 Meta 的多年合同提供需求和预付款支持。Nebius 仍需在集群投产前支付设备和建设费用。延期交付、预算上调和股价下跌，让回款、借款和股权稀释成为判断每股回报的关键。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
         </div>
         <figure class="hero-image">
           <figcaption>AI 生成的机房示意图</figcaption>
@@ -391,14 +430,51 @@
         <div class="reading"><dt>2026 Q3 营收</dt><dd><strong class="reading-value">9.81 <span class="unit">亿美元</span></strong><span class="reading-note">同比 +571%，约 33% 为一次性确认 <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></span></dd></div>
         <div class="reading"><dt>尚未履约合同金额</dt><dd><strong class="reading-value">387 <span class="unit">亿美元</span></strong><span class="reading-note">截至 2026 年 9 月底的 RPO <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a></span></span></dd></div>
         <div class="reading"><dt>2027 年资本开支指引</dt><dd><strong class="reading-value">400–450 <span class="unit">亿美元</span></strong><span class="reading-note">约为同期营收指引中值的 3.4 倍 <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></span></dd></div>
-        <div class="reading"><dt>估值参考股价</dt><dd><strong class="reading-value">$84.99</strong><span class="reading-note">2026 年 11 月 25 日收盘 <span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></span></dd></div>
+        <div class="reading"><dt>估值参考股价</dt><dd><strong class="reading-value">$89.46</strong><span class="reading-note">2026 年 11 月 27 日收盘 <span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></span></dd></div>
       </dl>
       <nav class="section-nav" aria-label="报告目录">
-        <a href="#business">业务与竞争</a><a href="#financials">财务质量</a><a href="#contracts">客户与产能</a><a href="#funding">融资</a><a href="#valuation">情景估值</a><a href="#watch">催化剂与风险</a><a href="#sources">资料来源</a>
+        <a href="#drawdown">股价回撤</a><a href="#business">业务与竞争</a><a href="#financials">财务质量</a><a href="#contracts">客户与产能</a><a href="#funding">现金流与融资</a><a href="#valuation">情景估值</a><a href="#watch">催化剂与风险</a><a href="#sources">资料来源</a>
       </nav>
     </header>
 
     <div class="report-body">
+      <section id="drawdown">
+        <div class="section-head"><h2>为什么股价跌了这么多</h2><p>2026 年 10 月 6 日至 11 月 27 日 · 按收盘价</p></div>
+        <div class="grid">
+          <figure class="panel">
+            <figcaption><h3>NBIS 的五个收盘价</h3><p class="note">美元／股 · 柱长从零起算</p></figcaption>
+            <ol class="price-path">
+              <li><time datetime="2026-10-06">10 月 6 日</time><span class="price-track" aria-hidden="true"><span style="--value:99.95%"></span></span><strong>$249.87</strong></li>
+              <li><time datetime="2026-11-11">11 月 11 日</time><span class="price-track" aria-hidden="true"><span style="--value:61.88%"></span></span><strong>$154.69</strong></li>
+              <li><time datetime="2026-11-12">11 月 12 日</time><span class="price-track" aria-hidden="true"><span style="--value:51.46%"></span></span><strong>$128.64</strong></li>
+              <li><time datetime="2026-11-25">11 月 25 日</time><span class="price-track" aria-hidden="true"><span style="--value:34.00%"></span></span><strong>$84.99</strong></li>
+              <li><time datetime="2026-11-27">11 月 27 日</time><span class="price-track" aria-hidden="true"><span style="--value:35.78%"></span></span><strong>$89.46</strong></li>
+            </ol>
+            <p>相较 10 月 6 日高位，财报前已跌 <strong>38.1%</strong>。11 月 27 日反弹 5.3% 后，从该高位算仍跌 <strong>64.2%</strong>。<span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></p>
+          </figure>
+          <div class="panel">
+            <h3>同行和大盘也跌，NBIS 跌得更多</h3>
+            <table class="performance" aria-label="NBIS、CoreWeave 和 QQQ 期间股价变动">
+              <thead><tr><th scope="col">标的</th><th scope="col">11 月 12 日<br>单日</th><th scope="col">11 月 11–27 日<br>累计</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Nebius<span>NBIS</span></th><td class="negative">−16.8%</td><td class="negative">−42.2%</td></tr>
+                <tr><th scope="row">CoreWeave<span>CRWV</span></th><td>−6.9%</td><td>−27.3%</td></tr>
+                <tr><th scope="row">纳斯达克 100 ETF<span>QQQ</span></th><td>−0.3%</td><td>−5.7%</td></tr>
+              </tbody>
+            </table>
+            <p class="note">两列均以 11 月 11 日收盘为基准。NBIS 当天先涨了 15.4%，因此一并看更长区间。<span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a><a href="https://stockanalysis.com/stocks/crwv/history/">[17]</a><a href="https://stockanalysis.com/etf/qqq/history/">[18]</a></span></p>
+          </div>
+        </div>
+        <div class="comparison">
+          <div class="comparison-cols">
+            <article><h3>交付和收入向后移</h3><p>11 月 12 日公布的当季营收含约 3.25 亿美元一次性确认。部分第三方机房延期后，全年营收落到原指引低端，原定 12 月达到的年化收入目标也推到次年 2 月。末批新泽西微软产能排到 2027 Q2。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.reuters.com/technology/nebius-beats-quarterly-revenue-estimates-strong-ai-demand-2026-11-12/">[19]</a></span></p></article>
+            <article><h3>支出上调，先垫更多钱</h3><p>2026 年资本开支指引升至约 270 亿美元，比原区间中值高 20%。2027 年计划支出中值又是营收中值的 3.4 倍。可收费产能延期会推后收入与部分回款，设备采购和建设却需提前支付，扩大了对外部资金的依赖。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="#funding">融资压力</a></span></p></article>
+            <article><h3>行业融资也在变贵</h3><p>财报前 Reuters 已报道银行和债券投资人对 AI 债务更谨慎，并援引知情人士称 Nebius 搁置了高收益债计划。11 月下旬同行和科技股也受 AI 投资回报与举债担忧压制。行业下跌解释了共同方向，NBIS 在财报日比同行跌得更多，交付与支出变化是公司层面的额外压力。<span class="refs"><a href="https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/">[20]</a><a href="https://www.reuters.com/business/ai-stocks-slide-fears-over-infrastructure-buildout-costs-2026-11-25/">[21]</a></span></p></article>
+          </div>
+        </div>
+        <p class="takeaway">固定 9 月底净债务、经济股数和同一 2027 年营收假设（125 亿美元）回看，11 月 11 日收盘隐含约 <strong>4.43 倍</strong> EV/营收，11 月 27 日约为 <strong>2.79 倍</strong>。市场对每一美元远期营收给出的估值大幅下降。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a><a href="#valuation">测算口径</a></span></p>
+      </section>
+
       <section id="business">
         <div class="section-head"><h2>从 GPU 集群到托管推理</h2><p>总部位于阿姆斯特丹，创始人兼 CEO 为 Arkady Volozh</p></div>
         <div class="grid">
@@ -450,10 +526,9 @@
                 <tr><th scope="row">Q3 GAAP 税前损益</th><td class="negative">−0.63 亿美元</td></tr>
                 <tr><th scope="row">Q3 经营现金流 / 现金资本开支</th><td class="negative">−2.73 / 73.00 亿美元</td></tr>
                 <tr><th scope="row">Q3 简化自由现金流</th><td class="negative">−75.73 亿美元</td></tr>
-                <tr><th scope="row">前九个月简化自由现金流</th><td class="negative">−112.00 亿美元</td></tr>
               </tbody>
             </table>
-            <p class="note">简化自由现金流 = 持续经营现金流 − 购置固定资产及无形资产的现金支出。前九个月经营现金流为 42.31 亿美元，受到客户预付款支持。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+            <p class="note">简化自由现金流 = 持续经营现金流 − 购置固定资产及无形资产的现金支出。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
           </div>
         </div>
         <p class="takeaway">Q3 折旧与摊销 3.55 亿美元、股权激励 0.59 亿美元，解释了调整后 EBITDA 和营业利润之间的大部分差距。服务器和网络设备的预计使用年限自 2026 年起由四年改为五年，Q3 折旧因此减少 0.43 亿美元。前九个月净利 3.93 亿美元，其中包含 7.81 亿美元的 ClickHouse 股权重估收益。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
@@ -490,38 +565,78 @@
       </section>
 
       <section id="funding">
-        <div class="section-head"><h2>扩张要花多少钱，钱从哪里来</h2><p>2026 年 11 月 12 日管理层指引</p></div>
+        <div class="section-head"><h2>现金流与融资风险</h2><p>从已发生的现金流看到 2027 年资金需求</p></div>
         <div class="grid">
           <div class="panel">
-            <h3>2026 下修营收预期，2027 提高投入</h3>
+            <h3>经营现金流靠预付款支撑</h3>
+            <table class="ledger" aria-label="2026 年前三季度现金流（亿美元）">
+              <tbody>
+                <tr><th scope="row">前九个月经营现金流（持续经营）</th><td>+42.31 亿美元</td></tr>
+                <tr><th scope="row">其中递延收入变动</th><td>+78.29 亿美元</td></tr>
+                <tr><th scope="row">其中应收账款增加</th><td class="negative">−33.34 亿美元</td></tr>
+                <tr><th scope="row">仅去掉递延收入贡献的经营现金流</th><td class="negative">−35.98 亿美元</td></tr>
+                <tr><th scope="row">实际购置资产现金支出</th><td class="negative">−154.31 亿美元</td></tr>
+                <tr><th scope="row">实际简化自由现金流</th><td class="negative">−112.00 亿美元</td></tr>
+              </tbody>
+            </table>
+            <p class="note">仅去掉递延收入贡献一行，用于衡量预付款时点的影响，含应收款及其他营运资本变动。简化自由现金流按报告经营现金流减去固定资产及无形资产的现金支出计算。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+          </div>
+          <div class="panel">
+            <h3>近期最重要的是钱什么时候到账</h3>
+            <p>Q3 经营与投资活动合计净流出 79.08 亿美元，筹资活动净流入 74.58 亿美元。9 月末现金及等价物为 <strong>74.26 亿美元</strong>，另有 12.16 亿美元受限现金。账面债务 141.91 亿美元，其中 1.88 亿美元列为流动债务。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a></span></p>
+            <p>按约 270 亿美元全年资本开支指引与前九个月现金支出粗算，Q4 仍对应约 <strong>116 亿美元</strong>投入。已有现金、Q4 的实际回款和新增融资要一起看。9 月末 94.09 亿美元递延收入反映待履约义务，部分预付款可能依条款退回。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+          </div>
+        </div>
+
+        <div class="grid panel-row">
+          <div class="panel">
+            <h3>未来收入与支出指引</h3>
             <dl class="outlook">
               <div><dt>2026 年营收</dt><dd><strong>30–34 亿美元区间低端</strong>部分第三方产能推迟至 2027 上半年。调整后 EBITDA 利润率指引仍约 40%。</dd></div>
               <div><dt>2027 年营收（初步）</dt><dd><strong>120–130 亿美元</strong>管理层预计 2027 Q4 单季税前盈亏平衡。</dd></div>
               <div><dt>2026 年资本开支</dt><dd><strong>约 270 亿美元</strong>此前指引为 200–250 亿美元。</dd></div>
-              <div><dt>2027 年资本开支（初步）</dt><dd><strong>400–450 亿美元</strong>资金用于 GPU、自建园区及相关基础设施。</dd></div>
+              <div><dt>2027 年资本开支（初步）</dt><dd><strong>400–450 亿美元</strong>用于 GPU、自建园区及相关基础设施。</dd></div>
             </dl>
-            <p class="note valuation-method">2027 Q4 税前目标计入融资成本，使用五年设备折旧假设。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
+            <p class="note valuation-method">2027 Q4 税前目标计入融资成本，按五年设备折旧。该目标与扣除资本开支后的现金回报采用不同口径。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
           </div>
           <div class="panel">
-            <h3>预付款降低前置融资需求</h3>
-            <p>管理层预计 2027 年客户预付款为 170–200 亿美元，连同基于现有投资级客户合同的资产抵押融资，可覆盖 75%–85% 的资本开支。按指引区间端点计算，尚有约 <strong>60–112.5 亿美元</strong>需由经营贡献、现有资金或额外融资覆盖。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
-            <p>7 月首笔约 7.75 亿美元担保贷款定价为 SOFR + 2.50%。10 月的 35 亿美元 Citi 过桥额度期限为 364 天，初始利差为期限 SOFR + 2.75%。8 月公司发行 57.5 亿美元可转债，同期换出部分旧债、增发约 1,577 万股。融资的期限、利率和稀释都影响股东回报。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7]</a></span></p>
+            <h3>2027 年资金覆盖压力测试</h3>
+            <p>管理层预计客户预付款为 170–200 亿美元，连同基于现有投资级客户合同的抵押融资，可覆盖 75%–85% 的资本开支。能覆盖多少取决于实际收款和能否按期签约、提款。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
+            <table class="ledger funding-table" aria-label="2027 年资本开支待覆盖金额情景">
+              <thead><tr><th scope="col">预付与抵押融资覆盖率</th><th scope="col">待其他来源覆盖</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">85%（指引高端）</th><td>63.75 亿美元</td></tr>
+                <tr><th scope="row">80%（指引中点）</th><td>85.00 亿美元</td></tr>
+                <tr><th scope="row">75%（指引低端）</th><td>106.25 亿美元</td></tr>
+                <tr><th scope="row">65%（压力情景）</th><td class="negative">148.75 亿美元</td></tr>
+              </tbody>
+            </table>
+            <p class="note">以 425 亿美元资本开支中值乘以未覆盖比例。覆盖率从 80% 降到 65%，需由经营现金流、现有现金或额外融资多覆盖 <strong>63.75 亿美元</strong>。该压力情景由本文设定。</p>
           </div>
         </div>
-        <p class="takeaway">9 月底递延收入达 94.09 亿美元，其中许多服务仍待交付。预付款改善当前流动性，也可能产生融资成本。Q3 计入损益的利息费用为 1.13 亿美元，另有 0.92 亿美元的借款利息被资本化。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+
+        <div class="panel panel-row">
+          <h3>融资风险如何传导给股东</h3>
+          <dl class="divided funding-terms">
+            <div><dt>抵押贷款与续贷</dt><dd>7 月约 7.73 亿美元贷款利率为 Term SOFR + 2.50%，借款实体需维持至少 1.15 倍偿债覆盖率，并已在 9 月末达标。10 月的 35 亿美元 Citi 担保桥贷只有 364 天，初始利率为 Term SOFR + 2.75%，利差可升至 3.50%，另有最低流动性约束。披露明确的是贷款额度。若提款，约一年内就要用现金偿还或转换为长期资金。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7a]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_6k.htm">[7b]</a></span></dd></div>
+            <div><dt>可转债仍需偿还</dt><dd>8 月发行的 57.5 亿美元可转债，初始转股价为 $313.46 与 $324.65。若持有到期且未转股，约 66.7 亿美元本金需偿还，另有票息。股价长期低迷时，依靠转股化解债务的可能性更低。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a></span></dd></div>
+            <div><dt>低股价放大增发稀释</dt><dd>Q3 公司通过按市价销售库存股筹得净额约 10.49 亿美元，均价 $229.14。若都按相同的 10 亿美元募资总额举例，按该均价需售约 436 万股，按 11 月 27 日收盘价 $89.46 需售约 1,118 万股，是原来的 <strong>2.6 倍</strong>。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></dd></div>
+          </dl>
+          <p class="note valuation-method">Q3 确认当期利息费用 1.13 亿美元，另有 0.92 亿美元借款利息计入在建资产成本。看项目回报时两者都要考虑。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+        </div>
       </section>
 
       <section id="valuation">
-        <div class="section-head"><h2>同样的营收，股东能拿到多少</h2><p>估值基准采用 2026 年 11 月 25 日收盘</p></div>
+        <div class="section-head"><h2>同样的营收，股东能拿到多少</h2><p>估值基准采用 2026 年 11 月 27 日收盘</p></div>
         <div class="grid">
           <div class="panel">
             <h3>当前价格隐含了什么</h3>
-            <p>用 $84.99 收盘价乘以约 3.140 亿股经济等价股（9 月底 A/B 类流通在外股份加约 2,107 万份预付认股权证），股权市值约 <strong>266.8 亿美元</strong>。加账面债务 141.9 亿、减现金及现金等价物 74.3 亿，粗略企业价值约 <strong>334.5 亿美元</strong>，相当于 2027 营收指引的 <strong>2.57–2.79 倍</strong>。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></p>
+            <p>用 $89.46 收盘价乘以约 3.140 亿股经济等价股（9 月底 A/B 类流通在外股份加约 2,107 万份预付认股权证），股权市值约 <strong>280.9 亿美元</strong>。加账面债务 141.9 亿、减现金及现金等价物 74.3 亿，粗略企业价值约 <strong>348.5 亿美元</strong>，相当于 2027 营收指引的 <strong>2.68–2.90 倍</strong>。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></p>
             <p class="note">以 9 月底资产负债表估算。预付认股权证源于 NVIDIA 2026 年 3 月的 20 亿美元投资。可转债计入债务，未再加转换股数。未纳入经营租赁负债、未行权的其他奖励或单独扣除非上市股权价值。10 月后融资及现金变化将在后续披露中反映。</p>
           </div>
           <div class="panel">
             <h3>基准假设下，安全边际有限</h3>
-            <p>如果 2027 营收达到指引中值 125 亿美元，年末净债务升至 120 亿美元、经济股数增至 3.35 亿股，维持 $84.99 需要约 <strong>3.24 倍</strong> EV/营收。以 3.25 倍计算，每股约 <strong>$85.45</strong>。</p>
+            <p>如果 2027 营收达到指引中值 125 亿美元，年末净债务升至 120 亿美元、经济股数增至 3.35 亿股，维持 $89.46 需要约 <strong>3.36 倍</strong> EV/营收。以 3.25 倍计算，每股约 <strong>$85.45</strong>。</p>
             <p class="note">基准情景中，倍数每减少 0.5 倍，每股价值下降约 $18.66；净债务每增加 50 亿美元，每股价值下降约 $14.93。若可转债被转为股份，应同时减少净债务并增加股数。</p>
           </div>
         </div>
@@ -547,7 +662,7 @@
                 <div class="input-line"><label for="shares">期末经济股数（百万股）</label><output for="shares" data-value="shares">335</output><input id="shares" type="range" min="315" max="400" step="5" value="335" data-field="shares"></div>
               </div>
               <div class="model-output" aria-live="polite" aria-atomic="true">
-                <span>情景每股价值</span><strong data-implied>$85.45</strong><span data-change>较 $84.99 收盘价 +0.5%</span>
+                <span>情景每股价值</span><strong data-implied>$85.45</strong><span data-change>较 $89.46 收盘价 −4.5%</span>
               </div>
             </div>
             <p class="note valuation-method">每股情景值 =（营收 × EV/营收倍数 − 净债务）÷ 经济股数，股权值最低按零计算。金额为 2027 年末未折现情景值。</p>
@@ -561,8 +676,8 @@
           <div class="panel">
             <h3>会改变判断的催化剂</h3>
             <ol class="checks">
-              <li><span class="date">2026 年末至 2027 年 2 月</span><strong>签约电力和实际投产</strong>对照 5 GW 签约目标及 2 月超 70 亿美元 ARR 预期。9 月底 ARR 为 64 亿美元，按期末月度收入年化，公司将转向以营收、税前盈利与产能为指引。</li>
-              <li><span class="date">2027 年上半年</span><strong>大客户批次验收</strong>观察新泽西剩余微软集群和首批 Meta Vera Rubin 交付，以及预付款是否按期到账。</li>
+              <li><span class="date">2026 年末至 2027 年 2 月</span><strong>签约电力和实际投产</strong>对照 5 GW 签约目标及 2 月超 70 亿美元 ARR 预期。9 月底 ARR 为 64 亿美元，按期末月度收入年化。核对 Q4 现金支出、应收变动、非受限现金及 Citi 实际提款。</li>
+              <li><span class="date">2027 年上半年</span><strong>大客户批次验收</strong>观察新泽西剩余微软集群和首批 Meta Vera Rubin 交付，以及预付款是否按期到账、长贷是否能接续桥贷。</li>
               <li><span class="date">2027 年下半年</span><strong>盈利与资金回报</strong>除了 Q4 税前盈亏平衡，更关注折旧前后的利润、扣除客户预付时点影响的经营现金流，以及期末净债务与股数。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://nebius.com/newsroom/nebius-signs-new-ai-infrastructure-agreement-with-meta">[6]</a></span></li>
             </ol>
           </div>
@@ -571,11 +686,11 @@
             <dl class="divided">
               <div><dt>工程与集中度</dt><dd>电力接入、液冷或 GPU 供应延误，可能引发大客户履约折让或递延确认。少数客户的验收节奏足以显著改变整个季度。</dd></div>
               <div><dt>利用率与硬件寿命</dt><dd>新一代 GPU 或自研芯片压缩旧集群的租价与残值。续约率和可比新签合同的回收期若变差，盈利质量会随之下降。</dd></div>
-              <div><dt>融资与每股价值</dt><dd>预付款覆盖率下降、贷款利差扩大、可转债转股价或股票增发价偏低，都会削弱股东获得的增量回报。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7]</a></span></dd></div>
+              <div><dt>融资与每股价值</dt><dd>预付款覆盖率下降、贷款利差扩大、可转债转股价或股票增发价偏低，都会削弱股东获得的增量回报。<span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7a]</a></span></dd></div>
             </dl>
           </div>
         </div>
-        <p class="takeaway"><strong>研究结论</strong>　Nebius 已经证明大客户愿意提前承诺算力。如果延期产能如期补上、预付与低成本融资能持续，营收增长才更有机会转化为每股回报。按基准情景与参考股价衡量，目前的估值余量有限。</p>
+        <p class="takeaway"><strong>研究结论</strong>　Nebius 已经证明大客户愿意提前承诺算力。如果延期产能如期补上、预付与低成本融资能持续，营收增长才更有机会转化为每股回报。按更新后的收盘价，基准情景的每股估值低约 4.5%。</p>
       </section>
 
       <section id="sources">
@@ -587,7 +702,7 @@
           <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">2026 Q3 财务报表与附注</a></li>
           <li><a href="https://nebius.com/newsroom/nebius-announces-multi-billion-dollar-agreement-with-microsoft-for-ai-infrastructure">Microsoft 专用算力协议公告</a></li>
           <li><a href="https://nebius.com/newsroom/nebius-signs-new-ai-infrastructure-agreement-with-meta">Meta 2026 年新协议公告</a></li>
-          <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">Citi 过桥融资 6-K 附件</a></li>
+          <li>Citi 过桥融资 <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">公司公告</a> · <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_6k.htm">6-K 条款</a></li>
           <li>历史季报 <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm">2025 Q4</a> · <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926059872/tm2614392d1_ex99-1.htm">2026 Q1</a> · <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926094568/tm2622968d1_ex99-1.htm">2026 Q2</a></li>
           <li><a href="https://stockanalysis.com/stocks/nbis/history/">NBIS 历史收盘价（S&amp;P Global 数据）</a></li>
           <li><a href="https://www.sec.gov/Archives/edgar/data/1769628/000176962826000461/coreweave3q26earningspress.htm">CoreWeave 2026 Q3 财报</a></li>
@@ -597,6 +712,11 @@
           <li><a href="https://iren.gcs-web.com/news-releases/news-release-details/iren-secures-97bn-ai-cloud-contract-microsoft">IREN 与微软云合同公告</a></li>
           <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">Nebius 2026 Q3 管理层经营与财务讨论</a></li>
           <li><a href="https://nebius.com/newsroom/nebius-group-confirms-schedule-for-resumption-of-trading-on-nasdaq">2024 年恢复纳斯达克交易公告</a></li>
+          <li><a href="https://stockanalysis.com/stocks/crwv/history/">CRWV 历史收盘价</a></li>
+          <li><a href="https://stockanalysis.com/etf/qqq/history/">QQQ 历史收盘价</a></li>
+          <li><a href="https://www.reuters.com/technology/nebius-beats-quarterly-revenue-estimates-strong-ai-demand-2026-11-12/">Reuters · 11 月 12 日财报与股价</a></li>
+          <li><a href="https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/">Reuters · 11 月 9 日 AI 债务市场</a></li>
+          <li><a href="https://www.reuters.com/business/ai-stocks-slide-fears-over-infrastructure-buildout-costs-2026-11-25/">Reuters · 11 月 25 日科技股抛售</a></li>
         </ol>
       </section>
     </div>
@@ -607,10 +727,10 @@
     <header>
       <div class="hero">
         <div class="hero-copy">
-          <p class="kicker"><span>NASDAQ · NBIS</span><time datetime="2026-11-27">Research as of November 27, 2026</time></p>
+          <p class="kicker"><span>NASDAQ · NBIS</span><time datetime="2026-11-28">Research as of November 28, 2026</time></p>
           <h1>Nebius Group</h1>
-          <h2>Contracted demand meets the test of delivery</h2>
-          <p class="lede">Multiyear deals with Microsoft and Meta support demand and financing. The next test is whether Nebius can deliver GPU clusters on time and turn revenue growth into per-share returns after capital spending, interest and dilution. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
+          <h2>Cash must keep pace with the GPU build-out</h2>
+          <p class="lede">Multiyear deals with Microsoft and Meta support demand and upfront funding. Nebius still pays for equipment and construction before clusters go live. Delays, higher spending and a falling share price make collections, refinancing and dilution central to per-share returns. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
         </div>
         <figure class="hero-image">
           <figcaption>AI-generated data center illustration</figcaption>
@@ -620,14 +740,51 @@
         <div class="reading"><dt>Q3 2026 revenue</dt><dd><strong class="reading-value">$981M</strong><span class="reading-note">Up 571% YoY, with ~33% one-time revenue <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></span></dd></div>
         <div class="reading"><dt>Remaining obligations</dt><dd><strong class="reading-value">$38.7B</strong><span class="reading-note">RPO at September 30, 2026 <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a></span></span></dd></div>
         <div class="reading"><dt>2027 CapEx outlook</dt><dd><strong class="reading-value">$40–45B</strong><span class="reading-note">~3.4× the 2027 revenue midpoint <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></span></dd></div>
-        <div class="reading"><dt>Valuation reference</dt><dd><strong class="reading-value">$84.99</strong><span class="reading-note">November 25, 2026 close <span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></span></dd></div>
+        <div class="reading"><dt>Valuation reference</dt><dd><strong class="reading-value">$89.46</strong><span class="reading-note">November 27, 2026 close <span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></span></dd></div>
       </dl>
       <nav class="section-nav" aria-label="Report sections">
-        <a href="#business-en">Business &amp; competition</a><a href="#financials-en">Financials</a><a href="#contracts-en">Customers &amp; capacity</a><a href="#funding-en">Funding</a><a href="#valuation-en">Valuation</a><a href="#watch-en">Catalysts &amp; risks</a><a href="#sources-en">Sources</a>
+        <a href="#drawdown-en">Share price</a><a href="#business-en">Business &amp; competition</a><a href="#financials-en">Financials</a><a href="#contracts-en">Customers &amp; capacity</a><a href="#funding-en">Cash flow &amp; funding</a><a href="#valuation-en">Valuation</a><a href="#watch-en">Catalysts &amp; risks</a><a href="#sources-en">Sources</a>
       </nav>
     </header>
 
     <div class="report-body">
+      <section id="drawdown-en">
+        <div class="section-head"><h2>What drove the share price down</h2><p>October 6 to November 27, 2026 · Closing prices</p></div>
+        <div class="grid">
+          <figure class="panel">
+            <figcaption><h3>Five NBIS closes</h3><p class="note">USD per share · Bars start at zero</p></figcaption>
+            <ol class="price-path">
+              <li><time datetime="2026-10-06">Oct 6</time><span class="price-track" aria-hidden="true"><span style="--value:99.95%"></span></span><strong>$249.87</strong></li>
+              <li><time datetime="2026-11-11">Nov 11</time><span class="price-track" aria-hidden="true"><span style="--value:61.88%"></span></span><strong>$154.69</strong></li>
+              <li><time datetime="2026-11-12">Nov 12</time><span class="price-track" aria-hidden="true"><span style="--value:51.46%"></span></span><strong>$128.64</strong></li>
+              <li><time datetime="2026-11-25">Nov 25</time><span class="price-track" aria-hidden="true"><span style="--value:34.00%"></span></span><strong>$84.99</strong></li>
+              <li><time datetime="2026-11-27">Nov 27</time><span class="price-track" aria-hidden="true"><span style="--value:35.78%"></span></span><strong>$89.46</strong></li>
+            </ol>
+            <p>Shares had already fallen <strong>38.1%</strong> from the October 6 high close before earnings. The 5.3% rebound on November 27 still left them <strong>64.2%</strong> below that close. <span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></p>
+          </figure>
+          <div class="panel">
+            <h3>Nebius fell more than its peer and the broader market</h3>
+            <table class="performance" aria-label="Price changes for NBIS, CoreWeave and QQQ">
+              <thead><tr><th scope="col">Security</th><th scope="col">Nov 12<br>daily</th><th scope="col">Nov 11–27<br>cumulative</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">Nebius<span>NBIS</span></th><td class="negative">−16.8%</td><td class="negative">−42.2%</td></tr>
+                <tr><th scope="row">CoreWeave<span>CRWV</span></th><td>−6.9%</td><td>−27.3%</td></tr>
+                <tr><th scope="row">Nasdaq-100 ETF<span>QQQ</span></th><td>−0.3%</td><td>−5.7%</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Both columns use the November 11 close as the starting point. NBIS had jumped 15.4% that day, which is why the longer window matters. <span class="refs"><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a><a href="https://stockanalysis.com/stocks/crwv/history/">[17]</a><a href="https://stockanalysis.com/etf/qqq/history/">[18]</a></span></p>
+          </div>
+        </div>
+        <div class="comparison">
+          <div class="comparison-cols">
+            <article><h3>Delivery and revenue moved out</h3><p>The November 12 results included about $325M of one-time revenue. Third-party capacity delays pushed expected full-year revenue to the low end of guidance and moved the December annualized revenue milestone into February. The remaining New Jersey tranches for Microsoft are scheduled for Q2 2027. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.reuters.com/technology/nebius-beats-quarterly-revenue-estimates-strong-ai-demand-2026-11-12/">[19]</a></span></p></article>
+            <article><h3>Spending rose and cash goes out first</h3><p>The 2026 CapEx guide rose to about $27B, 20% above the earlier midpoint. The 2027 spending midpoint is 3.4 times the revenue midpoint. Delivery delays can defer revenue and some collections while procurement and construction still require cash up front, increasing dependence on external funding. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="#funding-en">Funding risk</a></span></p></article>
+            <article><h3>Sector credit grew more selective</h3><p>Before earnings, Reuters reported that banks and bond investors were more cautious about AI debt and, citing a source familiar with the matter, that Nebius had shelved plans for a high-yield issue. AI peers and tech stocks also came under pressure in late November over borrowing and investment returns. The sector move explains a common direction. The larger earnings-day decline points to additional pressure from delivery and spending at Nebius. <span class="refs"><a href="https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/">[20]</a><a href="https://www.reuters.com/business/ai-stocks-slide-fears-over-infrastructure-buildout-costs-2026-11-25/">[21]</a></span></p></article>
+          </div>
+        </div>
+        <p class="takeaway">Holding September-end net debt, the economic share count and 2027 revenue of $12.5B fixed, the November 11 close implies <strong>4.43×</strong> EV/revenue, versus <strong>2.79×</strong> on November 27. The market is paying substantially less for each dollar of the same forward revenue assumption. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a><a href="#valuation-en">Method</a></span></p>
+      </section>
+
       <section id="business-en">
         <div class="section-head"><h2>From GPU clusters to managed inference</h2><p>Amsterdam headquarters · Founder and CEO Arkady Volozh</p></div>
         <div class="grid">
@@ -679,10 +836,9 @@
                 <tr><th scope="row">Q3 GAAP pretax loss</th><td class="negative">−$62.7M</td></tr>
                 <tr><th scope="row">Q3 operating cash flow / cash CapEx</th><td class="negative">−$273M / $7.30B</td></tr>
                 <tr><th scope="row">Q3 simplified free cash flow</th><td class="negative">−$7.57B</td></tr>
-                <tr><th scope="row">Nine-month simplified free cash flow</th><td class="negative">−$11.20B</td></tr>
               </tbody>
             </table>
-            <p class="note">Simplified free cash flow is operating cash flow from continuing operations less cash purchases of property, equipment and intangibles. Customer advances supported nine-month operating cash flow of $4.23B. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+            <p class="note">Simplified free cash flow is operating cash flow from continuing operations less cash purchases of property, equipment and intangibles. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
           </div>
         </div>
         <p class="takeaway">Q3 depreciation and amortization of $355M and stock compensation of $59M explain most of the gap between adjusted EBITDA and operating income. Nebius extended the estimated life of server and network equipment from four to five years in 2026, reducing Q3 depreciation by $43.1M. Nine-month net income of $393M included a $781M investment revaluation gain from ClickHouse. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
@@ -719,38 +875,78 @@
       </section>
 
       <section id="funding-en">
-        <div class="section-head"><h2>What expansion costs and how Nebius funds it</h2><p>Management outlook issued November 12, 2026</p></div>
+        <div class="section-head"><h2>Cash flow and financing risk</h2><p>From reported cash flows to the 2027 funding requirement</p></div>
         <div class="grid">
           <div class="panel">
-            <h3>Lower 2026 sales expectations, heavier investment in 2027</h3>
+            <h3>Customer advances supported operating cash flow</h3>
+            <table class="ledger" aria-label="Cash flow for the first nine months of 2026">
+              <tbody>
+                <tr><th scope="row">Nine-month operating cash flow, continuing operations</th><td>+$4.23B</td></tr>
+                <tr><th scope="row">Of which change in deferred revenue</th><td>+$7.83B</td></tr>
+                <tr><th scope="row">Of which increase in receivables</th><td class="negative">−$3.33B</td></tr>
+                <tr><th scope="row">Operating cash flow excluding the deferred revenue contribution</th><td class="negative">−$3.60B</td></tr>
+                <tr><th scope="row">Actual cash purchases of assets</th><td class="negative">−$15.43B</td></tr>
+                <tr><th scope="row">Actual simplified free cash flow</th><td class="negative">−$11.20B</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Removing the deferred revenue contribution tests sensitivity to payment timing and still reflects receivables and other working capital movements. Simplified free cash flow uses reported operating cash flow less cash purchases of property, equipment and intangibles. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+          </div>
+          <div class="panel">
+            <h3>Near-term liquidity depends on when the cash comes in</h3>
+            <p>Q3 operating and investing activities used $7.91B net, and financing activities provided $7.46B net. Cash and equivalents were <strong>$7.43B</strong> at September-end, with a separate $1.22B of restricted cash. Carrying debt was $14.19B, of which $188M was current. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a></span></p>
+            <p>Against the roughly $27B full-year CapEx guide and nine-month cash spending, Q4 spending would be roughly <strong>$11.6B</strong>. That makes existing cash, actual Q4 collections and new financing important together. September-end deferred revenue of $9.41B represents services still owed, and some advances can be refundable under contract terms. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+          </div>
+        </div>
+
+        <div class="grid panel-row">
+          <div class="panel">
+            <h3>Revenue and spending outlook</h3>
             <dl class="outlook">
               <div><dt>2026 revenue</dt><dd><strong>Low end of $3.0–3.4B</strong>Some third-party capacity moved into H1 2027. Adjusted EBITDA margin guidance stayed near 40%.</dd></div>
               <div><dt>2027 revenue (initial)</dt><dd><strong>$12–13B</strong>Management expects quarterly pretax breakeven in Q4 2027.</dd></div>
               <div><dt>2026 capital spending</dt><dd><strong>~$27B</strong>The earlier range was $20–25B.</dd></div>
               <div><dt>2027 capital spending (initial)</dt><dd><strong>$40–45B</strong>GPUs, owned campuses and related infrastructure.</dd></div>
             </dl>
-            <p class="note valuation-method">The Q4 2027 pretax goal includes financing costs and assumes five-year depreciation for compute. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
+            <p class="note valuation-method">The Q4 2027 pretax goal includes financing costs and five-year depreciation for compute. Cash returns after CapEx follow a different measure. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
           </div>
           <div class="panel">
-            <h3>Prepayments reduce upfront funding needs</h3>
-            <p>Management expects $17–20B of customer prepayments in 2027, and says these plus asset-backed finance against existing investment-grade customer contracts can fund 75%–85% of CapEx. Using the guidance endpoints leaves <strong>$6–11.25B</strong> to cover through operations, existing funds or additional financing. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
-            <p>July’s first ~$775M secured facility priced at SOFR plus 2.50%. October’s $3.5B Citi bridge is a 364-day facility with an initial spread of 2.75% over Term SOFR. In August Nebius issued $5.75B of convertibles and exchanged some older notes for about 15.77M shares. Maturity, interest costs and dilution all affect shareholder returns. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7]</a></span></p>
+            <h3>Stress-testing 2027 CapEx funding</h3>
+            <p>Management expects $17–20B of customer prepayments. Together with asset-backed borrowing against existing investment-grade customer contracts, it expects to cover 75%–85% of CapEx. Coverage depends on the timing of collections, financing agreements and drawdowns. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a></span></p>
+            <table class="ledger funding-table" aria-label="2027 capital spending funding scenarios">
+              <thead><tr><th scope="col">Coverage from advances and secured financing</th><th scope="col">From other sources</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">85% (high end)</th><td>$6.38B</td></tr>
+                <tr><th scope="row">80% (midpoint)</th><td>$8.50B</td></tr>
+                <tr><th scope="row">75% (low end)</th><td>$10.63B</td></tr>
+                <tr><th scope="row">65% (stress case)</th><td class="negative">$14.88B</td></tr>
+              </tbody>
+            </table>
+            <p class="note">Multiply the uncovered share by the $42.5B CapEx midpoint. A drop from 80% to 65% leaves an additional <strong>$6.38B</strong> for operating cash flow, existing cash or new funding. The stress case is a research assumption.</p>
           </div>
         </div>
-        <p class="takeaway">Deferred revenue reached $9.41B at September-end, with substantial services still to be delivered. Prepayments improve liquidity and can also create financing costs. Nebius expensed $112.5M of interest in Q3 and capitalized another $91.9M of borrowing interest. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+
+        <div class="panel panel-row">
+          <h3>How financing risk reaches shareholders</h3>
+          <dl class="divided funding-terms">
+            <div><dt>Secured borrowing and refinancing</dt><dd>July’s roughly $773M loan priced at Term SOFR plus 2.50%. The borrower entities were in compliance with the minimum 1.15× debt service coverage covenant at September-end. The $3.5B Citi secured bridge signed in October has a 364-day maturity, a spread over Term SOFR starting at 2.75% and rising to 3.50%, and a minimum liquidity covenant. The disclosure sets out the facility size. Any draw would need repayment or refinancing in about a year. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7a]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_6k.htm">[7b]</a></span></dd></div>
+            <div><dt>Convertibles still require repayment</dt><dd>The $5.75B August issue had initial conversion prices of $313.46 and $324.65. If held to maturity without conversion, about $6.67B of principal is due, plus coupons. A persistently lower share price makes conversion a less likely way to retire that debt. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a></span></dd></div>
+            <div><dt>A lower price increases equity dilution</dt><dd>Nebius raised about $1.05B net in Q3 selling treasury shares at a weighted average of $229.14. For the same illustrative $1B gross raise, that price would require 4.36M shares, versus 11.18M at the November 27 close of $89.46, or <strong>2.6 times as many</strong>. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></dd></div>
+          </dl>
+          <p class="note valuation-method">Nebius expensed $112.5M of interest in Q3 and capitalized another $91.9M of borrowing interest in construction assets. Both matter when assessing project returns. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">[15]</a></span></p>
+        </div>
       </section>
 
       <section id="valuation-en">
-        <div class="section-head"><h2>How much of the growth reaches shareholders</h2><p>Reference price from the November 25, 2026 close</p></div>
+        <div class="section-head"><h2>How much of the growth reaches shareholders</h2><p>Reference price from the November 27, 2026 close</p></div>
         <div class="grid">
           <div class="panel">
             <h3>What the market price implies</h3>
-            <p>The $84.99 close multiplied by about 314.0M economic shares (September-end Class A and B shares outstanding plus ~21.07M pre-funded warrant shares) implies equity value of <strong>$26.68B</strong>. Adding $14.19B of debt at carrying value and deducting $7.43B of cash and equivalents gives roughly <strong>$33.45B</strong> of enterprise value, or <strong>2.57–2.79×</strong> the initial 2027 revenue range. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></p>
+            <p>The $89.46 close multiplied by about 314.0M economic shares (September-end Class A and B shares outstanding plus ~21.07M pre-funded warrant shares) implies equity value of <strong>$28.09B</strong>. Adding $14.19B of debt at carrying value and deducting $7.43B of cash and equivalents gives roughly <strong>$34.85B</strong> of enterprise value, or <strong>2.68–2.90×</strong> the initial 2027 revenue range. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-1.htm">[2]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://stockanalysis.com/stocks/nbis/history/">[9]</a></span></p>
             <p class="note">The snapshot uses the September balance sheet. The pre-funded warrants stem from NVIDIA’s $2B investment in March 2026. Convertibles are treated as debt, excluding conversion shares. It excludes operating lease liabilities and other unexercised awards and leaves private stakes in enterprise value. Later financing and cash changes will show up in subsequent disclosures.</p>
           </div>
           <div class="panel">
             <h3>The base case leaves a slim margin of safety</h3>
-            <p>If 2027 revenue reaches the $12.5B guidance midpoint and year-end net debt rises to $12B on 335M economic shares, the $84.99 reference price requires about <strong>3.24×</strong> EV/revenue. At 3.25×, the model gives roughly <strong>$85.45</strong> a share.</p>
+            <p>If 2027 revenue reaches the $12.5B guidance midpoint and year-end net debt rises to $12B on 335M economic shares, the $89.46 reference price requires about <strong>3.36×</strong> EV/revenue. At 3.25×, the model gives roughly <strong>$85.45</strong> a share.</p>
             <p class="note">In the base case, a 0.5× lower multiple costs about $18.66 per share and $5B more net debt costs about $14.93 per share. If convertibles become equity, reduce net debt and increase the share count together.</p>
           </div>
         </div>
@@ -776,7 +972,7 @@
                 <div class="input-line"><label for="shares-en">Year-end economic shares (millions)</label><output for="shares-en" data-value="shares">335</output><input id="shares-en" type="range" min="315" max="400" step="5" value="335" data-field="shares"></div>
               </div>
               <div class="model-output" aria-live="polite" aria-atomic="true">
-                <span>Scenario value per share</span><strong data-implied>$85.45</strong><span data-change>+0.5% vs. the $84.99 close</span>
+                <span>Scenario value per share</span><strong data-implied>$85.45</strong><span data-change>−4.5% vs. the $89.46 close</span>
               </div>
             </div>
             <p class="note valuation-method">Per-share value equals (revenue × EV/revenue multiple − net debt) ÷ economic shares, with equity floored at zero. Figures are undiscounted year-end 2027 scenario values.</p>
@@ -790,8 +986,8 @@
           <div class="panel">
             <h3>Catalysts that could change the thesis</h3>
             <ol class="checks">
-              <li><span class="date">Year-end 2026 through February 2027</span><strong>Contracted versus active power</strong>Track the 5 GW contracted-power goal and February’s target of more than $7B in annualized run-rate revenue. September ARR was $6.4B, based on one month annualized. Guidance is shifting to revenue, pretax earnings and capacity.</li>
-              <li><span class="date">First half of 2027</span><strong>Customer acceptance of new tranches</strong>Track the remaining Microsoft clusters in New Jersey, the initial Meta Vera Rubin delivery and the timing of customer prepayments.</li>
+              <li><span class="date">Year-end 2026 through February 2027</span><strong>Contracted versus active power</strong>Track the 5 GW contracted-power goal and February’s target of more than $7B in annualized run-rate revenue. September ARR was $6.4B, based on one month annualized. Check Q4 cash spending, receivables, unrestricted cash and Citi drawdowns.</li>
+              <li><span class="date">First half of 2027</span><strong>Customer acceptance of new tranches</strong>Track the remaining Microsoft clusters in New Jersey, the initial Meta Vera Rubin delivery and the timing of customer prepayments and longer-term funding to replace the bridge.</li>
               <li><span class="date">Second half of 2027</span><strong>Profitability and returns on capital</strong>Alongside the Q4 pretax breakeven goal, watch profit after depreciation, operating cash flow adjusted for prepayment timing and year-end net debt and shares. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://nebius.com/newsroom/nebius-signs-new-ai-infrastructure-agreement-with-meta">[6]</a></span></li>
             </ol>
           </div>
@@ -800,11 +996,11 @@
             <dl class="divided">
               <div><dt>Execution and concentration</dt><dd>Interconnection, liquid cooling or GPU supply delays could trigger customer discounts or move revenue into later periods. A handful of customers can change a quarter’s results materially.</dd></div>
               <div><dt>Utilization and hardware life</dt><dd>New GPUs and custom chips can depress older cluster rental rates and residual values. Weaker renewals and longer payback on comparable new deals would undermine earnings quality.</dd></div>
-              <div><dt>Funding and per-share returns</dt><dd>Lower prepayment coverage, wider loan spreads, lower conversion prices or cheaper equity issuance can reduce the incremental value that goes to shareholders. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7]</a></span></dd></div>
+              <div><dt>Funding and per-share returns</dt><dd>Lower prepayment coverage, wider loan spreads, lower conversion prices or cheaper equity issuance can reduce the incremental value that goes to shareholders. <span class="refs"><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm">[1]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126008/tm2629571d1_ex99-2.htm">[3]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">[4]</a><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">[7a]</a></span></dd></div>
             </dl>
           </div>
         </div>
-        <p class="takeaway"><strong>Research view.</strong> Nebius has shown that major customers will commit to buying compute in advance. Growth has a better chance of producing per-share returns if delayed capacity comes online on schedule and upfront payments and affordable funding hold up. The base case leaves little valuation headroom relative to the reference close.</p>
+        <p class="takeaway"><strong>Research view.</strong> Nebius has shown that major customers will commit to buying compute in advance. Growth has a better chance of producing per-share returns if delayed capacity comes online on schedule and upfront payments and affordable funding hold up. The base-case value per share is about 4.5% below the updated closing price.</p>
       </section>
 
       <section id="sources-en">
@@ -816,7 +1012,7 @@
           <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d2.htm">Q3 2026 financial statements and notes</a></li>
           <li><a href="https://nebius.com/newsroom/nebius-announces-multi-billion-dollar-agreement-with-microsoft-for-ai-infrastructure">Microsoft dedicated GPU agreement</a></li>
           <li><a href="https://nebius.com/newsroom/nebius-signs-new-ai-infrastructure-agreement-with-meta">March 2026 Meta agreement</a></li>
-          <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">Citi bridge facility 6-K exhibit</a></li>
+          <li>Citi bridge facility <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_ex99-1.htm">announcement</a> · <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926117978/tm2628078d1_6k.htm">6-K terms</a></li>
           <li>Quarterly releases <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926013946/tm266173d1_ex99-1.htm">Q4 2025</a> · <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926059872/tm2614392d1_ex99-1.htm">Q1 2026</a> · <a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926094568/tm2622968d1_ex99-1.htm">Q2 2026</a></li>
           <li><a href="https://stockanalysis.com/stocks/nbis/history/">NBIS historical closes (S&amp;P Global data)</a></li>
           <li><a href="https://www.sec.gov/Archives/edgar/data/1769628/000176962826000461/coreweave3q26earningspress.htm">CoreWeave Q3 2026 earnings</a></li>
@@ -826,6 +1022,11 @@
           <li><a href="https://iren.gcs-web.com/news-releases/news-release-details/iren-secures-97bn-ai-cloud-contract-microsoft">IREN’s Microsoft cloud agreement</a></li>
           <li><a href="https://www.sec.gov/Archives/edgar/data/1513845/000110465926126238/nbis-ex99d1.htm">Nebius Q3 2026 operating and financial review</a></li>
           <li><a href="https://nebius.com/newsroom/nebius-group-confirms-schedule-for-resumption-of-trading-on-nasdaq">2024 Nasdaq trading resumption announcement</a></li>
+          <li><a href="https://stockanalysis.com/stocks/crwv/history/">CRWV historical closes</a></li>
+          <li><a href="https://stockanalysis.com/etf/qqq/history/">QQQ historical closes</a></li>
+          <li><a href="https://www.reuters.com/technology/nebius-beats-quarterly-revenue-estimates-strong-ai-demand-2026-11-12/">Reuters · November 12 earnings and market reaction</a></li>
+          <li><a href="https://www.reuters.com/legal/transactional/banks-investors-grow-wary-ai-debt-spooked-by-market-selloff-2026-11-09/">Reuters · November 9 AI debt market</a></li>
+          <li><a href="https://www.reuters.com/business/ai-stocks-slide-fears-over-infrastructure-buildout-costs-2026-11-25/">Reuters · November 25 tech selloff</a></li>
         </ol>
       </section>
     </div>
@@ -840,7 +1041,7 @@
     base: { revenue: 12.5, multiple: 3.25, debt: 12, shares: 335 },
     bull: { revenue: 15, multiple: 4.5, debt: 9, shares: 320 },
   };
-  const close = 84.99;
+  const close = 89.46;
   const valuePerShare = ({ revenue, multiple, debt, shares }) =>
     Math.max(0, revenue * multiple - debt) * 1000 / shares;
   const dollars = value => '$' + value.toFixed(2);
@@ -882,8 +1083,8 @@
       }
       node.querySelector('[data-implied]').textContent = dollars(price);
       node.querySelector('[data-change]').textContent = language === 'zh'
-        ? '较 $84.99 收盘价 ' + signedChange
-        : signedChange + ' vs. the $84.99 close';
+        ? '较 ' + dollars(close) + ' 收盘价 ' + signedChange
+        : signedChange + ' vs. the ' + dollars(close) + ' close';
     }
   }
 
